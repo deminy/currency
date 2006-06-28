@@ -24,7 +24,7 @@ function currency_api_settings() {
   $form['currency_api_watchdog'] = array(
     '#type' => 'checkbox',
     '#title' => t('Log all currency conversions and errors to watchdog'),    
-    '#default_value' => variable_get('currency_api_watchdog'),    
+    '#default_value' => variable_get('currency_api_watchdog', 1),    
   );
 
   return $form;
