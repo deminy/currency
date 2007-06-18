@@ -2,4 +2,3 @@ name = Currency
 description = Currency exchange rates.
 dependencies = currency_api
 package = Currency 
-version = "$Name$"
