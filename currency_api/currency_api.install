@@ -1,0 +1,48 @@
+<?php
+// $Id$
+
+/**
+ * Implementation of hook_install()
+ *
+ * This will automatically install the MySQL database tables for CurrencyAPI.
+ *
+ * TODO: Create pgsql query.
+ *
+ */
+function currency_api_install() {
+  switch ($GLOBALS['db_type']) {
+    case 'mysqli':
+    case 'mysql':
+      db_query(
+        "CREATE TABLE {currencyapi} (
+        currency_from varchar(10) NOT NULL default '',
+        currency_to varchar(10) NOT NULL default '',
+        rate float NOT NULL default '0',
+        timestamp int(10) NOT NULL default '0'
+        ) TYPE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 */;");
+      break;
+
+    case 'pgsql':
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_uninstall()
+ *
+ * This will automatically remove the MySQL database tables for CurrencyAPI.
+ *
+ * TODO: Create pgsql query.
+ */
+function currency_api_uninstall() {
+  switch ($GLOBALS['db_type']) {
+    case 'mysqli':
+    case 'mysql':
+      db_query('DROP TABLE {currencyapi}');
+      variable_del('currency_api_fetch');
+      break;
+
+    case 'pgsql':
+      break;
+  }
+}
