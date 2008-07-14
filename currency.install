@@ -1,0 +1,12 @@
+<?php
+// $Id$
+
+/**
+ * Implementation of hook_uninstall()
+ *
+ * This will automatically remove the database tables and varibles
+ * defined by the Currency module.
+ */
+function currency_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'currency_%%'");
+}
