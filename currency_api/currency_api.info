@@ -1,3 +1,5 @@
 name = Currency API
-description = Currency exchange API
+description = "This module provides an API for currency conversion."
 package = Currency 
+core = 6.x
+

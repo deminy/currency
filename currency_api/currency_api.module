@@ -7,28 +7,26 @@
 // 3600 is once an hour
 define('UPDATE_FREQUENCY', 3600);
 
-function currency_api_help($section) {
-  switch ($section) {
+function currency_api_help($path, $arg) {
+  switch ($path) {
     case 'admin/help#currency_api':
       return t('This module provides an API for currency conversion.');
   }
 }
 
-function currency_api_menu($may_cache) {
+function currency_api_menu() {
   $items = array();
-  if ($may_cache) {
-    $items[] = array(
-      'path'               => 'admin/settings/currency_api',
-      'title'              => t('Currency API'),
-      'description'        => t('Settings for currency API.'),
-      'callback'           => 'drupal_get_form',
-      'callback arguments' => array('currency_api_admin_settings'),
-      'access'             => user_access('administer site configuration'),
+    $items['admin/settings/currency_api'] = array(
+      'title'              => 'Currency API',
+      'description'        => 'Settings for currency API.',
+      'page callback'      => 'drupal_get_form',
+      'page arguments'     => array('currency_api_admin_settings'),
+      'access arguments'   => array('administer site configuration'),
       'type'               => MENU_NORMAL_ITEM, // optional
     );
-  }
   return $items;
 }
+
   
 function currency_api_admin_settings() {    
   $form['currency_api_watchdog'] = array(
@@ -109,6 +107,16 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
   $from = strtoupper($currency_from);
   $to   = strtoupper($currency_to);
 
+  if ($from == $to) {
+    return array(
+      'status'  => TRUE,
+      'message' => 'success',
+      'value'   => 1.0,
+      'date'    => date('n/j/Y'),
+      'time'    => date('g:ia'),
+    );
+  }
+
   // load cached rate, if exists
   $cached = currency_api_load($record, $currency_from, $currency_to);
 
@@ -142,12 +150,13 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
 
   if (($ch = @curl_init())) {
     $timeout = 5; // set to zero for no timeout
-    curl_setopt ($ch, CURLOPT_URL, "$url");
-    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt($ch, CURLOPT_URL, "$url");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
     $record = curl_exec($ch);
     curl_close($ch);
-  } else {
+  } 
+  else {
     $record = file_get_contents($url);
   }
   }
@@ -436,7 +445,7 @@ function currency_api_get_symbols() {
     'DJF' => t('Fdj'),
     'DOP' => t('RD$'),
     'XCD' => t('$'),
-    'EGP' => t('£'),
+    'EGP' => t('LE'),
     'SVC' => t('$'),
     'ERN' => t('Nfk'),
     'EEK' => t('kr'),
@@ -579,7 +588,7 @@ function currency_api_get_fields($array) {
 
 function _log_to_watchdog($msg = '', $severity = WATCHDOG_NOTICE, $type = 'user') {
   if (variable_get('currency_api_watchdog', 1)) {
-    watchdog($type, $msg, $severity);
+   watchdog($type, $msg, NULL, $severity);
   }
 }
 
@@ -601,7 +610,7 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
   else {
     $result = db_fetch_object(db_query("SELECT * FROM {currencyapi} WHERE currency_from = '%s' AND currency_to = '%s' AND timestamp > UNIX_TIMESTAMP( ) - %d", $currency_from, $currency_to, variable_get('currency_api_fetch', UPDATE_FREQUENCY)));
     if ($result) {
-      $currency = array($currency_from . $currency_to . '=X', $result->rate, date('n/j/Y', $result->timestamp), date('g:ha', $result->timestamp));
+      $currency = array($currency_from . $currency_to .'=X', $result->rate, date('n/j/Y', $result->timestamp), date('g:ha', $result->timestamp));
       $record = implode(',', $currency);
       // cache rate in static array variable for subsequent queries
       $rate[$currency_from][$currency_to] = $record;
