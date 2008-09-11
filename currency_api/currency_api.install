@@ -6,8 +6,6 @@
  *
  * This will automatically install the MySQL database tables for CurrencyAPI.
  *
- * TODO: Create pgsql query.
- *
  */
 function currency_api_install() {
   switch ($GLOBALS['db_type']) {
@@ -15,14 +13,21 @@ function currency_api_install() {
     case 'mysql':
       db_query(
         "CREATE TABLE {currencyapi} (
-        currency_from varchar(10) NOT NULL default '',
-        currency_to varchar(10) NOT NULL default '',
-        rate float NOT NULL default '0',
-        timestamp int(10) NOT NULL default '0'
+          currency_from varchar(10) NOT NULL default '',
+          currency_to varchar(10) NOT NULL default '',
+          rate float NOT NULL default '0',
+          timestamp int NOT NULL default '0'
         ) TYPE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 */;");
       break;
 
     case 'pgsql':
+      db_query(
+        "CREATE TABLE {currencyapi} (
+          currency_from varchar(10) NOT NULL default '',
+          currency_to varchar(10) NOT NULL default '',
+          rate float NOT NULL default '0',
+          timestamp int NOT NULL default '0'
+        );");
       break;
   }
 }
@@ -31,18 +36,24 @@ function currency_api_install() {
  * Implementation of hook_uninstall()
  *
  * This will automatically remove the MySQL database tables for CurrencyAPI.
- *
- * TODO: Create pgsql query.
  */
 function currency_api_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'currency_api%'");
+  db_query('DROP TABLE {currencyapi}');
+}
+
+function currency_api_update_1() {
+  $ret = array();
+
   switch ($GLOBALS['db_type']) {
     case 'mysqli':
     case 'mysql':
-      db_query('DROP TABLE {currencyapi}');
-      variable_del('currency_api_fetch');
+      $ret[] = update_sql("ALTER TABLE {currencyapi} CHANGE timestamp timestamp int NOT NULL default '0'");
       break;
 
     case 'pgsql':
       break;
   }
+
+  return $ret;
 }

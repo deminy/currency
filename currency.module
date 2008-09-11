@@ -4,36 +4,37 @@
 
 // Copyright 2005 Khalid Baheyeldin http://2bits.com
 
-function currency_help($path, $arg) {
-  switch ($path) {
+function currency_help($section) {
+  switch ($section) {
     case 'admin/help#currency':
       return t('This module provides currency exchange rates.');
   }
 }
 
-function currency_menu() {
-
-
-    $items['admin/settings/currency'] = array(
-      'title'              => 'Currency',
-      'description'        => 'Settings for currency exchange rates.',
-      'page callback'      => 'drupal_get_form',
-      'page arguments'     => array('currency_admin_settings'),
-      'access arguments'   => array('administer site configuration'),
-      'type'               => MENU_NORMAL_ITEM, // optional
+function currency_menu($may_cache) {
+  $items = array();
+  if ($may_cache) {
+    $items[] = array(
+      'path'               => 'admin/settings/currency',
+      'title'              => t('Currency'),
+      'description'        => t('Settings for currency exchange rates.'),
+      'callback'           => 'drupal_get_form',
+      'callback arguments' => array('currency_admin_settings'),
+      'access'             => user_access('administer site configuration'),
+      'type'               => MENU_NORMAL_ITEM,
      );
 
-    $items['currency'] = array(
-      'title'              => 'Currency exchange',
-      'access arguments'   => array('use currency'),
-      'page callback'      => 'drupal_get_form',
-      'page arguments'     => array('currency_form'), 
+    $items[] = array(
+      'path'               => 'currency',
+      'title'              => t('Currency exchange'),
+      'access'             => user_access('use currency'),
+      'callback'           => 'drupal_get_form',
+      'callback arguments' => array('currency_form'),
     );
-
+  }
   return $items;
 }
   
-
 function currency_admin_settings() {  
   $form['currency_default_from'] = array(
     '#type'          => 'textfield',
@@ -53,29 +54,11 @@ function currency_admin_settings() {
     '#description'   => t('Three letter symbol for default currency to convert to.'),
   );
   
-  $form['currency_description'] = array(
-    '#type'          => 'textarea',
-    '#title'         => t('Description'),
-    '#default_value' =>  variable_get('currency_description', t('This is the currency exchange rate page.')),
-    '#cols'          => 70,
-    '#rows'          => 7,
-    '#description'   => t('This text will be displayed at the top of the currency exchange page'),
-  );
-  
-  $form['currency_overview_title'] = array(
-    '#type'          => 'textfield',
-    '#title'         => t('Navigation link text'),
-    '#default_value' => variable_get('currency_overview_title', t('Currency exchange')),
-    '#size'          => 35,
-    '#maxlength'     => 255,
-    '#description'   => t('The text in the navigation link which points to the currency exchange page.'),
-  ); 
-
   return system_settings_form($form);
 }  
 
 function currency_perm() {
-  return array('use currency');
+  return array ('use currency');
 }
 
 function currency_form($data = array()) {
@@ -115,21 +98,21 @@ function currency_form($data = array()) {
   return $form;
 }
 
-function currency_form_validate($form, &$form_state) {
-  if (!$form_state['values']['currency_amount']) {
+function currency_form_validate($form_id, $form_values) {
+  if (!$form_values['currency_amount']) {
     form_set_error('', t('Amount is required.'));
   }
 
-  if (!is_numeric($form_state['values']['currency_amount'])) {
+  if (!is_numeric($form_values['currency_amount'])) {
     form_set_error('', t('Invalid Amount. Please enter a valid numeric amount.'));
   }
 }
 
-function currency_form_submit($form, &$form_state) {
-  $from   = $form_state['values']['currency_from'];
-  $to     = $form_state['values']['currency_to'];
-  $amount = $form_state['values']['currency_amount'];
-  $url    = 'http://finance.yahoo.com/q?s='. $from . $to .'=X';
+function currency_form_submit($form_id, $form_values) {
+  $from   = $form_values['currency_from'];
+  $to     = $form_values['currency_to'];
+  $amount = $form_values['currency_amount'];
+  $url    = 'http://finance.yahoo.com/q?s=' . $from . $to . '=X';
 
   $ret = currency_api_convert($from, $to, $amount);
   if ($ret['status'] == FALSE) { 

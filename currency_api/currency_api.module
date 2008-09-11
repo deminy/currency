@@ -109,6 +109,16 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
   $from = strtoupper($currency_from);
   $to   = strtoupper($currency_to);
 
+  if ($from == $to) {
+    return array(
+      'status'  => TRUE,
+      'message' => 'success',
+      'value'   => 1.0,
+      'date'    => date('n/j/Y'),
+      'time'    => date('g:ia'),
+    );
+  }
+
   // load cached rate, if exists
   $cached = currency_api_load($record, $currency_from, $currency_to);
 
@@ -436,7 +446,7 @@ function currency_api_get_symbols() {
     'DJF' => t('Fdj'),
     'DOP' => t('RD$'),
     'XCD' => t('$'),
-    'EGP' => t('£'),
+    'EGP' => t('LE'),
     'SVC' => t('$'),
     'ERN' => t('Nfk'),
     'EEK' => t('kr'),

@@ -1,3 +1,10 @@
 name = Currency API
-description = Currency exchange API
+description = "This module provides an API for currency conversion."
 package = Currency 
+
+
+; Information added by drupal.org packaging script on 2008-07-04
+version = "5.x-1.1"
+project = "currency"
+datestamp = "1215183609"
+
