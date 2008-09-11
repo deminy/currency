@@ -54,6 +54,13 @@ function currency_admin_settings() {
     '#description'   => t('Three letter symbol for default currency to convert to.'),
   );
   
+  $form['currency_default_from'] = array(
+    '#type'          => 'textarea',
+    '#title'         => t('Currency form text'),
+    '#default_value' => variable_get('currency_description', t('You can use this form to do currency exchange.')),
+    '#description'   => t('Text to display on the top of the currency form.'),
+  );
+
   return system_settings_form($form);
 }  
 
@@ -66,6 +73,10 @@ function currency_form($data = array()) {
   $amount = $_SESSION['currency_amount'] ? $_SESSION['currency_amount'] : 1;
   $from   = $_SESSION['currency_from']   ? $_SESSION['currency_from'] : variable_get('currency_default_from', 'CAD'); 
   $to     = $_SESSION['currency_to']     ? $_SESSION['currency_to']   : variable_get('currency_default_to', 'USD'); 
+
+  $form['currency_description'] = array(
+    '#value'         => variable_get('currency_description', t('You can use this form to do currency exchange.')),
+  );
 
   $form['currency_amount'] = array(
     '#type'          => 'textfield',
