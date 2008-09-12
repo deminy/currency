@@ -54,7 +54,7 @@ function currency_admin_settings() {
     '#description'   => t('Three letter symbol for default currency to convert to.'),
   );
   
-  $form['currency_default_from'] = array(
+  $form['currency_description'] = array(
     '#type'          => 'textarea',
     '#title'         => t('Currency form text'),
     '#default_value' => variable_get('currency_description', t('You can use this form to do currency exchange.')),
