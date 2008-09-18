@@ -124,73 +124,75 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
 
   if (!$record) {
     // cached rate not found, go get it
-  $url = 'http://download.finance.yahoo.com/d/quotes.csv?e=.csv&f='. currency_api_get_fields($currency_array) .'&s='. $from . $to .'=X';
+    $url = 'http://download.finance.yahoo.com/d/quotes.csv?e=.csv&f='. currency_api_get_fields($currency_array) .'&s='. $from . $to .'=X';
 
-  // Validate the passed currency codes, to make sure they are valid
-  if (FALSE == currency_api_get_desc($from)) {
-    $msg = "currency: Invalid currency_from=$from";
-    _log_to_watchdog($msg, WATCHDOG_ERROR);
-    $result['message'] = $msg;
-    $result['status'] = FALSE;
-  }
-
-  if (FALSE == currency_api_get_desc($to)) {
-    $msg = "currency: Invalid currency_to=$to";
-    _log_to_watchdog($msg, WATCHDOG_ERROR);
-    return FALSE;
-    $result['message'] = $msg;
-    $result['status'] = FALSE;
-  }
-
-  if (!is_numeric($amount)) {
-    $msg = "currency: Invalid amount=$amount";
-    _log_to_watchdog($msg, WATCHDOG_ERROR);
-    $result['message'] = $msg;
-    $result['status'] = FALSE;
-  }
-
-
-  if (($ch = @curl_init())) {
-    $timeout = 5; // set to zero for no timeout
-    curl_setopt ($ch, CURLOPT_URL, "$url");
-    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-    $record = curl_exec($ch);
-    curl_close($ch);
-  } else {
-    $record = file_get_contents($url);
-  }
-  }
-
-  if ($record) {
-    $currency_data = explode(',', $record);
-    $rate = $currency_data[1];
-    $date = $currency_data[2];
-    $time = $currency_data[3];
-
-    // Calculate the result
-    $value = $amount * $rate;
-
-    // Log it
-    _log_to_watchdog("currency: $amount $from = $value $to", WATCHDOG_NOTICE);
-
-    // Got what we need
-    $result['value']  = $value;
-    $result['date']   = $date;
-    $result['time']   = $time;
-    $result['status'] = TRUE;
-    $result['message']= 'success';
-
-    if (!$cached) {
-      // cache rate does not exist, save it
-      currency_api_save($currency_from, $currency_to, $rate);
+    // Validate the passed currency codes, to make sure they are valid
+    if (FALSE == currency_api_get_desc($from)) {
+      $msg = "currency: Invalid currency_from=$from";
+      _log_to_watchdog($msg, WATCHDOG_ERROR);
+      $result['message'] = $msg;
+      $result['status'] = FALSE;
     }
+
+    if (FALSE == currency_api_get_desc($to)) {
+      $msg = "currency: Invalid currency_to=$to";
+      _log_to_watchdog($msg, WATCHDOG_ERROR);
+      return FALSE;
+      $result['message'] = $msg;
+      $result['status'] = FALSE;
+    }
+
+    if (!is_numeric($amount)) {
+      $msg = "currency: Invalid amount=$amount";
+      _log_to_watchdog($msg, WATCHDOG_ERROR);
+      $result['message'] = $msg;
+      $result['status'] = FALSE;
+    }
+
+    $result = drupal_http_request($url);
+    if (isset($result->error)) {
+      $msg = t('currency: drupal_http_request error: @error', array('@error' => $result->error);
+      _log_to_watchdog($msg, WATCHDOG_ERROR);
+      return FALSE;
+    }
+
+    if ($result->code != 200) {
+      $msg = t('currency: drupal_http_request code: @code', array('@code' => $result->code));
+      _log_to_watchdog($msg, WATCHDOG_ERROR);
+      return FALSE;
+    }
+
+    $record = $result->data;
   }
-  else {
+
+  if (!$record) {
     $msg = 'currency: cannot contact Yahoo Finance host';
     _log_to_watchdog($msg, WATCHDOG_ERROR);
     $result['status'] = FALSE;
     $result['message'] = $msg;
+  }
+
+  $currency_data = explode(',', $record);
+  $rate = $currency_data[1];
+  $date = $currency_data[2];
+  $time = $currency_data[3];
+
+  // Calculate the result
+  $value = $amount * $rate;
+
+  // Log it
+  _log_to_watchdog("currency: $amount $from = $value $to", WATCHDOG_NOTICE);
+
+  // Got what we need
+  $result['value']  = $value;
+  $result['date']   = $date;
+  $result['time']   = $time;
+  $result['status'] = TRUE;
+  $result['message']= 'success';
+
+  if (!$cached) {
+    // cache rate does not exist, save it
+    currency_api_save($currency_from, $currency_to, $rate);
   }
 
   return $result;
