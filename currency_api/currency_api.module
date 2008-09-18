@@ -149,20 +149,20 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
       $result['status'] = FALSE;
     }
 
-    $result = drupal_http_request($url);
-    if (isset($result->error)) {
-      $msg = t('currency: drupal_http_request error: @error', array('@error' => $result->error);
+    $http_result = drupal_http_request($url);
+    if (isset($http_result->error)) {
+      $msg = t('currency: drupal_http_request error: @error', array('@error' => $http_result->error);
       _log_to_watchdog($msg, WATCHDOG_ERROR);
       return FALSE;
     }
 
-    if ($result->code != 200) {
-      $msg = t('currency: drupal_http_request code: @code', array('@code' => $result->code));
+    if ($http_result->code != 200) {
+      $msg = t('currency: drupal_http_request code: @code', array('@code' => $http_result->code));
       _log_to_watchdog($msg, WATCHDOG_ERROR);
       return FALSE;
     }
 
-    $record = $result->data;
+    $record = $http_result->data;
   }
 
   if (!$record) {
