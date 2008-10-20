@@ -88,6 +88,7 @@ function currency_api_admin_settings() {
  *                      descriptive error text
  *   The following items are only returned when status is TRUE
  *    $result['value']  $amount * exchange rate of $currency_from into $currency_to
+ *    $result['rate]    Exchange rate of $currency_from into $currency_to
  *    $result['date']   Date of the last update to the rates (Format is "m/d/yyyy")
  *    $result['time']   Time of the last update to the rates (Format is "h:mmpm")
  */
@@ -103,6 +104,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
   $result['status']  = FALSE;
   $result['message'] = NULL;
   $result['value']   = 0;
+  $result['rate']    = 1.0;
   $result['date']    = NULL;
   $result['time']    = NULL;
 
@@ -113,7 +115,9 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
     return array(
       'status'  => TRUE,
       'message' => 'success',
-      'value'   => 1.0,
+      'value'   => $amount,
+
+      'rate'    => 1.0,
       'date'    => date('n/j/Y'),
       'time'    => date('g:ia'),
     );
@@ -185,6 +189,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
 
   // Got what we need
   $result['value']  = $value;
+  $result['rate']   = $rate;
   $result['date']   = $date;
   $result['time']   = $time;
   $result['status'] = TRUE;
