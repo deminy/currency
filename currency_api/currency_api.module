@@ -37,7 +37,8 @@ function currency_api_admin_settings() {
     '#default_value' => variable_get('currency_api_watchdog', 1),    
   );
 
-  $period = drupal_map_assoc(array(900, 1800, 3600, 10800, 21600, 32400, 43200, 86400), 'format_interval');
+  $period = drupal_map_assoc(array(0, 900, 1800, 3600, 10800, 21600, 32400, 43200, 86400), 'format_interval');
+  $period[0] = t('none');
   $form['currency_api_fetch'] = array(
     '#type' => 'select',
     '#title' => t('Currency data update frequency'),
@@ -195,7 +196,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
   $result['status'] = TRUE;
   $result['message']= 'success';
 
-  if (!$cached) {
+  if (!$cached && variable_get('currency_api_fetch', UPDATE_FREQUENCY)) {
     // cache rate does not exist, save it
     currency_api_save($currency_from, $currency_to, $rate);
   }
