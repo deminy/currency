@@ -619,7 +619,7 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
   else {
     $result = db_fetch_object(db_query("SELECT * FROM {currencyapi} WHERE currency_from = '%s' AND currency_to = '%s' AND timestamp > UNIX_TIMESTAMP( ) - %d", $currency_from, $currency_to, variable_get('currency_api_fetch', UPDATE_FREQUENCY)));
     if ($result) {
-      $currency = array($currency_from . $currency_to . '=X', $result->rate, date('n/j/Y', $result->timestamp), date('g:ha', $result->timestamp));
+      $currency = array($currency_from . $currency_to . '=X', $result->rate, date('n/j/Y', $result->timestamp), date('g:ia', $result->timestamp));
       $record = implode(',', $currency);
       // cache rate in static array variable for subsequent queries
       $rate[$currency_from][$currency_to] = $record;
