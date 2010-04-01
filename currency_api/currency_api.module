@@ -289,6 +289,20 @@ function currency_api_get_symbols() {
 }
 
 /**
+ * Returns the symbol for a currency code
+ *
+ * @param $code
+ *   Currency code (3-letter ISO)
+ *
+ * @return $result
+ *   Returns the symbol for the provided currency code or NULL if not found
+ */
+function currency_api_get_symbol($code) {
+  $symbols = currency_api_get_symbols();
+  return isset($symbols[$code]) ? $symbols[$code] : NULL;
+}
+
+/**
  * Helper function to build yahoo finance api request.
  */
 function currency_api_get_fields($array) {

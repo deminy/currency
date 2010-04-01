@@ -35,7 +35,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1)
  * @return $result
  *   An associative array that contains the following:
  *    $result['status'] TRUE or FALSE
- *    $result['message']'success' when status is TRUE, otherwise, contains a 
+ *    $result['message']'success' when status is TRUE, otherwise, contains a
  *                      descriptive error text
  *   The following items are only returned when status is TRUE
  *    $result['value']  $amount * exchange rate of $currency_from into $currency_to
@@ -67,6 +67,30 @@ function currency_api_get_desc($currency)
  * @return $result
  *   Contains FALSE if the currency cannot be found, otherwise, it
  *   has the description.
+
+function currency_api_get_symbol($currency)
+
+ * This function gets the currency symbol for a standard ISO 3-letter codes,
+ * You can find the details here:
+ *  http://www.oanda.com/site/help/iso_code.shtml
+ *
+ * Here is an example on how to use it:
+ *
+ *   $ccode = 'CAD';
+ *   $ret = currency_api_get_symbol($ccode);
+ *   if ($ret == FALSE) {
+ *     drupal_set_message(t('Could not get symbol'));
+ *   }
+ *   else {
+ *     print $ccode .' => '. $ret;
+ *   }
+ *
+ * @param $currency
+ *   Currency code (3-letter ISO)
+ *
+ * @return $result
+ *   Contains FALSE if the currency symbol cannot be found, otherwise, it
+ *   has the symbol.
 
 function currency_api_get_list()
 
