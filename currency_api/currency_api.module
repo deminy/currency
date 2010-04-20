@@ -449,7 +449,7 @@ function currency_api_get_currencies() {
     'HTG' => array('name' => t('Haiti Gourde (HTG)'), 'symbol' => t('G'), 'decimals' => 2),
     'HNL' => array('name' => t('Honduras Lempira (HNL)'), 'symbol' => t('L'), 'decimals' => 2),
     'HKD' => array('name' => t('Hong Kong Dollar (HKD)'), 'symbol' => t('HK$'), 'decimals' => 2),
-    'HUF' => array('name' => t('Hungarian Forint (HUF)'), 'symbol' => t('Ft'), 'decimals' => 2),
+    'HUF' => array('name' => t('Hungarian Forint (HUF)'), 'symbol' => t('Ft'), 'decimals' => 0),
     'ISK' => array('name' => t('Iceland Krona (ISK)'), 'symbol' => t('kr'), 'decimals' => 2),
     'INR' => array('name' => t('Indian Rupee (INR)'), 'symbol' => t('₨'), 'decimals' => 2),
     'IDR' => array('name' => t('Indonesian Rupiah (IDR)'), 'symbol' => t('Rp'), 'decimals' => 2),
