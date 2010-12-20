@@ -386,9 +386,7 @@ function theme_currency_api_amount($amount, $attributes) {
  */
 function currency_api_get_currencies() {
   return array(
-    // There is a new sign as of January 2003. It does not yet have a Unicode
-    // encoding yet (see http://std.dkuug.dk/jtc1/sc2/wg2/docs/n2640.pdf).
-    'AFA' => array('name' => t('Afghanistani Afghani (AFA)'), 'symbol' => 'afghani', 'decimals' => 2),
+    'AFN' => array('name' => t('Afghanistani Afghani (AFN)'), 'symbol' => '؋', 'decimals' => 2),
     'ALL' => array('name' => t('Albanian Lek (ALL)'), 'symbol' => 'Lek', 'decimals' => 2),
     'DZD' => array('name' => t('Algerian Dinar (DZD)'), 'symbol' => 'دج', 'decimals' => 2),
     'ARS' => array('name' => t('Argentine Peso (ARS)'), 'symbol' => '$', 'decimals' => 2),
