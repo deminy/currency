@@ -385,7 +385,7 @@ function currency_api_save($currency_from, $currency_to, $rate) {
  *
  */
 function theme_currency_api_amount($amount, $attributes) {
-  return t('!symbol!amount !code', array('!symbol' => $attributes['symbol'], '!amount' => number_format($amount, $attributes['decimal']), '!code' => $attributes['code']));
+  return t('!symbol!amount !code', array('!symbol' => $attributes['symbol'], '!amount' => number_format($amount, $attributes['decimals']), '!code' => $attributes['code']));
 }
 
 /**
