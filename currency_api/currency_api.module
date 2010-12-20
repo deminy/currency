@@ -98,7 +98,10 @@ function currency_api_admin_settings() {
  *   Currency to convert to
  *
  * @param $amount
- *   Option amount to convert. If not supplied, 1 is assumed.
+ *   (optional) Amount to convert. Defaults to 1.
+ *
+ * @param $decimals
+ *   (optional) Number of digits to the right of the decimal point. Defaults to 2.
  *
  * @return $result
  *   An associative array that contains the following:
@@ -111,7 +114,7 @@ function currency_api_admin_settings() {
  *    $result['date']   Date of the last update to the rates (Format is "m/d/yyyy")
  *    $result['time']   Time of the last update to the rates (Format is "h:mmpm")
  */
-function currency_api_convert($currency_from, $currency_to, $amount = 1) {
+function currency_api_convert($currency_from, $currency_to, $amount = 1, $decimals = 2) {
   $currency_array = array(
     's'  => 'Currencies',
     'l1' => 'Last',
@@ -202,6 +205,10 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1) {
 
   // Calculate the result
   $value = $amount * $rate;
+
+  if (module_exists('format_number')) {
+    $value = format_number($value, $decimals);
+  }
 
   // Log it
   $msg = t("currency: @amount @from = @value @to", array('@amount' => $amount, '@from' => $from, '@value' => $value, '@to' => $to));
