@@ -1,9 +1,13 @@
 <?php
 // $Id$
+
 /**
  * @file
- * Implementation of hook_views_handlers() to register all of the basic handlers
- * views uses.
+ *   Register all of the basic handlers that views uses.
+ */
+
+/**
+ * Implementation of hook_views_handlers().
  */
 function currency_views_handlers() {
   return array(
@@ -83,8 +87,9 @@ function currency_views_data() {
 }                             
 
 /**
- * Calls currency_api_convert for every exchange rate that should be displayed according to filter and argument settings
- * to ensure that rates are in the database when views performs it's query
+ * Calls currency_api_convert for every exchange rate that should be displayed
+ * according to filter and argument settings to ensure that rates are in the
+ * database when views performs it's query.
  */
 function currency_views_preload($view) {
   static $processed = FALSE;           
@@ -119,6 +124,9 @@ function currency_views_preload($view) {
   }                                                                                                            
 }                                                                                                            
                       
+/**
+ * Helper function to get the filter's selected options.
+ */
 function _currency_views_get_selected_options($options) {
   foreach ($options as $key => $set) {
     if ($set) {

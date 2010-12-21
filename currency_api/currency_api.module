@@ -69,7 +69,7 @@ function currency_api_admin_settings() {
 }  
 
 /**
- * Currency exchange rate API function
+ * Currency exchange rate API function.
  *
  * This function converts two currencies using exchange rates from Yahoo Finance.
  * The currency codes are standard ISO 3-letter codes, and you can find the details
@@ -81,21 +81,19 @@ function currency_api_admin_settings() {
  *   $from = 'CAD';
  *   $to   = 'USD';
  *   $amt  = 20;
- *   $ret = currency_exchange($from, $to, $amt);
- *   if ($ret['status'] == FALSE)
- *   {
+ *   $ret  = currency_exchange($from, $to, $amt);
+ *   if ($ret['status'] == FALSE) {
  *     drupal_set_message(t('An error occured: '). $ret['message']);
  *   }
- *   else
- *   {
+ *   else {
  *     print $amt .' '. $from .' = '. $ret['value'];
  *   }
  *
  * @param $currency_from
- *   Currency to convert from
+ *   Currency to convert from.
  *
  * @param $currency_to
- *   Currency to convert to
+ *   Currency to convert to.
  *
  * @param $amount
  *   (optional) Amount to convert. Defaults to 1.
@@ -231,7 +229,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
 }
 
 /**
- * Currency exchange API function
+ * Currency exchange API function.
  *
  * This function gets the currency name for a standard ISO 3-letter codes,
  * You can find the details here:
@@ -241,17 +239,15 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
  *
  *   $ccode = 'CAD';
  *   $ret = currency_get_description($ccode);
- *   if ($ret == FALSE)
- *   {
+ *   if ($ret == FALSE) {
  *     drupal_set_message(t('Could not get description'));
  *   }
- *   else
- *   {
+ *   else {
  *     print $ccode .' => '. $ret;
  *   }
  *
- * @param $currency
- *   Currency code (3-letter ISO)
+ * @param string $currency
+ *   Currency code (3-letter ISO).
  *
  * @return $result
  *   Contains FALSE if the currency cannot be found, otherwise, it
@@ -296,13 +292,13 @@ function currency_api_get_symbols() {
 }
 
 /**
- * Returns the symbol for a currency code
+ * Returns the symbol for a currency code.
  *
- * @param $code
- *   Currency code (3-letter ISO)
+ * @param string $code
+ *   Currency code (3-letter ISO).
  *
  * @return $result
- *   Returns the symbol for the provided currency code or NULL if not found
+ *   Returns the symbol for the provided currency code or NULL if not found.
  */
 function currency_api_get_symbol($code) {
   $symbols = currency_api_get_symbols();
@@ -330,11 +326,11 @@ function currency_log($msg = '', $severity = WATCHDOG_NOTICE, $type = 'currency'
 }
 
 /**
+ * Fetch cached rate for from and to currencies.
+ * Retrieve from static array variable, else from database.
  *
- * fetch cached rate for from and to countries
- * retrieve from static array variable, else from database
- * returns: rate by reference, true if exists otherwise false
- *
+ * @return
+ *   Rate by reference, true if exists otherwise false.
  */
 function currency_api_load(&$record, $currency_from, $currency_to) {
   static $rate = array();
@@ -363,11 +359,15 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
 }
 
 /**
+ * Cache rate for from and to countries delete outdated record, if exists.
  *
- * cache rate for from and to countries
- * delete outdated record, if exists
- * returns: true/false result from insert
+ * @param string $currency_from
+ * @param string $currency_to
+ * @param decimal $rate
  *
+ * @return
+ *   A database query result resource, or FALSE if the query was not
+ *   executed correctly.
  */
 function currency_api_save($currency_from, $currency_to, $rate) {
   // delete outdated record, if exists
@@ -376,13 +376,15 @@ function currency_api_save($currency_from, $currency_to, $rate) {
 }
 
 /**
- * custom theme to display currency amount
- * default output example: $200.00 USD
+ * Custom theme to display currency amount.
  *
- * @param string
- * @param array
- * returns: formatted string
+ * Default output example: $200.00 USD
  *
+ * @param string $amount
+ * @param array $attributes
+ *
+ * @return string
+ *   Formatted string.
  */
 function theme_currency_api_amount($amount, $attributes) {
   return t('!symbol!amount !code', array('!symbol' => $attributes['symbol'], '!amount' => number_format($amount, $attributes['decimals']), '!code' => $attributes['code']));

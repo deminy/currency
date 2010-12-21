@@ -3,7 +3,7 @@
 
 /**
  * @file
- * Views filter handler.
+ *   Views filter handler.
  */
 
 class currency_handler_filter_currency extends views_handler_filter_in_operator {     
@@ -15,6 +15,4 @@ class currency_handler_filter_currency extends views_handler_filter_in_operator 
     currency_views_preload($this->view); 
     return parent::query();
   }  
-
 }
-

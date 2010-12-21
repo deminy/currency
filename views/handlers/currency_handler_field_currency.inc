@@ -3,7 +3,7 @@
 
 /**
  * @file
- * Views field handler.
+ *   Views field handler.
  */
 
 class currency_handler_field_currency extends views_handler_field {

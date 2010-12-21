@@ -3,7 +3,7 @@
 
 /**
  * @file
- * Views argument handler.
+ *   Views argument handler.
  */
 
 class currency_handler_argument_currency extends views_handler_argument {       
