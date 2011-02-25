@@ -1,5 +1,4 @@
 # Czech translation of Drupal (modules/currency-module/currency-module.po)
-# $Id$
 # Copyright 2007 Jakub Suchy <redakce@drupal.cz>
 # Generated from files:
 #  currency.module,v 1.8.2.1 2007/04/10 03:19:27 wafaa

@@ -1,5 +1,4 @@
 # Czech translation of Drupal (modules/currency_currency_api-module/currency_currency_api-module.po)
-# $Id$
 # Jakub Suchy <redakce@drupal.cz>, 2007.
 msgid ""
 msgstr ""
