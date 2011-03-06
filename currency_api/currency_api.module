@@ -80,7 +80,7 @@ function currency_api_admin_settings() {
  *   $from = 'CAD';
  *   $to   = 'USD';
  *   $amt  = 20;
- *   $ret  = currency_exchange($from, $to, $amt);
+ *   $ret  = currency_api_convert($from, $to, $amt);
  *   if ($ret['status'] == FALSE) {
  *     drupal_set_message(t('An error occured: '). $ret['message']);
  *   }
@@ -102,7 +102,7 @@ function currency_api_admin_settings() {
  * @return $result
  *   An associative array that contains the following:
  *    $result['status'] TRUE or FALSE
- *    $result['message']'success' when status is TRUE, otherwise, contains a 
+ *    $result['message']'success' when status is TRUE, otherwise, contains a
  *                      descriptive error text
  *   The following items are only returned when status is TRUE
  *    $result['value']  $amount * exchange rate of $currency_from into $currency_to
