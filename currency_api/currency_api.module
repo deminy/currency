@@ -85,20 +85,19 @@ function currency_api_admin_settings() {
  *     drupal_set_message(t('An error occured: '). $ret['message']);
  *   }
  *   else {
- *     print $amt .' '. $from .' = '. $ret['value'];
+ *     print $amt . ' ' . $from . ' = ' . $ret['value'] . ' ' . $to;
  *   }
  *
  * @param $currency_from
  *   Currency to convert from.
- *
  * @param $currency_to
  *   Currency to convert to.
- *
  * @param $amount
  *   (optional) Amount to convert. Defaults to 1.
- *
  * @param $decimals
- *   (optional) Number of digits to the right of the decimal point. Defaults to 2.
+ *   (optional) Number of digits to the right of the decimal point. Leave out this
+ *   parameter if you want the actual currency result to proceess it yourself.
+ *   Defaults to NULL.
  *
  * @return $result
  *   An associative array that contains the following:
@@ -111,7 +110,7 @@ function currency_api_admin_settings() {
  *    $result['date']   Date of the last update to the rates (Format is "m/d/yyyy")
  *    $result['time']   Time of the last update to the rates (Format is "h:mmpm")
  */
-function currency_api_convert($currency_from, $currency_to, $amount = 1, $decimals = 2) {
+function currency_api_convert($currency_from, $currency_to, $amount = 1, $decimals = NULL) {
   $currency_array = array(
     's'  => 'Currencies',
     'l1' => 'Last',
@@ -142,14 +141,14 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
     );
   }
 
-  // load cached rate, if exists
+  // Load cached rate, if exists.
   $cached = currency_api_load($record, $currency_from, $currency_to);
 
   if (!$record) {
-    // cached rate not found, go get it
+    // Cached rate not found, go get it.
     $url = 'http://download.finance.yahoo.com/d/quotes.csv?e=.csv&f='. currency_api_get_fields($currency_array) .'&s='. $from . $to .'=X';
 
-    // Validate the passed currency codes, to make sure they are valid
+    // Validate the passed currency codes, to make sure they are valid.
     if (FALSE == currency_api_get_desc($from)) {
       $msg = t("currency: Invalid currency_from = %from", array('%from' => $from));
       currency_log($msg, WATCHDOG_ERROR);
@@ -200,18 +199,24 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
   $date = $currency_data[2];
   $time = $currency_data[3];
 
-  // Calculate the result
+  // Calculate the result.
   $value = $amount * $rate;
 
-  if (module_exists('format_number')) {
-    $value = format_number($value, $decimals);
+  // Format the result if $decimals value was specified.
+  if ($decimals) {
+    if (module_exists('format_number')) {
+      $value = format_number($value, $decimals);
+    }
+    else {
+      $value = number_format($value, $decimals);
+    }
   }
 
-  // Log it
+  // Log it.
   $msg = t("currency: @amount @from = @value @to", array('@amount' => $amount, '@from' => $from, '@value' => $value, '@to' => $to));
   currency_log($msg, WATCHDOG_NOTICE);
 
-  // Got what we need
+  // Got what we need.
   $result['value']  = $value;
   $result['rate']   = $rate;
   $result['date']   = $date;
@@ -220,7 +225,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
   $result['message']= 'success';
 
   if (!$cached) {
-    // cache rate does not exist, save it
+    // Cache rate does not exist, save it.
     currency_api_save($currency_from, $currency_to, $rate);
   }
 
