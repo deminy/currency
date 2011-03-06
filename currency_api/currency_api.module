@@ -101,14 +101,15 @@ function currency_api_admin_settings() {
  *
  * @return $result
  *   An associative array that contains the following:
- *    $result['status'] TRUE or FALSE
- *    $result['message']'success' when status is TRUE, otherwise, contains a
- *                      descriptive error text
+ *    $result['status'] - TRUE or FALSE
+ *    $result['message'] - 'success' when status is TRUE, otherwise, contains a
+ *                         descriptive error text
  *   The following items are only returned when status is TRUE
- *    $result['value']  $amount * exchange rate of $currency_from into $currency_to
- *    $result['rate]    Exchange rate of $currency_from into $currency_to
- *    $result['date']   Date of the last update to the rates (Format is "m/d/yyyy")
- *    $result['time']   Time of the last update to the rates (Format is "h:mmpm")
+ *    $result['value'] - $amount * exchange rate of $currency_from into $currency_to
+ *    $result['rate'] - Exchange rate of $currency_from into $currency_to
+ *    $result['timestamp'] - Timestamp of the last update to the rates
+ *    $result['date'] - Date of the last update to the rates (Format is "m/d/yyyy")
+ *    $result['time'] - Time of the last update to the rates (Format is "h:mmpm")
  */
 function currency_api_convert($currency_from, $currency_to, $amount = 1, $decimals = NULL) {
   $currency_array = array(
@@ -119,29 +120,32 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
   );
 
   $result = array();
-  $result['status']  = FALSE;
+  $result['status'] = FALSE;
   $result['message'] = NULL;
-  $result['value']   = 0;
-  $result['rate']    = 1.0;
-  $result['date']    = NULL;
-  $result['time']    = NULL;
+  $result['value'] = 0;
+  $result['rate'] = 1.0;
+  $result['timestamp'] = NULL;
+  $result['date'] = NULL;
+  $result['time'] = NULL;
 
   $from = drupal_strtoupper($currency_from);
   $to   = drupal_strtoupper($currency_to);
 
   if ($from == $to) {
     return array(
-      'status'  => TRUE,
+      'status' => TRUE,
       'message' => 'success',
-      'value'   => $amount,
+      'value' => $amount,
 
-      'rate'    => 1.0,
-      'date'    => date('n/j/Y'),
-      'time'    => date('g:ia'),
+      'rate' => 1.0,
+      'timestamp' => time(),
+      'date' => date('n/j/Y'),
+      'time' => date('g:ia'),
     );
   }
 
   // Load cached rate, if exists.
+  $record = NULL;
   $cached = currency_api_load($record, $currency_from, $currency_to);
 
   if (!$record) {
@@ -198,6 +202,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
   $rate = $currency_data[1];
   $date = $currency_data[2];
   $time = $currency_data[3];
+  $timestamp = strtotime(str_replace('"', '', $date) . ' ' . str_replace('"', '', $time));
 
   // Calculate the result.
   $value = $amount * $rate;
@@ -217,16 +222,17 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
   currency_log($msg, WATCHDOG_NOTICE);
 
   // Got what we need.
-  $result['value']  = $value;
-  $result['rate']   = $rate;
-  $result['date']   = $date;
-  $result['time']   = $time;
+  $result['value'] = $value;
+  $result['rate'] = $rate;
+  $result['timestamp'] = $timestamp;
+  $result['date'] = $date;
+  $result['time'] = $time;
   $result['status'] = TRUE;
-  $result['message']= 'success';
+  $result['message'] = 'success';
 
   if (!$cached) {
     // Cache rate does not exist, save it.
-    currency_api_save($currency_from, $currency_to, $rate);
+    currency_api_save($currency_from, $currency_to, $rate, $timestamp);
   }
 
   return $result;
@@ -368,15 +374,19 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
  * @param string $currency_from
  * @param string $currency_to
  * @param decimal $rate
+ * @param integer (optional) $timestamp
  *
  * @return
  *   A database query result resource, or FALSE if the query was not
  *   executed correctly.
  */
-function currency_api_save($currency_from, $currency_to, $rate) {
-  // delete outdated record, if exists
+function currency_api_save($currency_from, $currency_to, $rate, $timestamp = NULL) {
+  if (!$timestamp) {
+    $timestamp = time();
+  }
+  // Delete outdated record, if exists.
   db_query("DELETE FROM {currencyapi} WHERE currency_from = '%s' AND currency_to = '%s'", $currency_from, $currency_to);
-  return db_query("INSERT INTO {currencyapi} VALUES ('%s', '%s', %f, %d)", $currency_from, $currency_to, $rate, time());
+  return db_query("INSERT INTO {currencyapi} VALUES ('%s', '%s', %f, %d)", $currency_from, $currency_to, $rate, $timestamp);
 }
 
 /**

@@ -36,14 +36,15 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1)
  *
  * @return $result
  *   An associative array that contains the following:
- *    $result['status'] TRUE or FALSE
- *    $result['message']'success' when status is TRUE, otherwise, contains a
- *                      descriptive error text
+ *    $result['status'] - TRUE or FALSE
+ *    $result['message'] - 'success' when status is TRUE, otherwise, contains a
+ *                         descriptive error text
  *   The following items are only returned when status is TRUE
- *    $result['value']  $amount * exchange rate of $currency_from into $currency_to
- *    $result['rate]    Exchange rate of $currency_from into $currency_to
- *    $result['date']   Date of the last update to the rates (Format is "m/d/yyyy")
- *    $result['time']   Time of the last update to the rates (Format is "h:mmpm")
+ *    $result['value'] - $amount * exchange rate of $currency_from into $currency_to
+ *    $result['rate'] - Exchange rate of $currency_from into $currency_to
+ *    $result['timestamp'] - Timestamp of the last update to the rates
+ *    $result['date'] - Date of the last update to the rates (Format is "m/d/yyyy")
+ *    $result['time'] - Time of the last update to the rates (Format is "h:mmpm")
 
 function currency_api_get_desc($currency)
 
