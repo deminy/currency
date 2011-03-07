@@ -1,4 +1,5 @@
 name = Currency
-description = Currency exchange rates.
-dependencies = currency_api
+description = Provides currency exchange rates.
+dependencies[] = currency_api
 package = Currency 
+core = 6.x

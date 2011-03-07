@@ -1,7 +1,12 @@
 <?php
+
 /**
- * Implementation of hook_views_handlers() to register all of the basic handlers
- * views uses.
+ * @file
+ *   Register all of the basic handlers that views uses.
+ */
+
+/**
+ * Implementation of hook_views_handlers().
  */
 function currency_views_handlers() {
   return array(
@@ -23,7 +28,7 @@ function currency_views_handlers() {
 }
 
 /**
- * Implementation of hook_views_data
+ * Implementation of hook_views_data().
  */
 function currency_views_data() {
   $data['currencyapi']['table']['group']  = t('Currency');
@@ -79,33 +84,36 @@ function currency_views_data() {
 
   return $data;
 }                             
-                       
+
 /**
- * Calls currency_api_convert for every exchange rate that should be displayed according to filter and argument settings
- * to ensure that rates are in the database when views performs it's query
+ * Calls currency_api_convert for every exchange rate that should be displayed
+ * according to filter and argument settings to ensure that rates are in the
+ * database when views performs it's query.
  */
 function currency_views_preload($view) {
   static $processed = FALSE;           
   
-  if(!$processed) {
+  if (!$processed) {
     // $this->value for keyed array of selected currencies
-    if($view->filter['currency_from']) {            
+    if ($view->filter['currency_from']) {            
       $selected_from = _currency_views_get_selected_options($view->filter['currency_from']->value);
-    } else if($view->argument['currency_from'] && $currency_from = $view->argument['currency_from']->get_value()) { 
+    }
+    elseif ($view->argument['currency_from'] && $currency_from = $view->argument['currency_from']->get_value()) { 
       // process argument        
       $selected_from = array($currency_from);
     } 
 
-    if($view->filter['currency_to']) {            
+    if ($view->filter['currency_to']) {            
       $selected_to = _currency_views_get_selected_options($view->filter['currency_to']->value);
-    } else if($view->argument['currency_to'] && $currency_to = $view->argument['currency_to']->get_value()) {
+    }
+    elseif ($view->argument['currency_to'] && $currency_to = $view->argument['currency_to']->get_value()) {
       $selected_to = array($currency_to);
     }                                                                      
 
-    if($selected_from && $selected_to) {
+    if ($selected_from && $selected_to) {
       // selected currencies - make sure exchange rates are in database by calling currency_api for each from/to currency combination           
-      foreach($selected_from as $currency_from) {
-        foreach($selected_to as $currency_to) {
+      foreach ($selected_from as $currency_from) {
+        foreach ($selected_to as $currency_to) {
           currency_api_convert($currency_from, $currency_to);
         }
       }
@@ -115,9 +123,12 @@ function currency_views_preload($view) {
   }                                                                                                            
 }                                                                                                            
                       
+/**
+ * Helper function to get the filter's selected options.
+ */
 function _currency_views_get_selected_options($options) {
-  foreach($options as $key => $set) {
-    if($set) {
+  foreach ($options as $key => $set) {
+    if ($set) {
       // i.e. not equal to 0
       $selected_options[] = $set;
     }
@@ -125,5 +136,3 @@ function _currency_views_get_selected_options($options) {
 
   return $selected_options;
 }
-
-?>
