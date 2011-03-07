@@ -232,7 +232,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
 
     if (!$cached) {
       // Cache rate does not exist, save it.
-      currency_api_save($currency_from, $currency_to, $rate, $timestamp);
+      currency_api_save($currency_from, $currency_to, $rate);
     }
   }
 
@@ -381,13 +381,10 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
  *   A database query result resource, or FALSE if the query was not
  *   executed correctly.
  */
-function currency_api_save($currency_from, $currency_to, $rate, $timestamp = NULL) {
-  if (!$timestamp) {
-    $timestamp = time();
-  }
+function currency_api_save($currency_from, $currency_to, $rate) {
   // Delete outdated record, if exists.
   db_query("DELETE FROM {currencyapi} WHERE currency_from = '%s' AND currency_to = '%s'", $currency_from, $currency_to);
-  return db_query("INSERT INTO {currencyapi} VALUES ('%s', '%s', %f, %d)", $currency_from, $currency_to, $rate, $timestamp);
+  return db_query("INSERT INTO {currencyapi} VALUES ('%s', '%s', %f, %d)", $currency_from, $currency_to, $rate, time());
 }
 
 /**
