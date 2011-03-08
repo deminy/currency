@@ -2,4 +2,6 @@ name = Currency
 description = Provides currency exchange rates.
 dependencies[] = currency_api
 package = Currency 
-core = 6.x
+core = 7.x
+files[] = currency.module
+configure = admin/config/regional/currency

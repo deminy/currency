@@ -6,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_views_handlers().
+ * Implements hook_views_handlers().
  */
 function currency_views_handlers() {
   return array(
@@ -28,7 +28,7 @@ function currency_views_handlers() {
 }
 
 /**
- * Implementation of hook_views_data().
+ * Implements hook_views_data().
  */
 function currency_views_data() {
   $data['currencyapi']['table']['group']  = t('Currency');

@@ -8,7 +8,7 @@ It also provides an API for currency conversion that other modules can use.
 Requirements:
 -------------
 	
-This module requires drupal 4.7.x or greater.
+This module requires drupal 7.x.
 
 Installation:
 -------------
@@ -21,7 +21,7 @@ Installation:
    You can enable it for authenticated and/or anonymous users, depending on
    your web site needs.
 
-4. Configure the module under admin/settings/currency
+4. Configure the module under admin/config/regional/currency
    - Specify the default From Currency and the To Currency. You must enter the 
      three letter code for each. What you enter depends on your country and/or
      audience.

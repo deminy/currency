@@ -11,7 +11,7 @@
 define('UPDATE_FREQUENCY', 3600);
 
 /**
- * Implementation of hook_help().
+ * Implements hook_help().
  */
 function currency_api_help($path, $arg) {
   switch ($path) {
@@ -21,7 +21,7 @@ function currency_api_help($path, $arg) {
 }
 
 /**
- * Implementation of hook_theme().
+ * Implements hook_theme().
  */
 function currency_api_theme() {
   return array(
@@ -30,18 +30,17 @@ function currency_api_theme() {
 }
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function currency_api_menu() {
-  $items = array();
-    $items['admin/settings/currency_api'] = array(
-      'title'              => 'Currency API',
-      'description'        => 'Settings for currency API.',
-      'page callback'      => 'drupal_get_form',
-      'page arguments'     => array('currency_api_admin_settings'),
-      'access arguments'   => array('administer site configuration'),
-      'type'               => MENU_NORMAL_ITEM, // optional
-    );
+  $items['admin/config/regional/currency_api'] = array(
+    'title' => 'Currency API',
+    'description' => 'Settings for currency API.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_api_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
   return $items;
 }
 
@@ -138,7 +137,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
       'value' => $amount,
 
       'rate' => 1.0,
-      'timestamp' => time(),
+      'timestamp' => REQUEST_TIME,
       'date' => date('n/j/Y'),
       'time' => date('g:ia'),
     );
@@ -150,7 +149,7 @@ function currency_api_convert($currency_from, $currency_to, $amount = 1, $decima
 
   if (!$record) {
     // Cached rate not found, go get it.
-    $url = 'http://download.finance.yahoo.com/d/quotes.csv?e=.csv&f='. currency_api_get_fields($currency_array) .'&s='. $from . $to .'=X';
+    $url = 'http://download.finance.yahoo.com/d/quotes.csv?e=.csv&f=' . currency_api_get_fields($currency_array) . '&s=' . $from . $to . '=X';
 
     // Validate the passed currency codes, to make sure they are valid.
     if (FALSE == currency_api_get_desc($from)) {
@@ -320,6 +319,8 @@ function currency_api_get_symbol($code) {
  * Helper function to build yahoo finance api request.
  */
 function currency_api_get_fields($array) {
+  $field_string = NULL;
+
   while (list($field, $header) = each($array)) {
     $field_string = $field_string . $field;
   }
@@ -352,9 +353,9 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
     $record = $rate[$currency_from][$currency_to];
   }
   else {
-    $result = db_fetch_object(db_query("SELECT * FROM {currencyapi} WHERE currency_from = '%s' AND currency_to = '%s' AND timestamp > %d", $currency_from, $currency_to, time() - variable_get('currency_api_fetch', UPDATE_FREQUENCY)));
+    $result = db_query("SELECT * FROM {currencyapi} WHERE currency_from = :currency_from AND currency_to = :currency_to AND timestamp > :timestamp", array(':currency_from' => $currency_from, ':currency_to' => $currency_to, ':timestamp' => REQUEST_TIME - variable_get('currency_api_fetch', UPDATE_FREQUENCY)))->fetchObject();
     if ($result) {
-      $currency = array($currency_from . $currency_to .'=X', $result->rate, date('n/j/Y', $result->timestamp), date('g:ia', $result->timestamp));
+      $currency = array($currency_from . $currency_to . '=X', $result->rate, date('n/j/Y', $result->timestamp), date('g:ia', $result->timestamp));
       $record = implode(',', $currency);
       // cache rate in static array variable for subsequent queries
       $rate[$currency_from][$currency_to] = $record;
@@ -375,16 +376,19 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
  * @param string $currency_from
  * @param string $currency_to
  * @param decimal $rate
- * @param integer (optional) $timestamp
- *
- * @return
- *   A database query result resource, or FALSE if the query was not
- *   executed correctly.
  */
 function currency_api_save($currency_from, $currency_to, $rate) {
-  // Delete outdated record, if exists.
-  db_query("DELETE FROM {currencyapi} WHERE currency_from = '%s' AND currency_to = '%s'", $currency_from, $currency_to);
-  return db_query("INSERT INTO {currencyapi} VALUES ('%s', '%s', %f, %d)", $currency_from, $currency_to, $rate, time());
+  // Insert or update record.
+  db_merge('currencyapi')
+    ->key(array(
+      'currency_from' => $currency_from,
+      'currency_to' => $currency_to,
+    ))
+    ->fields(array(
+      'rate' => $rate,
+      'timestamp' => REQUEST_TIME,
+    ))
+    ->execute();
 }
 
 /**
@@ -403,42 +407,28 @@ function theme_currency_api_amount($amount, $attributes) {
 }
 
 /**
- * Implementation of hook_filter().
+ * Implements hook_filter_info().
  */
-function currency_api_filter($op, $delta = 0, $format = -1, $text = '') {
-  if ($op == 'list') {
-    return array(
-      0 => t('Currency exchange'),
-    );
-  }
+function currency_api_filter_info() {
+  $filters['currency_exchange'] = array(
+    'title' => t('Currency exchange'),
+    'description' => t("Converts currency tokens ([currency:from:to:value:decimals]) to a currency exchange rate. The 'decimals' parameter is optional. Eg: [currency:EUR:USD:100:2]."),
+    'process callback' => '_filter_currency_api',
+  );
+  return $filters;
+}
 
-  switch ($delta) {
-    case 0:
-      switch ($op) {
-        case 'description':
-          return t("Converts currency tokens ([currency:from:to:value:decimals]) to a currency exchange rate. The 'decimals' parameter is optional. Eg: [currency:EUR:USD:100:2].");
-
-        case 'no cache':
-          return TRUE;
-
-        case 'prepare':
-          return $text;
-
-        case 'process':
-          return preg_replace_callback('/\[currency:(.*?)\]/i', '_currency_api_filter_process', $text);
-
-        default:
-          return $text;
-      }
-
-      break;
-  }
+/**
+ * Converts currency tokens.
+ */
+function _filter_currency_api($text) {
+  return preg_replace_callback('/\[currency:(.*?)\]/i', '_filter_currency_api_process', $text);
 }
 
 /**
  * Processes values for the currency api filter.
  */
-function _currency_api_filter_process($matches) {
+function _filter_currency_api_process($matches) {
   $return = $matches[1];
   $convert = explode(':', $matches[1]);
 

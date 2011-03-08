@@ -8,7 +8,7 @@
 // Copyright 2005 Khalid Baheyeldin http://2bits.com
 
 /**
- * Implementation of hook_help().
+ * Implements hook_help().
  */
 function currency_help($path, $arg) {
   switch ($path) {
@@ -18,23 +18,23 @@ function currency_help($path, $arg) {
 }
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function currency_menu() {
-  $items['admin/settings/currency'] = array(
-    'title'              => 'Currency',
-    'description'        => 'Settings for currency exchange rates.',
-    'page callback'      => 'drupal_get_form',
-    'page arguments'     => array('currency_admin_settings'),
-    'access arguments'   => array('administer site configuration'),
-    'type'               => MENU_NORMAL_ITEM,
+  $items['admin/config/regional/currency'] = array(
+    'title' => 'Currency',
+    'description' => 'Settings for currency exchange rates.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
   );
 
   $items['currency'] = array(
-    'title'              => 'Currency exchange',
-    'access arguments'   => array('use currency'),
-    'page callback'      => 'drupal_get_form',
-    'page arguments'     => array('currency_form'), 
+    'title' => 'Currency exchange',
+    'access arguments' => array('use currency'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_form'),
   );
 
   return $items;
@@ -45,64 +45,68 @@ function currency_menu() {
  */
 function currency_admin_settings() {  
   $form['currency_default_from'] = array(
-    '#type'          => 'textfield',
-    '#title'         => t('Default Currency From'),
+    '#type' => 'textfield',
+    '#title' => t('Default Currency From'),
     '#default_value' => variable_get('currency_default_from', 'CAD'),
-    '#size'          => 3,
-    '#maxlength'     => 3,
-    '#description'   => t('Three letter symbol for default currency to convert from.'),
+    '#size' => 3,
+    '#maxlength' => 3,
+    '#description' => t('Three letter symbol for default currency to convert from.'),
   );
 
   $form['currency_default_to'] = array(
-    '#type'          => 'textfield',
-    '#title'         => t('Default Currency To'),
+    '#type' => 'textfield',
+    '#title' => t('Default Currency To'),
     '#default_value' => variable_get('currency_default_to', 'USD'),
-    '#size'          => 3,
-    '#maxlength'     => 3,
-    '#description'   => t('Three letter symbol for default currency to convert to.'),
+    '#size' => 3,
+    '#maxlength' => 3,
+    '#description' => t('Three letter symbol for default currency to convert to.'),
   );
 
   $form['currency_description'] = array(
-    '#type'          => 'textarea',
-    '#title'         => t('Currency form text'),
+    '#type' => 'textarea',
+    '#title' => t('Currency form text'),
     '#default_value' => variable_get('currency_description', t('You can use this form to do currency exchange.')),
-    '#description'   => t('Text to display on the top of the currency form.'),
+    '#description' => t('Text to display on the top of the currency form.'),
   );
 
   return system_settings_form($form);
 }  
 
 /**
- * Implementation of hook_perm().
+ * Implements hook_permission().
  */
-function currency_perm() {
-  return array('use currency');
+function currency_permission() {
+  return array(
+    'use currency' => array(
+      'title' => t('Use currency'),
+    ),
+  );
 }
 
 /**
  * Currency exchange form.
  */
-function currency_form(&$form_state) {
-  if (isset($form_state['values']['currency_amount']) && isset($form_state['values']['currency_from']) && $form_state['values']['currency_to']) {
+function currency_form($form, &$form_state) {
+  if (isset($form_state['storage']['currency_amount']) && isset($form_state['storage']['currency_from']) && $form_state['storage']['currency_to']) {
     // Get the saved data from the previous form submission.
-    $amount = $form_state['values']['currency_amount'];
-    $from = $form_state['values']['currency_from'];
-    $to = $form_state['values']['currency_to'];
+    $amount = $form_state['storage']['currency_amount'];
+    $from = $form_state['storage']['currency_from'];
+    $to = $form_state['storage']['currency_to'];
 
     $form['currency_result'] = array(
-      '#value' => theme('currency_result', $from, $to, $amount),
+      '#markup' => theme('currency_result', array('currency_from' => $from, 'currency_to' => $to, 'amount' => $amount)),
       '#weight' => 5,
     );
   }
   else {
     // Get the saved data from the session, if any.
-    $amount = $_SESSION['currency_amount'] ? $_SESSION['currency_amount'] : 1;
-    $from = $_SESSION['currency_from'] ? $_SESSION['currency_from'] : variable_get('currency_default_from', 'CAD');
-    $to = $_SESSION['currency_to'] ? $_SESSION['currency_to'] : variable_get('currency_default_to', 'USD');
+    $amount = isset($_SESSION['currency_amount']) ? $_SESSION['currency_amount'] : 1;
+    $from = isset($_SESSION['currency_from']) ? $_SESSION['currency_from'] : variable_get('currency_default_from', 'CAD');
+    $to = isset($_SESSION['currency_to']) ? $_SESSION['currency_to'] : variable_get('currency_default_to', 'USD');
   }
 
   $form['currency_description'] = array(
-    '#value' => variable_get('currency_description', t('You can use this form to do currency exchange.')),
+    '#markup' => variable_get('currency_description', t('You can use this form to do currency exchange.')),
   );
 
   $form['currency_amount'] = array(
@@ -159,17 +163,22 @@ function currency_form_submit($form, &$form_state) {
   $_SESSION['currency_from'] = $form_state['values']['currency_from'];
   $_SESSION['currency_to'] = $form_state['values']['currency_to'];
 
-  // Rebuild the form to keep the submitted values in $form_state.
+  // Rebuild the form.
   $form_state['rebuild'] = TRUE;
+
+  // Store submitted values.
+  $form_state['storage']['currency_amount'] = $form_state['values']['currency_amount'];
+  $form_state['storage']['currency_from'] = $form_state['values']['currency_from'];
+  $form_state['storage']['currency_to'] = $form_state['values']['currency_to'];
 }
 
 /**
- * Implementation of hook_theme().
+ * Implements hook_theme().
  */
 function currency_theme($existing, $type, $theme, $path) {
   return array(
     'currency_result' => array(
-      'arguments' => array('currency_from' => NULL, 'currency_to' => NULL, 'amount' => NULL),
+      'variables' => array('currency_from' => NULL, 'currency_to' => NULL, 'amount' => NULL),
     ),
   );
 }
@@ -177,14 +186,18 @@ function currency_theme($existing, $type, $theme, $path) {
 /**
  * Theme implementation for currency exchange result.
  */
-function theme_currency_result($currency_from, $currency_to, $amount) {
+function theme_currency_result($variables) {
   $output = '';
+
+  $currency_from = $variables['currency_from'];
+  $currency_to = $variables['currency_to'];
+  $amount = $variables['amount'];
 
   $url = 'http://finance.yahoo.com/q?s=' . $currency_from . $currency_to . '=X';
 
   $ret = currency_api_convert($currency_from, $currency_to, $amount);
   if ($ret['status'] == FALSE) { 
-    $output .= t('Currency exchange error: ') . $ret['message'];
+    $output .= t('Currency exchange error: @message', array('@message' => $ret['message']));
   }
   else {
     $output .= '<p class="result">';
@@ -204,11 +217,11 @@ function theme_currency_result($currency_from, $currency_to, $amount) {
 
 
 /**
- * Implementation of hook_views().
+ * Implements hook_views().
  */
-function currency_views_api() {
-  return array(
-    'api' => 2,
-    'path' => drupal_get_path('module', 'currency') . '/views',
-  );
-}
+//function currency_views_api() {
+//  return array(
+//    'api' => 3,
+//    'path' => drupal_get_path('module', 'currency') . '/views',
+//  );
+//}
