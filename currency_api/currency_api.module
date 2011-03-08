@@ -375,7 +375,6 @@ function currency_api_load(&$record, $currency_from, $currency_to) {
  * @param string $currency_from
  * @param string $currency_to
  * @param decimal $rate
- * @param integer (optional) $timestamp
  *
  * @return
  *   A database query result resource, or FALSE if the query was not
@@ -425,7 +424,7 @@ function currency_api_filter($op, $delta = 0, $format = -1, $text = '') {
           return $text;
 
         case 'process':
-          return preg_replace_callback('/\[currency:(.*?)\]/i', '_currency_api_filter_process', $text);
+          return preg_replace_callback('/\[currency:(.*?)\]/i', '_filter_currency_api_process', $text);
 
         default:
           return $text;
@@ -438,7 +437,7 @@ function currency_api_filter($op, $delta = 0, $format = -1, $text = '') {
 /**
  * Processes values for the currency api filter.
  */
-function _currency_api_filter_process($matches) {
+function _filter_currency_api_process($matches) {
   $return = $matches[1];
   $convert = explode(':', $matches[1]);
 
