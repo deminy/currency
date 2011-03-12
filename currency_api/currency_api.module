@@ -413,7 +413,7 @@ function currency_api_filter_info() {
   $filters['currency_exchange'] = array(
     'title' => t('Currency exchange'),
     'description' => t("Converts currency tokens ([currency:from:to:value:decimals]) to a currency exchange rate. The 'decimals' parameter is optional. Eg: [currency:EUR:USD:100:2]."),
-    'process callback' => '_filter_currency_api',
+    'process callback' => '_currency_api_filter',
   );
   return $filters;
 }
@@ -421,14 +421,14 @@ function currency_api_filter_info() {
 /**
  * Converts currency tokens.
  */
-function _filter_currency_api($text) {
-  return preg_replace_callback('/\[currency:(.*?)\]/i', '_filter_currency_api_process', $text);
+function _currency_api_filter($text) {
+  return preg_replace_callback('/\[currency:(.*?)\]/i', '_currency_api_filter_process', $text);
 }
 
 /**
  * Processes values for the currency api filter.
  */
-function _filter_currency_api_process($matches) {
+function _currency_api_filter_process($matches) {
   $return = $matches[1];
   $convert = explode(':', $matches[1]);
 
