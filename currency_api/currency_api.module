@@ -424,7 +424,7 @@ function currency_api_filter($op, $delta = 0, $format = -1, $text = '') {
           return $text;
 
         case 'process':
-          return preg_replace_callback('/\[currency:(.*?)\]/i', '_filter_currency_api_process', $text);
+          return preg_replace_callback('/\[currency:(.*?)\]/i', '_currency_api_filter_process', $text);
 
         default:
           return $text;
@@ -437,7 +437,7 @@ function currency_api_filter($op, $delta = 0, $format = -1, $text = '') {
 /**
  * Processes values for the currency api filter.
  */
-function _filter_currency_api_process($matches) {
+function _currency_api_filter_process($matches) {
   $return = $matches[1];
   $convert = explode(':', $matches[1]);
 
