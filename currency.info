@@ -5,3 +5,8 @@ package = Currency
 core = 7.x
 files[] = currency.module
 configure = admin/config/regional/currency
+
+; Views handlers
+files[] = includes/views/handlers/currency_handler_field_currency.inc
+files[] = includes/views/handlers/currency_handler_argument_currency.inc
+files[] = includes/views/handlers/currency_handler_filter_currency.inc
