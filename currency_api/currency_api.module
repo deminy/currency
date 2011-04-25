@@ -585,7 +585,9 @@ function currency_api_get_currencies() {
     'ZAR' => array('name' => t('South African Rand (ZAR)'), 'symbol' => 'R', 'decimals' => 2),
     'LKR' => array('name' => t('Sri Lanka Rupee (LKR)'), 'symbol' => '₨', 'decimals' => 2),
     'SHP' => array('name' => t('St Helena Pound (SHP)'), 'symbol' => '£', 'decimals' => 2),
-    'SDD' => array('name' => t('Sudanese Dinar (SDD)'), 'symbol' => '£Sd', 'decimals' => 2),
+    // No symbol.
+    // See http://en.wikipedia.org/wiki/Sudanese_pound
+    'SDG' => array('name' => t('Sudanese Pound (SDG)'), 'symbol' => 'SDG', 'decimals' => 2),
     'SRD' => array('name' => t('Surinam Dollar (SRD)'), 'symbol' => '$', 'decimals' => 2),
     // L for singular, E for plural
     'SZL' => array('name' => t('Swaziland Lilageni (SZL)'), 'symbol' => 'E', 'decimals' => 2),
