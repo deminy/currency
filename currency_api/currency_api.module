@@ -594,7 +594,9 @@ function currency_api_get_currencies() {
     'ZAR' => array('name' => t('South African Rand (ZAR)'), 'symbol' => 'R', 'decimals' => 2),
     'LKR' => array('name' => t('Sri Lanka Rupee (LKR)'), 'symbol' => '₨', 'decimals' => 2),
     'SHP' => array('name' => t('St Helena Pound (SHP)'), 'symbol' => '£', 'decimals' => 2),
-    'SDD' => array('name' => t('Sudanese Dinar (SDD)'), 'symbol' => '£Sd', 'decimals' => 2),
+    // No symbol.
+    // See http://en.wikipedia.org/wiki/Sudanese_pound
+    'SDG' => array('name' => t('Sudanese Pound (SDG)'), 'symbol' => 'SDG', 'decimals' => 2),
     'SRD' => array('name' => t('Surinam Dollar (SRD)'), 'symbol' => '$', 'decimals' => 2),
     // L for singular, E for plural
     'SZL' => array('name' => t('Swaziland Lilageni (SZL)'), 'symbol' => 'E', 'decimals' => 2),
@@ -603,7 +605,7 @@ function currency_api_get_currencies() {
     'SYP' => array('name' => t('Syrian Pound (SYP)'), 'symbol' => '£', 'decimals' => 2),
     'TWD' => array('name' => t('Taiwan Dollar (TWD)'), 'symbol' => 'NT$', 'decimals' => 2),
     // No symbol, but instead an insane formatting.
-    // See http://en.wikipedia.org/wiki/Tanzanian_shilling#Symbol.
+    // See http://en.wikipedia.org/wiki/Tanzanian_shilling#Symbol
     'TZS' => array('name' => t('Tanzanian Shilling (TZS)'), 'symbol' => 'TZS', 'decimals' => 2),
     'THB' => array('name' => t('Thai Baht (THB)'), 'symbol' => '฿', 'decimals' => 2),
     'TOP' => array('name' => t('Tonga Pa\'anga (TOP)'), 'symbol' => 'T$', 'decimals' => 2),
