@@ -50,7 +50,7 @@ function currency_api_menu() {
 function currency_api_admin_settings() {    
   $form['currency_api_watchdog'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Log all currency exchange requests and errors to watchdog'),    
+    '#title' => t('Log all currency exchange requests to watchdog'),    
     '#default_value' => variable_get('currency_api_watchdog', 1),    
   );
 
@@ -332,7 +332,7 @@ function currency_api_get_fields($array) {
  * Helper function to log messages to watchdog.
  */
 function currency_log($msg = '', $severity = WATCHDOG_NOTICE, $type = 'currency') {
-  if (variable_get('currency_api_watchdog', 1)) {
+  if ($severity == WATCHDOG_ERROR || variable_get('currency_api_watchdog', 1)) {
     watchdog($type, $msg, array(), $severity);
   }
 }
