@@ -533,7 +533,7 @@ function currency_api_get_currencies() {
     'MOP' => array('name' => t('Macau Pataca (MOP)'), 'symbol' => 'MOP$', 'decimals' => 2),
     'MKD' => array('name' => t('Macedonian Denar (MKD)'), 'symbol' => 'ден', 'decimals' => 2),
     // Non-decimal currency.
-    'MGA' => array('name' => t('iraimbilanja'), 'symbol' => 'iraimbilanja', 'decimals' => 2),
+    'MGA' => array('name' => t('Malagasy ariary (MGA)'), 'symbol' => 'Ar', 'decimals' => 0),
     'MWK' => array('name' => t('Malawian Kwacha (MWK)'), 'symbol' => 'MK', 'decimals' => 2),
     'MYR' => array('name' => t('Malaysian Ringgit (MYR)'), 'symbol' => 'RM', 'decimals' => 2),
     'MVR' => array('name' => t('Maldives Rufiyaa (MVR)'), 'symbol' => 'Rf', 'decimals' => 2),
