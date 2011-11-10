@@ -1,4 +1,0 @@
-name = Currency API
-description = Provides an API for currency conversion.
-package = Currency 
-core = 6.x
