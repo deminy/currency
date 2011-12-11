@@ -23,7 +23,7 @@ class Currency {
    *
    * @var string
    */
-  public $currency_code = 'XXX';
+  public $code = 'XXX';
 
   /**
    * The number of decimals used to represent an amount in this currency.
@@ -31,6 +31,13 @@ class Currency {
    * @var integer
    */
   public $decimals = 2;
+
+  /**
+   * Whether the currency is locked (not user editable).
+   *
+   * @var boolean
+   */
+  public $locked = FALSE;
 
   /**
    * The currency's official sign, such as '€' or '$'.
@@ -52,6 +59,12 @@ class Currency {
    * @var string
    */
   public $title = '';
+
+  function __construct(array $properties = array()) {
+    foreach ($properties as $property => $value) {
+      $this->$property = $value;
+    }
+  }
 }
 
 /**
@@ -65,7 +78,7 @@ class CurrencyLanguage {
    * @var integer
    *   Either CURRENCY_INDICATE_BEFORE or CURRENCY_INDICATOR_AFTER.
    */
-  public $currency_code_position = '';
+  public $code_position = '';
 
   /**
    * The decimal separation character.
@@ -95,4 +108,10 @@ class CurrencyLanguage {
    * @var string
    */
   public $thousands_separator = '';
+
+  function __construct(array $properties = array()) {
+    foreach ($properties as $property => $value) {
+      $this->$property = $value;
+    }
+  }
 }
