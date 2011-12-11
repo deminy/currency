@@ -1,6 +1,0 @@
-name = Currency API
-description = Provides an API for currency conversion.
-package = Currency 
-core = 7.x
-files[] = currency_api.module
-configure = admin/config/regional/currency_api
