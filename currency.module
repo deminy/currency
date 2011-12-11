@@ -6,6 +6,16 @@
  */
 
 /**
+ * Indicates a currency's sign/code should be displayed before the amount.
+ */
+define('CURRENCY_INDICATOR_BEFORE', 1);
+
+/**
+ * Indicates a currency's sign/code should be displayed after the amount.
+ */
+define('CURRENCY_INDICATOR_AFTER', 2);
+
+/**
  * Implements hook_views_api().
  */
 function currency_views_api() {
