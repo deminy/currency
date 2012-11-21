@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Installation and uninstallation functionality.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function currency_schema() {
+  $schema['currency'] = array(
+    'description' => 'Currency information based on ISO 4127.',
+    'export' => array(
+      'key' => 'code',
+      'key name' => 'Code',
+      'primary key' => 'code',
+      'default hook' => 'currency_info',
+      'object' => 'Currency',
+    ),
+    'fields' => array(
+      'code' => array(
+        'type' => 'varchar',
+        'length' => 3,
+        'not null' => TRUE,
+      ),
+      'export_module' => array(
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'export_type' => array(
+        'type' => 'int',
+        'length' => 'tiny',
+        'not null' => TRUE,
+      ),
+      'minor_unit' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'number' => array(
+        'type' => 'varchar',
+        'length' => 3,
+      ),
+      'sign' => array(
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+    ),
+    'primary key' => array('code'),
+    'indexes' => array(
+      'number' => array('number'),
+    ),
+  );
+  // Set Ctools object defaults based on Currency's default values.
+  foreach (get_class_vars('Currency') as $property => $default_value) {
+    $schema['currency']['fields'][$property]['object default'] = $default_value;
+  }
+
+  return $schema;
+}

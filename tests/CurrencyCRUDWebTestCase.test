@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Contains class CurrencyCRUDWebTestCase.
+ */
+
+/**
+ * Tests CRUD.
+ */
+class CurrencyCRUDWebTestCase extends DrupalWebTestCase {
+
+  static function getInfo() {
+    return array(
+      'name' => 'Currency CRUD',
+      'group' => 'Currency',
+    );
+  }
+
+  function setUp(array $modules = array()) {
+    parent::setUp($modules + array('currency'));
+  }
+
+  /**
+   * Test CRUD functionality.
+   */
+  function testCRUD() {
+    // Test creating a new currency.
+    $defaults_valid = TRUE;
+    $currency = ctools_export_crud_new('currency');
+    foreach (get_class_vars('Currency') as $property => $default_value) {
+      if ($currency->$property != $default_value) {
+        $defaults_valid = FALSE;
+        break;
+      }
+    }
+    $this->assertTrue($defaults_valid, 'Chaos tools correctly creates a new currency.');
+
+    // Test inserting a currency.
+    $currency = new Currency(array(
+      'minor_unit' => 5,
+      'title' => $this->randomName(),
+    ));
+    ctools_export_crud_save('currency', $currency);
+    $count = db_query("SELECT COUNT(1) FROM {currency} WHERE code = :code AND minor_unit = :minor_unit AND number = :number AND sign = :sign AND title = :title", array(
+      ':code' => $currency->code,
+      ':minor_unit' => $currency->minor_unit,
+      ':number' => $currency->number,
+      ':sign' => $currency->sign,
+      ':title' => $currency->title,
+    ))->fetchField();
+    $this->assertTrue($count, 'Chaos tools correctly inserts a currency.');
+
+    // Test loading a currency.
+    $currency_loaded = ctools_export_crud_load('currency', $currency->code);
+    $this->assertFalse(array_diff_assoc(get_object_vars($currency), get_object_vars($currency_loaded)), 'Chaos tools correctly loads a currency.');
+
+    // Test updating a currency.
+    $currency->code = 'EUR';
+    $currency->export_module = 'foo';
+    $currency->export_type = EXPORT_IN_CODE;
+    $currency->sign = 'bar';
+    $currency->title = 'baz';
+    ctools_export_crud_save('currency', $currency);
+    $count = db_query("SELECT COUNT(1) FROM {currency} WHERE code = :code AND minor_unit = :minor_unit AND number = :number AND sign = :sign AND title = :title", array(
+      ':code' => $currency->code,
+      ':minor_unit' => $currency->minor_unit,
+      ':number' => $currency->number,
+      ':sign' => $currency->sign,
+      ':title' => $currency->title,
+    ))->fetchField();
+    $this->assertTrue($count, 'Chaos tools correctly updates a currency.');
+
+    // Test deleting a currency.
+    ctools_export_crud_delete('currency', $currency->code);
+    $count = db_query("SELECT COUNT(1) FROM {currency} WHERE code = :code", array(
+      ':code' => $currency->code,
+    ))->fetchField();
+    $this->assertFalse($count, 'Chaos tools correctly deletes a currency.');
+  }
+}

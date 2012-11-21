@@ -2,3 +2,7 @@ name = Currency
 description = Provides currency information and allows users to add custom currencies.
 core = 7.x
 configure = admin/config/regional/currency
+dependencies[] = ctools
+files[] = includes/Currency.inc
+files[] = includes/CurrencyBaseAbstract.inc
+files[] = tests/CurrencyCRUDWebTestCase.test

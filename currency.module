@@ -16,6 +16,20 @@ define('CURRENCY_INDICATOR_BEFORE', 1);
 define('CURRENCY_INDICATOR_AFTER', 2);
 
 /**
+ * Implements hook_hook_info().
+ */
+function currency_hook_info() {
+  $hooks['currency_info'] = array(
+    'group' => 'currency',
+  );
+  $hooks['currency_info_alter'] = array(
+    'group' => 'currency',
+  );
+
+  return $hooks;
+}
+
+/**
  * Implements hook_views_api().
  */
 function currency_views_api() {
