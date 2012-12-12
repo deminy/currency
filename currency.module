@@ -5,6 +5,8 @@
  * Provides currency information and allows users to add custom currencies.
  */
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 /**
  * Indicates a currency's sign/code should be displayed before the amount.
  */
