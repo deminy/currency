@@ -6,5 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'BartFeenstra' => $vendorDir . '/bartfeenstra/cldr/src',
+    'Symfony\\Component\\Yaml' => $vendorDir . '/symfony/yaml/',
+    'BartFeenstra' => array($vendorDir . '/bartfeenstra/cldr/src', $vendorDir . '/bartfeenstra/currency/src/PHP'),
 );

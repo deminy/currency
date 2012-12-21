@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+conversionRates: {  }
+ISO4217Code: PEH
+minorUnit: 2
+ISO4217Number: null
+sign: S/.
+title: 'Peruvian sol'
+usage:
+    - { ISO8601From: '1863', ISO8601To: '1985', ISO3166Code: PE }

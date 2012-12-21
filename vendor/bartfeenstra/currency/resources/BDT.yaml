@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+conversionRates: {  }
+ISO4217Code: BDT
+minorUnit: 2
+ISO4217Number: '050'
+sign: ৳
+title: Taka
+usage:
+    - { ISO8601From: '1972-01-01', ISO8601To: '', ISO3166Code: BD }

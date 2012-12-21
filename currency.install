@@ -12,18 +12,13 @@ function currency_schema() {
   $schema['currency'] = array(
     'description' => 'Currency information based on ISO 4127.',
     'export' => array(
-      'key' => 'code',
+      'key' => 'ISO4217Code',
       'key name' => 'Code',
-      'primary key' => 'code',
+      'primary key' => 'ISO4217Code',
       'default hook' => 'currency_info',
       'object' => 'Currency',
     ),
     'fields' => array(
-      'code' => array(
-        'type' => 'varchar',
-        'length' => 3,
-        'not null' => TRUE,
-      ),
       'export_module' => array(
         'type' => 'varchar',
         'length' => 255,
@@ -33,13 +28,18 @@ function currency_schema() {
         'length' => 'tiny',
         'not null' => TRUE,
       ),
-      'minor_unit' => array(
-        'type' => 'int',
-        'size' => 'tiny',
-      ),
-      'number' => array(
+      'ISO4217Code' => array(
         'type' => 'varchar',
         'length' => 3,
+        'not null' => TRUE,
+      ),
+      'ISO4217Number' => array(
+        'type' => 'varchar',
+        'length' => 3,
+      ),
+      'minorUnit' => array(
+        'type' => 'int',
+        'size' => 'tiny',
       ),
       'sign' => array(
         'type' => 'varchar',
@@ -50,14 +50,16 @@ function currency_schema() {
         'length' => 255,
       ),
     ),
-    'primary key' => array('code'),
+    'primary key' => array('ISO4217Code'),
     'indexes' => array(
-      'number' => array('number'),
+      'ISO4217Number' => array('ISO4217Number'),
     ),
   );
   // Set Ctools object defaults based on Currency's default values.
   foreach (get_class_vars('Currency') as $property => $default_value) {
-    $schema['currency']['fields'][$property]['object default'] = $default_value;
+    if (isset($schema['currency']['fields'][$property])) {
+      $schema['currency']['fields'][$property]['object default'] = $default_value;
+    }
   }
 
   return $schema;

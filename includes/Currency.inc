@@ -8,56 +8,42 @@
 /**
  * Describes a currency.
  */
-class Currency extends CurrencyBaseAbstract {
+class Currency extends BartFeenstra\Currency\Currency {
 
   /**
-   * ISO 4217 currency code.
+   * Implements Ctools' exportables "export_module" property.
    *
    * @var string
    */
-  public $code = 'XXX';
+  public $export_module = 'currency';
 
   /**
-   * For objects that live in code, the machine name of the module that
-   * provides the default object.
+   * Implements Ctools' exportables "export_type" property.
    *
    * @var string
    */
-  public $export_module = '';
+  public $export_type = 0;
 
   /**
-   * A bitmask representation of an object's current storage.
+   * Implements Ctools' exportables "table" property.
    *
    * @var string
    */
-  public $export_type = '';
+  public $table = 'currency';
 
   /**
-   * The minor unit, or exponent (as in 10^$minor_unit) that results in the
-   * number of minor units.
-   *
-   * @var integer
-   */
-  public $minor_unit = NULL;
-
-  /**
-   * ISO 4217 currency number.
+   * Implements Ctools' exportables "type" property.
    *
    * @var string
    */
-  public $number = '999';
+  public $type = 'Local';
 
   /**
-   * The currency's official sign, such as '€' or '$'.
-   *
-   * @var string
+   * Implements __construct().
    */
-  public $sign = '¤';
-
-  /**
-   * Human-readable title in US English.
-   *
-   * @var string
-   */
-  public $title = '';
+  function __construct(array $properties = array()) {
+    foreach ($properties as $property => $value) {
+      $this->$property = $value;
+    }
+  }
 }

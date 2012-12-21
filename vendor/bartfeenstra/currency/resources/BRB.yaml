@@ -1,0 +1,10 @@
+alternativeSigns: {  }
+conversionRates:
+    BRZ: 1000
+ISO4217Code: BRB
+minorUnit: 2
+ISO4217Number: null
+sign: ₢
+title: 'Brazilian cruzeiro novo'
+usage:
+    - { ISO8601From: '1967-02-13', ISO8601To: '1986-02-28', ISO3166Code: BR }

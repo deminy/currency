@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+conversionRates: {  }
+ISO4217Code: MKN
+minorUnit: 2
+ISO4217Number: null
+sign: ден
+title: 'Old Macedonian denar A/93'
+usage:
+    - { ISO8601From: '1992-04-26', ISO8601To: '1993-05-20', ISO3166Code: MK }
