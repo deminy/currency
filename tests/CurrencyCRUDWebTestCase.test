@@ -36,7 +36,7 @@ class CurrencyCRUDWebTestCase extends DrupalWebTestCase {
     }
 
     return $query->countQuery()
-      ->execute();
+      ->execute()->fetchField();
   }
 
   /**
@@ -75,9 +75,6 @@ class CurrencyCRUDWebTestCase extends DrupalWebTestCase {
 
     // Test deleting a currency.
     ctools_export_crud_delete('currency', $currency->ISO4217Code);
-    $count = db_query("SELECT COUNT(1) FROM {currency} WHERE ISO4217Code = :ISO4217Code", array(
-      ':ISO4217Code' => $currency->ISO4217Code,
-    ))->fetchField();
-    $this->assertFalse($count, 'Chaos tools correctly deletes a currency.');
+    $this->assertFalse($this->currencyExists($currency), 'Chaos tools correctly deletes a currency.');
   }
 }
