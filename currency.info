@@ -1,7 +1,13 @@
 name = Currency
 description = Provides currency information and allows users to add custom currencies.
 core = 7.x
+php = 5.3
 configure = admin/config/regional/currency
 dependencies[] = ctools
 files[] = includes/Currency.inc
+files[] = includes/CurrencyExportableInterface.inc
+files[] = includes/CurrencyLocalePattern.inc
 files[] = tests/CurrencyCRUDWebTestCase.test
+files[] = tests/CurrencyLocalePatternCRUDWebTestCase.test
+files[] = tests/CurrencyLocalePatternWebTestCase.test
+files[] = tests/CurrencyWebTestCase.test

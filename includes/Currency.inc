@@ -46,4 +46,19 @@ class Currency extends BartFeenstra\Currency\Currency {
       $this->$property = $value;
     }
   }
+
+  /**
+   * Format an amount using this currency and the environment's default locale
+   * pattern.
+   *
+   * This is a wrapper for CurrencyLocalePattern::format() in situations where
+   * the environment's default locale pattern should be used.
+   *
+   * @param float $amount
+   *
+   * @return string
+   */
+  function format($amount) {
+    return CurrencyLocalePattern::loadFromEnv()->format($this, $amount);
+  }
 }

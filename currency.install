@@ -61,6 +61,42 @@ function currency_schema() {
       $schema['currency']['fields'][$property]['object default'] = $default_value;
     }
   }
+  $schema['currency_locale_pattern'] = array(
+    'description' => 'Locale-specific amount formatting.',
+    'export' => array(
+      'key' => 'locale',
+      'key name' => 'Locale',
+      'default hook' => 'currency_locale_pattern_info',
+      'object' => 'CurrencyLocalePattern',
+      'save callback' => 'currency_ctools_export_object_save',
+    ),
+    'fields' => array(
+      'export_module' => array(
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'export_type' => array(
+        'type' => 'int',
+        'length' => 'tiny',
+      ),
+      'locale' => array(
+        'type' => 'varchar',
+        'length' => 5,
+      ),
+      'pattern' => array(
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+    ),
+    'primary key' => array('locale'),
+  );
+  // Set Ctools object defaults based on CurrencyLocalePattern's default
+  // values.
+  foreach (get_class_vars('CurrencyLocalePattern') as $property => $default_value) {
+    if (isset($schema['currency_locale_pattern']['fields'][$property])) {
+      $schema['currency_locale_pattern']['fields'][$property]['object default'] = $default_value;
+    }
+  }
 
   return $schema;
 }

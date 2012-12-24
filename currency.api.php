@@ -34,3 +34,30 @@ function hook_currency_info_alter(array $currencies) {
   // Let's pretend the euro has 1000 subunits.
   $currencies['EUR']['minorUnit'] = 3;
 }
+
+/**
+ * Expose CLDR number patterns for locales.
+ *
+ * @return array
+ *   An array of CurrencyLocalePattern objects, keyed by their locales.
+ */
+function hook_locale_pattern_info() {
+  $locale_patterns['nl_NL'] = new CurrencyLocalePattern(array(
+    'locale' => 'nl_NL',
+    'pattern' => '¤#.##0,0#',
+  ));
+
+  return $locale_patterns;
+}
+
+/**
+ * Alter exposed currency locale patterns.
+ *
+ * @param array
+ *   An array of CurrencyLocalePattern objects, keyed by their locales.
+ *
+ * @return NULL
+ */
+function hook_locale_pattern_info_alter(array $locale_patterns) {
+  $locale_patterns['nl_NL']->pattern = '¤ #.##0,0#';
+}

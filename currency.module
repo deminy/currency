@@ -18,6 +18,11 @@ define('CURRENCY_INDICATOR_BEFORE', 1);
 define('CURRENCY_INDICATOR_AFTER', 2);
 
 /**
+ * The default locale.
+ */
+define('CURRENCY_DEFAULT_LOCALE', 'en_US');
+
+/**
  * Implements hook_hook_info().
  */
 function currency_hook_info() {
@@ -25,6 +30,12 @@ function currency_hook_info() {
     'group' => 'currency',
   );
   $hooks['currency_info_alter'] = array(
+    'group' => 'currency',
+  );
+  $hooks['locale_pattern_info'] = array(
+    'group' => 'currency',
+  );
+  $hooks['locale_pattern_info_alter'] = array(
     'group' => 'currency',
   );
 
@@ -39,4 +50,27 @@ function currency_views_api() {
     'api' => 3,
     'path' => drupal_get_path('module', 'currency') . '/views',
   );
+}
+
+/**
+ * Implements Ctools exportables save callback.
+ */
+function currency_ctools_export_object_save(CurrencyExportableInterface $exportable) {
+  $exportable->validate();
+  $exportable->export_type = $exportable->export_type | EXPORT_IN_DATABASE;
+  $schema = drupal_get_schema($exportable->table);
+    $fields = array();
+  foreach ($schema['fields'] as $field => $info) {
+    if (property_exists($exportable, $field)) {
+      $fields[$field] = $exportable->$field;
+    }
+  }
+  $primary_key = $schema['primary key'][0];
+
+  return db_merge($exportable->table)
+    ->key(array(
+      $primary_key => $exportable->$primary_key,
+    ))
+    ->fields($fields)
+    ->execute();
 }
