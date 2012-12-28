@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Contains class CurrencyViewsHandlerField.
+ */
+
+/**
+ * A Views field handler for fields that contain ISO 4217 currency codes.
+ *
+ * This handler has one definition property:
+ * - currency_property: the name of the Currency class property of which to
+ *   display the value, which must be a scalar.
+ */
+class CurrencyViewsHandlerField extends views_handler_field {
+
+  /**
+   * Overrides parent::render().
+   *
+   * @throws RuntimeException
+   */
+  function render($values) {
+    $property = !empty($this->definition['currency_property']) ? $this->definition['currency_property'] : NULL;
+    if ($property) {
+      $currency_code = $this->get_value($values);
+      $currency = ctools_export_crud_load('currency', $currency_code);
+      if ($currency && property_exists($currency, $property)) {
+        return $currency->$property;
+      }
+    }
+    throw new RuntimeException(t('CurrencyViewsHandlerField requires a set-up currency property handler definition.'));
+  }
+}
