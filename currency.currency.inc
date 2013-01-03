@@ -309,7 +309,7 @@ function currency_currency_locale_pattern_info() {
       'locale' => 'de_CH',
       'pattern' => '¤ #,##0.00;¤-#,##0.00',
       'symbol_decimal_separator' => '.',
-      'symbol_grouping_separator' => ''',
+      'symbol_grouping_separator' => "'",
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'de_DE',
@@ -321,7 +321,7 @@ function currency_currency_locale_pattern_info() {
       'locale' => 'de_LI',
       'pattern' => '¤ #,##0.00',
       'symbol_decimal_separator' => '.',
-      'symbol_grouping_separator' => ''',
+      'symbol_grouping_separator' => "'",
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'de_LU',
@@ -1029,7 +1029,7 @@ function currency_currency_locale_pattern_info() {
       'locale' => 'fr_CH',
       'pattern' => '¤ #,##0.00;¤-#,##0.00',
       'symbol_decimal_separator' => '.',
-      'symbol_grouping_separator' => ''',
+      'symbol_grouping_separator' => "'",
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'fr_CI',
@@ -1323,7 +1323,7 @@ function currency_currency_locale_pattern_info() {
       'locale' => 'it_CH',
       'pattern' => '¤ #,##0.00;¤-#,##0.00',
       'symbol_decimal_separator' => '.',
-      'symbol_grouping_separator' => ''',
+      'symbol_grouping_separator' => "'",
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'it_IT',
