@@ -8,16 +8,6 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 /**
- * Indicates a currency's sign/code should be displayed before the amount.
- */
-define('CURRENCY_INDICATOR_BEFORE', 1);
-
-/**
- * Indicates a currency's sign/code should be displayed after the amount.
- */
-define('CURRENCY_INDICATOR_AFTER', 2);
-
-/**
  * The default locale.
  */
 define('CURRENCY_DEFAULT_LOCALE', 'en_US');
