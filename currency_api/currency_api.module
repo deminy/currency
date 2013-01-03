@@ -449,13 +449,13 @@ function currency_api_get_currencies() {
     'AED' => array(
       'name' => t('UAE Dirham (AED)'),
       'number' => '784',
-      'symbol' => 'Ã˜Â¯.Ã˜Â¥',
+      'symbol' => 'د.إ',
       'decimals' => 2,
     ),
     'AFN' => array(
       'name' => t('Afghanistani Afghani (AFN)'),
       'number' => '971',
-      'symbol' => 'Ã˜â€¹',
+      'symbol' => '؋',
       'decimals' => 2,
     ),
     'ALL' => array(
@@ -472,7 +472,7 @@ function currency_api_get_currencies() {
     'ANG' => array(
       'name' => t('Neth Antilles Guilder (ANG)'),
       'number' => '532',
-      'symbol' => 'Ã†â€™',
+      'symbol' => 'ƒ',
       'decimals' => 2,
     ),
     'AOA' => array(
@@ -495,13 +495,13 @@ function currency_api_get_currencies() {
     'AWG' => array(
       'name' => t('Aruba Florin (AWG)'),
       'number' => '533',
-      'symbol' => 'Ã†â€™',
+      'symbol' => 'ƒ',
       'decimals' => 2,
     ),
     'AZN' => array(
       'name' => t('Azerbaijan New Maneat (AZN)'),
       'number' => '944',
-      'symbol' => 'ÃÂ¼ÃÂ°ÃÂ½',
+      'symbol' => 'ман',
       'decimals' => 2,
     ),
     'BAM' => array(
@@ -519,19 +519,19 @@ function currency_api_get_currencies() {
     'BDT' => array(
       'name' => t('Bangladeshi Taka (BDT)'),
       'number' => '050',
-      'symbol' => 'Ã Â§Â³, Ã Â§Â²',
+      'symbol' => '৳, ৲',
       'decimals' => 2,
     ),
     'BGN' => array(
       'name' => t('Bulgarian Lev (BGN)'),
       'number' => '975',
-      'symbol' => 'ÃÂ»ÃÂ²',
+      'symbol' => 'лв',
       'decimals' => 2,
     ),
     'BHD' => array(
       'name' => t('Bahraini Dinar (BHD)'),
       'number' => '048',
-      'symbol' => '.Ã˜Â¯.Ã˜Â¨',
+      'symbol' => '.د.ب',
       'decimals' => 2,
     ),
     'BIF' => array(
@@ -640,7 +640,7 @@ function currency_api_get_currencies() {
     'CNY' => array(
       'name' => t('Chinese Yuan (CNY)'),
       'number' => '156',
-      'symbol' => 'Ã¥â€¦Æ’',
+      'symbol' => '元',
       'decimals' => 2,
     ),
     'COP' => array(
@@ -657,7 +657,7 @@ function currency_api_get_currencies() {
     'CRC' => array(
       'name' => t('Costa Rica Colon (CRC)'),
       'number' => '188',
-      'symbol' => 'Ã¢â€šÂ¡',
+      'symbol' => '₡',
       'decimals' => 2,
     ),
     'CUC' => array(
@@ -668,7 +668,7 @@ function currency_api_get_currencies() {
     'CUP' => array(
       'name' => t('Cuban Peso (CUP)'),
       'number' => '192',
-      'symbol' => 'Ã¢â€šÂ±',
+      'symbol' => '₱',
       'decimals' => 2,
     ),
     'CVE' => array(
@@ -679,14 +679,14 @@ function currency_api_get_currencies() {
     ),
     'CYP' => array(
       'name' => t('Cyprus Pound (CYP)'),
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'number' => '196',
       'decimals' => 2,
     ),
     'CZK' => array(
       'name' => t('Czech Koruna (CZK)'),
       'number' => '203',
-      'symbol' => 'KÃ„Â',
+      'symbol' => 'Kč',
       'decimals' => 2,
     ),
     'DJF' => array(
@@ -710,7 +710,7 @@ function currency_api_get_currencies() {
     'DZD' => array(
       'name' => t('Algerian Dinar (DZD)'),
       'number' => '012',
-      'symbol' => 'Ã˜Â¯Ã˜Â¬',
+      'symbol' => 'دج',
       'decimals' => 2,
     ),
     'EEK' => array(
@@ -740,7 +740,7 @@ function currency_api_get_currencies() {
     'EUR' => array(
       'name' => t('Euro (EUR)'),
       'number' => '978',
-      'symbol' => 'Ã¢â€šÂ¬',
+      'symbol' => '€',
       'decimals' => 2,
     ),
     'FJD' => array(
@@ -752,13 +752,13 @@ function currency_api_get_currencies() {
     'FKP' => array(
       'name' => t('Falkland Islands Pound (FKP)'),
       'number' => '238',
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'decimals' => 2,
     ),
     'GBP' => array(
       'name' => t('British Pound (GBP)'),
       'number' => '826',
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'decimals' => 2,
     ),
     'GEL' => array(
@@ -769,13 +769,13 @@ function currency_api_get_currencies() {
     'GGP' => array(
       'name' => t('Guernsey Pound (GGP)'),
       'number' => '',
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'decimals' => 2,
     ),
     'GHC' => array(
       'name' => t('Ghanian Cedi (GHC)'),
       'number' => '288',
-      'symbol' => 'Ã‚Â¢',
+      'symbol' => '¢',
       'decimals' => 2,
     ),
     'GHS' => array(
@@ -786,7 +786,7 @@ function currency_api_get_currencies() {
     'GIP' => array(
       'name' => t('Gibraltar Pound (GIP)'),
       'number' => '292',
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'decimals' => 2,
     ),
     'GMD' => array(
@@ -852,25 +852,25 @@ function currency_api_get_currencies() {
     'ILS' => array(
       'name' => t('Israeli Shekel (ILS)'),
       'number' => '376',
-      'symbol' => 'Ã¢â€šÂª',
+      'symbol' => '₪',
       'decimals' => 2,
     ),
     'INR' => array(
       'name' => t('Indian Rupee (INR)'),
       'number' => '356',
-      'symbol' => 'Ã¢â€šÂ¨',
+      'symbol' => '₨',
       'decimals' => 2,
     ),
     'IQD' => array(
       'name' => t('Iraqi Dinar (IQD)'),
       'number' => '368',
-      'symbol' => 'Ã˜Â¹.Ã˜Â¯',
+      'symbol' => 'ع.د',
       'decimals' => 2,
     ),
     'IRR' => array(
       'name' => t('Iran Rial (IRR)'),
       'number' => '364',
-      'symbol' => 'Ã¯Â·Â¼',
+      'symbol' => '﷼',
       'decimals' => 2,
     ),
     'ISK' => array(
@@ -894,7 +894,7 @@ function currency_api_get_currencies() {
     'JPY' => array(
       'name' => t('Japanese Yen (JPY)'),
       'number' => '392',
-      'symbol' => 'Ã‚Â¥',
+      'symbol' => '¥',
       'decimals' => 0,
     ),
     'KES' => array(
@@ -906,13 +906,13 @@ function currency_api_get_currencies() {
     'KGS' => array(
       'name' => t('Kyrgyzstan Som (KGS)'),
       'number' => '417',
-      'symbol' => 'ÃÂ»ÃÂ²',
+      'symbol' => 'лв',
       'decimals' => 2,
     ),
     'KHR' => array(
       'name' => t('Cambodia Riel (KHR)'),
       'number' => '116',
-      'symbol' => 'Ã¡Å¸â€º',
+      'symbol' => '៛',
       'decimals' => 2,
     ),
     'KMF' => array(
@@ -924,19 +924,19 @@ function currency_api_get_currencies() {
     'KPW' => array(
       'name' => t('North Korean Won (KPW)'),
       'number' => '408',
-      'symbol' => 'Ã¢â€šÂ©',
+      'symbol' => '₩',
       'decimals' => 2,
     ),
     'KRW' => array(
       'name' => t('Korean Won (KRW)'),
       'number' => '410',
-      'symbol' => 'Ã¢â€šÂ©',
+      'symbol' => '₩',
       'decimals' => 2,
     ),
     'KWD' => array(
       'name' => t('Kuwaiti Dinar (KWD)'),
       'number' => '414',
-      'symbol' => 'Ã˜Â¯.Ã™Æ’',
+      'symbol' => 'د.ك',
       'decimals' => 2,
     ),
     'KYD' => array(
@@ -948,25 +948,25 @@ function currency_api_get_currencies() {
     'KZT' => array(
       'name' => t('Kazakhstan Tenge (KZT)'),
       'number' => '398',
-      'symbol' => 'ÃÂ»ÃÂ²',
+      'symbol' => 'лв',
       'decimals' => 2,
     ),
     'LAK' => array(
       'name' => t('Lao Kip (LAK)'),
       'number' => '418',
-      'symbol' => 'Ã¢â€šÂ­',
+      'symbol' => '₭',
       'decimals' => 2,
     ),
     'LBP' => array(
       'name' => t('Lebanese Pound (LBP)'),
       'number' => '422',
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'decimals' => 2,
     ),
     'LKR' => array(
       'name' => t('Sri Lanka Rupee (LKR)'),
       'number' => '144',
-      'symbol' => 'Ã¢â€šÂ¨',
+      'symbol' => '₨',
       'decimals' => 2,
     ),
     'LRD' => array(
@@ -996,13 +996,13 @@ function currency_api_get_currencies() {
     'LYD' => array(
       'name' => t('Libyan Dinar (LYD)'),
       'number' => '434',
-      'symbol' => 'Ã™â€ž.Ã˜Â¯',
+      'symbol' => 'ل.د',
       'decimals' => 2,
     ),
     'MAD' => array(
       'name' => t('Moroccan Dirham (MAD)'),
       'number' => '504',
-      'symbol' => 'Ã˜Â¯.Ã™â€¦.',
+      'symbol' => 'د.م.',
       'decimals' => 2,
     ),
     'MDL' => array(
@@ -1020,7 +1020,7 @@ function currency_api_get_currencies() {
     'MKD' => array(
       'name' => t('Macedonian Denar (MKD)'),
       'number' => '807',
-      'symbol' => 'ÃÂ´ÃÂµÃÂ½',
+      'symbol' => 'ден',
       'decimals' => 2,
     ),
     'MMK' => array(
@@ -1032,7 +1032,7 @@ function currency_api_get_currencies() {
     'MNT' => array(
       'name' => t('Mongolian Tugrik (MNT)'),
       'number' => '496',
-      'symbol' => 'Ã¢â€šÂ®',
+      'symbol' => '₮',
       'decimals' => 2,
     ),
     'MOP' => array(
@@ -1056,7 +1056,7 @@ function currency_api_get_currencies() {
     'MUR' => array(
       'name' => t('Mauritius Rupee (MUR)'),
       'number' => '480',
-      'symbol' => 'Ã¢â€šÂ¨',
+      'symbol' => '₨',
       'decimals' => 2,
     ),
     'MVR' => array(
@@ -1108,7 +1108,7 @@ function currency_api_get_currencies() {
     'NGN' => array(
       'name' => t('Nigerian Naira (NGN)'),
       'number' => '566',
-      'symbol' => 'Ã¢â€šÂ¦',
+      'symbol' => '₦',
       'decimals' => 2,
     ),
     'NIO' => array(
@@ -1126,7 +1126,7 @@ function currency_api_get_currencies() {
     'NPR' => array(
       'name' => t('Nepalese Rupee (NPR)'),
       'number' => '524',
-      'symbol' => 'Ã¢â€šÂ¨',
+      'symbol' => '₨',
       'decimals' => 2,
     ),
     'NZD' => array(
@@ -1138,7 +1138,7 @@ function currency_api_get_currencies() {
     'OMR' => array(
       'name' => t('Omani Rial (OMR)'),
       'number' => '512',
-      'symbol' => 'Ã¯Â·Â¼',
+      'symbol' => '﷼',
       'decimals' => 2,
     ),
     'PAB' => array(
@@ -1168,13 +1168,13 @@ function currency_api_get_currencies() {
     'PKR' => array(
       'name' => t('Pakistani Rupee (PKR)'),
       'number' => '586',
-      'symbol' => 'Ã¢â€šÂ¨',
+      'symbol' => '₨',
       'decimals' => 2,
     ),
     'PLN' => array(
       'name' => t('Polish Zloty (PLN)'),
       'number' => '985',
-      'symbol' => 'zÃ…â€š',
+      'symbol' => 'zł',
       'decimals' => 2,
     ),
     'PYG' => array(
@@ -1186,7 +1186,7 @@ function currency_api_get_currencies() {
     'QAR' => array(
       'name' => t('Qatar Rial (QAR)'),
       'number' => '634',
-      'symbol' => 'Ã¯Â·Â¼',
+      'symbol' => '﷼',
       'decimals' => 2,
     ),
     'RON' => array(
@@ -1198,13 +1198,13 @@ function currency_api_get_currencies() {
     'RSD' => array(
       'name' => t('Serbian Dinar (RSD)'),
       'number' => '941',
-      'symbol' => 'Ãâ€ÃÂ¸ÃÂ½.',
+      'symbol' => 'Дин.',
       'decimals' => 2,
     ),
     'RUB' => array(
       'name' => t('Russian Rouble (RUB)'),
       'number' => '643',
-      'symbol' => 'Ã‘â‚¬Ã‘Æ’ÃÂ±.',
+      'symbol' => 'руб.',
       'decimals' => 2,
     ),
     'RWF' => array(
@@ -1216,7 +1216,7 @@ function currency_api_get_currencies() {
     'SAR' => array(
       'name' => t('Saudi Arabian Riyal (SAR)'),
       'number' => '682',
-      'symbol' => 'Ã¯Â·Â¼',
+      'symbol' => '﷼',
       'decimals' => 2,
     ),
     'SBD' => array(
@@ -1228,7 +1228,7 @@ function currency_api_get_currencies() {
     'SCR' => array(
       'name' => t('Seychelles Rupee (SCR)'),
       'number' => '690',
-      'symbol' => 'Ã¢â€šÂ¨',
+      'symbol' => '₨',
       'decimals' => 2,
     ),
     'SDG' => array(
@@ -1252,7 +1252,7 @@ function currency_api_get_currencies() {
     'SHP' => array(
       'name' => t('St Helena Pound (SHP)'),
       'number' => '654',
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'decimals' => 2,
     ),
     'SKK' => array(
@@ -1299,7 +1299,7 @@ function currency_api_get_currencies() {
     'SYP' => array(
       'name' => t('Syrian Pound (SYP)'),
       'number' => '760',
-      'symbol' => 'Ã‚Â£',
+      'symbol' => '£',
       'decimals' => 2,
     ),
     'SZL' => array(
@@ -1311,7 +1311,7 @@ function currency_api_get_currencies() {
     'THB' => array(
       'name' => t('Thai Baht (THB)'),
       'number' => '764',
-      'symbol' => 'Ã Â¸Â¿',
+      'symbol' => '฿',
       'decimals' => 2,
     ),
     'TJS' => array(
@@ -1327,7 +1327,7 @@ function currency_api_get_currencies() {
     'TND' => array(
       'name' => t('Tunisian Dinar (TND)'),
       'number' => '788',
-      'symbol' => 'Ã˜Â¯.Ã˜Âª',
+      'symbol' => 'د.ت',
       'decimals' => 2,
     ),
     'TOP' => array(
@@ -1363,7 +1363,7 @@ function currency_api_get_currencies() {
     'UAH' => array(
       'name' => t('Ukraine Hryvnia (UAH)'),
       'number' => '980',
-      'symbol' => 'ÃÂ³Ã‘â‚¬ÃÂ½.',
+      'symbol' => 'грн.',
       'decimals' => 2,
     ),
     'UGX' => array(
@@ -1402,7 +1402,7 @@ function currency_api_get_currencies() {
     'UZS' => array(
       'name' => t('Uzbekistan Sum (UZS)'),
       'number' => '860',
-      'symbol' => 'ÃÂ»ÃÂ²',
+      'symbol' => 'лв',
       'decimals' => 2,
     ),
     'VEB' => array(
@@ -1413,13 +1413,13 @@ function currency_api_get_currencies() {
     ),
     'VEF' => array(
       'decimals' => 2,
-      'name' => t('Venezuelan bolÃƒÆ’Ã‚Â­var fuerte (VEF)'),
+      'name' => t('Venezuelan bolívar fuerte (VEF)'),
       'number' => '937',
     ),
     'VND' => array(
       'name' => t('Vietnam Dong (VND)'),
       'number' => '704',
-      'symbol' => 'Ã¢â€šÂ«',
+      'symbol' => '₫',
       'decimals' => 2,
     ),
     'VUV' => array(
@@ -1524,13 +1524,13 @@ function currency_api_get_currencies() {
     'YER' => array(
       'name' => t('Yemen Riyal (YER)'),
       'number' => '886',
-      'symbol' => 'Ã¯Â·Â¼',
+      'symbol' => '﷼',
       'decimals' => 2,
     ),
     'YUM' => array(
       'name' => t('Yugoslav Dinar (YUM)'),
       'number' => '891',
-      'symbol' => 'ÃÂ´ÃÂ¸ÃÂ½',
+      'symbol' => 'дин',
       'decimals' => 2,
     ),
     'ZAR' => array(
