@@ -1,5 +1,5 @@
 {
-    "hash": "d3a353594342e4d9553e187be3d17387",
+    "hash": "6652dd76289a11f0863ada46621f7832",
     "packages": [
         {
             "name": "bartfeenstra/cldr",
@@ -48,12 +48,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bartfeenstra/currency",
-                "reference": "97c5f0042c3c5c493a85ddd26051d6365f08ca14"
+                "reference": "de9d746a216569886a0b088b6f8fa3dd626332ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bartfeenstra/currency/archive/97c5f0042c3c5c493a85ddd26051d6365f08ca14.zip",
-                "reference": "97c5f0042c3c5c493a85ddd26051d6365f08ca14",
+                "url": "https://github.com/bartfeenstra/currency/archive/de9d746a216569886a0b088b6f8fa3dd626332ac.zip",
+                "reference": "de9d746a216569886a0b088b6f8fa3dd626332ac",
                 "shasum": ""
             },
             "require-dev": {
@@ -63,7 +63,7 @@
                 "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
                 "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
             },
-            "time": "2012-12-18 16:26:27",
+            "time": "2013-01-02 17:24:51",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -86,29 +86,24 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.1.4",
+            "version": "v2.1.6",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml",
-                "reference": "v2.1.4"
+                "reference": "v2.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Yaml/archive/v2.1.4.zip",
-                "reference": "v2.1.4",
+                "url": "https://github.com/symfony/Yaml/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-11-08 09:51:48",
+            "time": "2012-12-06 10:00:55",
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-0": {
