@@ -1,0 +1,5 @@
+name = Currency tests
+description = "Supports Currency's automated tests."
+core = 7.x
+dependencies[] = currency
+hidden = TRUE

@@ -10,6 +10,7 @@ files[] = includes/CurrencyAmountViewsHandlerField.inc
 files[] = includes/CurrencyExportableInterface.inc
 files[] = includes/CurrencyLocalePattern.inc
 files[] = includes/CurrencyViewsHandlerField.inc
+files[] = tests/CurrencyAmountFormElementWebTestCase.test
 files[] = tests/CurrencyAmountViewsHandlerFieldWebTestCase.test
 files[] = tests/CurrencyCRUDWebTestCase.test
 files[] = tests/CurrencyLocalePatternCRUDWebTestCase.test

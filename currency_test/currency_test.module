@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations and shared functions.
+ *
+ * @see CurrenctCurrencyAmountFormElementWebTestCase
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function currency_test_menu() {
+  // The second URL path argument is an optional ISO 4217 currency code, and
+  // the third argument is an optional integer value specifying a minimum
+  // amount.
+  $items['currency_test-form-element-currency-amount/%/%'] = array(
+    'title' => 'Test the currency_amount form element',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_test_form_currency_amount'),
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements form build callback: show a currency_amount element.
+ */
+function currency_test_form_currency_amount(array $form, array &$form_state) {
+  $form['#submit'] = array('currency_test_form_submit');
+  $form['amount'] = array(
+    '#type' => 'currency_amount',
+    '#title' => t('Foo amount'),
+    '#minimum_amount' => arg(1),
+    '#maximum_amount' => arg(2),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements form submit callback for testing the submission of form elements.
+ */
+function currency_test_form_submit(array $form, array &$form_state) {
+  // Redirect, so we can test whether form errors were thrown.
+  $form_state['redirect'] = 'user';
+}
