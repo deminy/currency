@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Contains class CurrencyConverterWebTestCase.
+ */
+
+/**
+ * Tests CurrencyConverter.
+ */
+class CurrencyConverterWebTestCase extends DrupalWebTestCase {
+
+  static function getInfo() {
+    return array(
+      'name' => 'CurrencyConverter',
+      'group' => 'Currency',
+    );
+  }
+
+  function setUp(array $modules = array()) {
+    parent::setUp($modules + array('currency'));
+  }
+
+  /**
+   * Test currency conversion.
+   *
+   * We use CurrencyConverterFixedRates to test some functionality, which means
+   * that if this test fails, the problem may be caused by
+   * CurrencyConverterFixedRates.
+   *
+   * @see CurrencyConverterFixedRates
+   */
+  function testCurrencyConverter() {
+    $this->assertTrue(is_array(CurrencyConverter::loadConverters()));
+    $this->assertTrue(in_array('CurrencyConverterFixedRates', CurrencyConverter::loadConverters()));
+
+    // Test CurrencyConverter::load().
+    $this->assertEqual(CurrencyConverter::load('EUR', 'NLG'), 2.20371);
+
+    // Test CurrencyConverter::loadMultiple().
+    $rates = CurrencyConverter::loadMultiple(array(
+      'EUR' => array('NLG'),
+    ));
+    $this->assertTrue(isset($rates['EUR']));
+    $this->assertTrue(isset($rates['EUR']['NLG']));
+    $this->assertEqual($rates['EUR']['NLG'], 2.20371);
+
+    // Test CurrencyConverter::loadAll().
+    $rates = CurrencyConverter::loadAll();
+    $this->assertTrue(isset($rates['EUR']));
+    $this->assertTrue(isset($rates['EUR']['NLG']));
+    $this->assertEqual($rates['EUR']['NLG'], 2.20371);
+    $this->assertTrue(isset($rates['EUR']));
+    $this->assertTrue(isset($rates['EUR']['DEM']));
+    $this->assertEqual($rates['EUR']['DEM'], 1.95583);
+  }
+}

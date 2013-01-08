@@ -13,6 +13,24 @@ function currency_currency_info() {
 }
 
 /**
+ * Implements hook_currency_converter_info().
+ */
+function currency_currency_converter_info() {
+  $currency_converters['CurrencyConverter'] = array(
+    'converter' => array(
+      'class' => 'CurrencyConverter',
+    ),
+  );
+  $currency_converters['CurrencyConverterFixedRates'] = array(
+    'converter' => array(
+      'class' => 'CurrencyConverterFixedRates',
+    ),
+  );
+
+  return $currency_converters;
+}
+
+/**
  * Implements hook_locale_pattern_info().
  */
 function currency_currency_locale_pattern_info() {

@@ -61,3 +61,26 @@ function hook_locale_pattern_info() {
 function hook_locale_pattern_info_alter(array $locale_patterns) {
   $locale_patterns['nl_NL']->pattern = '¤ #.##0,0#';
 }
+
+/**
+ * Expose currency converters.
+ *
+ * Currency converters are Ctools plugins. As such, this hook is a Ctools
+ * plugin hook.
+ *
+ * @return array
+ *   Keys are plugin machine names. Values are arrays with two items:
+ *   converter: an array with a "class" key, which contains the name of the
+ *   converter class, which should implement CurrencyConverterInterface.
+ *   weight: an integer. All converters will be ordered by weight and executed
+ *   in that order, until one of them returns a rate. Defaults to 0.
+ */
+function hook_currency_converter_info() {
+  $currency_converters['CurrencyConverterFixedRates'] = array(
+    'converter' => array(
+      'class' => 'CurrencyConverterFixedRates',
+    ),
+  );
+
+  return $currency_converters;
+}

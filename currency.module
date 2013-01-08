@@ -20,6 +20,9 @@ define('CURRENCY_DEFAULT_LOCALE', 'en_US');
  * Implements hook_hook_info().
  */
 function currency_hook_info() {
+  $hooks['currency_converter_info'] = array(
+    'group' => 'currency',
+  );
   $hooks['currency_info'] = array(
     'group' => 'currency',
   );
@@ -55,6 +58,22 @@ function currency_element_info() {
   );
 
   return $elements;
+}
+
+/**
+ * Implements hook_ctools_plugin_type().
+ */
+function currency_ctools_plugin_type() {
+  $plugins_types['currency_converter'] = array(
+    'classes' => array('converter'),
+    'defaults' => array(
+      'weight' => 0,
+    ),
+    'hook' => 'currency_converter_info',
+    'use hooks' => TRUE,
+  );
+
+  return $plugins_types;
 }
 
 /**
