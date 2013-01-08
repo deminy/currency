@@ -49,4 +49,6 @@ function currency_test_form_currency_amount(array $form, array &$form_state) {
 function currency_test_form_submit(array $form, array &$form_state) {
   // Redirect, so we can test whether form errors were thrown.
   $form_state['redirect'] = 'user';
+  // Display the form element value, so we can test if it is processed.
+  drupal_set_message(var_export($form_state['values']['amount'], TRUE));
 }

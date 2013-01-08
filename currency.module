@@ -167,8 +167,9 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
  * Implements form validate callback for a currency_amount element.
  */
 function currency_form_currency_amount_validate(array $element, array &$form_state) {
-  $amount = $element['#value']['amount'];
-  $currency_code = $element['#value']['currency_code'];
+  $value = $element['#value'];
+  $amount = $value['amount'];
+  $currency_code = $value['currency_code'];
 
   try {
     $amount = Input::parseAmount($amount);
@@ -194,6 +195,14 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
       '!amount' => $currency->format($element['#maximum_amount']),
     )));
   }
+
+  // The amount in $form_state is a human-readable, optionally localized
+  // string, which cannot be used by other code. $amount is a float after
+  // running it through Input::parseAmount().
+  form_set_value($element, array(
+    'amount' => $amount,
+    'currency_code' => $currency_code,
+  ), $form_state);
 }
 
 /**
