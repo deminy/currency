@@ -858,7 +858,7 @@ function currency_api_get_currencies() {
     'INR' => array(
       'name' => t('Indian Rupee (INR)'),
       'number' => '356',
-      'symbol' => '₨',
+      'symbol' => '₹',
       'decimals' => 2,
     ),
     'IQD' => array(
