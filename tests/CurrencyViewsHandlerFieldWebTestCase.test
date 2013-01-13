@@ -10,6 +10,9 @@
  */
 class CurrencyViewsHandlerFieldWebTestCase extends ViewsSqlTest {
 
+  /**
+   * Implements DrupalTestCase::getInfo().
+   */
   static function getInfo() {
     return array(
       'name' => 'CurrencyViewsFieldHandler',
@@ -18,6 +21,9 @@ class CurrencyViewsHandlerFieldWebTestCase extends ViewsSqlTest {
     );
   }
 
+  /**
+   * Overrides parent::setUp().
+   */
   function setUp() {
     parent::setUp();
     module_enable(array('currency', 'views'));

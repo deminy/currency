@@ -31,7 +31,7 @@ function currency_currency_converter_info() {
 }
 
 /**
- * Implements hook_locale_pattern_info().
+ * Implements hook_currency_locale_pattern_info().
  */
 function currency_currency_locale_pattern_info() {
   $locale_patterns = array(

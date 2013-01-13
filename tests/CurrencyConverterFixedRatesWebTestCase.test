@@ -10,6 +10,9 @@
  */
 class CurrencyConverterFixedRatesWebTestCase extends DrupalWebTestCase {
 
+  /**
+   * Implements DrupalTestCase::getInfo().
+   */
   static function getInfo() {
     return array(
       'name' => 'CurrencyConverterFixedRates',
@@ -17,6 +20,9 @@ class CurrencyConverterFixedRatesWebTestCase extends DrupalWebTestCase {
     );
   }
 
+  /**
+   * Overrides parent::setUp().
+   */
   function setUp(array $modules = array()) {
     parent::setUp($modules + array('currency'));
   }

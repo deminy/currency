@@ -41,7 +41,7 @@ function hook_currency_info_alter(array $currencies) {
  * @return array
  *   An array of CurrencyLocalePattern objects, keyed by their locales.
  */
-function hook_locale_pattern_info() {
+function hook_currency_locale_pattern_info() {
   $locale_patterns['nl_NL'] = new CurrencyLocalePattern(array(
     'locale' => 'nl_NL',
     'pattern' => '¤#.##0,0#',
@@ -58,7 +58,7 @@ function hook_locale_pattern_info() {
  *
  * @return NULL
  */
-function hook_locale_pattern_info_alter(array $locale_patterns) {
+function hook_currency_locale_pattern_info_alter(array $locale_patterns) {
   $locale_patterns['nl_NL']->pattern = '¤ #.##0,0#';
 }
 

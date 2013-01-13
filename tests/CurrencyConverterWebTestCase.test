@@ -10,6 +10,9 @@
  */
 class CurrencyConverterWebTestCase extends DrupalWebTestCase {
 
+  /**
+   * Implements DrupalTestCase::getInfo().
+   */
   static function getInfo() {
     return array(
       'name' => 'CurrencyConverter',
@@ -17,6 +20,9 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
     );
   }
 
+  /**
+   * Overrides parent::setUp().
+   */
   function setUp(array $modules = array()) {
     parent::setUp($modules + array('currency'));
   }

@@ -29,10 +29,10 @@ function currency_hook_info() {
   $hooks['currency_info_alter'] = array(
     'group' => 'currency',
   );
-  $hooks['locale_pattern_info'] = array(
+  $hooks['currency_locale_pattern_info'] = array(
     'group' => 'currency',
   );
-  $hooks['locale_pattern_info_alter'] = array(
+  $hooks['currency_locale_pattern_info_alter'] = array(
     'group' => 'currency',
   );
 
@@ -48,9 +48,9 @@ function currency_element_info() {
     '#input' => TRUE,
     '#process' => array('currency_form_currency_amount_process'),
     '#element_validate' => array('currency_form_currency_amount_validate'),
-    // The minimum amount that needs to be entered. Use FALSE to omit.
+    // The minimum amount as a float, or FALSE to omit.
     '#minimum_amount' => FALSE,
-    // The maximum amount that needs to be entered. Use FALSE to omit.
+    // The maximum amount as a float, or FALSE to omit.
     '#maximum_amount' => FALSE,
     // The ISO 4217 code of the currency the amount should be in. Use FALSE to
     // let users choose.

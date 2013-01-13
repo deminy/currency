@@ -58,7 +58,7 @@ class CurrencyConverter implements CurrencyConverterInterface {
     $rates = array();
     foreach (self::loadConverters() as $converter) {
       foreach ($converter::loadMultiple($currency_codes) as $currency_code_from => $currency_codes_to) {
-        foreach($currency_codes_to as $currency_code_to => $rate) {
+        foreach ($currency_codes_to as $currency_code_to => $rate) {
           if ($rate !== FALSE) {
             $rates[$currency_code_from][$currency_code_to] = $rate;
           }
@@ -76,7 +76,7 @@ class CurrencyConverter implements CurrencyConverterInterface {
     $rates = array();
     foreach (self::loadConverters() as $converter) {
       foreach ($converter::loadAll() as $currency_code_from => $currency_codes_to) {
-        foreach($currency_codes_to as $currency_code_to => $rate) {
+        foreach ($currency_codes_to as $currency_code_to => $rate) {
           if ($rate !== FALSE) {
             $rates[$currency_code_from][$currency_code_to] = $rate;
           }
