@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Contains class CurrencySignFormElementWebTestCase.
+ */
+
+/**
+ * Tests the currency_amount form element.
+ */
+class CurrencySignFormElementWebTestCase extends DrupalWebTestCase {
+
+  static function getInfo() {
+    return array(
+      'name' => 'Currency sign form element',
+      'group' => 'Currency',
+    );
+  }
+
+  function setUp(array $modules = array()) {
+    parent::setUp($modules + array('currency_test'));
+  }
+
+  /**
+   * Test validation.
+   */
+  function testValidation() {
+    $path = 'currency_test-form-element-currency-sign';
+
+    // Test an empty sign.
+    $values =  array(
+      'sign[sign]' => '',
+    );
+    $this->drupalPost($path, $values, t('Submit'));
+    $this->assertUrl('user');
+    $this->assertRaw("\$form_state['sign'] = ''");
+
+    // Test a suggested sign.
+    $values =  array(
+      'sign[sign]' => '¤',
+    );
+    $this->drupalPost($path, $values, t('Submit'));
+    $this->assertUrl('user');
+    $this->assertRaw("\$form_state['sign'] = '¤'");
+
+    // Test a custom sign.
+    $values =  array(
+      'sign[sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
+      'sign[sign_custom]' => 'foobar',
+    );
+    $this->drupalPost($path, $values, t('Submit'));
+    $this->assertUrl('user');
+    $this->assertRaw("\$form_state['sign'] = 'foobar'");
+  }
+}

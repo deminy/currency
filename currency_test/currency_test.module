@@ -11,13 +11,18 @@
  * Implements hook_menu().
  */
 function currency_test_menu() {
-  // The second URL path argument is an optional ISO 4217 currency code, and
-  // the third argument is an optional integer value specifying a minimum
-  // amount.
+  // The URL path arguments are optional numeric values specifying a minimum
+  // and maximum amount.
   $items['currency_test-form-element-currency-amount/%/%'] = array(
     'title' => 'Test the currency_amount form element',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('currency_test_form_currency_amount'),
+    'access callback' => TRUE,
+  );
+  $items['currency_test-form-element-currency-sign'] = array(
+    'title' => 'Test the currency_sign form element',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_test_form_currency_sign'),
     'access callback' => TRUE,
   );
 
@@ -44,11 +49,30 @@ function currency_test_form_currency_amount(array $form, array &$form_state) {
 }
 
 /**
+ * Implements form build callback: show a currency_sign element.
+ */
+function currency_test_form_currency_sign(array $form, array &$form_state) {
+  $form['#submit'] = array('currency_test_form_submit');
+  $form['sign'] = array(
+    '#type' => 'currency_sign',
+    '#title' => t('Foo sign'),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+/**
  * Implements form submit callback for testing the submission of form elements.
  */
 function currency_test_form_submit(array $form, array &$form_state) {
   // Redirect, so we can test whether form errors were thrown.
   $form_state['redirect'] = 'user';
   // Display the form element value, so we can test if it is processed.
-  drupal_set_message(var_export($form_state['values']['amount'], TRUE));
+  foreach ($form_state['values'] as $name => $value) {
+    drupal_set_message("\$form_state['$name'] = " . var_export($value, TRUE));
+  }
 }

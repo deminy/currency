@@ -13,7 +13,7 @@ function currency_schema() {
     'description' => 'Currency information based on ISO 4127.',
     'export' => array(
       'key' => 'ISO4217Code',
-      'key name' => 'Code',
+      'key name' => 'ISO 4217 code',
       'primary key' => 'ISO4217Code',
       'default hook' => 'currency_info',
       'object' => 'Currency',

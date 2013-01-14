@@ -20,5 +20,7 @@ files[] = tests/CurrencyConverterWebTestCase.test
 files[] = tests/CurrencyCRUDWebTestCase.test
 files[] = tests/CurrencyLocalePatternCRUDWebTestCase.test
 files[] = tests/CurrencyLocalePatternWebTestCase.test
+files[] = tests/CurrencySignFormElementWebTestCase.test
+files[] = tests/CurrencyUIWebTestCase.test
 files[] = tests/CurrencyViewsHandlerFieldWebTestCase.test
 files[] = tests/CurrencyWebTestCase.test

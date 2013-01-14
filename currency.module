@@ -17,6 +17,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 define('CURRENCY_DEFAULT_LOCALE', 'en_US');
 
 /**
+ * The value for the currency_sign form element's "custom" option.
+ */
+define('CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE', '###CUSTOM###');
+
+/**
  * Implements hook_hook_info().
  */
 function currency_hook_info() {
@@ -56,8 +61,28 @@ function currency_element_info() {
     // let users choose.
     '#currency_code' => FALSE,
   );
+  // An element to set a currency sign.
+  $elements['currency_sign'] = array(
+    '#input' => TRUE,
+    '#process' => array('currency_form_currency_sign_process'),
+    '#element_validate' => array('currency_form_currency_sign_validate'),
+    // The ISO 4217 code of the currency which signs to suggest to the user.
+    // Optional.
+    '#currency_code' => FALSE,
+  );
 
   return $elements;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function currency_permission() {
+  $permissions['currency.currency.administer'] = array(
+    'title' => t('Administer currencies'),
+  );
+
+  return $permissions;
 }
 
 /**
@@ -74,6 +99,15 @@ function currency_ctools_plugin_type() {
   );
 
   return $plugins_types;
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function currency_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && $plugin == 'export_ui') {
+    return 'ctools/plugins/' . $plugin;
+  }
 }
 
 /**
@@ -215,6 +249,78 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
 }
 
 /**
+ * Implements form process callback for a currency_sign element.
+ */
+function currency_form_currency_sign_process(array $element, array &$form_state, array &$form) {
+  $currency = FALSE;
+  if ($element['#currency_code']) {
+    $currency = BartFeenstra\Currency\Currency::resourceLoad($element['#currency_code']);
+    if (!$currency) {
+      throw new Exception(t('A valid ISO 4217 currency code needs to be set.'));
+    }
+  }
+  else {
+    $currency = BartFeenstra\Currency\Currency::resourceLoad('XXX');
+  }
+
+  // Modify the element.
+  $element['#tree'] = TRUE;
+  $element['#theme_wrappers'][] = 'form_element';
+  $element['#attached']['css'] = array(
+    drupal_get_path('module', 'currency') . '/currency.css',
+  );
+
+  $signs = array_merge(array($currency->sign), $currency->alternativeSigns);
+  $signs = array_combine($signs, $signs);
+  $signs = array_unique(array_filter(array_merge(array(
+    CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE => t('- Custom -'),
+  ), $signs)));
+  asort($signs);
+  $element['sign'] = array(
+    '#default_value' => $currency->sign,
+    '#empty_value' => '',
+    '#options' => $signs,
+    '#required' => $element['#required'],
+    '#title' => t('Sign'),
+    '#title_display' => 'invisible',
+    '#type' => 'select',
+  );
+  $sign_js_selector = '.form-type-currency-sign .form-select';
+  $element['sign_custom'] = array(
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'currency') . '/currency.css',
+      ),
+    ),
+    '#default_value' => $currency->sign,
+    '#states' => array(
+      'visible' => array(
+        $sign_js_selector => array(
+          'value' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
+        ),
+      ),
+    ),
+    '#title' => t('Custom sign'),
+    '#title_display' => 'invisible',
+    '#type' => 'textfield',
+  );
+
+  return $element;
+}
+
+/**
+ * Implements form validate callback for a currency_sign element.
+ */
+function currency_form_currency_sign_validate(array $element, array &$form_state) {
+  // Set a scalar value.
+  $sign = $element['#value']['sign'];
+  if ($sign == CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE) {
+    $sign = $element['#value']['sign_custom'];
+  }
+  form_set_value($element, $sign, $form_state);
+}
+
+/**
  * Returns an options list of currencies.
  *
  * @return array
@@ -233,4 +339,88 @@ function currency_options() {
   asort($options);
 
   return $options;
+}
+
+/**
+ * Implements Ctools exportable UI edit form callback.
+ */
+function currency_form_currency(array &$form, array &$form_state) {
+  $currency = $form_state['item'];
+
+  $form['info']['ISO4217Code']['#description'] = '';
+  $form['info']['ISO4217Code']['#element_validate'] = array('currency_form_element_validate_iso_4217_code');
+  $form['info']['ISO4217Code']['#maxlength'] = 3;
+  $form['info']['ISO4217Code']['#size'] = 3;
+
+  $form['ISO4217Number'] = array(
+    '#default_value' => $currency->ISO4217Number,
+    '#element_validate' => array('currency_form_element_validate_iso_4217_number'),
+    '#maxlength' => 3,
+    '#title' => t('ISO 4217 number'),
+    '#type' => 'textfield',
+    '#size' => 3,
+  );
+
+  $form['title'] = array(
+    '#default_value' => $currency->title,
+    '#maxlength' => 255,
+    '#required' => TRUE,
+    '#title' => t('Title'),
+    '#type' => 'textfield',
+  );
+
+  $form['sign'] = array(
+    '#currency_code' => $currency->ISO4217Code,
+    '#default_value' => $currency->sign,
+    '#title' => t('Sign'),
+    '#type' => 'currency_sign',
+  );
+
+  $form['minorUnit'] = array(
+    '#default_value' => $currency->minorUnit,
+    '#element_validate' => array('currency_form_element_validate_numeric'),
+    '#maxlength' => 1,
+    '#required' => TRUE,
+    '#size' => 1,
+    '#title' => t('Number of decimals'),
+    '#type' => 'textfield',
+  );
+}
+
+/**
+ * Implements Form API #element_validate callback.
+ */
+function currency_form_element_validate_iso_4217_code(array $element, array $form, array &$form_state) {
+  $currency_code = $element['#value'];
+  if (!preg_match('/[a-z]{3}/i', $currency_code)) {
+    form_error($element, t('The currency code should be three letters.'));
+  }
+  $currency = ctools_export_crud_load('currency', $currency_code);
+  if ($currency) {
+    form_error($element, t('The currency code is already in use by !link.', array(
+      '!link' => l($currency->title, "admin/config/regional/currency/currency/list/$currency->ISO4217Code/edit"),
+    )));
+  }
+}
+
+/**
+ * Implements Form API #element_validate callback.
+ */
+function currency_form_element_validate_iso_4217_number(array $element, array $form, array &$form_state) {
+  if (!preg_match('/\d{3}/i', $element['#value'])) {
+    form_error($element, t('@title should be three digits.', array(
+      '@title' => $element['#title'],
+    )));
+  }
+}
+
+/**
+ * Implements Form API #element_validate callback.
+ */
+function currency_form_element_validate_numeric(array $element, array $form, array &$form_state) {
+  if (!is_numeric($element['#value'])) {
+    form_error($element, t('@title should be numeric.', array(
+      '@title' => $element['#title'],
+    )));
+  }
 }

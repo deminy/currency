@@ -40,7 +40,7 @@ class CurrencyAmountFormElementWebTestCase extends DrupalWebTestCase {
     );
     $this->drupalPost($path, $values, t('Submit'));
     $this->assertUrl('user', array(), 'A valid value higher than an explicitely configured <em>#minimum_value</em> triggers form submission.');
-    $this->assertRaw(var_export(array(
+    $this->assertRaw("\$form_state['amount'] = " . var_export(array(
       'amount' => 50.95,
       'currency_code' => 'EUR',
     ), TRUE));

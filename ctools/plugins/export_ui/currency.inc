@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Contains the Ctools exportables UI for "currency" exportables.
+ */
+
+$plugin = array(
+  'access' => 'currency.currency.administer',
+  'form' => array(
+    'settings' => 'currency_form_currency',
+  ),
+  'menu' => array(
+    'menu item' => 'currency',
+    'menu prefix' => 'admin/config/regional',
+    'menu title' => 'Currencies',
+  ),
+  'schema' => 'currency',
+  'title plural' => t('currencies'),
+  'title plural proper' => t('Currencies'),
+  'title singular' => t('currency'),
+  'title singular proper' => t('Currency'),
+);
