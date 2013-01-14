@@ -15,7 +15,7 @@ class CurrencyAmountFormElementWebTestCase extends DrupalWebTestCase {
    */
   static function getInfo() {
     return array(
-      'name' => 'Currency amount form element',
+      'name' => 'currency_amount form element',
       'group' => 'Currency',
     );
   }
