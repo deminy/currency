@@ -1,47 +1,5 @@
 [
     {
-        "name": "bartfeenstra/cldr",
-        "version": "1.x-dev",
-        "version_normalized": "1.9999999.9999999.9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/bartfeenstra/cldr",
-            "reference": "2a20166dbe60a6ff3e971a4125107a7d90fb534a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://github.com/bartfeenstra/cldr/archive/2a20166dbe60a6ff3e971a4125107a7d90fb534a.zip",
-            "reference": "2a20166dbe60a6ff3e971a4125107a7d90fb534a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "3.7.*"
-        },
-        "time": "2012-12-17 23:01:43",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "BartFeenstra": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Bart Feenstra",
-                "email": "bart@mynameisbart.com",
-                "homepage": "http://mynameisbart.com",
-                "role": "Developer"
-            }
-        ]
-    },
-    {
         "name": "symfony/yaml",
         "version": "v2.1.6",
         "version_normalized": "2.1.6.0",
@@ -86,18 +44,60 @@
         "homepage": "http://symfony.com"
     },
     {
+        "name": "bartfeenstra/cldr",
+        "version": "1.x-dev",
+        "version_normalized": "1.9999999.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/bartfeenstra/cldr",
+            "reference": "256a058858f423bcc1fcdde837888bcd3a8034ca"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/bartfeenstra/cldr/archive/256a058858f423bcc1fcdde837888bcd3a8034ca.zip",
+            "reference": "256a058858f423bcc1fcdde837888bcd3a8034ca",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2013-01-08 22:29:58",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "BartFeenstra": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Bart Feenstra",
+                "email": "bart@mynameisbart.com",
+                "homepage": "http://mynameisbart.com",
+                "role": "Developer"
+            }
+        ]
+    },
+    {
         "name": "bartfeenstra/currency",
         "version": "1.x-dev",
         "version_normalized": "1.9999999.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/bartfeenstra/currency",
-            "reference": "de9d746a216569886a0b088b6f8fa3dd626332ac"
+            "reference": "ccdbf91666011bc750451ddb71de817e1bdb0486"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/bartfeenstra/currency/archive/de9d746a216569886a0b088b6f8fa3dd626332ac.zip",
-            "reference": "de9d746a216569886a0b088b6f8fa3dd626332ac",
+            "url": "https://github.com/bartfeenstra/currency/archive/ccdbf91666011bc750451ddb71de817e1bdb0486.zip",
+            "reference": "ccdbf91666011bc750451ddb71de817e1bdb0486",
             "shasum": ""
         },
         "require-dev": {
@@ -107,7 +107,7 @@
             "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
             "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
         },
-        "time": "2013-01-02 17:24:51",
+        "time": "2013-01-14 20:42:17",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
