@@ -18,6 +18,7 @@ class CurrencyUIWebTestCase extends DrupalWebTestCase {
   }
 
   function setUp(array $modules = array()) {
+    $this->profile = 'testing';
     parent::setUp($modules + array('currency'));
   }
 

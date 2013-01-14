@@ -25,6 +25,7 @@ class CurrencyViewsHandlerFieldWebTestCase extends ViewsSqlTest {
    * Overrides parent::setUp().
    */
   function setUp() {
+    $this->profile = 'testing';
     parent::setUp();
     module_enable(array('currency', 'views'));
   }
