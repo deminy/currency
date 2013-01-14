@@ -518,7 +518,7 @@ function currency_api_get_currencies() {
     'HKD' => array('name' => t('Hong Kong Dollar (HKD)'), 'symbol' => 'HK$', 'decimals' => 2),
     'HUF' => array('name' => t('Hungarian Forint (HUF)'), 'symbol' => 'Ft', 'decimals' => 0),
     'ISK' => array('name' => t('Iceland Krona (ISK)'), 'symbol' => 'kr', 'decimals' => 2),
-    'INR' => array('name' => t('Indian Rupee (INR)'), 'symbol' => '₨', 'decimals' => 2),
+    'INR' => array('name' => t('Indian Rupee (INR)'), 'symbol' => '₹', 'decimals' => 2),
     'IDR' => array('name' => t('Indonesian Rupiah (IDR)'), 'symbol' => 'Rp', 'decimals' => 2),
     'IRR' => array('name' => t('Iran Rial (IRR)'), 'symbol' => '﷼', 'decimals' => 2),
     'IQD' => array('name' => t('Iraqi Dinar (IQD)'), 'symbol' => 'ع.د', 'decimals' => 2),
