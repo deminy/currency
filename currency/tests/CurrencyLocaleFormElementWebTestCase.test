@@ -8,7 +8,7 @@
 /**
  * Tests the currency_amount form element.
  */
-class CurrencyAmountFormElementWebTestCase extends DrupalWebTestCase {
+class CurrencyLocaleFormElementWebTestCase extends DrupalWebTestCase {
 
   /**
    * Implements DrupalTestCase::getInfo().
