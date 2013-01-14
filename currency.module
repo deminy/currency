@@ -45,6 +45,14 @@ function currency_hook_info() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ */
+function currency_menu_alter(array &$items) {
+  $items['admin/config/regional/currency/list']['title'] = t('Currencies');
+  $items['admin/config/regional/currency/currency_locale_pattern']['type'] = MENU_LOCAL_TASK;
+}
+
+/**
  * Implements hook_element_info().
  */
 function currency_element_info() {
@@ -60,6 +68,12 @@ function currency_element_info() {
     // The ISO 4217 code of the currency the amount should be in. Use FALSE to
     // let users choose.
     '#currency_code' => FALSE,
+  );
+  // A locale selector. Returns a string in the format of xx_ZZ.
+  $elements['currency_locale'] = array(
+    '#input' => TRUE,
+    '#process' => array('currency_form_currency_locale_process'),
+    '#element_validate' => array('currency_form_currency_locale_validate'),
   );
   // An element to set a currency sign.
   $elements['currency_sign'] = array(
@@ -80,6 +94,9 @@ function currency_element_info() {
 function currency_permission() {
   $permissions['currency.currency.administer'] = array(
     'title' => t('Administer currencies'),
+  );
+  $permissions['currency.currency_locale_pattern.administer'] = array(
+    'title' => t('Administer currency locale patterns'),
   );
 
   return $permissions;
@@ -342,6 +359,57 @@ function currency_form_currency_sign_validate(array $element, array &$form_state
 }
 
 /**
+ * Implements form process callback for a currency_locale element.
+ */
+function currency_form_currency_locale_process(array $element, array &$form_state, array &$form) {
+  require_once DRUPAL_ROOT . '/includes/iso.inc';
+
+  $locale_language_code = isset($element['#default_value']) ? substr($element['#default_value'], 0, 2) : '';
+  $locale_country_code = isset($element['#default_value']) ? substr($element['#default_value'], 3) : '';
+
+  // Modify the element.
+  $element['#tree'] = TRUE;
+  $element['locale'] = array(
+    '#description' => isset($element['#description']) ? $element['#description'] : NULL,
+    '#title' => isset($element['#title']) ? $element['#title'] : NULL,
+    '#type' => 'fieldset',
+  );
+
+  $options = array();
+  foreach (_locale_get_predefined_list() as $language_code => $language_data) {
+    $options[$language_code] = $language_data[0];
+  }
+  asort($options);
+  $element['locale']['language_code'] = array(
+    '#default_value' => $locale_language_code,
+    '#empty_value' => '',
+    '#options' => $options,
+    '#required' => $element['#required'],
+    '#title' => t('Language'),
+    '#type' => 'select',
+  );
+
+  $element['locale']['country_code'] = array(
+    '#default_value' => $locale_country_code,
+    '#empty_value' => '',
+    '#options' => _country_get_predefined_list(),
+    '#required' => $element['#required'],
+    '#title' => t('Country'),
+    '#type' => 'select',
+  );
+
+  return $element;
+}
+
+/**
+ * Implements form validate callback for a currency_locale element.
+ */
+function currency_form_currency_locale_validate(array $element, array &$form_state) {
+  $locale = $element['#value']['locale']['language_code'] . '_' . $locale = $element['#value']['locale']['country_code'];
+  form_set_value($element, $locale, $form_state);
+}
+
+/**
  * Returns an options list of currencies.
  *
  * @return array
@@ -404,6 +472,47 @@ function currency_form_currency(array &$form, array &$form_state) {
     '#required' => TRUE,
     '#size' => 1,
     '#title' => t('Number of decimals'),
+    '#type' => 'textfield',
+  );
+}
+
+/**
+ * Implements Ctools exportable UI edit form callback.
+ */
+function currency_form_currency_locale_pattern(array &$form, array &$form_state) {
+  require_once DRUPAL_ROOT . '/includes/iso.inc';
+
+  $locale_pattern = $form_state['item'];
+
+  $form['info']['locale']['#type'] = 'currency_locale';
+  unset($form['info']['locale']['#description']);
+  unset($form['info']['locale']['#maxlength']);
+
+  $form['cldr'] = array(
+    '#title' => t('Formatting'),
+    '#type' => 'fieldset',
+  );
+
+  $form['cldr']['pattern'] = array(
+    '#default_value' => $locale_pattern->pattern,
+    '#description' => t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>. Non-standard characters are allowed.'),
+    '#maxlength' => 255,
+    '#required' => TRUE,
+    '#title' => t('Pattern'),
+    '#type' => 'textfield',
+  );
+
+  $form['cldr']['symbol_decimal_separator'] = array(
+    '#default_value' => $locale_pattern->symbol_decimal_separator,
+    '#maxlength' => 255,
+    '#title' => t('Decimal separator'),
+    '#type' => 'textfield',
+  );
+
+  $form['cldr']['symbol_grouping_separator'] = array(
+    '#default_value' => $locale_pattern->symbol_grouping_separator,
+    '#maxlength' => 255,
+    '#title' => t('Group separator'),
     '#type' => 'textfield',
   );
 }

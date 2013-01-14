@@ -19,6 +19,12 @@ function currency_test_menu() {
     'page arguments' => array('currency_test_form_currency_amount'),
     'access callback' => TRUE,
   );
+  $items['currency_test-form-element-currency-locale'] = array(
+    'title' => 'Test the currency_locale form element',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_test_form_currency_locale'),
+    'access callback' => TRUE,
+  );
   $items['currency_test-form-element-currency-sign'] = array(
     'title' => 'Test the currency_sign form element',
     'page callback' => 'drupal_get_form',
@@ -39,6 +45,23 @@ function currency_test_form_currency_amount(array $form, array &$form_state) {
     '#title' => t('Foo amount'),
     '#minimum_amount' => arg(1),
     '#maximum_amount' => arg(2),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements form build callback: show a currency_locale element.
+ */
+function currency_test_form_currency_locale(array $form, array &$form_state) {
+  $form['#submit'] = array('currency_test_form_submit');
+  $form['locale'] = array(
+    '#type' => 'currency_locale',
+    '#title' => t('Foo locale'),
   );
   $form['submit'] = array(
     '#type' => 'submit',

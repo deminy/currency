@@ -35,21 +35,21 @@ class CurrencyLocalePattern implements CurrencyExportableInterface {
    *
    * @var string
    */
-  public $pattern = '';
+  public $pattern = NULL;
 
   /**
    * The decimal separator's replacement.
    *
    * @var string
    */
-  public $symbol_decimal_separator = '.';
+  public $symbol_decimal_separator = NULL;
 
   /**
    * The grouping separator's replacement.
    *
    * @var string
    */
-  public $symbol_grouping_separator = ',';
+  public $symbol_grouping_separator = NULL;
 
   /**
    * Implements Chaos tools' exportable object "table" property.
