@@ -18,6 +18,7 @@ files[] = tests/CurrencyAmountViewsHandlerFieldWebTestCase.test
 files[] = tests/CurrencyConverterFixedRatesWebTestCase.test
 files[] = tests/CurrencyConverterWebTestCase.test
 files[] = tests/CurrencyCRUDWebTestCase.test
+files[] = tests/CurrencyFilterWebTestCase.test
 files[] = tests/CurrencyLocalePatternCRUDWebTestCase.test
 files[] = tests/CurrencyLocalePatternWebTestCase.test
 files[] = tests/CurrencySignFormElementWebTestCase.test

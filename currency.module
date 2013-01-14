@@ -86,6 +86,27 @@ function currency_permission() {
 }
 
 /**
+ * Implements hook_filter_info().
+ */
+function currency_filter_info() {
+  // Use "currency_exchange" as the machine name for backwards compatibility
+  // with Currency 7.x-1.x.
+  $filters['currency_exchange'] = array(
+    'process callback' => 'currency_filter_currency_exchange_process',
+    'title' => t('Currency conversion'),
+    'tips callback' => 'currency_filter_currency_exchange_tips',
+  );
+  $filters['currency_localize'] = array(
+    'cache' => FALSE,
+    'process callback' => 'currency_filter_currency_localize_process',
+    'tips callback' => 'currency_filter_currency_localize_tips',
+    'title' => t('Currency amount formatting'),
+  );
+
+  return $filters;
+}
+
+/**
  * Implements hook_ctools_plugin_type().
  */
 function currency_ctools_plugin_type() {
@@ -423,4 +444,82 @@ function currency_form_element_validate_numeric(array $element, array $form, arr
       '@title' => $element['#title'],
     )));
   }
+}
+
+/**
+ * Implements hook_filter_info()'s process callback.
+ */
+function currency_filter_currency_exchange_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+  return preg_replace_callback('/\[currency:([a-z]{3}):([a-z]{3})(.*?)\]/i', '_currency_filter_currency_exchange_process', $text);
+}
+
+/**
+ * Implements preg_replace_callback() callback.
+ */
+function _currency_filter_currency_exchange_process(array $matches) {
+  $currency_code_from = $matches[1];
+  $currency_code_to = $matches[2];
+  $amount = str_replace(':', '', $matches[3]);
+  if (strlen($amount) !== 0) {
+    try {
+      $amount = Input::parseAmount($amount);
+    }
+    // The amount is invalid, so return the token.
+    catch (Exception $e) {
+      return $matches[0];
+    }
+  }
+  // The amount defaults to 1.
+  else {
+    $amount = 1;
+  }
+
+  if ($rate = CurrencyConverter::load($currency_code_from, $currency_code_to)) {
+    return $amount * $rate;
+  }
+  // The filter failed, so return the token.
+  return $matches[0];
+}
+
+/**
+ * Implements hook_filter_info()'s tips callback.
+ */
+function currency_filter_currency_exchange_tips($filter, $format, $long) {
+  return t('Use <code>[currency:from:to:amount]</code> to convert an amount of money from one currency to another. The <code>amount</code> parameter is optional and defaults to <code>1</code>. Example: <code>[currency:EUR:USD:100]</code>.');
+}
+
+
+/**
+ * Implements hook_filter_info()'s process callback.
+ */
+function currency_filter_currency_localize_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+  return preg_replace_callback('/\[currency-localize:([a-z]{3}):(.+?)\]/i', '_currency_filter_currency_localize_process', $text);
+}
+
+/**
+ * Implements preg_replace_callback() callback.
+ */
+function _currency_filter_currency_localize_process(array $matches) {
+  $currency_code = $matches[1];
+  try {
+    $amount = Input::parseAmount($matches[2]);
+  }
+  // The amount is invalid, so return the token.
+  catch (Exception $e) {
+    return $matches[0];
+  }
+  ctools_include('export');
+  $currency = ctools_export_crud_load('currency', $currency_code);
+  if ($currency) {
+    return $currency->format($amount);
+  }
+  // The currency code is invalid, so return the token.
+  return $matches[0];
+}
+
+/**
+ * Implements hook_filter_info()'s tips callback.
+ */
+function currency_filter_currency_localize_tips($filter, $format, $long) {
+  return t('Use <code>[currency-localize:<strong>currency-code</strong>:<strong>amount</strong>]</code> to localize an amount of money. The <code>currency-code</code> and <code>amount</code> parameters are the ISO 4217 currency code and the actual amount to display. Example: <code>[currency-localize:EUR:99.95]</code>.');
 }
