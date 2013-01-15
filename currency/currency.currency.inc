@@ -236,7 +236,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'as_IN',
       'pattern' => '¤ #,##,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -266,7 +266,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'bn_IN',
       'pattern' => '#,##,##0.00¤;(#,##,##0.00¤)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -314,8 +314,8 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'de_AT',
       'pattern' => '¤ #,##0.00',
-      'symbol_decimal_separator' => '',
-      'symbol_grouping_separator' => '',
+      'symbol_decimal_separator' => ',',
+      'symbol_grouping_separator' => '.',
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'de_BE',
@@ -368,7 +368,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'el_CY',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => ',',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -422,7 +422,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'en_BW',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -464,7 +464,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'en_GB',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -512,7 +512,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'en_HK',
       'pattern' => '¤#,##0.00;(¤#,##0.00)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -530,8 +530,8 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'en_IN',
       'pattern' => '¤ #,##,##0.00',
-      'symbol_decimal_separator' => '',
-      'symbol_grouping_separator' => '',
+      'symbol_decimal_separator' => '.',
+      'symbol_grouping_separator' => ',',
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'en_JE',
@@ -656,7 +656,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'en_PK',
       'pattern' => '¤ #,##,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -686,7 +686,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'en_SG',
       'pattern' => '¤#,##0.00;(¤#,##0.00)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -794,7 +794,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'en_ZW',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1280,7 +1280,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'gv_GB',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1328,7 +1328,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'ig_NG',
       'pattern' => '¤#,##0.00;(¤#,##0.00)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1370,7 +1370,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'ki_KE',
       'pattern' => '¤#,##0.00;(¤#,##0.00)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1406,13 +1406,13 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'kw_GB',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'lg_UG',
       'pattern' => '#,##0.00¤',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1526,7 +1526,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'nd_ZW',
       'pattern' => '¤#,##0.00;(¤#,##0.00)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1538,8 +1538,8 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'nl_BE',
       'pattern' => '#,##0.00 ¤',
-      'symbol_decimal_separator' => '',
-      'symbol_grouping_separator' => '',
+      'symbol_decimal_separator' => ',',
+      'symbol_grouping_separator' => '.',
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'nl_CW',
@@ -1586,7 +1586,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'om_KE',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1754,7 +1754,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'si_LK',
       'pattern' => '¤ #,##,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1772,7 +1772,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'sn_ZW',
       'pattern' => '¤#,##0.00;(¤#,##0.00)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1856,7 +1856,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'sw_KE',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1886,13 +1886,13 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'ta_MY',
       'pattern' => '¤ #,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'ta_SG',
       'pattern' => '¤ #,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1916,7 +1916,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'ti_ET',
       'pattern' => '¤#,##0.00',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
@@ -1964,8 +1964,8 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'ur_IN',
       'pattern' => '¤ #,##,##0.00',
-      'symbol_decimal_separator' => '',
-      'symbol_grouping_separator' => '',
+      'symbol_decimal_separator' => '.',
+      'symbol_grouping_separator' => ',',
     )),
     new CurrencyLocalePattern(array(
       'locale' => 'ur_PK',
@@ -1994,7 +1994,7 @@ function currency_currency_locale_pattern_info() {
     new CurrencyLocalePattern(array(
       'locale' => 'yo_NG',
       'pattern' => '¤#,##0.00;(¤#,##0.00)',
-      'symbol_decimal_separator' => '',
+      'symbol_decimal_separator' => '.',
       'symbol_grouping_separator' => '',
     )),
     new CurrencyLocalePattern(array(
