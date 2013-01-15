@@ -39,7 +39,19 @@ class CurrencyLocalePatternCtoolsExportUI extends ctools_export_ui {
   function list_table_header() {
     $header = parent::list_table_header();
     $header = array_merge(array_slice($header, 0, 1), array(t('Language')), array(t('Country')), array_slice($header, 1));
+    $header[0] = t('Locale');
 
     return $header;
+  }
+
+  /**
+   * Override parent::list_sort_options().
+   */
+  function list_sort_options() {
+    $options = parent::list_sort_options();
+    $options['disabled'] = t('Enabled, locale');
+    $options['name'] = t('Locale');
+
+    return $options;
   }
 }

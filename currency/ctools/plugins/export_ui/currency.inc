@@ -10,6 +10,10 @@ $plugin = array(
   'form' => array(
     'settings' => 'currency_form_currency',
   ),
+  'handler' => array(
+    'class' => 'CurrencyCtoolsExportUI',
+    'parent' => 'ctools_export_ui',
+  ),
   'menu' => array(
     'menu item' => 'currency',
     'menu prefix' => 'admin/config/regional',
