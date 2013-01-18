@@ -21,11 +21,16 @@ class CurrencyViewsHandlerField extends views_handler_field {
    */
   function render($values) {
     $property = !empty($this->definition['currency_property']) ? $this->definition['currency_property'] : NULL;
-    if ($property) {
+    if ($property && property_exists('Currency', $property)) {
       $currency_code = $this->get_value($values);
       $currency = ctools_export_crud_load('currency', $currency_code);
-      if ($currency && property_exists($currency, $property)) {
+      if ($currency) {
         return $currency->$property;
+      }
+      else {
+        return t('Unknuwn currency %currency_code', array(
+          '%currency_code' => $currency_code,
+        ));
       }
     }
     throw new RuntimeException(t('CurrencyViewsHandlerField requires a set-up currency property handler definition.'));
