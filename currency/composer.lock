@@ -48,12 +48,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bartfeenstra/currency",
-                "reference": "b8f58633417c29a79a7ff39021cf950b28537ca5"
+                "reference": "dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bartfeenstra/currency/archive/b8f58633417c29a79a7ff39021cf950b28537ca5.zip",
-                "reference": "b8f58633417c29a79a7ff39021cf950b28537ca5",
+                "url": "https://github.com/bartfeenstra/currency/archive/dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29.zip",
+                "reference": "dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29",
                 "shasum": ""
             },
             "require-dev": {
@@ -63,7 +63,7 @@
                 "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
                 "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
             },
-            "time": "2013-01-24 11:58:45",
+            "time": "2013-01-24 13:39:25",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
