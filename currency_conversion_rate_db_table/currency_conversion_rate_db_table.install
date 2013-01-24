@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Installation and uninstallation functionality.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function currency_conversion_rate_db_table_schema() {
+  $schema['currency_conversion_rate_db_table'] = array(
+    'description' => 'Currency conversion rates.',
+    'fields' => array(
+      'currency_code_from' => array(
+        'type' => 'varchar',
+        'length' => 3,
+      ),
+      'currency_code_to' => array(
+        'type' => 'varchar',
+        'length' => 3,
+      ),
+      'rate' => array(
+        'type' => 'float',
+        'size' => 'big',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('currency_code_from', 'currency_code_to'),
+  );
+
+  return $schema;
+}

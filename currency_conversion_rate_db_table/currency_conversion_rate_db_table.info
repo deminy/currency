@@ -1,0 +1,4 @@
+name = Currency conversion rate database table
+description = Provides a database table in which currency conversion rates are stored.
+core = 7.x
+dependencies[] = currency
