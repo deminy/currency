@@ -445,7 +445,7 @@ function _currency_api_filter_process($matches) {
  * Returns an array of all currency properties.
  */
 function currency_api_get_currencies() {
-  return array(
+  $currencies = array(
     'AED' => array(
       'name' => t('UAE Dirham (AED)'),
       'number' => '784',
@@ -1552,4 +1552,15 @@ function currency_api_get_currencies() {
       'decimals' => 2,
     ),
   );
+
+  // Merge in defaults.
+  foreach ($currencies as &$currency) {
+    $currency += array(
+      'name' => '',
+      'number' => '',
+      'symbol' => '',
+    );
+  }
+
+  return $currencies;
 }
