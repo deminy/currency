@@ -1,4 +1,4 @@
 name = Currency conversion rate database table
-description = Provides a database table in which currency conversion rates are stored.
+description = Provides a database table in which currency conversion rates are stored and exposed to Views.
 core = 7.x
 dependencies[] = currency
