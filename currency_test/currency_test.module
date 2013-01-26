@@ -28,7 +28,7 @@ function currency_test_menu() {
   $items['currency_test-form-element-currency-sign'] = array(
     'title' => 'Test the currency_sign form element',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('currency_test_form_currency_sign', 1),
+    'page arguments' => array('currency_test_form_currency_sign'),
     'access callback' => TRUE,
   );
 
@@ -74,10 +74,9 @@ function currency_test_form_currency_locale(array $form, array &$form_state) {
 /**
  * Implements form build callback: show a currency_sign element.
  */
-function currency_test_form_currency_sign(array $form, array &$form_state, $currency_code) {
+function currency_test_form_currency_sign(array $form, array &$form_state) {
   $form['#submit'] = array('currency_test_form_submit');
   $form['sign'] = array(
-    '#currency_code' => $currency_code ? $currency_code : FALSE,
     '#type' => 'currency_sign',
     '#title' => t('Foo sign'),
   );

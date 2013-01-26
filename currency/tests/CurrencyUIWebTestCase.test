@@ -60,10 +60,5 @@ class CurrencyUIWebTestCase extends DrupalWebTestCase {
       $this->assertFieldByXPath("//input[@name='$name' and contains(@class, 'error')]");
       $this->assertNoFieldByXPath("//input[not(@name='$name') and contains(@class, 'error')]");
     }
-
-    // Edit and save an existing currency.
-    $path = 'admin/config/regional/currency/list/EUR/edit';
-    $this->drupalPost($path, array(), t('Save'));
-    $this->assertUrl('admin/config/regional/currency');
   }
 }

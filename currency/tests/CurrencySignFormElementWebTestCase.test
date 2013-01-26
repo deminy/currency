@@ -51,13 +51,5 @@ class CurrencySignFormElementWebTestCase extends DrupalWebTestCase {
     $this->drupalPost($path, $values, t('Submit'));
     $this->assertUrl('user');
     $this->assertRaw("\$form_state['sign'] = 'foobar'");
-
-    // Test a custom currency.
-    $values =  array(
-      'sign[sign]' => '',
-    );
-    $this->drupalPost($path . '/ZZZ', $values, t('Submit'));
-    $this->assertUrl('user');
-    $this->assertRaw("\$form_state['sign'] = ''");
   }
 }
