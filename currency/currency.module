@@ -536,7 +536,7 @@ function currency_form_element_validate_iso_4217_code(array $element, array $for
  * Implements Form API #element_validate callback.
  */
 function currency_form_element_validate_iso_4217_number(array $element, array $form, array &$form_state) {
-  if (!preg_match('/\d{3}/i', $element['#value'])) {
+  if ($element['#value'] && !preg_match('/\d{3}/i', $element['#value'])) {
     form_error($element, t('@title should be three digits.', array(
       '@title' => $element['#title'],
     )));
