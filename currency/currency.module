@@ -293,11 +293,8 @@ function currency_form_currency_sign_process(array $element, array &$form_state,
   $currency = FALSE;
   if ($element['#currency_code']) {
     $currency = BartFeenstra\Currency\Currency::resourceLoad($element['#currency_code']);
-    if (!$currency) {
-      throw new Exception(t('A valid ISO 4217 currency code needs to be set.'));
-    }
   }
-  else {
+  if (!$currency) {
     $currency = BartFeenstra\Currency\Currency::resourceLoad('XXX');
   }
 
@@ -525,11 +522,13 @@ function currency_form_element_validate_iso_4217_code(array $element, array $for
   if (!preg_match('/[a-z]{3}/i', $currency_code)) {
     form_error($element, t('The currency code should be three letters.'));
   }
-  $currency = ctools_export_crud_load('currency', $currency_code);
-  if ($currency) {
-    form_error($element, t('The currency code is already in use by !link.', array(
-      '!link' => l($currency->title, "admin/config/regional/currency/currency/list/$currency->ISO4217Code/edit"),
-    )));
+  if ($element['#default_value'] !== $element['#value']) {
+    $currency = ctools_export_crud_load('currency', $currency_code);
+    if ($currency) {
+      form_error($element, t('The currency code is already in use by !link.', array(
+        '!link' => l($currency->title, "admin/config/regional/currency/currency/list/$currency->ISO4217Code/edit"),
+      )));
+    }
   }
 }
 
