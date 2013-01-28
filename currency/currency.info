@@ -1,11 +1,6 @@
 name = Currency
 description = Provides currency information and allows users to add custom currencies.
 core = 7.x
-; Explicitly specify the branch as the version, so most versioned dependencies
-; will work even when obtaining the module through Git. The drupal.org
-; packaging script will correctly override the version when creating download
-; packages for releases.
-version = 7.x-2.x-dev
 php = 5.3
 configure = admin/config/regional/currency
 dependencies[] = ctools
