@@ -312,7 +312,7 @@ function currency_form_currency_sign_process(array $element, array &$form_state,
   ), $signs)));
   asort($signs);
   $element['sign'] = array(
-    '#default_value' => $currency->sign,
+    '#default_value' => in_array($element['#default_value'], $signs) ? $element['#default_value'] : CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
     '#empty_value' => '',
     '#options' => $signs,
     '#required' => $element['#required'],
@@ -327,7 +327,7 @@ function currency_form_currency_sign_process(array $element, array &$form_state,
         drupal_get_path('module', 'currency') . '/currency.css',
       ),
     ),
-    '#default_value' => $currency->sign,
+    '#default_value' => $element['#default_value'],
     '#states' => array(
       'visible' => array(
         $sign_js_selector => array(
