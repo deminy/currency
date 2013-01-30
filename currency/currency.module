@@ -360,6 +360,7 @@ function currency_form_currency_sign_validate(array $element, array &$form_state
  */
 function currency_form_currency_locale_process(array $element, array &$form_state, array &$form) {
   require_once DRUPAL_ROOT . '/includes/iso.inc';
+  require_once DRUPAL_ROOT . '/includes/locale.inc';
 
   $locale_language_code = isset($element['#default_value']) ? substr($element['#default_value'], 0, 2) : '';
   $locale_country_code = isset($element['#default_value']) ? substr($element['#default_value'], 3) : '';
@@ -389,7 +390,7 @@ function currency_form_currency_locale_process(array $element, array &$form_stat
   $element['locale']['country_code'] = array(
     '#default_value' => $locale_country_code,
     '#empty_value' => '',
-    '#options' => _country_get_predefined_list(),
+    '#options' => country_get_list(),
     '#required' => $element['#required'],
     '#title' => t('Country'),
     '#type' => 'select',

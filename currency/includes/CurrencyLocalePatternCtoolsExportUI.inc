@@ -15,9 +15,10 @@ class CurrencyLocalePatternCtoolsExportUI extends ctools_export_ui {
    */
   function list_build_row($item, &$form_state, $operations) {
     require_once DRUPAL_ROOT . '/includes/iso.inc';
+    require_once DRUPAL_ROOT . '/includes/locale.inc';
 
     $languages = _locale_get_predefined_list();
-    $countries = _country_get_predefined_list();
+    $countries = country_get_list();
 
     parent::list_build_row($item, $form_state, $operations);
     $name = $item->{$this->plugin['export']['key']};
