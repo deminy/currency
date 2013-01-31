@@ -32,6 +32,10 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
     $options['currency_code_field'] = array(
       'default' => !empty($this->definition['currency_code_field']) ? $this->definition['currency_code_field'] : '',
     );
+    // Whether to round amounts.
+    $options['currency_round'] = array(
+      'default' => FALSE,
+    );
 
     return $options;
   }
@@ -74,6 +78,11 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
       '#empty_value' => '',
       '#default_value' => $this->options['currency_code_field'],
     );
+    $form['currency_round'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Round amounts'),
+      '#default_value' => $this->options['currency_round'],
+    );
   }
 
   /**
@@ -84,6 +93,12 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
   function render($values) {
     $currency = $this->getCurrency($values);
     $amount = $this->getAmount($this->get_value($values));
+    if ($this->options['currency_round']) {
+      $rounding_step = $currency->getRoundingStep();
+      if ($rounding_step) {
+        $amount = round($amount / $rounding_step) * $rounding_step;
+      }
+    }
 
     return $currency->format($amount);
   }

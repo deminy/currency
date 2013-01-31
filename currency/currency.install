@@ -37,6 +37,9 @@ function currency_schema() {
         'type' => 'varchar',
         'length' => 3,
       ),
+      'rounding_step' => array(
+        'type' => 'int',
+      ),
       'sign' => array(
         'type' => 'varchar',
         'length' => 255,

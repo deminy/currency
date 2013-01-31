@@ -25,6 +25,15 @@ class Currency extends BartFeenstra\Currency\Currency {
   public $export_type = 0;
 
   /**
+   * The number of subunits to round amounts in this currency to.
+   *
+   * @see Currency::getRoundingStep()
+   *
+   * @var integer
+   */
+  public $rounding_step = NULL;
+
+  /**
    * Implements Ctools' exportables "table" property.
    *
    * @var string
@@ -60,5 +69,24 @@ class Currency extends BartFeenstra\Currency\Currency {
    */
   function format($amount) {
     return CurrencyLocalePattern::loadFromEnv()->format($this, $amount);
+  }
+
+  /**
+   * Returns the rounding step.
+   *
+   * @return int|float|false
+   */
+  function getRoundingStep() {
+    if (is_numeric($this->rounding_step)) {
+      return $this->rounding_step;
+    }
+    // If a rounding step was not set explicitely, the rounding step is equal
+    // to one subunit.
+    elseif (is_numeric($this->subunits)) {
+      return $this->subunits > 0 ? 1 / $this->subunits : 1;
+    }
+    else {
+      return FALSE;
+    }
   }
 }

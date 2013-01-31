@@ -75,7 +75,9 @@ class CurrencyCRUDWebTestCase extends DrupalWebTestCase {
     $currency->ISO4217Code = 'EUR';
     $currency->export_module = 'foo';
     $currency->export_type = EXPORT_IN_CODE;
+    $currency->rounding_step = 100;
     $currency->sign = 'bar';
+    $currency->subunits = 100;
     $currency->title = 'baz';
     ctools_export_crud_save('currency', $currency);
     $this->assertTrue($this->currencyExists($currency), 'Chaos tools correctly updates a currency.');

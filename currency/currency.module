@@ -470,10 +470,19 @@ function currency_form_currency(array &$form, array &$form_state) {
 
   $form['subunits'] = array(
     '#default_value' => $currency->subunits,
-    '#element_validate' => array('currency_form_element_validate_numeric'),
+    '#element_validate' => array('element_validate_number'),
     '#required' => TRUE,
     '#size' => 3,
     '#title' => t('Number of subunits'),
+    '#type' => 'textfield',
+  );
+
+  $form['rounding_step'] = array(
+    '#default_value' => $currency->rounding_step,
+    '#element_validate' => array('element_validate_number'),
+    '#required' => TRUE,
+    '#size' => 5,
+    '#title' => t('Rounding step'),
     '#type' => 'textfield',
   );
 }
@@ -543,17 +552,6 @@ function currency_form_element_validate_iso_4217_code(array $element, array $for
 function currency_form_element_validate_iso_4217_number(array $element, array $form, array &$form_state) {
   if ($element['#value'] && !preg_match('/\d{3}/i', $element['#value'])) {
     form_error($element, t('@title should be three digits.', array(
-      '@title' => $element['#title'],
-    )));
-  }
-}
-
-/**
- * Implements Form API #element_validate callback.
- */
-function currency_form_element_validate_numeric(array $element, array $form, array &$form_state) {
-  if (!is_numeric($element['#value'])) {
-    form_error($element, t('@title should be numeric.', array(
       '@title' => $element['#title'],
     )));
   }
