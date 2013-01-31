@@ -37,7 +37,7 @@ class CurrencyUIWebTestCase extends DrupalWebTestCase {
       'title' => 'foo',
       'sign[sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
       'sign[sign_custom]' => 'foobar',
-      'minorUnit' => 2,
+      'subunits' => 2,
     );
     $this->drupalPost($path, $valid_values, t('Save'));
     ctools_include('export');
@@ -49,7 +49,7 @@ class CurrencyUIWebTestCase extends DrupalWebTestCase {
     $invalid_values =  array(
       'ISO4217Code' => 'EUR',
       'ISO4217Number' => 'abc',
-      'minorUnit' => 'x',
+      'subunits' => 'x',
     );
     foreach ($invalid_values as $name => $invalid_value) {
       $values = array(

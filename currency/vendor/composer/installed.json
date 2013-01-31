@@ -10,7 +10,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/bartfeenstra/cldr/archive/256a058858f423bcc1fcdde837888bcd3a8034ca.zip",
+            "url": "https://api.github.com/repos/bartfeenstra/cldr/zipball/256a058858f423bcc1fcdde837888bcd3a8034ca",
             "reference": "256a058858f423bcc1fcdde837888bcd3a8034ca",
             "shasum": ""
         },
@@ -26,6 +26,49 @@
         "autoload": {
             "psr-0": {
                 "BartFeenstra": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Bart Feenstra",
+                "email": "bart@mynameisbart.com",
+                "homepage": "http://mynameisbart.com",
+                "role": "Developer"
+            }
+        ]
+    },
+    {
+        "name": "bartfeenstra/currency",
+        "version": "1.x-dev",
+        "version_normalized": "1.9999999.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/bartfeenstra/currency",
+            "reference": "be10c72dfa42e80f2fd178da8c6240ef6c56c146"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/be10c72dfa42e80f2fd178da8c6240ef6c56c146",
+            "reference": "be10c72dfa42e80f2fd178da8c6240ef6c56c146",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "suggest": {
+            "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
+            "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
+        },
+        "time": "2013-01-31 00:39:37",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "BartFeenstra": "src/PHP"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -84,48 +127,5 @@
         ],
         "description": "Symfony Yaml Component",
         "homepage": "http://symfony.com"
-    },
-    {
-        "name": "bartfeenstra/currency",
-        "version": "1.x-dev",
-        "version_normalized": "1.9999999.9999999.9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/bartfeenstra/currency",
-            "reference": "dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://github.com/bartfeenstra/currency/archive/dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29.zip",
-            "reference": "dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29",
-            "shasum": ""
-        },
-        "require-dev": {
-            "phpunit/phpunit": "3.7.*"
-        },
-        "suggest": {
-            "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
-            "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
-        },
-        "time": "2013-01-24 13:39:25",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "BartFeenstra": "src/PHP"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Bart Feenstra",
-                "email": "bart@mynameisbart.com",
-                "homepage": "http://mynameisbart.com",
-                "role": "Developer"
-            }
-        ]
     }
 ]

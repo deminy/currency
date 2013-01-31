@@ -69,13 +69,13 @@ class CurrencyViewsHandlerFieldWebTestCase extends ViewsSqlTest {
         'currency_property' => 'sign',
       ),
     );
-    $data['views_test']['currency_minor_unit'] = array(
+    $data['views_test']['currency_subunits'] = array(
       'real field' => 'currency_code',
       'title' => t('Currency code'),
       'help' => t('Currency code'),
       'field' => array(
         'handler' => 'CurrencyViewsHandlerField',
-        'currency_property' => 'minorUnit',
+        'currency_property' => 'subunits',
       ),
     );
 
@@ -112,10 +112,10 @@ class CurrencyViewsHandlerFieldWebTestCase extends ViewsSqlTest {
         'field' => 'currency_sign',
         'relationship' => 'none',
       ),
-      'currency_minor_unit' => array(
-        'id' => 'currency_minor_unit',
+      'currency_subunits' => array(
+        'id' => 'currency_subunits',
         'table' => 'views_test',
-        'field' => 'currency_minor_unit',
+        'field' => 'currency_subunits',
         'relationship' => 'none',
       ),
     ));
@@ -134,6 +134,6 @@ class CurrencyViewsHandlerFieldWebTestCase extends ViewsSqlTest {
     $view = views_get_view($view->name);
     $this->executeView($view);
     $this->assertEqual($view->field['currency_sign']->advanced_render($view->result[0]), '€');
-    $this->assertEqual($view->field['currency_minor_unit']->advanced_render($view->result[0]), '2');
+    $this->assertEqual($view->field['currency_subunits']->advanced_render($view->result[0]), '100');
   }
 }

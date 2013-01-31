@@ -37,13 +37,12 @@ function currency_schema() {
         'type' => 'varchar',
         'length' => 3,
       ),
-      'minorUnit' => array(
-        'type' => 'int',
-        'size' => 'tiny',
-      ),
       'sign' => array(
         'type' => 'varchar',
         'length' => 255,
+      ),
+      'subunits' => array(
+        'type' => 'int',
       ),
       'title' => array(
         'type' => 'varchar',

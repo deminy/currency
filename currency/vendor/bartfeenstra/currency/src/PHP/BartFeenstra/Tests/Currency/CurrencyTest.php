@@ -37,12 +37,13 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase {
 alternativeSigns: {  }
 conversionRates: {  }
 ISO4217Code: EUR
-minorUnit: 2
 ISO4217Number: '978'
 sign: ¤
+subunits: 100
 title: Euro
 usage:
     - { ISO8601From: '2003-02-04', ISO8601To: '2006-06-03', ISO3166Code: CS }
+
 EOD;
   }
 
@@ -58,9 +59,9 @@ EOD;
     $usage->ISO3166Code = 'CS';
     $currency = new Currency();
     $currency->ISO4217Code = 'EUR';
-    $currency->minorUnit = 2;
     $currency->ISO4217Number = '978';
     $currency->sign = '¤';
+    $currency->subunits = 100;
     $currency->title = 'Euro';
     $currency->usage = array($usage);
 
@@ -68,12 +69,13 @@ EOD;
   }
 
   /**
-   * Test YAML parsing .
+   * Test YAML parsing.
    */
   function testResourceParse() {
     $yaml = $this->yaml();
-    $currency_parsed = Currency::resourceParse($yaml);
-    $this->assertInstanceOf('BartFeenstra\Currency\Currency', $currency_parsed, 'Currency::parse() parses YAML code to a Currency object.');
+    $currency_parsed = new Currency();
+    $currency_parsed->resourceParse($yaml);
+    $this->assertInstanceOf('BartFeenstra\Currency\Currency', $currency_parsed);
     $this->assertInstanceOf('BartFeenstra\Currency\Usage', $currency_parsed->usage[0], 'Currency::parse() parses YAML code to a Usage object.');
     $currency = $this->currency();
     $this->assertSame(get_object_vars($currency->usage[0]), get_object_vars($currency_parsed->usage[0]), 'Currency::parse() parses YAML code to an identical Usage object.');
@@ -83,19 +85,29 @@ EOD;
   }
 
   /**
-   * Tests loading a single currency.
+   * Test dumping to YAML.
    */
-  function testResourceLoad() {
-    $currency = Currency::resourceLoad('EUR');
-    $this->assertInstanceOf('BartFeenstra\Currency\Currency', $currency, 'Currency::load() loads a single currency from file.');
+  function testResourceDump() {
+    $currency = $this->currency();
+    $yaml = $this->yaml();
+    $yaml_dumped = $currency->resourceDump();
+    $this->assertSame($yaml, $yaml_dumped);
   }
 
   /**
-   * Tests loading all currencies.
-   *
-   * @depends testResourceLoad
+   * Tests loading a single currency.
    */
-  function testResourceLoadAll() {
-    Currency::resourceLoadAll();
+  function testResourceLoad() {
+    $currency = new Currency();
+    $currency->resourceLoad('EUR');
+    $this->assertInstanceOf('BartFeenstra\Currency\Currency', $currency, 'Currency::load() loads a single currency from file.');
+    $error = FALSE;
+    try {
+      $currency->resourceLoad('123');
+    }
+    catch (\RuntimeException $e) {
+      $error = TRUE;
+    }
+    $this->assertTrue($error);
   }
 }

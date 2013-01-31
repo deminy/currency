@@ -27,9 +27,9 @@ function currency_token_info() {
     'name' => t('Currency number'),
     'type' => 'text',
   );
-  $token_info['tokens']['minor-unit'] = array(
-    'description' => t('The ISO 4217 currency code.'),
-    'name' => t('Currency code'),
+  $token_info['tokens']['subunits'] = array(
+    'description' => t('The number of subunits.'),
+    'name' => t('Subunits'),
     'type' => 'text',
   );
   $token_info['tokens']['sign'] = array(
@@ -61,7 +61,7 @@ function currency_tokens($type, array $tokens, array $data = array(), array $opt
       $currency = ctools_export_crud_load('currency', $data['currency']);
       $map = array(
         'number' => 'ISO4217Number',
-        'minor-unit' => 'minorUnit',
+        'subunits' => 'subunits',
         'sign' => 'sign',
         'title' => 'title',
       );

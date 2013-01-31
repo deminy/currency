@@ -291,11 +291,16 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
  */
 function currency_form_currency_sign_process(array $element, array &$form_state, array &$form) {
   $currency = FALSE;
+  $currency = new Currency();
   if ($element['#currency_code']) {
-    $currency = BartFeenstra\Currency\Currency::resourceLoad($element['#currency_code']);
+    try {
+      $currency->resourceLoad($element['#currency_code']);
+    }
+    catch (Exception $e) {
+    }
   }
   if (!$currency) {
-    $currency = BartFeenstra\Currency\Currency::resourceLoad('XXX');
+    $currency->resourceLoad('XXX');
   }
 
   // Modify the element.
@@ -463,13 +468,12 @@ function currency_form_currency(array &$form, array &$form_state) {
     '#type' => 'currency_sign',
   );
 
-  $form['minorUnit'] = array(
-    '#default_value' => $currency->minorUnit,
+  $form['subunits'] = array(
+    '#default_value' => $currency->subunits,
     '#element_validate' => array('currency_form_element_validate_numeric'),
-    '#maxlength' => 1,
     '#required' => TRUE,
-    '#size' => 1,
-    '#title' => t('Number of decimals'),
+    '#size' => 3,
+    '#title' => t('Number of subunits'),
     '#type' => 'textfield',
   );
 }

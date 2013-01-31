@@ -9,7 +9,14 @@
  * Implements hook_currency_info().
  */
 function currency_currency_info() {
-  return Currency::resourceLoadAll();
+  $currencies = array();
+  foreach (Currency::resourceListAll() as $currency_code) {
+    $currency = new Currency();
+    $currency->resourceLoad($currency_code);
+    $currencies[$currency->ISO4217Code] = $currency;
+  }
+
+  return $currencies;
 }
 
 /**

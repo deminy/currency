@@ -38,14 +38,6 @@ class Currency {
   public $ISO4217Code = NULL;
 
   /**
-   * The minor unit, or exponent (as in 10^$minor_unit) that results in the
-   * number of minor units.
-   *
-   * @var integer
-   */
-  public $minorUnit = NULL;
-
-  /**
    * ISO 4217 currency number.
    *
    * @var string
@@ -58,6 +50,13 @@ class Currency {
    * @var string
    */
   public $sign = '¤';
+
+  /**
+   * The number of subunits this currency has.
+   *
+   * @var integer|null
+   */
+  public $subunits = NULL;
 
   /**
    * Human-readable title in US English.
@@ -83,14 +82,6 @@ class Currency {
    * A list of the ISO 4217 codes of all known currency resources.
    */
   public static $resourceISO4217Codes = array();
-
-  /**
-   * The name of the currency usage class.
-   *
-   * @var string
-   *   The class must extend BartFeenstra\Currency\Usage.
-   */
-  public static $resourceUsageClass = 'BartFeenstra\Currency\Usage';
 
   /**
    * Returns the directory that contains the currency resources.
@@ -121,61 +112,54 @@ class Currency {
   }
 
   /**
-   * Loads a currency resource.
+   * Loads a currency resource into this object.
    *
    * @param string $iso_4217_code
-   *
-   * @return Currency|false
    */
-  public static function resourceLoad($iso_4217_code) {
+  public function resourceLoad($iso_4217_code) {
     $filepath = self::resourceDir() . "$iso_4217_code.yaml";
-    if (file_exists($filepath)) {
-      return self::resourceParse(file_get_contents($filepath));
+    if (is_readable($filepath)) {
+      $this->resourceParse(file_get_contents($filepath));
     }
-    return FALSE;
+    else {
+      throw new \RuntimeException(sprintf('The currency resource file %s does not exist or is not readable.', $filepath));
+    }
   }
 
   /**
-   * Loads all currency resources.
-   *
-   * @return array
-   *   An array of Currency objects.
-   */
-  public static function resourceLoadAll() {
-    $currencies = array();
-    foreach (self::resourceListAll() as $iso_4217_code) {
-      $currencies[$iso_4217_code] = self::resourceLoad($iso_4217_code);
-    }
-
-    return $currencies;
-  }
-
-  /**
-   * Parses a YAML file into an object of this class.
+   * Parses a YAML file into this object.
    *
    * @param string $yaml
-   *
-   * @return Currency|false
    */
-  public static function resourceParse($yaml) {
-    if ($currency_data = Yaml::parse($yaml)) {
-      $usages_data = $currency_data['usage'];
-      $currency_data['usage'] = array();
-      $class = get_called_class();
-      $currency = new $class();
-      foreach ($currency_data as $property => $value) {
-        $currency->$property = $value;
-      }
-      foreach ($usages_data as $usage_data) {
-        $usage = new self::$resourceUsageClass();
-        foreach ($usage_data as $property => $value) {
-          $usage->$property = $value;
-        }
-        $currency->usage[] = $usage;
-      }
-      unset($currency_data);
-      return $currency;
+  public function resourceParse($yaml) {
+    $currency_data = Yaml::parse($yaml);
+    $usages_data = $currency_data['usage'];
+    $currency_data['usage'] = array();
+    foreach ($currency_data as $property => $value) {
+      $this->$property = $value;
     }
-    return FALSE;
+    foreach ($usages_data as $usage_data) {
+      $usage = new Usage;
+      foreach ($usage_data as $property => $value) {
+        $usage->$property = $value;
+      }
+      $this->usage[] = $usage;
+    }
+    unset($currency_data);
+  }
+
+  /**
+   * Dumps this object to YAML code.
+   *
+   * @return string
+   */
+  public function resourceDump() {
+    $currency_data = get_object_vars($this);
+    $currency_data['usage'] = array();
+    foreach ($this->usage as $usage) {
+      $currency_data['usage'][] = get_object_vars($usage);
+    }
+
+    return Yaml::dump($currency_data);
   }
 }

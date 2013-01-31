@@ -30,12 +30,12 @@ class CurrencyTokenWebTestCase extends DrupalWebTestCase {
       'EUR' => array(
         '[currency:code]' => 'EUR',
         '[currency:number]' => '978',
-        '[currency:minor-unit]' => '2',
+        '[currency:subunits]' => '100',
       ),
       'BHD' => array(
         '[currency:code]' => 'BHD',
         '[currency:number]' => '048',
-        '[currency:minor-unit]' => '3',
+        '[currency:subunits]' => '1000',
       ),
     );
     foreach ($data as $currency_code => $tokens) {

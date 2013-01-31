@@ -14,8 +14,8 @@
 function hook_currency_info() {
   $currencies['EUR'] = new Currency(array(
     'ISO4217Code' => 'EUR',
-    'minorUnit' => 2,
     'sign' => '€',
+    'subunits' => 100,
     'title' => t('Euro'),
   ));
 
@@ -32,7 +32,7 @@ function hook_currency_info() {
  */
 function hook_currency_info_alter(array $currencies) {
   // Let's pretend the euro has 1000 subunits.
-  $currencies['EUR']['minorUnit'] = 3;
+  $currencies['EUR']['subunits'] = 1000;
 }
 
 /**

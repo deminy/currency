@@ -11,7 +11,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bartfeenstra/cldr/archive/256a058858f423bcc1fcdde837888bcd3a8034ca.zip",
+                "url": "https://api.github.com/repos/bartfeenstra/cldr/zipball/256a058858f423bcc1fcdde837888bcd3a8034ca",
                 "reference": "256a058858f423bcc1fcdde837888bcd3a8034ca",
                 "shasum": ""
             },
@@ -23,7 +23,6 @@
             },
             "time": "2013-01-08 22:29:58",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "BartFeenstra": "src"
@@ -48,12 +47,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bartfeenstra/currency",
-                "reference": "dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29"
+                "reference": "be10c72dfa42e80f2fd178da8c6240ef6c56c146"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bartfeenstra/currency/archive/dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29.zip",
-                "reference": "dc97ebf0e86b7fc2670d73dc9e7d60c9b48f7c29",
+                "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/be10c72dfa42e80f2fd178da8c6240ef6c56c146",
+                "reference": "be10c72dfa42e80f2fd178da8c6240ef6c56c146",
                 "shasum": ""
             },
             "require-dev": {
@@ -63,9 +62,8 @@
                 "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
                 "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
             },
-            "time": "2013-01-24 13:39:25",
+            "time": "2013-01-31 00:39:37",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "BartFeenstra": "src/PHP"
@@ -104,7 +102,6 @@
             },
             "time": "2013-01-17 21:21:51",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\Yaml": ""
