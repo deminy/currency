@@ -25,7 +25,12 @@ class CurrencyViewsHandlerField extends views_handler_field {
       $currency_code = $this->get_value($values);
       $currency = ctools_export_crud_load('currency', $currency_code);
       if ($currency) {
-        return $currency->$property;
+        if ($property == 'title') {
+          return $currency->translateTitle();
+        }
+        else {
+          return $currency->$property;
+        }
       }
       else {
         return t('Unknuwn currency %currency_code', array(

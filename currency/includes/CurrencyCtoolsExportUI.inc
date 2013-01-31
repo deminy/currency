@@ -17,7 +17,7 @@ class CurrencyCtoolsExportUI extends ctools_export_ui {
     parent::list_build_row($item, $form_state, $operations);
     $name = $item->{$this->plugin['export']['key']};
     $cells = $this->rows[$name]['data'];
-    $cells = array_merge(array_slice($cells, 0, 1), array($item->title), array_slice($cells, 1));
+    $cells = array_merge(array_slice($cells, 0, 1), array($item->translateTitle()), array_slice($cells, 1));
     $this->rows[$name]['data'] = $cells;
   }
 

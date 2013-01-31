@@ -46,16 +46,10 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
     // The currency code.
-    $options = array();
-    foreach (ctools_export_crud_load_all('currency') as $currency) {
-      $options[$currency->ISO4217Code] = $currency->title;
-    }
-    asort($options);
-    $handler_options = $this->option_definition();
     $form['currency_code'] = array(
       '#type' => 'select',
       '#title' => t('Default currency'),
-      '#options' => $options,
+      '#options' => currency_options(),
       '#default_value' => $this->options['currency_code'],
       '#required' => TRUE,
     );

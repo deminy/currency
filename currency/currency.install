@@ -17,6 +17,8 @@ function currency_schema() {
       'primary key' => 'ISO4217Code',
       'default hook' => 'currency_info',
       'object' => 'Currency',
+      'save callback' => 'currency_save',
+      'delete callback' => 'currency_delete',
     ),
     'fields' => array(
       'export_module' => array(

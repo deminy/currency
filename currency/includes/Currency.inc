@@ -89,4 +89,22 @@ class Currency extends BartFeenstra\Currency\Currency {
       return FALSE;
     }
   }
+
+  /**
+   * Translates the human-readable currency title.
+   *
+   * @param string|null $language_code
+   *   The ISO 639-1 code of the language to translate the title to, or NULL to
+   *   use the default language.
+   *
+   * @return string
+   */
+  function translateTitle($language_code = NULL) {
+    if (module_exists('i18n_string')) {
+      return i18n_string('currency:currency:' . $this->ISO4217Code . ':title', $this->title, array(
+        'langcode' => $language_code,
+      ));
+    }
+    return $this->title;
+  }
 }
