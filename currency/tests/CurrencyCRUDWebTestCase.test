@@ -69,8 +69,6 @@ class CurrencyCRUDWebTestCase extends DrupalWebTestCase {
     unset($currency->type);
     unset($currency_loaded->export_type);
     unset($currency_loaded->type);
-    debug($currency);
-    debug($currency_loaded);
     $this->assertEqual($currency, $currency_loaded, 'Chaos tools correctly loads a currency.');
 
     // Test updating a currency.
