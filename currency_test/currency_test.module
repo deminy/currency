@@ -16,7 +16,7 @@ function currency_test_menu() {
   $items['currency_test-form-element-currency-amount/%/%'] = array(
     'title' => 'Test the currency_amount form element',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('currency_test_form_currency_amount'),
+    'page arguments' => array('currency_test_form_currency_amount', 1, 2),
     'access callback' => TRUE,
   );
   $items['currency_test-form-element-currency-locale'] = array(
@@ -38,13 +38,14 @@ function currency_test_menu() {
 /**
  * Implements form build callback: show a currency_amount element.
  */
-function currency_test_form_currency_amount(array $form, array &$form_state) {
+function currency_test_form_currency_amount(array $form, array &$form_state, $minimum_amount, $maximum_amount, $currency_code = FALSE) {
   $form['#submit'] = array('currency_test_form_submit');
   $form['amount'] = array(
+    '#currency_code' => $currency_code,
     '#type' => 'currency_amount',
     '#title' => t('Foo amount'),
-    '#minimum_amount' => arg(1),
-    '#maximum_amount' => arg(2),
+    '#minimum_amount' => $minimum_amount,
+    '#maximum_amount' => $maximum_amount,
   );
   $form['submit'] = array(
     '#type' => 'submit',

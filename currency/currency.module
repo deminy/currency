@@ -237,19 +237,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   );
 
   // Add the currency element.
-  if ($element['#currency_code']) {
-    $element['currency_code'] = array(
-      '#type' => 'value',
-      '#value' => $currency->ISO4217Code,
-    );
-    $element['currency_code_title'] = array(
-      '#type' => 'item',
-      '#title' => t('Currency'),
-      '#title_display' => 'invisible',
-      '#markup' => $currency->translateTitle(),
-    );
-  }
-  else {
+  if (!$element['#currency_code']) {
     $element['currency_code'] = array(
       '#type' => 'select',
       '#title' => t('Currency'),
@@ -272,6 +260,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
     '#title' => t('Amount'),
     '#title_display' => 'invisible',
     '#description' => $description,
+    '#prefix' => $element['#currency_code'] ? $currency->sign : NULL,
     '#required' => $element['#required'],
     '#size' => 9,
   );
@@ -285,7 +274,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
 function currency_form_currency_amount_validate(array $element, array &$form_state) {
   $value = $element['#value'];
   $amount = $value['amount'];
-  $currency_code = $value['currency_code'];
+  $currency_code = isset($value['currency_code']) ? $value['currency_code'] : $element['#currency_code'];
 
   try {
     $amount = Input::parseAmount($amount);
