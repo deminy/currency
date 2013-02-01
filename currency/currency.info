@@ -4,6 +4,7 @@ core = 7.x
 php = 5.3
 configure = admin/config/regional/currency
 dependencies[] = ctools
+dependencies[] = system (>=7.14)
 test_dependencies[] = views
 files[] = includes/Currency.inc
 files[] = includes/CurrencyAmountViewsHandlerField.inc
