@@ -28,7 +28,7 @@ class CurrencyLocalePatternUIWebTestCase extends DrupalWebTestCase {
   function testCurrencyCurrencyLocalePatternUI() {
     $user = $this->drupalCreateUser(array('currency.currency_locale_pattern.administer'));
     $this->drupalLogin($user);
-    $path = 'admin/config/regional/currency/currency_locale_pattern/add';
+    $path = 'admin/config/regional/currency_locale_pattern/add';
 
     // Test valid values.
     $valid_values = array(

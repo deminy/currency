@@ -34,7 +34,7 @@ class CurrencyConverterUIWebTestCase extends DrupalWebTestCase {
       'CurrencyConverterFixedRates' => TRUE,
     ), CurrencyConverter::loadConfiguration());
     // Test overridden configuration.
-    $path = 'admin/config/regional/currency/conversion';
+    $path = 'admin/config/regional/currency-conversion';
     $values = array(
       'converters[CurrencyConverterFixedRates][enabled]' => FALSE,
     );

@@ -15,6 +15,7 @@ $plugin = array(
     'parent' => 'ctools_export_ui',
   ),
   'menu' => array(
+    'menu description' => 'Configure currencies and their metadata.',
     'menu item' => 'currency',
     'menu prefix' => 'admin/config/regional',
     'menu title' => 'Currencies',

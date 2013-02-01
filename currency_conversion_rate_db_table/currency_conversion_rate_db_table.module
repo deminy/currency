@@ -28,6 +28,7 @@ function currency_conversion_rate_db_table_cron() {
 function currency_conversion_rate_db_table_menu() {
   $items['admin/config/regional/currency_conversion_rate_db_table'] = array(
     'access arguments' => array('currency_conversion_rate_db_table.administer'),
+    'description' => 'Configure how conversion rates should be cached in the database table.',
     'page arguments' => array('currency_conversion_rate_db_table_form_global_configuration'),
     'page callback' => 'drupal_get_form',
     'title' => 'Currency conversion rate database table',

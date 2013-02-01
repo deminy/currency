@@ -48,12 +48,12 @@ function currency_hook_info() {
 * Implements hook_menu().
 */
 function currency_menu() {
-  $items['admin/config/regional/currency/conversion'] = array(
-    'title' => 'Conversion',
+  $items['admin/config/regional/currency-conversion'] = array(
+    'description' => 'Configure how currency conversion rates should be retrieved.',
+    'title' => 'Currency conversion',
     'access arguments' => array('currency.currency_converter.administer'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('currency_form_currency_converter'),
-    'type' => MENU_LOCAL_TASK,
   );
   $items['admin/config/regional/currency/list/%currency/translate'] = array(
     'title' => 'Translate',
@@ -71,14 +71,6 @@ function currency_menu() {
   );
 
   return $items;
-}
-
-/**
- * Implements hook_menu_alter().
- */
-function currency_menu_alter(array &$items) {
-  $items['admin/config/regional/currency/list']['title'] = t('Currencies');
-  $items['admin/config/regional/currency/currency_locale_pattern']['type'] = MENU_LOCAL_TASK;
 }
 
 /**
