@@ -19,6 +19,7 @@ files[] = includes/CurrencyViewsHandlerFilter.inc
 files[] = tests/CurrencyAmountFormElementWebTestCase.test
 files[] = tests/CurrencyAmountViewsHandlerFieldWebTestCase.test
 files[] = tests/CurrencyConverterFixedRatesWebTestCase.test
+files[] = tests/CurrencyConverterUIWebTestCase.test
 files[] = tests/CurrencyConverterWebTestCase.test
 files[] = tests/CurrencyCRUDWebTestCase.test
 files[] = tests/CurrencyFilterWebTestCase.test

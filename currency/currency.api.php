@@ -70,16 +70,16 @@ function hook_currency_locale_pattern_info_alter(array $locale_patterns) {
  *
  * @return array
  *   Keys are plugin machine names. Values are arrays with two items:
- *   converter: an array with a "class" key, which contains the name of the
- *   converter class, which should implement CurrencyConverterInterface.
- *   weight: an integer. All converters will be ordered by weight and executed
- *   in that order, until one of them returns a rate. Defaults to 0.
+ *   - converter: an array with a "class" key, which contains the name of the
+ *     converter class, which should implement CurrencyConverterInterface.
+ *   - title: the translated human-readable title. Defaults to TRUE.
  */
 function hook_currency_converter_info() {
   $currency_converters['CurrencyConverterFixedRates'] = array(
     'converter' => array(
       'class' => 'CurrencyConverterFixedRates',
     ),
+    'title' => t('Fixed rates'),
   );
 
   return $currency_converters;

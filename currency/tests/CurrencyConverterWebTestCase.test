@@ -38,6 +38,26 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
    * @see CurrencyConverterFixedRates
    */
   function testCurrencyConverter() {
+    // Test default configuration.
+    $this->assertCurrencyConversionRates();
+
+    // Test a configuration with explicitly enabled converters.
+    CurrencyConverter::saveConfiguration(array(
+      'CurrencyConverterFixedRates' => TRUE,
+    ));
+    $this->assertCurrencyConversionRates();
+
+    // Test a configuration with explicitly disabled converters.
+    CurrencyConverter::saveConfiguration(array(
+      'CurrencyConverterFixedRates' => FALSE,
+    ));
+    $this->assertFalse(count(CurrencyConverter::loadConverters()));
+  }
+
+  /**
+   * Assert that conversion rates can be retrieved..
+   */
+  function assertCurrencyConversionRates() {
     $this->assertTrue(is_array(CurrencyConverter::loadConverters()));
     $this->assertTrue(in_array('CurrencyConverterFixedRates', CurrencyConverter::loadConverters()));
 

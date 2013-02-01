@@ -12,31 +12,56 @@
 class CurrencyConverter implements CurrencyConverterInterface {
 
   /**
-   * Returns the names of available currency converter classes, sorted by weight.
+   * Loads the configuration.
+   *
+   * @return array
+   *   Keys are currency_converter plugin names. Values are booleans that
+   *   describe whether the plugins are enabled. Items are ordered by weight.
+   */
+  public static function loadConfiguration() {
+    $configuration = variable_get('currency_converter', array());
+    if (empty($configuration)) {
+      ctools_include('plugins');
+      $plugins = ctools_get_plugins('currency', 'currency_converter');
+      $configuration = array_fill_keys(array_keys($plugins), TRUE);
+    }
+    // Skip CurrencyConverter, because it is a utility/service and not a
+    // regular plugin. It should never be part of the configuration anyway.
+    // This unset() is just a fail-safe.
+    unset($configuration['CurrencyConverter']);
+
+    return $configuration;
+  }
+
+  /**
+   * Saves the configuration.
+   *
+   * @param array $configuration
+   *   Keys are currency_converter plugin names. Values are booleans that
+   *   describe whether the plugins are enabled. Items are ordered by weight.
+   *
+   * @return NULL
+   */
+  public static function saveConfiguration(array $configuration) {
+    variable_set('currency_converter', $configuration);
+  }
+
+  /**
+   * Returns the names of enabled currency converter classes, sorted by weight.
    *
    * @return array
    */
   static function loadConverters() {
     ctools_include('plugins');
     $plugins = ctools_get_plugins('currency', 'currency_converter');
-    // Unlist this class.
-    unset($plugins['CurrencyConverter']);
-    usort($plugins, array('CurrencyConverter', 'sortConverters'));
+
+    $names = array_keys(array_filter(self::loadConfiguration()));
     $classes = array();
-    foreach ($plugins as $plugin) {
-      $classes[] = $plugin['converter']['class'];
+    foreach ($names as $name) {
+      $classes[] = $plugins[$name]['converter']['class'];
     }
 
     return $classes;
-  }
-
-  /**
-   * Sorts converters by their weights.
-   */
-  static function sortConverters(array $plugin_a, array $plugin_b) {
-    // To preserve the original order of plugins with an equal weight, pretend
-    // that of two equal weights, the first is greater.
-    return $plugin_a['weight'] < $plugin_b['weight'] ? -1 : 1;
   }
 
   /**

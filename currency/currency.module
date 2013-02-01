@@ -48,6 +48,13 @@ function currency_hook_info() {
 * Implements hook_menu().
 */
 function currency_menu() {
+  $items['admin/config/regional/currency/conversion'] = array(
+    'title' => 'Conversion',
+    'access arguments' => array('currency.currency_converter.administer'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_form_currency_converter'),
+    'type' => MENU_LOCAL_TASK,
+  );
   $items['admin/config/regional/currency/list/%currency/translate'] = array(
     'title' => 'Translate',
     'access arguments' => array('currency.currency.administer'),
@@ -120,6 +127,9 @@ function currency_permission() {
   $permissions['currency.currency_locale_pattern.administer'] = array(
     'title' => t('Administer currency locale patterns'),
   );
+  $permissions['currency.currency_converter.administer'] = array(
+    'title' => t('Administer currency converters'),
+  );
 
   return $permissions;
 }
@@ -146,13 +156,24 @@ function currency_filter_info() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function currency_theme(array $existing, $type, $theme, $path) {
+  $templates['currency_form_currency_converter'] = array(
+    'render element' => 'form',
+  );
+
+  return $templates;
+}
+
+/**
  * Implements hook_ctools_plugin_type().
  */
 function currency_ctools_plugin_type() {
   $plugins_types['currency_converter'] = array(
     'classes' => array('converter'),
     'defaults' => array(
-      'weight' => 0,
+      'title' => '',
     ),
     'hook' => 'currency_converter_info',
     'use hooks' => TRUE,
@@ -722,4 +743,100 @@ function currency_delete($currency) {
   db_delete('currency')
     ->condition('ISO4217Code', $currency_code)
     ->execute();
+}
+
+/**
+ * Implements form build callback: the currency converter overview form.
+ *
+ * @see theme_currency_form_currency_converters()
+ */
+function currency_form_currency_converter(array $form, array &$form_state) {
+  ctools_include('plugins');
+  $converters_info = ctools_get_plugins('currency', 'currency_converter');
+  $currency_converters = CurrencyConverter::loadConfiguration();
+  $weight = 0;
+  foreach (array_keys($currency_converters) as $name) {
+    // Skip CurrencyConverter, because it is a utility/service and not a
+    // regular plugin.
+    if ($name == 'CurrencyConverter') {
+      continue;
+    }
+
+    $converter_info = $converters_info[$name];
+
+    $form['converters']['#tree'] = TRUE;
+    $form['converters'][$name]['#tree'] = TRUE;
+    $form['converters'][$name]['enabled'] = array(
+      '#default_value' => $currency_converters[$name],
+      '#title' => t('Enabled'),
+      '#type' => 'checkbox',
+    );
+    $form['converters'][$name]['title'] = array(
+      '#markup' => $converter_info['title'],
+      '#title' => t('Title'),
+      '#type' => 'item',
+    );
+    $form['converters'][$name]['weight'] = array(
+      '#default_value' => $weight++,
+      '#delta' => count($converters_info),
+      '#title' => t('Weight'),
+      '#type' => 'weight',
+    );
+  }
+  $form['actions'] = array(
+    '#type' => 'actions',
+  );
+  $form['actions']['save'] = array(
+    '#value' => t('Save'),
+    '#type' => 'submit',
+  );
+
+  return $form;
+}
+
+/**
+ * Implements form submit callback.
+ *
+ * @see currency_form_currency_converters()
+ */
+function currency_form_currency_converter_submit(array $form, array &$form_state) {
+  uasort($form_state['values']['converters'], 'drupal_sort_weight');
+  $configuration = array();
+  foreach ($form_state['values']['converters'] as $name => $converter_configuration) {
+    $configuration[$name] = (bool) $converter_configuration['enabled'];
+  }
+  CurrencyConverter::saveConfiguration($configuration);
+  drupal_set_message(t('The configuration options have been saved.'));
+}
+
+/**
+ * Implements theme function: themes the currency converter overview form.
+ *
+ * @see currency_form_currency_converters
+ */
+function theme_currency_form_currency_converter(array $variables) {
+  drupal_add_tabledrag('currency-converters', 'order', 'sibling', 'form-select');
+  $header = array(t('Title'), t('Enabled'), t('Weight'));
+  $rows = array();
+  $names = element_children($variables['form']['converters']);
+  foreach ($names as $name) {
+    $elements = &$variables['form']['converters'][$name];
+    $row_data = array();
+    foreach (array('title', 'enabled', 'weight') as $key) {
+      $elements[$key]['#title_display'] = 'invisible';
+      $row_data[] = drupal_render($elements[$key]);
+    }
+    $rows[] = array(
+      'class' => array('draggable'),
+      'data' => $row_data,
+    );
+  }
+
+  return theme('table', array(
+    'attributes' => array(
+      'id' => 'currency-converters',
+    ),
+    'header' => $header,
+    'rows' => $rows,
+  )) . drupal_render_children($variables['form']);
 }

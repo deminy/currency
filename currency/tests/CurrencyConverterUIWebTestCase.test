@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Contains class CurrencyConverterUIWebTestCase.
+ */
+
+/**
+ * Tests the UI for CurrencyConverter.
+ */
+class CurrencyConverterUIWebTestCase extends DrupalWebTestCase {
+
+  static function getInfo() {
+    return array(
+      'name' => 'CurrencyConverter UI',
+      'group' => 'Currency',
+    );
+  }
+
+  function setUp(array $modules = array()) {
+    $this->profile = 'testing';
+    parent::setUp($modules + array('currency'));
+  }
+
+  /**
+   * Test CurrencyConverter's UI.
+   */
+  function testCurrencyConverterUI() {
+    $user = $this->drupalCreateUser(array('currency.currency_converter.administer'));
+    $this->drupalLogin($user);
+
+    // Test the default configuration.
+    $this->assertEqual(array(
+      'CurrencyConverterFixedRates' => TRUE,
+    ), CurrencyConverter::loadConfiguration());
+    // Test overridden configuration.
+    $path = 'admin/config/regional/currency/conversion';
+    $values = array(
+      'converters[CurrencyConverterFixedRates][enabled]' => FALSE,
+    );
+    $this->drupalPost($path, $values, t('Save'));
+    $this->assertEqual(array(
+      'CurrencyConverterFixedRates' => FALSE,
+    ), CurrencyConverter::loadConfiguration());
+  }
+}

@@ -27,11 +27,13 @@ function currency_currency_converter_info() {
     'converter' => array(
       'class' => 'CurrencyConverter',
     ),
+    'title' => t('All converters'),
   );
   $currency_converters['CurrencyConverterFixedRates'] = array(
     'converter' => array(
       'class' => 'CurrencyConverterFixedRates',
     ),
+    'title' => t('Fixed rates'),
   );
 
   return $currency_converters;
