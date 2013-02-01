@@ -8,7 +8,7 @@
 /**
  * Implements hook_i18n_string_info().
  */
-function i18n_contact_i18n_string_info() {
+function currency_i18n_string_info() {
   $groups['currency'] = array(
     'title' => t('Currencies'),
   );
