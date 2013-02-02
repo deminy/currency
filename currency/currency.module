@@ -165,6 +165,7 @@ function currency_ctools_plugin_type() {
   $plugins_types['currency_converter'] = array(
     'classes' => array('converter'),
     'defaults' => array(
+      'description' => '',
       'title' => '',
     ),
     'hook' => 'currency_converter_info',
@@ -753,6 +754,7 @@ function currency_form_currency_converter(array $form, array &$form_state) {
       '#type' => 'checkbox',
     );
     $form['converters'][$name]['title'] = array(
+      '#description' => $converter_info['description'],
       '#markup' => $converter_info['title'],
       '#title' => t('Title'),
       '#type' => 'item',

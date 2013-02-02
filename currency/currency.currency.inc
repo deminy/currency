@@ -33,6 +33,7 @@ function currency_currency_converter_info() {
     'converter' => array(
       'class' => 'CurrencyConverterFixedRates',
     ),
+    'description' => t('Conversion rates that do not fluctuate and are mostly historical.'),
     'title' => t('Fixed rates'),
   );
 
