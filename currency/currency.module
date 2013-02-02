@@ -738,12 +738,6 @@ function currency_form_currency_converter(array $form, array &$form_state) {
   $currency_converters = CurrencyConverter::loadConfiguration();
   $weight = 0;
   foreach (array_keys($currency_converters) as $name) {
-    // Skip CurrencyConverter, because it is a utility/service and not a
-    // regular plugin.
-    if ($name == 'CurrencyConverter') {
-      continue;
-    }
-
     $converter_info = $converters_info[$name];
 
     $form['converters']['#tree'] = TRUE;
@@ -764,6 +758,17 @@ function currency_form_currency_converter(array $form, array &$form_state) {
       '#delta' => count($converters_info),
       '#title' => t('Weight'),
       '#type' => 'weight',
+    );
+    // @todo Convert this to a dropbutton in 8.x-3.x.
+    $form['converters'][$name]['operations'] = array(
+      '#markup' => theme('links', array(
+        'links' => $converter_info['converter']['class']::operationsLinks(),
+        'attributes' => array(
+          'class' => array('links', 'inline', 'operations'),
+        ),
+      )),
+      '#title' => t('Operations'),
+      '#type' => 'markup',
     );
   }
   $form['actions'] = array(
@@ -799,13 +804,13 @@ function currency_form_currency_converter_submit(array $form, array &$form_state
  */
 function theme_currency_form_currency_converter(array $variables) {
   drupal_add_tabledrag('currency-converters', 'order', 'sibling', 'form-select');
-  $header = array(t('Title'), t('Enabled'), t('Weight'));
+  $header = array(t('Title'), t('Enabled'), t('Weight'), t('Operations'));
   $rows = array();
   $names = element_children($variables['form']['converters']);
   foreach ($names as $name) {
     $elements = &$variables['form']['converters'][$name];
     $row_data = array();
-    foreach (array('title', 'enabled', 'weight') as $key) {
+    foreach (array('title', 'enabled', 'weight', 'operations') as $key) {
       $elements[$key]['#title_display'] = 'invisible';
       $row_data[] = drupal_render($elements[$key]);
     }

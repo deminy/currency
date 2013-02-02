@@ -90,4 +90,9 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
 
     return $rates;
   }
+
+  /**
+   * Implements CurrencyConverterInterface::operationsLinks().
+   */
+  static function operationsLinks() {}
 }

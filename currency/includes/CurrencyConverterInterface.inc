@@ -61,4 +61,13 @@ interface CurrencyConverterInterface {
    *   )
    */
   static function loadAll();
+
+  /**
+   * Returns an array of operations links.
+   *
+   * @return array
+   *   The structure is the same as that of the 'links' item of theme_links()'
+   *   $variables argument.
+   */
+  static function operationsLinks();
 }

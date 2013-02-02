@@ -111,4 +111,14 @@ class CurrencyConverter implements CurrencyConverterInterface {
 
     return $rates;
   }
+
+  /**
+   * Implements CurrencyConverterInterface::operationsLinks().
+   */
+  static function operationsLinks() {
+    return array(array(
+      'title' => t('configure'),
+      'href' => 'admin/config/regional/currency-conversion',
+    ));
+  }
 }
