@@ -95,24 +95,6 @@ class CurrencyConverter implements CurrencyConverterInterface {
   }
 
   /**
-   * Implements CurrencyConverterInterface::loadAll().
-   */
-  static function loadAll() {
-    $rates = array();
-    foreach (self::loadConverters() as $converter) {
-      foreach ($converter::loadAll() as $currency_code_from => $currency_codes_to) {
-        foreach ($currency_codes_to as $currency_code_to => $rate) {
-          if ($rate !== FALSE) {
-            $rates[$currency_code_from][$currency_code_to] = $rate;
-          }
-        }
-      }
-    }
-
-    return $rates;
-  }
-
-  /**
    * Implements CurrencyConverterInterface::operationsLinks().
    */
   static function operationsLinks() {

@@ -49,34 +49,6 @@ class CurrencyConverterBartFeenstraCurrency implements CurrencyConverterInterfac
   }
 
   /**
-   * Implements CurrencyConverterInterface::loadAll().
-   */
-  static function loadAll() {
-    $rates = array();
-
-    // Check if the requested rate is available.
-    foreach (Currency::resourceListAll() as $currency_code_from) {
-      $currency = new Currency();
-      $currency->resourceLoad($currency_code_from);
-      foreach ($currency->conversionRates as $currency_code_to => $rate) {
-        $rates[$currency_code_from][$currency_code_to] = $rate;
-      }
-    }
-
-    // Conversion rates are two-way. If a reverse rate is unavailable, set it.
-    $rates_loop = $rates;
-    foreach ($rates_loop as $currency_code_from => $currency_code_from_rates) {
-      foreach ($currency_code_from_rates as $currency_code_to => $rate) {
-        if (!isset($rates[$currency_code_to]) || !isset($rates[$currency_code_to][$currency_code_from])) {
-          $rates[$currency_code_to][$currency_code_from] = 1 / $rate;
-        }
-      }
-    }
-
-    return $rates;
-  }
-
-  /**
    * Implements CurrencyConverterInterface::operationsLinks().
    */
   static function operationsLinks() {}

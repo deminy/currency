@@ -47,22 +47,6 @@ interface CurrencyConverterInterface {
   static function loadMultiple(array $currency_codes);
 
   /**
-   * Returns all available conversion rates.
-   *
-   * @return array
-   *   Keys are the ISO 4217 codes of source currencies, values are arrays of
-   *   which the keys are ISO 4217 codes of destination currencies and values
-   *   are the exchange rates as floats. Example:
-   *   array(
-   *     'EUR' => array(
-   *       'NLG' => 2.20371,
-   *       'DEM' => 1.95583,
-   *     ),
-   *   )
-   */
-  static function loadAll();
-
-  /**
    * Returns an array of operations links.
    *
    * @return array

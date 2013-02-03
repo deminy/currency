@@ -42,7 +42,11 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   }
 
   /**
-   * Implements CurrencyConverterInterface::loadAll().
+   * Loads all available conversion rates.
+   *
+   * @return array
+   *   The array structure is identical to the return value of
+   *   self::loadMultiple().
    */
   static function loadAll() {
     $rates = &drupal_static(__CLASS__);
