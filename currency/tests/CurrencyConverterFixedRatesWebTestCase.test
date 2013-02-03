@@ -32,46 +32,47 @@ class CurrencyConverterFixedRatesWebTestCase extends DrupalWebTestCase {
    * Test currency conversion.
    */
   function testCurrencyConverterFixedRates() {
+    // Test CurrencyConverterFixedRates::save().
+    CurrencyConverterFixedRates::save('EUR', 'NLG', 5);
+    CurrencyConverterFixedRates::save('EUR', 'UAH', 7);
+
     // Test CurrencyConverterFixedRates::load().
     // Test an available conversion rate.
-    $this->assertEqual(CurrencyConverterFixedRates::load('EUR', 'NLG'), 2.20371);
+    $this->assertEqual(CurrencyConverterFixedRates::load('EUR', 'NLG'), 5);
     // Test an unavailable conversion rate for which the reverse rate is
     // available.
-    $this->assertEqual(round(CurrencyConverterFixedRates::load('NLG', 'EUR'), 5), 0.45378);
+    $this->assertEqual(CurrencyConverterFixedRates::load('NLG', 'EUR'), 0.2);
+    // Test an unavailable conversion rate for no the reverse rate is
+    // available.
+    $this->assertFalse(CurrencyConverterFixedRates::load('NLG', 'XXX'));
 
     // Test CurrencyConverterFixedRates::loadMultiple().
-    // Test an available conversion rate.
     $rates = CurrencyConverterFixedRates::loadMultiple(array(
-      'EUR' => array('NLG'),
-    ));
-    $this->assertTrue(isset($rates['EUR']));
-    $this->assertTrue(isset($rates['EUR']['NLG']));
-    $this->assertEqual($rates['EUR']['NLG'], 2.20371);
-    // Test an unavailable conversion rate for which the reverse rate is
-    // available.
-    $rates = CurrencyConverterFixedRates::loadMultiple(array(
+      'EUR' => array('NLG', 'XXX'),
       'NLG' => array('EUR'),
     ));
-    $this->assertTrue(isset($rates['NLG']));
-    $this->assertTrue(isset($rates['NLG']['EUR']));
-    $this->assertEqual(round($rates['NLG']['EUR'], 5), 0.45378);
-
-    // Test CurrencyConverterFixedRates::loadAll().
-    $rates = CurrencyConverterFixedRates::loadAll();
     // Test an available conversion rate.
     $this->assertTrue(isset($rates['EUR']));
     $this->assertTrue(isset($rates['EUR']['NLG']));
-    $this->assertEqual($rates['EUR']['NLG'], 2.20371);
-    $this->assertTrue(isset($rates['EUR']));
-    $this->assertTrue(isset($rates['EUR']['DEM']));
-    $this->assertEqual($rates['EUR']['DEM'], 1.95583);
+    $this->assertEqual($rates['EUR']['NLG'], 5);
     // Test an unavailable conversion rate for which the reverse rate is
     // available.
     $this->assertTrue(isset($rates['NLG']));
     $this->assertTrue(isset($rates['NLG']['EUR']));
-    $this->assertEqual(round($rates['NLG']['EUR'], 5), 0.45378);
-    $this->assertTrue(isset($rates['DEM']));
-    $this->assertTrue(isset($rates['DEM']['EUR']));
-    $this->assertEqual(round($rates['DEM']['EUR'], 5), 0.51129);
+    $this->assertEqual($rates['NLG']['EUR'], 0.2);
+    // Test an unavailable conversion rate for which the no rate is
+    // available.
+    $this->assertTrue(isset($rates['EUR']));
+    $this->assertTrue(isset($rates['EUR']['XXX']));
+    $this->assertFalse($rates['EUR']['XXX']);
+
+    // Test CurrencyConverterFixedRates::delete().
+    CurrencyConverterFixedRates::delete('EUR', 'NLG');
+    // Test the deleted conversion rate.
+    $this->assertFalse(CurrencyConverterFixedRates::load('EUR', 'NLG'));
+    // Test the reverse of the deleted conversion rate.
+    $this->assertFalse(CurrencyConverterFixedRates::load('NLG', 'EUR'));
+    // Test an available conversion rate.
+    $this->assertEqual(CurrencyConverterFixedRates::load('EUR', 'UAH'), 7);
   }
 }

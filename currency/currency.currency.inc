@@ -33,8 +33,15 @@ function currency_currency_converter_info() {
     'converter' => array(
       'class' => 'CurrencyConverterFixedRates',
     ),
-    'description' => t('Conversion rates that do not fluctuate and are mostly historical.'),
+    'description' => t('Manually entered fixed conversion rates.'),
     'title' => t('Fixed rates'),
+  );
+  $currency_converters['CurrencyConverterBartFeenstraCurrency'] = array(
+    'converter' => array(
+      'class' => 'CurrencyConverterBartFeenstraCurrency',
+    ),
+    'description' => t('Mostly historical rates that do not fluctuate.'),
+    'title' => t('Historical rates'),
   );
 
   return $currency_converters;

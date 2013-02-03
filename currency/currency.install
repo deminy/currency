@@ -101,6 +101,26 @@ function currency_schema() {
       $schema['currency_locale_pattern']['fields'][$property]['object default'] = $default_value;
     }
   }
+  $schema['currency_converter_fixed_rates'] = array(
+    'fields' => array(
+      'currency_code_from' => array(
+        'type' => 'varchar',
+        'length' => 3,
+        'not null' => TRUE,
+      ),
+      'currency_code_to' => array(
+        'type' => 'varchar',
+        'length' => 3,
+        'not null' => TRUE,
+      ),
+      'rate' => array(
+        'type' => 'float',
+        'size' => 'normal',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('currency_code_from', 'currency_code_to'),
+  );
 
   return $schema;
 }

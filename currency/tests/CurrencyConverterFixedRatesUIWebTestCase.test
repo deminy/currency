@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Contains class CurrencyConverterFixedRatesUIWebTestCase.
+ */
+
+/**
+ * Tests the UI for CurrencyConverterFixedRates.
+ */
+class CurrencyConverterFixedRatesUIWebTestCase extends DrupalWebTestCase {
+
+  static function getInfo() {
+    return array(
+      'name' => 'CurrencyConverterFixedRates UI',
+      'group' => 'Currency',
+    );
+  }
+
+  function setUp(array $modules = array()) {
+    $this->profile = 'testing';
+    parent::setUp($modules + array('currency'));
+  }
+
+  /**
+   * Test CurrencyConverter's UI.
+   */
+  function testCurrencyConverterFixedRatesUI() {
+    $user = $this->drupalCreateUser(array('currency.currency_converter.administer'));
+    $this->drupalLogin($user);
+    $path = 'admin/config/regional/currency-conversion/fixed';
+
+    // Test the overview.
+    $this->drupalGet($path);
+    $this->assertText(t('Add a conversion rate'));
+
+    $currency_code_from = 'EUR';
+    $currency_code_to = 'NLG';
+
+    // Test adding a conversion rate.
+    $rate = 3;
+    $values = array(
+      'currency_code_from' => $currency_code_from,
+      'currency_code_to' => $currency_code_to,
+      'rate[amount]' => $rate,
+    );
+    $this->drupalPost($path . '/add', $values, t('Save'));
+    $this->assertEqual(CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to), $rate);
+
+    // Test editing a conversion rate.
+    $rate = 6;
+    $values = array(
+      'rate[amount]' => $rate,
+    );
+    $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
+    drupal_static_reset('CurrencyConverterFixedRates');
+    $this->assertEqual(CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to), $rate);
+
+    // Test deleting a conversion rate.
+    $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));
+    drupal_static_reset('CurrencyConverterFixedRates');
+    $this->assertFalse(CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to));
+  }
+}

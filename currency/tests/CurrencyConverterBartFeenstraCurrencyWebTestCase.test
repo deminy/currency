@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * @file
+ * Contains class CurrencyConverterBartFeenstraCurrencyWebTestCase.
+ */
+
+/**
+ * Tests CurrencyConverterBartFeenstraCurrency.
+ */
+class CurrencyConverterBartFeenstraCurrencyWebTestCase extends DrupalWebTestCase {
+
+  /**
+   * Implements DrupalTestCase::getInfo().
+   */
+  static function getInfo() {
+    return array(
+      'name' => 'CurrencyConverterBartFeenstraCurrency',
+      'group' => 'Currency',
+    );
+  }
+
+  /**
+   * Overrides parent::setUp().
+   */
+  function setUp(array $modules = array()) {
+    $this->profile = 'testing';
+    parent::setUp($modules + array('currency'));
+  }
+
+  /**
+   * Test currency conversion.
+   */
+  function testCurrencyConverterBartFeenstraCurrency() {
+    // Test CurrencyConverterBartFeenstraCurrency::load().
+    // Test an available conversion rate.
+    $this->assertEqual(CurrencyConverterBartFeenstraCurrency::load('EUR', 'NLG'), 2.20371);
+    // Test an unavailable conversion rate for which the reverse rate is
+    // available.
+    $this->assertEqual(round(CurrencyConverterBartFeenstraCurrency::load('NLG', 'EUR'), 5), 0.45378);
+
+    // Test CurrencyConverterBartFeenstraCurrency::loadMultiple().
+    // Test an available conversion rate.
+    $rates = CurrencyConverterBartFeenstraCurrency::loadMultiple(array(
+      'EUR' => array('NLG'),
+    ));
+    $this->assertTrue(isset($rates['EUR']));
+    $this->assertTrue(isset($rates['EUR']['NLG']));
+    $this->assertEqual($rates['EUR']['NLG'], 2.20371);
+    // Test an unavailable conversion rate for which the reverse rate is
+    // available.
+    $rates = CurrencyConverterBartFeenstraCurrency::loadMultiple(array(
+      'NLG' => array('EUR'),
+    ));
+    $this->assertTrue(isset($rates['NLG']));
+    $this->assertTrue(isset($rates['NLG']['EUR']));
+    $this->assertEqual(round($rates['NLG']['EUR'], 5), 0.45378);
+
+    // Test CurrencyConverterBartFeenstraCurrency::loadAll().
+    $rates = CurrencyConverterBartFeenstraCurrency::loadAll();
+    // Test an available conversion rate.
+    $this->assertTrue(isset($rates['EUR']));
+    $this->assertTrue(isset($rates['EUR']['NLG']));
+    $this->assertEqual($rates['EUR']['NLG'], 2.20371);
+    $this->assertTrue(isset($rates['EUR']));
+    $this->assertTrue(isset($rates['EUR']['DEM']));
+    $this->assertEqual($rates['EUR']['DEM'], 1.95583);
+    // Test an unavailable conversion rate for which the reverse rate is
+    // available.
+    $this->assertTrue(isset($rates['NLG']));
+    $this->assertTrue(isset($rates['NLG']['EUR']));
+    $this->assertEqual(round($rates['NLG']['EUR'], 5), 0.45378);
+    $this->assertTrue(isset($rates['DEM']));
+    $this->assertTrue(isset($rates['DEM']['EUR']));
+    $this->assertEqual(round($rates['DEM']['EUR'], 5), 0.51129);
+  }
+}

@@ -31,11 +31,11 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
   /**
    * Test currency conversion.
    *
-   * We use CurrencyConverterFixedRates to test some functionality, which means
-   * that if this test fails, the problem may be caused by
-   * CurrencyConverterFixedRates.
+   * We use CurrencyConverterBartFeenstraCurrency to test some functionality,
+   * which means that if this test fails, the problem may be caused by
+   * CurrencyConverterBartFeenstraCurrency.
    *
-   * @see CurrencyConverterFixedRates
+   * @see CurrencyConverterBartFeenstraCurrency
    */
   function testCurrencyConverter() {
     // Test default configuration.
@@ -43,13 +43,13 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
 
     // Test a configuration with explicitly enabled converters.
     CurrencyConverter::saveConfiguration(array(
-      'CurrencyConverterFixedRates' => TRUE,
+      'CurrencyConverterBartFeenstraCurrency' => TRUE,
     ));
     $this->assertCurrencyConversionRates();
 
     // Test a configuration with explicitly disabled converters.
     CurrencyConverter::saveConfiguration(array(
-      'CurrencyConverterFixedRates' => FALSE,
+      'CurrencyConverterBartFeenstraCurrency' => FALSE,
     ));
     $this->assertFalse(count(CurrencyConverter::loadConverters()));
   }
@@ -59,7 +59,7 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
    */
   function assertCurrencyConversionRates() {
     $this->assertTrue(is_array(CurrencyConverter::loadConverters()));
-    $this->assertTrue(in_array('CurrencyConverterFixedRates', CurrencyConverter::loadConverters()));
+    $this->assertTrue(in_array('CurrencyConverterBartFeenstraCurrency', CurrencyConverter::loadConverters()));
 
     // Test CurrencyConverter::load().
     $this->assertEqual(CurrencyConverter::load('EUR', 'NLG'), 2.20371);

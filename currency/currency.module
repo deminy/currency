@@ -55,6 +55,27 @@ function currency_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('currency_form_currency_converter'),
   );
+  $items['admin/config/regional/currency-conversion/fixed'] = array(
+    'description' => 'Administer fixed currency conversion rates.',
+    'title' => 'Fixed rates',
+    'access arguments' => array('currency.currency_converter.administer'),
+    'page callback' => 'currency_currency_converter_fixed_rates_overview',
+  );
+  $items['admin/config/regional/currency-conversion/fixed/add'] = array(
+    'title' => 'Add a conversion rate',
+    'access arguments' => array('currency.currency_converter.administer'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_form_currency_converter_fixed_rates'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+  $items['admin/config/regional/currency-conversion/fixed/%currency_form_currency_converter_fixed_rates/%'] = array(
+    'title' => 'Configure a conversion rate',
+    'access arguments' => array('currency.currency_converter.administer'),
+    'load arguments' => array(6),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('currency_form_currency_converter_fixed_rates', 5, 6),
+    'type' => MENU_CALLBACK,
+  );
   $items['admin/config/regional/currency/list/%currency/translate'] = array(
     'title' => 'Translate',
     'access arguments' => array('currency.currency.administer'),
@@ -81,6 +102,10 @@ function currency_element_info() {
   $elements['currency_amount'] = array(
     '#input' => TRUE,
     '#process' => array('currency_form_currency_amount_process'),
+    '#default_value' => array(
+      'amount' => NULL,
+      'currency_code' => 'XXX',
+    ),
     '#element_validate' => array('currency_form_currency_amount_validate'),
     // The minimum amount as a float, or FALSE to omit.
     '#minimum_amount' => FALSE,
@@ -240,6 +265,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   // Add the currency element.
   if (!$element['#currency_code']) {
     $element['currency_code'] = array(
+      '#default_value' => $element['#default_value']['currency_code'],
       '#type' => 'select',
       '#title' => t('Currency'),
       '#title_display' => 'invisible',
@@ -257,6 +283,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
     ));
   }
   $element['amount'] = array(
+    '#default_value' => $element['#default_value']['amount'],
     '#type' => 'textfield',
     '#title' => t('Amount'),
     '#title_display' => 'invisible',
@@ -444,6 +471,7 @@ function currency_form_currency_locale_validate(array $element, array &$form_sta
  *  Keys are ISO 4217 codes and values are currency titles.
  */
 function currency_options() {
+  ctools_include('export');
   $options = array();
   foreach (ctools_export_crud_load_all('currency') as $currency) {
     $options[$currency->ISO4217Code] = t('@currency_title (@currency_code)', array(
@@ -827,4 +855,142 @@ function theme_currency_form_currency_converter(array $variables) {
     'header' => $header,
     'rows' => $rows,
   )) . drupal_render_children($variables['form']);
+}
+
+/**
+ * Displays CurrencyConverterFixedRates' conversion rate overview.
+ *
+ * @return string
+ */
+function currency_currency_converter_fixed_rates_overview() {
+  $header = array(t('From'), t('To'), t('Conversion rate'), t('Operations'));
+  $rows = array();
+  $rates = CurrencyConverterFixedRates::loadAll();
+  foreach ($rates as $currency_code_from => $currency_codes_to) {
+    $currency_from = currency_load($currency_code_from);
+    foreach ($currency_codes_to as $currency_code_to => $rate) {
+      $currency_to = currency_load($currency_code_to);
+      $operations = theme('links', array(
+        'links' => array(array(
+          'title' => t('edit'),
+          'href' => 'admin/config/regional/currency-conversion/fixed/' . $currency_code_from . '/' . $currency_code_to,
+        )),
+        'attributes' => array(
+          'class' => array('links', 'inline', 'operations'),
+        ),
+      ));
+      $rows[] = array(check_plain($currency_from->translateTitle()), check_plain($currency_to->translateTitle()), $currency_to->format($rate), $operations);
+    }
+  }
+  if (!$rows) {
+    $rows[] = array(array(
+      'data' => t('There are no conversion rates yet. <a href="@path">Add a conversion rate</a>.', array(
+        '@path' => url('admin/config/regional/currency-conversion/fixed/add'),
+      )),
+      'colspan' => 4,
+    ));
+  }
+  
+  return theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+  ));
+}
+
+/**
+ * Implements form build callback: CurrencyConverterFixedRates' add/edit form.
+ */
+function currency_form_currency_converter_fixed_rates(array $form, array &$form_state, $currency_code_from = NULL, $currency_code_to = NULL) {
+  $rate = $currency_code_from && $currency_code_to ? CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to) : NULL;
+
+  $options = currency_options();
+  $form['currency_code_from'] = array(
+    '#default_value' => isset($options[$currency_code_from]) ? $currency_code_from : 'XXX',
+    '#disabled' => !is_null($rate),
+    '#options' => $options,
+    '#required' => TRUE,
+    '#title' => t('Source currency'),
+    '#type' => 'select',
+  );
+  $form['currency_code_to'] = array(
+    '#default_value' => isset($options[$currency_code_to]) ? $currency_code_to : 'XXX',
+    '#disabled' => !is_null($rate),
+    '#options' => $options,
+    '#required' => TRUE,
+    '#title' => t('Source currency'),
+    '#type' => 'select',
+  );
+  $form['rate'] = array(
+    '#currency_code' => 'XXX',
+    '#default_value' => $rate,
+    '#required' => TRUE,
+    '#title' => t('Conversion rate'),
+    '#type' => 'currency_amount',
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+  );
+  $form['actions']['save'] = array(
+    '#name' => 'save',
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+  if (!is_null($rate)) {
+    $form['actions']['delete'] = array(
+      '#limit_validation_errors' => array(array('currency_code_from'), array('currency_code_to')),
+      '#name' => 'delete',
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+    );
+  }
+  $form['actions']['cancel'] = array(
+    '#markup' => l(t('Cancel'), 'admin/config/regional/currency-conversion/fixed'),
+    '#type' => 'markup',
+  );
+
+  return $form;
+}
+
+/**
+ * Implements form submit callback for
+ * currency_form_currency_converter_fixed_rates().
+ */
+function currency_form_currency_converter_fixed_rates_submit(array $form, array &$form_state) {
+  $values = $form_state['values'];
+  $currency_from = currency_load($values['currency_code_from']);
+  $currency_to = currency_load($values['currency_code_to']);
+
+  switch ($form_state['triggering_element']['#name']) {
+    case 'save':
+      CurrencyConverterFixedRates::save($currency_from->ISO4217Code, $currency_to->ISO4217Code, $values['rate']['amount']);
+      drupal_set_message(t('The conversion rate for @currency_title_from to @currency_title_to has been saved.', array(
+        '@currency_title_from' => $currency_from->translateTitle(),
+        '@currency_title_to' => $currency_to->translateTitle(),
+      )));
+      break;
+    case 'delete':
+      CurrencyConverterFixedRates::delete($currency_from->ISO4217Code, $currency_to->ISO4217Code);
+      drupal_set_message(t('The conversion rate for @currency_title_from to @currency_title_to has been deleted.', array(
+        '@currency_title_from' => $currency_from->translateTitle(),
+        '@currency_title_to' => $currency_to->translateTitle(),
+      )));
+      break;
+  }
+  $form_state['redirect'] = 'admin/config/regional/currency-conversion/fixed';
+}
+
+/**
+ * Implements menu load callback: checks if CurrencyConverterFixedRates has a
+ * conversion rate.
+ *
+ * @param string $currency_code_from
+ * @param string $currency_code_to
+ *
+ * @return string|false
+ *   The source currency code if the rate could be found, FALSE if it couldn't.
+ */
+function currency_form_currency_converter_fixed_rates_load($currency_code_from, $currency_code_to) {
+  $rate = CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to);
+
+  return $rate !== FALSE ? $currency_code_from : FALSE;
 }

@@ -6,7 +6,7 @@
  */
 
 /**
- * Provides fixed conversion rates as provided by bartfeenstra/currency.
+ * Provides manually entered conversion rates.
  */
 class CurrencyConverterFixedRates implements CurrencyConverterInterface {
 
@@ -14,21 +14,16 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
    * Implements CurrencyConverterInterface::load().
    */
   static function load($currency_code_from, $currency_code_to) {
-    // Check if the requested rate is available.
-    $currency_from = new Currency();
-    $currency_from->resourceLoad($currency_code_from);
-    if ($currency_from && isset($currency_from->conversionRates[$currency_code_to])) {
-      return $currency_from->conversionRates[$currency_code_to];
+    $rates = self::loadAll();
+    if (isset($rates[$currency_code_from]) && isset($rates[$currency_code_from][$currency_code_to])) {
+      return $rates[$currency_code_from][$currency_code_to];
     }
-
-    // Conversion rates are two-way. If a reverse rate is unavailable, set it.
-    $currency_to = new Currency();
-    $currency_to->resourceLoad($currency_code_to);
-    if ($currency_to && isset($currency_to->conversionRates[$currency_code_from])) {
-      return 1 / $currency_to->conversionRates[$currency_code_from];
+    // Calculate the reverse on the fly, because adding it to the statically
+    // cached data would require additional checks when deleting rates, to see
+    // if the they are reversed from other rates or are originals.
+    elseif (isset($rates[$currency_code_to]) && isset($rates[$currency_code_to][$currency_code_from])) {
+      return 1 / $rates[$currency_code_to][$currency_code_from];
     }
-
-    // There is no available conversion rate.
     return FALSE;
   }
 
@@ -38,25 +33,8 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   static function loadMultiple(array $currency_codes) {
     $rates = array();
     foreach ($currency_codes as $currency_code_from => $currency_codes_to) {
-      $currency_from = new Currency();
-      $currency_from->resourceLoad($currency_code_from);
       foreach ($currency_codes_to as $currency_code_to) {
-        // Check if the requested rate is available.
-        if (isset($currency_from->conversionRates[$currency_code_to])) {
-          $rates[$currency_code_from][$currency_code_to] = $currency_from->conversionRates[$currency_code_to];
-          continue;
-        }
-
-        // Conversion rates are two-way. If a reverse rate is unavailable, set it.
-        $currency_to = new Currency();
-        $currency_to->resourceLoad($currency_code_to);
-        if ($currency_to && isset($currency_to->conversionRates[$currency_code_from])) {
-          $rates[$currency_code_from][$currency_code_to] = 1 / $currency_to->conversionRates[$currency_code_from];
-          continue;
-        }
-
-        // There is no available conversion rate.
-        $rates[$currency_code_from][$currency_code_to] = FALSE;
+        $rates[$currency_code_from][$currency_code_to] = self::load($currency_code_from, $currency_code_to);
       }
     }
 
@@ -67,24 +45,15 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
    * Implements CurrencyConverterInterface::loadAll().
    */
   static function loadAll() {
-    $rates = array();
+    $rates = &drupal_static(__CLASS__);
 
-    // Check if the requested rate is available.
-    foreach (Currency::resourceListAll() as $currency_code_from) {
-      $currency = new Currency();
-      $currency->resourceLoad($currency_code_from);
-      foreach ($currency->conversionRates as $currency_code_to => $rate) {
-        $rates[$currency_code_from][$currency_code_to] = $rate;
-      }
-    }
-
-    // Conversion rates are two-way. If a reverse rate is unavailable, set it.
-    $rates_loop = $rates;
-    foreach ($rates_loop as $currency_code_from => $currency_code_from_rates) {
-      foreach ($currency_code_from_rates as $currency_code_to => $rate) {
-        if (!isset($rates[$currency_code_to]) || !isset($rates[$currency_code_to][$currency_code_from])) {
-          $rates[$currency_code_to][$currency_code_from] = 1 / $rate;
-        }
+    if (is_null($rates)) {
+      $rates = array();
+      $result = db_select('currency_converter_fixed_rates', 'ccfr')
+        ->fields('ccfr')
+        ->execute();
+      foreach ($result as $row) {
+        $rates[$row->currency_code_from][$row->currency_code_to] = (float) $row->rate;
       }
     }
 
@@ -94,5 +63,56 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   /**
    * Implements CurrencyConverterInterface::operationsLinks().
    */
-  static function operationsLinks() {}
+  static function operationsLinks() {
+    return array(array(
+      'title' => t('configure'),
+      'href' => 'admin/config/regional/currency-conversion/fixed',
+    ));
+  }
+
+  /**
+   * Saves a conversion rate.
+   *
+   * @param string $currency_code_from
+   * @param string $currency_code_to
+   * @param int|float $rate
+   *
+   * @return int
+   *   MergeQuery::STATUS_INSERT or MergeQuery::STATUS_UPDATE.
+   */
+  static function save($currency_code_from, $currency_code_to, $rate) {
+    $rates = &drupal_static(__CLASS__);
+
+    $key = array(
+      'currency_code_from' => $currency_code_from,
+      'currency_code_to' => $currency_code_to,
+    );
+    $merge_status = db_merge('currency_converter_fixed_rates')
+      ->key($key)
+      ->fields(array_merge($key, array(
+        'rate' => $rate,
+      )))
+      ->execute();
+    $rates[$currency_code_from][$currency_code_to] = $rate;
+
+    return $merge_status;
+  }
+
+  /**
+   * Deletes a conversion rate.
+   *
+   * @param string $currency_code_from
+   * @param string $currency_code_to
+   *
+   * @return NULL
+   */
+  static function delete($currency_code_from, $currency_code_to) {
+    $rates = &drupal_static(__CLASS__);
+
+    db_delete('currency_converter_fixed_rates')
+      ->condition('currency_code_from', $currency_code_from)
+      ->condition('currency_code_to', $currency_code_to)
+      ->execute();
+    unset($rates[$currency_code_from][$currency_code_to]);
+  }
 }
