@@ -142,6 +142,7 @@ function currency_permission() {
     'title' => t('Administer currencies'),
   );
   $permissions['currency.currency_locale_pattern.administer'] = array(
+    'restrict access' => TRUE,
     'title' => t('Administer currency locale patterns'),
   );
   $permissions['currency.currency_converter.administer'] = array(
