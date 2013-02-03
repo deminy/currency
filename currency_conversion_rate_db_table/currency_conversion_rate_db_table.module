@@ -63,7 +63,10 @@ function currency_conversion_rate_db_table_views_api() {
  * @return NULL
  */
 function currency_conversion_rate_db_table_refresh() {
-  $rates = CurrencyConverter::loadAll();
+  $currency_codes_from = variable_get('currency_conversion_rate_db_table_currency_codes_from', array());
+  $currency_codes_to = variable_get('currency_conversion_rate_db_table_currency_codes_to', array());
+  $currency_codes = array_fill_keys($currency_codes_from, $currency_codes_to);
+  $rates = CurrencyConverter::loadMultiple($currency_codes);
   $delete_query = db_delete('currency_conversion_rate_db_table');
   foreach ($rates as $currency_code_from => $currency_code_from_rates) {
     foreach ($currency_code_from_rates as $currency_code_to => $rate) {
@@ -96,6 +99,22 @@ function currency_conversion_rate_db_table_form_global_configuration(array $form
     )),
     '#options' => drupal_map_assoc(array(60, 120, 180, 240, 300, 600, 1200, 1800, 2400, 3000, 3600, 7200, 10800, 14400, 18000), 'format_interval'),
     '#title' => t('Update interval'),
+    '#type' => 'select',
+  );
+  $form['currency_conversion_rate_db_table_currency_codes_from'] = array(
+    '#default_value' => variable_get('currency_conversion_rate_db_table_currency_codes_from', array()),
+    '#multiple' => TRUE,
+    '#options' => currency_options(),
+    '#size' => 9,
+    '#title' => t('Source currencies'),
+    '#type' => 'select',
+  );
+  $form['currency_conversion_rate_db_table_currency_codes_to'] = array(
+    '#default_value' => variable_get('currency_conversion_rate_db_table_currency_codes_to', array()),
+    '#multiple' => TRUE,
+    '#options' => currency_options(),
+    '#size' => 9,
+    '#title' => t('Destination currencies'),
     '#type' => 'select',
   );
 
