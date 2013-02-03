@@ -58,7 +58,7 @@ function currency_tokens($type, array $tokens, array $data = array(), array $opt
     }
     if ($tokens) {
       ctools_include('export');
-      $currency = ctools_export_crud_load('currency', $data['currency']);
+      $currency = currency_load($data['currency']);
       $map = array(
         'number' => 'ISO4217Number',
         'subunits' => 'subunits',

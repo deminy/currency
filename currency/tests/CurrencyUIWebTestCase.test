@@ -42,7 +42,7 @@ class CurrencyUIWebTestCase extends DrupalWebTestCase {
     );
     $this->drupalPost($path, $valid_values, t('Save'));
     ctools_include('export');
-    $currency = ctools_export_crud_load('currency', 'ABC');
+    $currency = currency_load('ABC');
     $this->assertTrue($currency);
 
     // Test invalid values.

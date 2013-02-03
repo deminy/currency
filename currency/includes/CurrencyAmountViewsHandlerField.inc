@@ -115,13 +115,13 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
     $currency_code_field = $this->options['currency_code_field'];
     if (isset($values->{$currency_code_field})) {
       $currency_code = $values->{$currency_code_field};
-      $currency = ctools_export_crud_load('currency', $currency_code);
+      $currency = currency_load($currency_code);
     }
     if (!$currency) {
-      $currency = ctools_export_crud_load('currency', $this->options['currency_code']);
+      $currency = currency_load($this->options['currency_code']);
     }
     if (!$currency) {
-      $currency = ctools_export_crud_load('currency', 'XXX');
+      $currency = currency_load('XXX');
     }
     if (!$currency) {
       throw new RuntimeException(t('Could not load currency with ISO 4217 code XXX.'));

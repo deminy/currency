@@ -23,7 +23,7 @@ class CurrencyViewsHandlerField extends views_handler_field {
     $property = !empty($this->definition['currency_property']) ? $this->definition['currency_property'] : NULL;
     if ($property && property_exists('Currency', $property)) {
       $currency_code = $this->get_value($values);
-      $currency = ctools_export_crud_load('currency', $currency_code);
+      $currency = currency_load($currency_code);
       if ($currency) {
         if ($property == 'title') {
           return $currency->translateTitle();

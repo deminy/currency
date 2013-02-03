@@ -32,7 +32,7 @@ class CurrencyLocalePatternWebTestCase extends DrupalWebTestCase {
    * Test format().
    */
   function testFormat() {
-    $currency = ctools_export_crud_load('currency', 'EUR');
+    $currency = currency_load('EUR');
     $locale_pattern = new CurrencyLocalePattern(array(
       'pattern' => '¤-#,##0.00[XXX][999]',
       'symbol_decimal_separator' => ',',

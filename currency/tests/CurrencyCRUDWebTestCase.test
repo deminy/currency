@@ -59,11 +59,11 @@ class CurrencyCRUDWebTestCase extends DrupalWebTestCase {
       'subunits' => 5,
       'title' => $this->randomName(),
     ));
-    ctools_export_crud_save('currency', $currency);
+    currency_save($currency);
     $this->assertTrue($this->currencyExists($currency), 'Chaos tools correctly inserts a currency.');
 
     // Test loading a currency.
-    $currency_loaded = ctools_export_crud_load('currency', $currency->ISO4217Code);
+    $currency_loaded = currency_load($currency->ISO4217Code);
     // The "export_type" and "type" properties are supposed to change.
     unset($currency->export_type);
     unset($currency->type);
@@ -79,11 +79,11 @@ class CurrencyCRUDWebTestCase extends DrupalWebTestCase {
     $currency->sign = 'bar';
     $currency->subunits = 100;
     $currency->title = 'baz';
-    ctools_export_crud_save('currency', $currency);
+    currency_save($currency);
     $this->assertTrue($this->currencyExists($currency), 'Chaos tools correctly updates a currency.');
 
     // Test deleting a currency.
-    ctools_export_crud_delete('currency', $currency->ISO4217Code);
+    currency_delete($currency->ISO4217Code);
     $this->assertFalse($this->currencyExists($currency), 'Chaos tools correctly deletes a currency.');
   }
 }
