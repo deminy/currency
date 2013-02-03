@@ -13,7 +13,6 @@ files[] = includes/CurrencyConverterBartFeenstraCurrency.inc
 files[] = includes/CurrencyConverterFixedRates.inc
 files[] = includes/CurrencyConverterInterface.inc
 files[] = includes/CurrencyCtoolsExportUI.inc
-files[] = includes/CurrencyExportableInterface.inc
 files[] = includes/CurrencyLocalePattern.inc
 files[] = includes/CurrencyLocalePatternCtoolsExportUI.inc
 files[] = includes/CurrencyViewsHandlerField.inc

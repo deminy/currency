@@ -10,7 +10,7 @@ use BartFeenstra\CLDR\CurrencyFormatter;
 /**
  * A currency pattern for a locale.
  */
-class CurrencyLocalePattern implements CurrencyExportableInterface {
+class CurrencyLocalePattern {
 
   /**
    * The locale as a combination of an ISO 639-1 language code and an ISO 3166
@@ -69,20 +69,6 @@ class CurrencyLocalePattern implements CurrencyExportableInterface {
   function __construct(array $properties = array()) {
     foreach ($properties as $property => $value) {
       $this->$property = $value;
-    }
-  }
-
-  /**
-   * Implements CurrencyExportableInterface::validate().
-   */
-  function validate() {
-    $properties = array('locale', 'pattern');
-    foreach ($properties as $property) {
-      if (!strlen($this->$property)) {
-        throw new Exception(t('Missing value for %property.', array(
-          '%property' => $property,
-        )));
-      }
     }
   }
 

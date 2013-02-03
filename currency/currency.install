@@ -72,7 +72,6 @@ function currency_schema() {
       'key name' => 'Locale',
       'default hook' => 'currency_locale_pattern_info',
       'object' => 'CurrencyLocalePattern',
-      'save callback' => 'currency_ctools_export_object_save',
     ),
     'fields' => array(
       'export_module' => array(
