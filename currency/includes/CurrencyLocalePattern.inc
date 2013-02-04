@@ -116,9 +116,8 @@ class CurrencyLocalePattern {
 
     if (is_null($locale_pattern)) {
       // Try this request's country code.
-      if (isset($language->currency_country_code)) {
-        $country_code = $language->currency_country_code;
-        $locale_pattern = ctools_export_crud_load('currency_locale_pattern', $language->language . '_' . $language->currency_country_code);
+      if (self::getCountryCode()) {
+        $locale_pattern = ctools_export_crud_load('currency_locale_pattern', $language->language . '_' . self::getCountryCode());
       }
       // Try the global default country code.
       if (!$locale_pattern && $country_code = variable_get('site_default_country', '')) {
@@ -134,5 +133,36 @@ class CurrencyLocalePattern {
     }
 
     return $locale_pattern;
+  }
+
+  /**
+   * Sets the currency locale's country.
+   *
+   * @param string $country_code_new
+   *   An ISO 3166 country code.
+   *
+   * @return null
+   */
+  static function setCountryCode($country_code_new) {
+    $country_code = &drupal_static(__CLASS__ . '_country_code');
+    $country_code = $country_code_new;
+  }
+
+  /**
+   * Gets the currency locale's country.
+   *
+   * @return null|string
+   */
+  static function getCountryCode() {
+    return drupal_static(__CLASS__ . '_country_code');
+  }
+
+  /**
+   * Resets the currency locale's country.
+   *
+   * @return null
+   */
+  static function resetCountryCode() {
+    drupal_static_reset(__CLASS__ . '_country_code');
   }
 }

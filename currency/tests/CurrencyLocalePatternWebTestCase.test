@@ -29,6 +29,30 @@ class CurrencyLocalePatternWebTestCase extends DrupalWebTestCase {
   }
 
   /**
+   * Tests locale delegation.
+   */
+  function testLocaleDelegation() {
+    global $language;
+
+    // Test getting the default.
+    $this->assertEqual(CurrencyLocalePattern::getCountryCode(), NULL);
+
+    // Test setting a custom country.
+    CurrencyLocalePattern::setCountryCode('NL');
+    $this->assertEqual(CurrencyLocalePattern::getCountryCode(), 'NL');
+
+    // Test loading a locale pattern based on the environment.
+    $language->language = 'nl';
+    CurrencyLocalePattern::setCountryCode('NL');
+    $locale_pattern = CurrencyLocalePattern::loadFromEnv();
+    $this->assertEqual($locale_pattern->locale, 'nl_NL');
+
+    // Test resetting the country.
+    CurrencyLocalePattern::resetCountryCode();
+    $this->assertEqual(CurrencyLocalePattern::getCountryCode(), NULL);
+  }
+
+  /**
    * Test format().
    */
   function testFormat() {
