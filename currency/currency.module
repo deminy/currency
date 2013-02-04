@@ -457,7 +457,7 @@ function currency_options() {
       '@currency_code' => $currency->ISO4217Code,
     ));
   }
-  asort($options);
+  natcasesort($options);
 
   return $options;
 }
