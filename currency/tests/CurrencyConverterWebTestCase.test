@@ -52,6 +52,7 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
 
     // Test a configuration with explicitly disabled converters.
     CurrencyConverter::saveConfiguration(array(
+      'CurrencyConverterBartFeenstraCurrency' => FALSE,
       'CurrencyConverterFixedRates' => FALSE,
     ));
     $this->assertFalse(count(CurrencyConverter::loadConverters()));
