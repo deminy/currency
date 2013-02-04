@@ -69,6 +69,8 @@ function currency_conversion_rate_db_table_refresh() {
   $rates = CurrencyConverter::loadMultiple($currency_codes);
   $delete_query = db_delete('currency_conversion_rate_db_table');
   foreach ($rates as $currency_code_from => $currency_code_from_rates) {
+    // Prevent unavailable rates from being saved.
+    $currency_code_from_rates = array_filter($currency_code_from_rates);
     foreach ($currency_code_from_rates as $currency_code_to => $rate) {
       db_merge('currency_conversion_rate_db_table')
         ->key(array(
