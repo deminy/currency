@@ -13,6 +13,7 @@ $plugin = array(
   ),
   'handler' => array(
     'class' => 'CurrencyLocalePatternCtoolsExportUI',
+    'file' => '../../../includes/CurrencyLocalePatternCtoolsExportUI.inc',
     'parent' => 'ctools_export_ui',
   ),
   'menu' => array(

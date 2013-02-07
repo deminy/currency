@@ -12,6 +12,7 @@ $plugin = array(
   ),
   'handler' => array(
     'class' => 'CurrencyCtoolsExportUI',
+    'file' => '../../../includes/CurrencyCtoolsExportUI.inc',
     'parent' => 'ctools_export_ui',
   ),
   'menu' => array(

@@ -26,12 +26,14 @@ function currency_currency_converter_info() {
   $currency_converters['CurrencyConverter'] = array(
     'converter' => array(
       'class' => 'CurrencyConverter',
+      'file' => 'includes/CurrencyConverter.inc',
     ),
     'title' => t('All converters'),
   );
   $currency_converters['CurrencyConverterFixedRates'] = array(
     'converter' => array(
       'class' => 'CurrencyConverterFixedRates',
+      'file' => 'includes/CurrencyConverterFixedRates.inc',
     ),
     'description' => t('Manually entered fixed conversion rates.'),
     'title' => t('Fixed rates'),
@@ -39,6 +41,7 @@ function currency_currency_converter_info() {
   $currency_converters['CurrencyConverterBartFeenstraCurrency'] = array(
     'converter' => array(
       'class' => 'CurrencyConverterBartFeenstraCurrency',
+      'file' => 'includes/CurrencyConverterBartFeenstraCurrency.inc',
     ),
     'description' => t('Mostly historical rates that do not fluctuate.'),
     'title' => t('Historical rates'),
