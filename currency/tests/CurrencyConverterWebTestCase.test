@@ -57,7 +57,6 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
     ));
     $this->assertFalse(count(CurrencyConverter::loadConverters()));
     $this->assertIdenticalCurrencyConversionRates();
-    
   }
 
   /**

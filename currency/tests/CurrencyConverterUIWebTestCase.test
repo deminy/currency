@@ -10,6 +10,9 @@
  */
 class CurrencyConverterUIWebTestCase extends DrupalWebTestCase {
 
+  /**
+   * Implements DrupalTestCase::getInfo().
+   */
   static function getInfo() {
     return array(
       'name' => 'CurrencyConverter UI',
@@ -17,6 +20,9 @@ class CurrencyConverterUIWebTestCase extends DrupalWebTestCase {
     );
   }
 
+  /**
+   * Overrides parent::setUp().
+   */
   function setUp(array $modules = array()) {
     $this->profile = 'testing';
     parent::setUp($modules + array('currency'));

@@ -45,8 +45,8 @@ function currency_hook_info() {
 }
 
 /**
-* Implements hook_menu().
-*/
+ * Implements hook_menu().
+ */
 function currency_menu() {
   $items['admin/config/regional/currency-conversion'] = array(
     'description' => 'Configure how currency conversion rates should be retrieved.',
@@ -806,7 +806,7 @@ function currency_form_currency_converter_submit(array $form, array &$form_state
 /**
  * Implements theme function: themes the currency converter overview form.
  *
- * @see currency_form_currency_converters
+ * @see currency_form_currency_converters()
  */
 function theme_currency_form_currency_converter(array $variables) {
   drupal_add_tabledrag('currency-converters', 'order', 'sibling', 'form-select');
@@ -868,7 +868,7 @@ function currency_currency_converter_fixed_rates_overview() {
       'colspan' => 4,
     ));
   }
-  
+
   return theme('table', array(
     'header' => $header,
     'rows' => $rows,

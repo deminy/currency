@@ -19,7 +19,7 @@ $plugin = array(
     'menu description' => 'Configure how amounts of money should be displayed.',
     'menu item' => 'currency_locale_pattern',
     'menu prefix' => 'admin/config/regional',
-    'menu title' => 'Currency localization', 
+    'menu title' => 'Currency localization',
   ),
   'schema' => 'currency_locale_pattern',
   'title plural' => t('locale patterns'),

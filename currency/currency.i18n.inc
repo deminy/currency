@@ -25,7 +25,7 @@ function currency_i18n_object_info() {
     'key' => 'ISO4217Code',
     'list callback' => 'currency_load_all',
     'placeholders' => array(
-    	'%currency' => 'ISO4217Code',
+      '%currency' => 'ISO4217Code',
     ),
     'string translation' => array(
       'properties' => array(
