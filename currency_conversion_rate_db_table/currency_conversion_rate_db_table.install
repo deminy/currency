@@ -31,3 +31,10 @@ function currency_conversion_rate_db_table_schema() {
 
   return $schema;
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function currency_uninstall() {
+  variable_del('currency_conversion_rate_db_table_cron_last');
+}
