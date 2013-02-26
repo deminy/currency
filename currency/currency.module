@@ -535,7 +535,7 @@ function currency_form_currency_locale_pattern(array &$form, array &$form_state)
 
   $form['cldr']['pattern'] = array(
     '#default_value' => $locale_pattern->pattern,
-    '#description' => t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>. Non-standard characters are allowed.'),
+    '#description' => t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>. Non-standard characters are allowed. <code>[XXX]</code> and <code>[999]</code> will be replaced by the ISO 4217 currency code and number.'),
     '#maxlength' => 255,
     '#required' => TRUE,
     '#title' => t('Pattern'),
