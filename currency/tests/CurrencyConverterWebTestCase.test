@@ -2,20 +2,20 @@
 
 /**
  * @file
- * Contains class CurrencyConverterWebTestCase.
+ * Contains class CurrencyExchangerWebTestCase.
  */
 
 /**
- * Tests CurrencyConverter.
+ * Tests CurrencyExchanger.
  */
-class CurrencyConverterWebTestCase extends DrupalWebTestCase {
+class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
 
   /**
    * Implements DrupalTestCase::getInfo().
    */
   static function getInfo() {
     return array(
-      'name' => 'CurrencyConverter',
+      'name' => 'CurrencyExchanger',
       'group' => 'Currency',
     );
   }
@@ -29,57 +29,57 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test currency conversion.
+   * Test currency exchange.
    *
-   * We use CurrencyConverterBartFeenstraCurrency to test some functionality,
+   * We use CurrencyExchangerBartFeenstraCurrency to test some functionality,
    * which means that if this test fails, the problem may be caused by
-   * CurrencyConverterBartFeenstraCurrency.
+   * CurrencyExchangerBartFeenstraCurrency.
    *
-   * @see CurrencyConverterBartFeenstraCurrency
+   * @see CurrencyExchangerBartFeenstraCurrency
    */
-  function testCurrencyConverter() {
+  function testCurrencyExchanger() {
     // Test default configuration.
-    $this->assertCurrencyConversionRates();
-    $this->assertIdenticalCurrencyConversionRates();
+    $this->assertCurrencyExchangeRates();
+    $this->assertIdenticalCurrencyExchangeRates();
 
-    // Test a configuration with explicitly enabled converters.
-    CurrencyConverter::saveConfiguration(array(
-      'CurrencyConverterFixedRates' => TRUE,
-      'CurrencyConverterBartFeenstraCurrency' => TRUE,
+    // Test a configuration with explicitly enabled exchangers.
+    CurrencyExchanger::saveConfiguration(array(
+      'CurrencyExchangerFixedRates' => TRUE,
+      'CurrencyExchangerBartFeenstraCurrency' => TRUE,
     ));
-    $this->assertCurrencyConversionRates();
-    $this->assertIdenticalCurrencyConversionRates();
+    $this->assertCurrencyExchangeRates();
+    $this->assertIdenticalCurrencyExchangeRates();
 
-    // Test a configuration with explicitly disabled converters.
-    CurrencyConverter::saveConfiguration(array(
-      'CurrencyConverterBartFeenstraCurrency' => FALSE,
-      'CurrencyConverterFixedRates' => FALSE,
+    // Test a configuration with explicitly disabled exchangers.
+    CurrencyExchanger::saveConfiguration(array(
+      'CurrencyExchangerBartFeenstraCurrency' => FALSE,
+      'CurrencyExchangerFixedRates' => FALSE,
     ));
-    $this->assertFalse(count(CurrencyConverter::loadConverters()));
-    $this->assertIdenticalCurrencyConversionRates();
+    $this->assertFalse(count(CurrencyExchanger::loadConverters()));
+    $this->assertIdenticalCurrencyExchangeRates();
   }
 
   /**
-   * Asserts that conversion rates can be retrieved.
+   * Asserts that exchange rates can be retrieved.
    *
-   * This function expects CurrencyConverterFixedRates and
-   * CurrencyConverterBartFeenstraCurrency to be enabled in that order.
+   * This function expects CurrencyExchangerFixedRates and
+   * CurrencyExchangerBartFeenstraCurrency to be enabled in that order.
    */
-  function assertCurrencyConversionRates() {
-    $converters = CurrencyConverter::loadConverters();
-    $this->assertEqual(CurrencyConverter::loadConverters(), array('CurrencyConverterFixedRates', 'CurrencyConverterBartFeenstraCurrency'));
+  function assertCurrencyExchangeRates() {
+    $exchangers = CurrencyExchanger::loadConverters();
+    $this->assertEqual(CurrencyExchanger::loadConverters(), array('CurrencyExchangerFixedRates', 'CurrencyExchangerBartFeenstraCurrency'));
 
-    // Make sure the first converter has a rate on EUR>NLG, so it has
-    // priority over the second converter's rate for these currencies.
-    CurrencyConverterFixedRates::save('EUR', 'NLG', 7);
+    // Make sure the first exchanger has a rate on EUR>NLG, so it has
+    // priority over the second exchanger's rate for these currencies.
+    CurrencyExchangerFixedRates::save('EUR', 'NLG', 7);
 
-    // Test CurrencyConverter::load().
-    $this->assertEqual(CurrencyConverter::load('EUR', 'NLG'), 7);
-    $this->assertEqual(CurrencyConverter::load('EUR', 'DEM'), 1.95583);
-    $this->assertFalse(CurrencyConverter::load('EUR', 'XXX'));
+    // Test CurrencyExchanger::load().
+    $this->assertEqual(CurrencyExchanger::load('EUR', 'NLG'), 7);
+    $this->assertEqual(CurrencyExchanger::load('EUR', 'DEM'), 1.95583);
+    $this->assertFalse(CurrencyExchanger::load('EUR', 'XXX'));
 
-    // Test CurrencyConverter::loadMultiple().
-    $rates = CurrencyConverter::loadMultiple(array(
+    // Test CurrencyExchanger::loadMultiple().
+    $rates = CurrencyExchanger::loadMultiple(array(
       'EUR' => array('NLG', 'DEM', 'XXX'),
     ));
     $this->assertTrue(isset($rates['EUR']));
@@ -92,14 +92,14 @@ class CurrencyConverterWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Assert sthat conversion rates for identical currencies can be retrieved.
+   * Assert sthat exchange rates for identical currencies can be retrieved.
    */
-  function assertIdenticalCurrencyConversionRates() {
-    // Test CurrencyConverter::load().
-    $this->assertEqual(CurrencyConverter::load('EUR', 'EUR'), 1);
+  function assertIdenticalCurrencyExchangeRates() {
+    // Test CurrencyExchanger::load().
+    $this->assertEqual(CurrencyExchanger::load('EUR', 'EUR'), 1);
 
-    // Test CurrencyConverter::loadMultiple().
-    $rates = CurrencyConverter::loadMultiple(array(
+    // Test CurrencyExchanger::loadMultiple().
+    $rates = CurrencyExchanger::loadMultiple(array(
       'EUR' => array('EUR'),
     ));
     $this->assertTrue(isset($rates['EUR']));

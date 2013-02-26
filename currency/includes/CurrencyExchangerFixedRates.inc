@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains class CurrencyConverterFixedRates.
+ * Contains class CurrencyExchangerFixedRates.
  */
 
 /**
- * Provides manually entered conversion rates.
+ * Provides manually entered exchange rates.
  */
-class CurrencyConverterFixedRates implements CurrencyConverterInterface {
+class CurrencyExchangerFixedRates implements CurrencyExchangerInterface {
 
   /**
-   * Implements CurrencyConverterInterface::load().
+   * Implements CurrencyExchangerInterface::load().
    */
   static function load($currency_code_from, $currency_code_to) {
     $rates = self::loadAll();
@@ -28,7 +28,7 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   }
 
   /**
-   * Implements CurrencyConverterInterface::loadMultiple().
+   * Implements CurrencyExchangerInterface::loadMultiple().
    */
   static function loadMultiple(array $currency_codes) {
     $rates = array();
@@ -42,7 +42,7 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   }
 
   /**
-   * Loads all available conversion rates.
+   * Loads all available exchange rates.
    *
    * @return array
    *   The array structure is identical to the return value of
@@ -53,7 +53,7 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
 
     if (is_null($rates)) {
       $rates = array();
-      $result = db_select('currency_converter_fixed_rates', 'ccfr')
+      $result = db_select('currency_exchanger_fixed_rates', 'ccfr')
         ->fields('ccfr')
         ->execute();
       foreach ($result as $row) {
@@ -65,17 +65,17 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   }
 
   /**
-   * Implements CurrencyConverterInterface::operationsLinks().
+   * Implements CurrencyExchangerInterface::operationsLinks().
    */
   static function operationsLinks() {
     return array(array(
       'title' => t('configure'),
-      'href' => 'admin/config/regional/currency-conversion/fixed',
+      'href' => 'admin/config/regional/currency-exchange/fixed',
     ));
   }
 
   /**
-   * Saves a conversion rate.
+   * Saves a exchange rate.
    *
    * @param string $currency_code_from
    * @param string $currency_code_to
@@ -91,7 +91,7 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
       'currency_code_from' => $currency_code_from,
       'currency_code_to' => $currency_code_to,
     );
-    $merge_status = db_merge('currency_converter_fixed_rates')
+    $merge_status = db_merge('currency_exchanger_fixed_rates')
       ->key($key)
       ->fields(array_merge($key, array(
         'rate' => $rate,
@@ -103,7 +103,7 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   }
 
   /**
-   * Deletes a conversion rate.
+   * Deletes a exchange rate.
    *
    * @param string $currency_code_from
    * @param string $currency_code_to
@@ -113,7 +113,7 @@ class CurrencyConverterFixedRates implements CurrencyConverterInterface {
   static function delete($currency_code_from, $currency_code_to) {
     $rates = &drupal_static(__CLASS__);
 
-    db_delete('currency_converter_fixed_rates')
+    db_delete('currency_exchanger_fixed_rates')
       ->condition('currency_code_from', $currency_code_from)
       ->condition('currency_code_to', $currency_code_to)
       ->execute();

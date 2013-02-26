@@ -1,8 +1,8 @@
 alternativeSigns: {  }
-conversionRates: {  }
+exchangeRates: {  }
 ISO4217Code: VAL
 ISO4217Number: null
 sign: ₤
-subunits: 0
+subunits: 100
 title: 'Vatican lira'
 usage: {  }

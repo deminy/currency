@@ -8,11 +8,11 @@
 /**
  * Implements hook_views_data().
  */
-function currency_conversion_rate_db_table_views_data() {
+function currency_exchange_rate_db_table_views_data() {
   // Table configuration.
-  $data['currency_conversion_rate_db_table']['table'] = array(
+  $data['currency_exchange_rate_db_table']['table'] = array(
     'base' => array(
-      'title' => t('Currency conversion rates'),
+      'title' => t('Currency exchange rates'),
     ),
     'group' => t('Currency'),
   );
@@ -38,7 +38,7 @@ function currency_conversion_rate_db_table_views_data() {
     foreach ($field_properties as $property => $title) {
       // Don't alias the currency code.
       $suffix = $property == 'ISO4217Code' ? '' : '_' . $property;
-      $data['currency_conversion_rate_db_table'][$field . $suffix] = array(
+      $data['currency_exchange_rate_db_table'][$field . $suffix] = array(
         'title' => $title,
         'real field' => $field,
         'field' => array(
@@ -51,7 +51,7 @@ function currency_conversion_rate_db_table_views_data() {
       );
     }
   }
-  $data['currency_conversion_rate_db_table']['rate'] = array(
+  $data['currency_exchange_rate_db_table']['rate'] = array(
     'title' => t('Conversion rate'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
@@ -67,7 +67,7 @@ function currency_conversion_rate_db_table_views_data() {
       'handler' => 'views_handler_argument_numeric',
     ),
   );
-  $data['currency_conversion_rate_db_table']['rate_amount'] = array(
+  $data['currency_exchange_rate_db_table']['rate_amount'] = array(
     'title' => t('Conversion rate (as an amount)'),
     'real field' => 'rate',
     'field' => array(

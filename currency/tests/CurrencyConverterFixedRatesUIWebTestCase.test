@@ -2,20 +2,20 @@
 
 /**
  * @file
- * Contains class CurrencyConverterFixedRatesUIWebTestCase.
+ * Contains class CurrencyExchangerFixedRatesUIWebTestCase.
  */
 
 /**
- * Tests the UI for CurrencyConverterFixedRates.
+ * Tests the UI for CurrencyExchangerFixedRates.
  */
-class CurrencyConverterFixedRatesUIWebTestCase extends DrupalWebTestCase {
+class CurrencyExchangerFixedRatesUIWebTestCase extends DrupalWebTestCase {
 
   /**
    * Implements DrupalTestCase::getInfo().
    */
   static function getInfo() {
     return array(
-      'name' => 'CurrencyConverterFixedRates UI',
+      'name' => 'CurrencyExchangerFixedRates UI',
       'group' => 'Currency',
     );
   }
@@ -29,21 +29,21 @@ class CurrencyConverterFixedRatesUIWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test CurrencyConverter's UI.
+   * Test CurrencyExchanger's UI.
    */
-  function testCurrencyConverterFixedRatesUI() {
-    $user = $this->drupalCreateUser(array('currency.currency_converter.administer'));
+  function testCurrencyExchangerFixedRatesUI() {
+    $user = $this->drupalCreateUser(array('currency.currency_exchanger.administer'));
     $this->drupalLogin($user);
-    $path = 'admin/config/regional/currency-conversion/fixed';
+    $path = 'admin/config/regional/currency-exchange/fixed';
 
     // Test the overview.
     $this->drupalGet($path);
-    $this->assertText(t('Add a conversion rate'));
+    $this->assertText(t('Add a exchange rate'));
 
     $currency_code_from = 'EUR';
     $currency_code_to = 'NLG';
 
-    // Test adding a conversion rate.
+    // Test adding a exchange rate.
     $rate = 3;
     $values = array(
       'currency_code_from' => $currency_code_from,
@@ -51,20 +51,20 @@ class CurrencyConverterFixedRatesUIWebTestCase extends DrupalWebTestCase {
       'rate[amount]' => $rate,
     );
     $this->drupalPost($path . '/add', $values, t('Save'));
-    $this->assertEqual(CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to), $rate);
+    $this->assertEqual(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
 
-    // Test editing a conversion rate.
+    // Test editing a exchange rate.
     $rate = 6;
     $values = array(
       'rate[amount]' => $rate,
     );
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
-    drupal_static_reset('CurrencyConverterFixedRates');
-    $this->assertEqual(CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to), $rate);
+    drupal_static_reset('CurrencyExchangerFixedRates');
+    $this->assertEqual(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
 
-    // Test deleting a conversion rate.
+    // Test deleting a exchange rate.
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));
-    drupal_static_reset('CurrencyConverterFixedRates');
-    $this->assertFalse(CurrencyConverterFixedRates::load($currency_code_from, $currency_code_to));
+    drupal_static_reset('CurrencyExchangerFixedRates');
+    $this->assertFalse(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to));
   }
 }

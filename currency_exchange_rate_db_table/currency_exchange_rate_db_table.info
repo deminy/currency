@@ -1,0 +1,4 @@
+name = Currency exchange rate database table
+description = Provides a database table in which currency exchange rates are cached and exposed to Views.
+core = 7.x
+dependencies[] = currency

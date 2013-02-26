@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains interface CurrencyConverterInterface.
+ * Contains interface CurrencyExchangerInterface.
  */
 
 /**
- * Describes a currency converter.
+ * Describes a currency exchanger.
  */
-interface CurrencyConverterInterface {
+interface CurrencyExchangerInterface {
 
   /**
-   * Returns the conversion rate for two currencies.
+   * Returns the exchange rate for two currencies.
    *
    * @param string $currency_code_from
    * @param string $currency_code_to
@@ -22,7 +22,7 @@ interface CurrencyConverterInterface {
   static function load($currency_code_from, $currency_code_to);
 
   /**
-   * Returns the conversion rates for multiple currency combinations.
+   * Returns the exchange rates for multiple currency combinations.
    *
    * @param array $currency_codes
    *   Keys are the ISO 4217 codes of source currencies, values are arrays that
@@ -35,7 +35,7 @@ interface CurrencyConverterInterface {
    *   Keys are the ISO 4217 codes of source currencies, values are arrays of
    *   which the keys are ISO 4217 codes of destination currencies and values
    *   are the exchange rates as floats, or FALSE for combinations of
-   *   currencies for which no conversion rate could be found. Example:
+   *   currencies for which no exchange rate could be found. Example:
    *   array(
    *     'EUR' => array(
    *       'NLG' => 2.20371,

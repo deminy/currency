@@ -2,20 +2,20 @@
 
 /**
  * @file
- * Contains class CurrencyConverterUIWebTestCase.
+ * Contains class CurrencyExchangerUIWebTestCase.
  */
 
 /**
- * Tests the UI for CurrencyConverter.
+ * Tests the UI for CurrencyExchanger.
  */
-class CurrencyConverterUIWebTestCase extends DrupalWebTestCase {
+class CurrencyExchangerUIWebTestCase extends DrupalWebTestCase {
 
   /**
    * Implements DrupalTestCase::getInfo().
    */
   static function getInfo() {
     return array(
-      'name' => 'CurrencyConverter UI',
+      'name' => 'CurrencyExchanger UI',
       'group' => 'Currency',
     );
   }
@@ -29,26 +29,26 @@ class CurrencyConverterUIWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test CurrencyConverter's UI.
+   * Test CurrencyExchanger's UI.
    */
-  function testCurrencyConverterUI() {
-    $user = $this->drupalCreateUser(array('currency.currency_converter.administer'));
+  function testCurrencyExchangerUI() {
+    $user = $this->drupalCreateUser(array('currency.currency_exchanger.administer'));
     $this->drupalLogin($user);
 
     // Test the default configuration.
     $this->assertEqual(array(
-      'CurrencyConverterFixedRates' => TRUE,
-      'CurrencyConverterBartFeenstraCurrency' => TRUE,
-    ), CurrencyConverter::loadConfiguration());
+      'CurrencyExchangerFixedRates' => TRUE,
+      'CurrencyExchangerBartFeenstraCurrency' => TRUE,
+    ), CurrencyExchanger::loadConfiguration());
     // Test overridden configuration.
-    $path = 'admin/config/regional/currency-conversion';
+    $path = 'admin/config/regional/currency-exchange';
     $values = array(
-      'converters[CurrencyConverterFixedRates][enabled]' => FALSE,
+      'exchangers[CurrencyExchangerFixedRates][enabled]' => FALSE,
     );
     $this->drupalPost($path, $values, t('Save'));
     $this->assertEqual(array(
-      'CurrencyConverterFixedRates' => FALSE,
-      'CurrencyConverterBartFeenstraCurrency' => TRUE,
-    ), CurrencyConverter::loadConfiguration());
+      'CurrencyExchangerFixedRates' => FALSE,
+      'CurrencyExchangerBartFeenstraCurrency' => TRUE,
+    ), CurrencyExchanger::loadConfiguration());
   }
 }

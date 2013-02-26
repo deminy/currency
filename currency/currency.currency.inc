@@ -20,34 +20,34 @@ function currency_currency_info() {
 }
 
 /**
- * Implements hook_currency_converter_info().
+ * Implements hook_currency_exchanger_info().
  */
-function currency_currency_converter_info() {
-  $currency_converters['CurrencyConverter'] = array(
-    'converter' => array(
-      'class' => 'CurrencyConverter',
-      'file' => 'includes/CurrencyConverter.inc',
+function currency_currency_exchanger_info() {
+  $currency_exchangers['CurrencyExchanger'] = array(
+    'exchanger' => array(
+      'class' => 'CurrencyExchanger',
+      'file' => 'includes/CurrencyExchanger.inc',
     ),
-    'title' => t('All converters'),
+    'title' => t('All exchangers'),
   );
-  $currency_converters['CurrencyConverterFixedRates'] = array(
-    'converter' => array(
-      'class' => 'CurrencyConverterFixedRates',
-      'file' => 'includes/CurrencyConverterFixedRates.inc',
+  $currency_exchangers['CurrencyExchangerFixedRates'] = array(
+    'exchanger' => array(
+      'class' => 'CurrencyExchangerFixedRates',
+      'file' => 'includes/CurrencyExchangerFixedRates.inc',
     ),
-    'description' => t('Manually entered fixed conversion rates.'),
+    'description' => t('Manually entered fixed exchange rates.'),
     'title' => t('Fixed rates'),
   );
-  $currency_converters['CurrencyConverterBartFeenstraCurrency'] = array(
-    'converter' => array(
-      'class' => 'CurrencyConverterBartFeenstraCurrency',
-      'file' => 'includes/CurrencyConverterBartFeenstraCurrency.inc',
+  $currency_exchangers['CurrencyExchangerBartFeenstraCurrency'] = array(
+    'exchanger' => array(
+      'class' => 'CurrencyExchangerBartFeenstraCurrency',
+      'file' => 'includes/CurrencyExchangerBartFeenstraCurrency.inc',
     ),
     'description' => t('Mostly historical rates that do not fluctuate.'),
     'title' => t('Historical rates'),
   );
 
-  return $currency_converters;
+  return $currency_exchangers;
 }
 
 /**

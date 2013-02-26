@@ -8,9 +8,9 @@
 /**
  * Implements hook_schema().
  */
-function currency_conversion_rate_db_table_schema() {
-  $schema['currency_conversion_rate_db_table'] = array(
-    'description' => 'Currency conversion rates.',
+function currency_exchange_rate_db_table_schema() {
+  $schema['currency_exchange_rate_db_table'] = array(
+    'description' => 'Currency exchange rates.',
     'fields' => array(
       'currency_code_from' => array(
         'type' => 'varchar',
@@ -36,5 +36,5 @@ function currency_conversion_rate_db_table_schema() {
  * Implements hook_uninstall().
  */
 function currency_uninstall() {
-  variable_del('currency_conversion_rate_db_table_cron_last');
+  variable_del('currency_exchange_rate_db_table_cron_last');
 }

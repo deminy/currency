@@ -2,20 +2,20 @@
 
 /**
  * @file
- * Contains class CurrencyConverterBartFeenstraCurrencyWebTestCase.
+ * Contains class CurrencyExchangerBartFeenstraCurrencyWebTestCase.
  */
 
 /**
- * Tests CurrencyConverterBartFeenstraCurrency.
+ * Tests CurrencyExchangerBartFeenstraCurrency.
  */
-class CurrencyConverterBartFeenstraCurrencyWebTestCase extends DrupalWebTestCase {
+class CurrencyExchangerBartFeenstraCurrencyWebTestCase extends DrupalWebTestCase {
 
   /**
    * Implements DrupalTestCase::getInfo().
    */
   static function getInfo() {
     return array(
-      'name' => 'CurrencyConverterBartFeenstraCurrency',
+      'name' => 'CurrencyExchangerBartFeenstraCurrency',
       'group' => 'Currency',
     );
   }
@@ -29,27 +29,27 @@ class CurrencyConverterBartFeenstraCurrencyWebTestCase extends DrupalWebTestCase
   }
 
   /**
-   * Test currency conversion.
+   * Test currency exchange.
    */
-  function testCurrencyConverterBartFeenstraCurrency() {
-    // Test CurrencyConverterBartFeenstraCurrency::load().
-    // Test an available conversion rate.
-    $this->assertEqual(CurrencyConverterBartFeenstraCurrency::load('EUR', 'NLG'), 2.20371);
-    // Test an unavailable conversion rate for which the reverse rate is
+  function testCurrencyExchangerBartFeenstraCurrency() {
+    // Test CurrencyExchangerBartFeenstraCurrency::load().
+    // Test an available exchange rate.
+    $this->assertEqual(CurrencyExchangerBartFeenstraCurrency::load('EUR', 'NLG'), 2.20371);
+    // Test an unavailable exchange rate for which the reverse rate is
     // available.
-    $this->assertEqual(round(CurrencyConverterBartFeenstraCurrency::load('NLG', 'EUR'), 5), 0.45378);
+    $this->assertEqual(round(CurrencyExchangerBartFeenstraCurrency::load('NLG', 'EUR'), 5), 0.45378);
 
-    // Test CurrencyConverterBartFeenstraCurrency::loadMultiple().
-    // Test an available conversion rate.
-    $rates = CurrencyConverterBartFeenstraCurrency::loadMultiple(array(
+    // Test CurrencyExchangerBartFeenstraCurrency::loadMultiple().
+    // Test an available exchange rate.
+    $rates = CurrencyExchangerBartFeenstraCurrency::loadMultiple(array(
       'EUR' => array('NLG'),
     ));
     $this->assertTrue(isset($rates['EUR']));
     $this->assertTrue(isset($rates['EUR']['NLG']));
     $this->assertEqual($rates['EUR']['NLG'], 2.20371);
-    // Test an unavailable conversion rate for which the reverse rate is
+    // Test an unavailable exchange rate for which the reverse rate is
     // available.
-    $rates = CurrencyConverterBartFeenstraCurrency::loadMultiple(array(
+    $rates = CurrencyExchangerBartFeenstraCurrency::loadMultiple(array(
       'NLG' => array('EUR'),
     ));
     $this->assertTrue(isset($rates['NLG']));

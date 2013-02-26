@@ -6,7 +6,7 @@
  */
 
 /**
- * Tests the currency conversion input filter.
+ * Tests the currency exchange input filter.
  */
 class CurrencyFilterWebTestCase extends DrupalWebTestCase {
 

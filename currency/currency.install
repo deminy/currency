@@ -108,7 +108,7 @@ function currency_schema() {
       $schema['currency_locale_pattern']['fields'][$property]['object default'] = $default_value;
     }
   }
-  $schema['currency_converter_fixed_rates'] = array(
+  $schema['currency_exchanger_fixed_rates'] = array(
     'fields' => array(
       'currency_code_from' => array(
         'type' => 'varchar',
@@ -136,5 +136,5 @@ function currency_schema() {
  * Implements hook_uninstall().
  */
 function currency_uninstall() {
-  variable_del('currency_converter');
+  variable_del('currency_exchanger');
 }
