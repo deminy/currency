@@ -13,8 +13,8 @@ use BartFeenstra\CLDR\CurrencyFormatter;
 class CurrencyLocalePattern {
 
   /**
-   * The locale as a combination of an ISO 639-1 language code and an ISO 3166
-   * country code, separated by an underscore.
+   * The locale as a combination of an ISO 639-1 language code and a country
+   * code, separated by an underscore.
    *
    * @var string
    */
@@ -139,7 +139,7 @@ class CurrencyLocalePattern {
    * Sets the currency locale's country.
    *
    * @param string $country_code_new
-   *   An ISO 3166 country code.
+   *   Any code that is also returned by country_get_list().
    *
    * @return null
    */
