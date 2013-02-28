@@ -10,38 +10,41 @@
  */
 function currency_token_info() {
   // Token groups.
-  $token_info['types']['currency'] = array(
+  $types['currency'] = array(
     'description' => t('ISO 4217 currencies.'),
     'name' => t('Currencies'),
     'needs-data' => 'currency',
   );
 
   // Tokens.
-  $token_info['tokens']['code'] = array(
+  $tokens['currency']['code'] = array(
     'description' => t('The ISO 4217 currency code.'),
     'name' => t('Currency code'),
     'type' => 'text',
   );
-  $token_info['tokens']['number'] = array(
+  $tokens['currency']['number'] = array(
     'description' => t('The ISO 4217 currency number.'),
     'name' => t('Currency number'),
     'type' => 'text',
   );
-  $token_info['tokens']['subunits'] = array(
+  $tokens['currency']['subunits'] = array(
     'description' => t('The number of subunits.'),
     'name' => t('Subunits'),
     'type' => 'text',
   );
-  $token_info['tokens']['sign'] = array(
+  $tokens['currency']['sign'] = array(
     'name' => t('Sign'),
     'type' => 'text',
   );
-  $token_info['tokens']['title'] = array(
+  $tokens['currency']['title'] = array(
     'name' => t('Name'),
     'type' => 'text',
   );
 
-  return $token_info;
+  return array(
+    'tokens' => $tokens,
+    'types' => $types,
+  );
 }
 
 /**
