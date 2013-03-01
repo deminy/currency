@@ -1,0 +1,4 @@
+name = Currency API
+description = Helps satisfy legacy dependencies.
+core = 7.x
+dependencies[] = currency
