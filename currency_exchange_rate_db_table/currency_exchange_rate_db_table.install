@@ -35,6 +35,6 @@ function currency_exchange_rate_db_table_schema() {
 /**
  * Implements hook_uninstall().
  */
-function currency_uninstall() {
+function currency_exchange_rate_db_table_uninstall() {
   variable_del('currency_exchange_rate_db_table_cron_last');
 }
