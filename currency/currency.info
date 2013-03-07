@@ -30,6 +30,7 @@ files[] = tests/CurrencyLocaleFormElementWebTestCase.test
 files[] = tests/CurrencyLocalePatternCRUDWebTestCase.test
 files[] = tests/CurrencyLocalePatternUIWebTestCase.test
 files[] = tests/CurrencyLocalePatternWebTestCase.test
+files[] = tests/CurrencyModuleInstallUninstall.test
 files[] = tests/CurrencySignFormElementWebTestCase.test
 files[] = tests/CurrencyTokenWebTestCase.test
 files[] = tests/CurrencyUIWebTestCase.test
