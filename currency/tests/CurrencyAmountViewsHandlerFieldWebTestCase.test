@@ -45,8 +45,8 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
     $fields = array('amount_currency_code_option', 'amount_currency_code_field_option', 'amount_currency_code_definition', 'amount_currency_code_field_definition', 'amount_currency_undefined');
     foreach ($fields as $field) {
       $schema['views_test']['fields'][$field] = array(
-        'type' => 'float',
-        'size' => 'big',
+        'type' => 'varchar',
+        'length' => 255,
       );
     }
 
@@ -82,7 +82,6 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
       'help' => t('Amount'),
       'field' => array(
         'handler' => 'CurrencyAmountViewsHandlerField',
-        'float' => TRUE,
       ),
     );
     $data['views_test']['amount_currency_code_field_option'] = array(
@@ -90,7 +89,6 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
       'help' => t('Amount'),
       'field' => array(
         'handler' => 'CurrencyAmountViewsHandlerField',
-        'float' => TRUE,
       ),
     );
     $data['views_test']['amount_currency_code_definition'] = array(
@@ -98,7 +96,6 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
       'help' => t('Amount'),
       'field' => array(
         'handler' => 'CurrencyAmountViewsHandlerField',
-        'float' => TRUE,
         'currency_code' => 'EUR',
       ),
     );
@@ -107,7 +104,6 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
       'help' => t('Amount'),
       'field' => array(
         'handler' => 'CurrencyAmountViewsHandlerField',
-        'float' => TRUE,
         'currency_code' => 'UAH',
         'currency_code_field' => 'views_test_currency_code',
       ),
@@ -117,7 +113,6 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
       'help' => t('Amount'),
       'field' => array(
         'handler' => 'CurrencyAmountViewsHandlerField',
-        'float' => TRUE,
       ),
     );
 

@@ -71,11 +71,11 @@ class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
 
     // Make sure the first exchanger has a rate on EUR>NLG, so it has
     // priority over the second exchanger's rate for these currencies.
-    CurrencyExchangerFixedRates::save('EUR', 'NLG', 7);
+    CurrencyExchangerFixedRates::save('EUR', 'NLG', '7');
 
     // Test CurrencyExchanger::load().
-    $this->assertEqual(CurrencyExchanger::load('EUR', 'NLG'), 7);
-    $this->assertEqual(CurrencyExchanger::load('EUR', 'DEM'), 1.95583);
+    $this->assertIdentical(CurrencyExchanger::load('EUR', 'NLG'), '7');
+    $this->assertIdentical(CurrencyExchanger::load('EUR', 'DEM'), '1.95583');
     $this->assertFalse(CurrencyExchanger::load('EUR', 'XXX'));
 
     // Test CurrencyExchanger::loadMultiple().
@@ -84,9 +84,9 @@ class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
     ));
     $this->assertTrue(isset($rates['EUR']));
     $this->assertTrue(isset($rates['EUR']['NLG']));
-    $this->assertEqual($rates['EUR']['NLG'], 7);
+    $this->assertIdentical($rates['EUR']['NLG'], '7');
     $this->assertTrue(isset($rates['EUR']['DEM']));
-    $this->assertEqual($rates['EUR']['DEM'], 1.95583);
+    $this->assertIdentical($rates['EUR']['DEM'], '1.95583');
     $this->assertTrue(isset($rates['EUR']['XXX']));
     $this->assertFalse($rates['EUR']['XXX']);
   }
@@ -96,7 +96,7 @@ class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
    */
   function assertIdenticalCurrencyExchangeRates() {
     // Test CurrencyExchanger::load().
-    $this->assertEqual(CurrencyExchanger::load('EUR', 'EUR'), 1);
+    $this->assertIdentical(CurrencyExchanger::load('EUR', 'EUR'), '1');
 
     // Test CurrencyExchanger::loadMultiple().
     $rates = CurrencyExchanger::loadMultiple(array(
@@ -104,6 +104,6 @@ class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
     ));
     $this->assertTrue(isset($rates['EUR']));
     $this->assertTrue(isset($rates['EUR']['EUR']));
-    $this->assertEqual($rates['EUR']['EUR'], 1);
+    $this->assertIdentical($rates['EUR']['EUR'], '1');
   }
 }

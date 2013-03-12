@@ -44,23 +44,23 @@ class CurrencyExchangerFixedRatesUIWebTestCase extends DrupalWebTestCase {
     $currency_code_to = 'NLG';
 
     // Test adding a exchange rate.
-    $rate = 3;
+    $rate = '3';
     $values = array(
       'currency_code_from' => $currency_code_from,
       'currency_code_to' => $currency_code_to,
       'rate[amount]' => $rate,
     );
     $this->drupalPost($path . '/add', $values, t('Save'));
-    $this->assertEqual(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
+    $this->assertIdentical(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
 
     // Test editing a exchange rate.
-    $rate = 6;
+    $rate = '6';
     $values = array(
       'rate[amount]' => $rate,
     );
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
     drupal_static_reset('CurrencyExchangerFixedRates');
-    $this->assertEqual(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
+    $this->assertIdentical(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
 
     // Test deleting a exchange rate.
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));

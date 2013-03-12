@@ -21,8 +21,8 @@ function currency_exchange_rate_db_table_schema() {
         'length' => 3,
       ),
       'rate' => array(
-        'type' => 'float',
-        'size' => 'big',
+        'type' => 'varchar',
+        'length' => 255,
         'not null' => TRUE,
       ),
     ),

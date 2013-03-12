@@ -22,7 +22,7 @@ class CurrencyExchangerFixedRates implements CurrencyExchangerInterface {
     // cached data would require additional checks when deleting rates, to see
     // if the they are reversed from other rates or are originals.
     elseif (isset($rates[$currency_code_to]) && isset($rates[$currency_code_to][$currency_code_from])) {
-      return 1 / $rates[$currency_code_to][$currency_code_from];
+      return bcdiv(1, $rates[$currency_code_to][$currency_code_from], CURRENCY_BCMATH_SCALE);
     }
     return FALSE;
   }
@@ -57,7 +57,7 @@ class CurrencyExchangerFixedRates implements CurrencyExchangerInterface {
         ->fields('ccfr')
         ->execute();
       foreach ($result as $row) {
-        $rates[$row->currency_code_from][$row->currency_code_to] = (float) $row->rate;
+        $rates[$row->currency_code_from][$row->currency_code_to] = $row->rate;
       }
     }
 
@@ -79,7 +79,7 @@ class CurrencyExchangerFixedRates implements CurrencyExchangerInterface {
    *
    * @param string $currency_code_from
    * @param string $currency_code_to
-   * @param int|float $rate
+   * @param string $rate
    *
    * @return int
    *   MergeQuery::STATUS_INSERT or MergeQuery::STATUS_UPDATE.

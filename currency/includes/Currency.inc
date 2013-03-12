@@ -63,7 +63,8 @@ class Currency extends BartFeenstra\Currency\Currency {
    * This is a wrapper for CurrencyLocalePattern::format() in situations where
    * the environment's default locale pattern should be used.
    *
-   * @param float $amount
+   * @param string $amount
+   *   A numeric string.
    *
    * @return string
    */
@@ -74,7 +75,8 @@ class Currency extends BartFeenstra\Currency\Currency {
   /**
    * Returns the rounding step.
    *
-   * @return int|float|false
+   * @return string|false
+   *   The rounding step as a numeric string, or FALSE if unavailable.
    */
   function getRoundingStep() {
     if (is_numeric($this->rounding_step)) {
@@ -83,7 +85,7 @@ class Currency extends BartFeenstra\Currency\Currency {
     // If a rounding step was not set explicitely, the rounding step is equal
     // to one subunit.
     elseif (is_numeric($this->subunits)) {
-      return $this->subunits > 0 ? 1 / $this->subunits : 1;
+      return $this->subunits > 0 ? bvdiv(1, $this->subunits) : 1;
     }
     else {
       return FALSE;

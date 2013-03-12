@@ -121,8 +121,8 @@ function currency_schema() {
         'not null' => TRUE,
       ),
       'rate' => array(
-        'type' => 'float',
-        'size' => 'normal',
+        'type' => 'varchar',
+        'length' => 255,
         'not null' => TRUE,
       ),
     ),
@@ -137,4 +137,18 @@ function currency_schema() {
  */
 function currency_uninstall() {
   variable_del('currency_exchanger');
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function currency_requirements($phase) {
+  $loaded = extension_loaded('BCMath');
+  $requirements['currency_extension_bcmath'] = array(
+    'title' => t('PHP BCMath extension'),
+    'value' => $loaded ? t('Loaded') : t('Not loaded'),
+    'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+  );
+
+  return $requirements;
 }

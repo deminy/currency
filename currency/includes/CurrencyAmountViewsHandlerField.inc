@@ -90,7 +90,7 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
     if ($this->options['currency_round']) {
       $rounding_step = $currency->getRoundingStep();
       if ($rounding_step) {
-        $amount = round($amount / $rounding_step) * $rounding_step;
+        $amount = bcmul(round(bcdiv($amount, $rounding_step, CURRENCY_BCMATH_SCALE)), $rounding_step, CURRENCY_BCMATH_SCALE);
       }
     }
 
@@ -131,21 +131,19 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
   }
 
   /**
-   * Gets this field's amount as a float.
+   * Gets this field's.
    *
    * If the amount cannot be fetched from your implementation's database field
-   * as a float or a format that can easily be parsed to a float, such as a
-   * string or an integer, you should override this method so it returns a
-   * float representation of the amount.
+   * as a numeric string, you should override this method so it returns a
+   * numeric/decimal representation of the amount.
    *
    * @param mixed $amount_value
    *   The amount as Views fetched it from the database.
    *
-   * @return float
+   * @return string
+   *   A numeric string.
    */
   function getAmount($amount_value) {
-    // Even if the amount is stored as a float, in most cases it is returned as
-    // a string, so cast it.
-    return (float) $amount_value;
+    return $amount_value;
   }
 }

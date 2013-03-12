@@ -22,6 +22,11 @@ define('CURRENCY_DEFAULT_LOCALE', 'en_US');
 define('CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE', '###CUSTOM###');
 
 /**
+ * The number of decimals for BCMath calculations.
+ */
+define('CURRENCY_BCMATH_SCALE', 9);
+
+/**
  * Implements hook_hook_info().
  */
 function currency_hook_info() {
@@ -98,7 +103,7 @@ function currency_menu() {
  * Implements hook_element_info().
  */
 function currency_element_info() {
-  // An element to collect an amount of money and convert it to a float.
+  // An element to collect an amount of money and convert it to a numeric string.
   $elements['currency_amount'] = array(
     '#input' => TRUE,
     '#process' => array('currency_form_currency_amount_process'),
@@ -107,9 +112,9 @@ function currency_element_info() {
       'currency_code' => 'XXX',
     ),
     '#element_validate' => array('currency_form_currency_amount_validate'),
-    // The minimum amount as a float, or FALSE to omit.
+    // The minimum amount as a numeric string, or FALSE to omit.
     '#minimum_amount' => FALSE,
-    // The maximum amount as a float, or FALSE to omit.
+    // The maximum amount as a numeric string, or FALSE to omit.
     '#maximum_amount' => FALSE,
     // The ISO 4217 code of the currency the amount should be in. Use FALSE to
     // let users choose.
@@ -295,6 +300,7 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
   }
 
   // Confirm the amount lies within the allowed range.
+  // @todo Make sure comparing numeric strings works.
   $currency = currency_load($currency_code);
   if ($element['#minimum_amount'] !== FALSE && $amount < $element['#minimum_amount']) {
     form_error($element['amount'], t('The minimum amount is !amount.', array(
@@ -308,8 +314,8 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
   }
 
   // The amount in $form_state is a human-readable, optionally localized
-  // string, which cannot be used by other code. $amount is a float after
-  // running it through Input::parseAmount().
+  // string, which cannot be used by other code. $amount is a numeric string
+  // after running it through Input::parseAmount().
   form_set_value($element, array(
     'amount' => $amount,
     'currency_code' => $currency_code,
@@ -615,7 +621,7 @@ function _currency_filter_currency_exchange_process(array $matches) {
   }
 
   if ($rate = CurrencyExchanger::load($currency_code_from, $currency_code_to)) {
-    return $amount * $rate;
+    return bcmul($amount, $rate, CURRENCY_BCMATH_SCALE);
   }
   // The filter failed, so return the token.
   return $matches[0];

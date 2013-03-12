@@ -76,7 +76,8 @@ class CurrencyLocalePattern {
    * Formats an amount using this pattern.
    *
    * @param Currency $currency
-   * @param float $amount
+   * @param string $amount
+   *   A numeric string.
    *
    * @return string
    */

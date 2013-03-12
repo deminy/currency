@@ -16,8 +16,8 @@ interface CurrencyExchangerInterface {
    * @param string $currency_code_from
    * @param string $currency_code_to
    *
-   * @return float|false
-   *   A float if the rate could be found, FALSE if it couldn't.
+   * @return string|false
+   *   A numeric string if the rate could be found, FALSE if it couldn't.
    */
   static function load($currency_code_from, $currency_code_to);
 
@@ -34,7 +34,7 @@ interface CurrencyExchangerInterface {
    * @return array
    *   Keys are the ISO 4217 codes of source currencies, values are arrays of
    *   which the keys are ISO 4217 codes of destination currencies and values
-   *   are the exchange rates as floats, or FALSE for combinations of
+   *   are the exchange rates as numeric strings, or FALSE for combinations of
    *   currencies for which no exchange rate could be found. Example:
    *   array(
    *     'EUR' => array(
