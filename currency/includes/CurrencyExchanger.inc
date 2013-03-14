@@ -48,7 +48,7 @@ class CurrencyExchanger implements CurrencyExchangerInterface {
    *
    * @return array
    */
-  static function loadConverters() {
+  static function loadExchangers() {
     ctools_include('plugins');
     $plugins = ctools_get_plugins('currency', 'currency_exchanger');
 
@@ -68,7 +68,7 @@ class CurrencyExchanger implements CurrencyExchangerInterface {
     if ($currency_code_from == $currency_code_to) {
       return 1;
     }
-    foreach (self::loadConverters() as $exchanger) {
+    foreach (self::loadExchangers() as $exchanger) {
       if ($rate = $exchanger::load($currency_code_from, $currency_code_to)) {
         return $rate;
       }
@@ -92,7 +92,7 @@ class CurrencyExchanger implements CurrencyExchangerInterface {
       }
     }
 
-    foreach (self::loadConverters() as $exchanger) {
+    foreach (self::loadExchangers() as $exchanger) {
       foreach ($exchanger::loadMultiple($currency_codes) as $currency_code_from => $currency_codes_to) {
         foreach ($currency_codes_to as $currency_code_to => $rate) {
           $rates[$currency_code_from][$currency_code_to] = $rate;

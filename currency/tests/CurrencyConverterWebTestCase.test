@@ -55,7 +55,7 @@ class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
       'CurrencyExchangerBartFeenstraCurrency' => FALSE,
       'CurrencyExchangerFixedRates' => FALSE,
     ));
-    $this->assertFalse(count(CurrencyExchanger::loadConverters()));
+    $this->assertFalse(count(CurrencyExchanger::loadExchangers()));
     $this->assertIdenticalCurrencyExchangeRates();
   }
 
@@ -66,8 +66,8 @@ class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
    * CurrencyExchangerBartFeenstraCurrency to be enabled in that order.
    */
   function assertCurrencyExchangeRates() {
-    $exchangers = CurrencyExchanger::loadConverters();
-    $this->assertEqual(CurrencyExchanger::loadConverters(), array('CurrencyExchangerFixedRates', 'CurrencyExchangerBartFeenstraCurrency'));
+    $exchangers = CurrencyExchanger::loadExchangers();
+    $this->assertEqual(CurrencyExchanger::loadExchangers(), array('CurrencyExchangerFixedRates', 'CurrencyExchangerBartFeenstraCurrency'));
 
     // Make sure the first exchanger has a rate on EUR>NLG, so it has
     // priority over the second exchanger's rate for these currencies.
