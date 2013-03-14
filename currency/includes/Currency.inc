@@ -85,7 +85,7 @@ class Currency extends BartFeenstra\Currency\Currency {
     // If a rounding step was not set explicitely, the rounding step is equal
     // to one subunit.
     elseif (is_numeric($this->subunits)) {
-      return $this->subunits > 0 ? bcdiv(1, $this->subunits) : 1;
+      return $this->subunits > 0 ? bcdiv(1, $this->subunits, CURRENCY_BCMATH_SCALE) : 1;
     }
     else {
       return FALSE;

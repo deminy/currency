@@ -42,7 +42,7 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
         ),
       ),
     );
-    $fields = array('amount_currency_code_option', 'amount_currency_code_field_option', 'amount_currency_code_definition', 'amount_currency_code_field_definition', 'amount_currency_undefined');
+    $fields = array('amount_currency_code_field_option', 'amount_currency_code_definition', 'amount_currency_code_field_definition', 'amount_currency_code_field_table_definition', 'amount_currency_undefined');
     foreach ($fields as $field) {
       $schema['views_test']['fields'][$field] = array(
         'type' => 'varchar',
@@ -77,20 +77,6 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
         'handler' => 'views_handler_sort',
       ),
     );
-    $data['views_test']['amount_currency_code_option'] = array(
-      'title' => t('Amount'),
-      'help' => t('Amount'),
-      'field' => array(
-        'handler' => 'CurrencyAmountViewsHandlerField',
-      ),
-    );
-    $data['views_test']['amount_currency_code_field_option'] = array(
-      'title' => t('Amount'),
-      'help' => t('Amount'),
-      'field' => array(
-        'handler' => 'CurrencyAmountViewsHandlerField',
-      ),
-    );
     $data['views_test']['amount_currency_code_definition'] = array(
       'title' => t('Amount'),
       'help' => t('Amount'),
@@ -105,7 +91,17 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
       'field' => array(
         'handler' => 'CurrencyAmountViewsHandlerField',
         'currency_code' => 'UAH',
-        'currency_code_field' => 'views_test_currency_code',
+        'currency_code_field' => 'currency_code',
+      ),
+    );
+    $data['views_test']['amount_currency_code_field_table_definition'] = array(
+      'title' => t('Amount'),
+      'help' => t('Amount'),
+      'field' => array(
+        'handler' => 'CurrencyAmountViewsHandlerField',
+        'currency_code' => 'UAH',
+        'currency_code_field' => 'currency_code',
+        'currency_code_table' => 'views_test',
       ),
     );
     $data['views_test']['amount_currency_undefined'] = array(
@@ -124,10 +120,9 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
    */
   protected function dataSet() {
     $amounts = array(
-      'amount_currency_code_option' => 123.456,
-      'amount_currency_code_field_option' => 123.456,
       'amount_currency_code_definition' => 123.456,
       'amount_currency_code_field_definition' => 123.456,
+      'amount_currency_code_field_table_definition' => 123.456,
       'amount_currency_undefined' => 123.456,
     );
     return array(
@@ -164,18 +159,6 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
         'field' => 'currency_code',
         'relationship' => 'none',
       ),
-      'amount_currency_code_option' => array(
-        'id' => 'amount_currency_code_option',
-        'table' => 'views_test',
-        'field' => 'amount_currency_code_option',
-        'relationship' => 'none',
-      ),
-      'amount_currency_code_field_option' => array(
-        'id' => 'amount_currency_code_field_option',
-        'table' => 'views_test',
-        'field' => 'amount_currency_code_field_option',
-        'relationship' => 'none',
-      ),
       'amount_currency_code_definition' => array(
         'id' => 'amount_currency_code_definition',
         'table' => 'views_test',
@@ -186,6 +169,12 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
         'id' => 'amount_currency_code_field_definition',
         'table' => 'views_test',
         'field' => 'amount_currency_code_field_definition',
+        'relationship' => 'none',
+      ),
+      'amount_currency_code_field_table_definition' => array(
+        'id' => 'amount_currency_code_field_table_definition',
+        'table' => 'views_test',
+        'field' => 'amount_currency_code_field_table_definition',
         'relationship' => 'none',
       ),
       'amount_currency_undefined' => array(
@@ -209,12 +198,8 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
     // Test view creation/editing.
     $account = $this->drupalCreateUser(array('administer views'));
     $this->drupalLogin($account);
-    $this->drupalPost('admin/structure/views/nojs/config-item/test_view/default/field/amount_currency_code_option', array(
-      'options[currency_code]' => 'EUR',
-    ), t('Apply'));
-    $this->drupalPost('admin/structure/views/nojs/config-item/test_view/default/field/amount_currency_code_field_option', array(
-      'options[currency_code]' => 'UAH',
-      'options[currency_code_field]' => 'views_test_currency_code',
+    $this->drupalPost('admin/structure/views/nojs/config-item/test_view/default/field/amount_currency_code_definition', array(
+      'options[currency_round]' => TRUE,
     ), t('Apply'));
     $this->drupalPost('admin/structure/views/view/' . $view->name, array(), t('Save'));
 
@@ -223,24 +208,24 @@ class CurrencyAmountViewsHandlerFieldWebTestCase extends ViewsSqlTest {
     $this->executeView($view);
     $values = array(
       array(
-        'amount_currency_code_option' => '€123.456',
-        'amount_currency_code_field_option' => '€123.456',
-        'amount_currency_code_definition' => '€123.456',
+        // The amount_currency_code_definition field is rounded.
+        'amount_currency_code_definition' => '€123.46',
         'amount_currency_code_field_definition' => '€123.456',
+        'amount_currency_code_field_table_definition' => '€123.456',
         'amount_currency_undefined' => '¤123.456',
       ),
       array(
-        'amount_currency_code_option' => '€123.456',
-        'amount_currency_code_field_option' => '$123.456',
-        'amount_currency_code_definition' => '€123.456',
+        // The amount_currency_code_definition field is rounded.
+        'amount_currency_code_definition' => '€123.46',
         'amount_currency_code_field_definition' => '$123.456',
+        'amount_currency_code_field_table_definition' => '$123.456',
         'amount_currency_undefined' => '¤123.456',
       ),
       array(
-        'amount_currency_code_option' => '€123.456',
-        'amount_currency_code_field_option' => '₴123.456',
-        'amount_currency_code_definition' => '€123.456',
+        // The amount_currency_code_definition field is rounded.
+        'amount_currency_code_definition' => '€123.46',
         'amount_currency_code_field_definition' => '₴123.456',
+        'amount_currency_code_field_table_definition' => '₴123.456',
         'amount_currency_undefined' => '¤123.456',
       ),
     );

@@ -72,7 +72,7 @@ function currency_exchange_rate_db_table_views_data() {
     'real field' => 'rate',
     'field' => array(
       'handler' => 'CurrencyAmountViewsHandlerField',
-      'float' => TRUE,
+      'currency_code_field' => 'currency_code_to',
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',

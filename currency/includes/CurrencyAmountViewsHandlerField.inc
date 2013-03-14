@@ -12,26 +12,58 @@
  * provide default values for the handler's options:
  * - currency_code
  * - currency_code_field
+ * - currency_code_table
  *   See $this->option_definition() for a detailed explanation.
  */
 class CurrencyAmountViewsHandlerField extends views_handler_field {
 
   /**
+   * Implements the undocumented views_object::definition property.
+   *
+   * @var array
+   */
+  public $definition = array(
+    // A default currency code to use for the amounts.
+    'currency_code' => 'XXX',
+    // The name of the database field the currency code is in.
+    'currency_code_field' => NULL,
+    // The name of the database table currency_field is in. Defaults to the
+    // same table this handler is used on.
+    'currency_code_table' => NULL,
+  );
+
+  /**
+   * Overrides parent::set_definition().
+   */
+  function set_definition($definition) {
+    $this->definition = array_merge($this->definition, $definition);
+    if (isset($definition['field'])) {
+      $this->real_field = $definition['field'];
+    }
+  }
+
+  /**
+   * Overrides parent::query().
+   */
+  function query() {
+    $this->ensure_my_table();
+    if ($this->definition['currency_code_field']) {
+      $this->additional_fields['currency_code_field'] = array(
+        'field' => $this->definition['currency_code_field'],
+        'table' => $this->definition['currency_code_table'] ? $this->definition['currency_code_table'] : $this->table_alias,
+      );
+    }
+    parent::query();
+  }
+
+  /**
    * Overrides parent::option_definition().
+   *
+   * @var array
    */
   function option_definition() {
     $options = parent::option_definition();
 
-    // The ISO 4217 currency code of the currency to use to display the amount.
-    $options['currency_code'] = array(
-      'default' => !empty($this->definition['currency_code']) ? $this->definition['currency_code'] : 'XXX',
-    );
-    // The name of the fields that contains ISO 4217 currency codes. For every
-    // row that does not contain a valid code, the value of the "currency_code"
-    // option is used instead.
-    $options['currency_code_field'] = array(
-      'default' => !empty($this->definition['currency_code_field']) ? $this->definition['currency_code_field'] : '',
-    );
     // Whether to round amounts.
     $options['currency_round'] = array(
       'default' => FALSE,
@@ -45,36 +77,10 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
    */
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
-    // The currency code.
-    $form['currency_code'] = array(
-      '#type' => 'select',
-      '#title' => t('Default currency'),
-      '#options' => currency_options(),
-      '#default_value' => $this->options['currency_code'],
-      '#required' => TRUE,
-    );
 
-    // The currency code field.
-    $options = array();
-    foreach ($this->view->display_handler->get_handlers('field') as $handler) {
-      // We only allow fields up to this one.
-      if ($handler->field == $this->options['id']) {
-        break;
-      }
-      $options[$handler->table . '_' . $handler->field] = $handler->ui_name();
-    }
-    asort($options);
-    $form['currency_code_field'] = array(
-      '#type' => 'select',
-      '#title' => t('Currency field'),
-      '#description' => t('Another field that contains the ISO 4217 currency codes of the currencies to use for displaying the amounts. If no field is specified, or if the specified field does not contain a valid currency code, then the default currency will be used.'),
-      '#options' => $options,
-      '#empty_value' => '',
-      '#default_value' => $this->options['currency_code_field'],
-    );
     $form['currency_round'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Round amounts'),
+      '#title' => t('Round amounts based on their currencies'),
       '#default_value' => $this->options['currency_round'],
     );
   }
@@ -86,7 +92,7 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
    */
   function render($values) {
     $currency = $this->getCurrency($values);
-    $amount = $this->getAmount($this->get_value($values));
+    $amount = $this->getAmount($values);
     if ($this->options['currency_round']) {
       $rounding_step = $currency->getRoundingStep();
       if ($rounding_step) {
@@ -110,15 +116,14 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
   function getCurrency(stdClass $values) {
     $currency = NULL;
 
-    // Check if the configured field exists, because the option might be
-    // outdated.
-    $currency_code_field = $this->options['currency_code_field'];
-    if (isset($values->{$currency_code_field})) {
-      $currency_code = $values->{$currency_code_field};
-      $currency = currency_load($currency_code);
+    if ($this->definition['currency_code_field']) {
+      $currency_code = $this->get_value($values, 'currency_code_field');
+      if ($currency_code) {
+        $currency = currency_load($currency_code);
+      }
     }
     if (!$currency) {
-      $currency = currency_load($this->options['currency_code']);
+      $currency = currency_load($this->definition['currency_code']);
     }
     if (!$currency) {
       $currency = currency_load('XXX');
@@ -137,13 +142,13 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
    * as a numeric string, you should override this method so it returns a
    * numeric/decimal representation of the amount.
    *
-   * @param mixed $amount_value
-   *   The amount as Views fetched it from the database.
+   * @param stdClass $values
+   *   A values object as received by $this->render().
    *
    * @return string
    *   A numeric string.
    */
-  function getAmount($amount_value) {
-    return $amount_value;
+  function getAmount(stdClass $values) {
+    return $this->get_value($values);
   }
 }
