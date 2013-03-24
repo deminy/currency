@@ -21,7 +21,6 @@
             "require-dev": {
                 "phpunit/phpunit": "3.7.*"
             },
-            "time": "2013-01-08 22:29:58",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -39,7 +38,8 @@
                     "homepage": "http://mynameisbart.com",
                     "role": "Developer"
                 }
-            ]
+            ],
+            "time": "2013-01-08 22:29:58"
         },
         {
             "name": "bartfeenstra/currency",
@@ -47,12 +47,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bartfeenstra/currency.git",
-                "reference": "ca2fcbcc90df95add7b5d55c6f1c507d00223186"
+                "reference": "3e1de69735b17b8d343ca626ed4366cd8acbcc3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/ca2fcbcc90df95add7b5d55c6f1c507d00223186",
-                "reference": "ca2fcbcc90df95add7b5d55c6f1c507d00223186",
+                "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/3e1de69735b17b8d343ca626ed4366cd8acbcc3c",
+                "reference": "3e1de69735b17b8d343ca626ed4366cd8acbcc3c",
                 "shasum": ""
             },
             "require-dev": {
@@ -62,7 +62,6 @@
                 "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
                 "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
             },
-            "time": "2013-03-12 15:05:30",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -80,7 +79,8 @@
                     "homepage": "http://mynameisbart.com",
                     "role": "Developer"
                 }
-            ]
+            ],
+            "time": "2013-03-24 10:37:31"
         },
         {
             "name": "symfony/yaml",
@@ -100,7 +100,6 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-27 16:12:43",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -122,10 +121,13 @@
                 }
             ],
             "description": "Symfony Yaml Component",
-            "homepage": "http://symfony.com"
+            "homepage": "http://symfony.com",
+            "time": "2013-01-27 16:12:43"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
@@ -133,5 +135,11 @@
     "stability-flags": {
         "bartfeenstra/cldr": 20,
         "bartfeenstra/currency": 20
-    }
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }
