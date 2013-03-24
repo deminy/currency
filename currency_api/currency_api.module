@@ -626,6 +626,7 @@ function currency_api_get_currencies() {
     'YER' => array('name' => t('Yemen Riyal (YER)'), 'symbol' => '﷼', 'decimals' => 2),
     'YUM' => array('name' => t('Yugoslav Dinar (YUM)'), 'symbol' => 'дин', 'decimals' => 2),
     'ZMK' => array('name' => t('Zambian Kwacha (ZMK)'), 'symbol' => 'ZK', 'decimals' => 2),
+    'ZMW' => array('name' => t('Zambian Kwacha (ZMW)'), 'symbol' => 'ZK', 'decimals' => 2),
     'ZWD' => array('name' => t('Zimbabwe Dollar (ZWD)'), 'symbol' => 'Z$', 'decimals' => 2),
   );
 }
