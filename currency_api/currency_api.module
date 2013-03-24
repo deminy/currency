@@ -1545,6 +1545,12 @@ function currency_api_get_currencies() {
       'symbol' => 'ZK',
       'decimals' => 2,
     ),
+    'ZMW' => array(
+      'name' => t('Zambian Kwacha (ZMW)'),
+      'number' => '967',
+      'symbol' => 'ZK',
+      'decimals' => 2,
+    ),
     'ZWD' => array(
       'name' => t('Zimbabwe Dollar (ZWD)'),
       'number' => '716',
