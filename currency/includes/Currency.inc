@@ -93,6 +93,22 @@ class Currency extends BartFeenstra\Currency\Currency {
   }
 
   /**
+   * Rounds an amount.
+   *
+   * @param string $amount
+   *   A numeric string.
+   *
+   * @return string
+   *   A numeric string.
+   */
+  function roundAmount($amount) {
+    $rounding_step = $this->getRoundingStep();
+    $decimals = $this->getDecimals();
+
+    return bcmul(round(bcdiv($amount, $rounding_step, CURRENCY_BCMATH_SCALE)), $rounding_step, $decimals);
+  }
+
+  /**
    * Translates the human-readable currency title.
    *
    * @param string|null $language_code

@@ -38,4 +38,13 @@ class CurrencyWebTestCase extends DrupalWebTestCase {
     $formatted_expected = '€12,345.6789';
     $this->assertEqual($formatted, $formatted_expected, 'Currency::format() correctly formats an amount.');
   }
+
+  /**
+   * Test roundAmount().
+   */
+  function testRoundAmount() {
+    $currency = currency_load('JPY');
+    $this->assertTrue($currency->roundAmount('12.34'), '12.340');
+    $this->assertTrue($currency->roundAmount('1234.5678'), '1234.568');
+  }
 }

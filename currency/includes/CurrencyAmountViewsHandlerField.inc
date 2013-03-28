@@ -94,10 +94,7 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
     $currency = $this->getCurrency($values);
     $amount = $this->getAmount($values);
     if ($this->options['currency_round']) {
-      $rounding_step = $currency->getRoundingStep();
-      if ($rounding_step) {
-        $amount = bcmul(round(bcdiv($amount, $rounding_step, CURRENCY_BCMATH_SCALE)), $rounding_step, CURRENCY_BCMATH_SCALE);
-      }
+      $amount = $currency->roundAmount($amount);
     }
 
     return $currency->format($amount);
