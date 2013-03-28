@@ -1,5 +1,5 @@
 {
-    "hash": "d3a353594342e4d9553e187be3d17387",
+    "hash": "8157a721feb74caf0fdc5fa837c11e42",
     "packages": [
         {
             "name": "bartfeenstra/cldr",
@@ -81,48 +81,6 @@
                 }
             ],
             "time": "2013-03-28 14:26:46"
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "v2.1.8",
-            "target-dir": "Symfony/Component/Yaml",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.1.8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.1.8",
-                "reference": "v2.1.8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Yaml": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Yaml Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-01-27 16:12:43"
         }
     ],
     "packages-dev": [
