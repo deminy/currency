@@ -5,10 +5,12 @@
  * Contains interface CurrencyExchangerInterface.
  */
 
+namespace Drupal\currency\Exchanger;
+
 /**
  * Describes a currency exchanger.
  */
-interface CurrencyExchangerInterface {
+interface ExchangerInterface {
 
   /**
    * Returns the exchange rate for two currencies.
@@ -19,7 +21,7 @@ interface CurrencyExchangerInterface {
    * @return string|false
    *   A numeric string if the rate could be found, FALSE if it couldn't.
    */
-  static function load($currency_code_from, $currency_code_to);
+  function load($currency_code_from, $currency_code_to);
 
   /**
    * Returns the exchange rates for multiple currency combinations.
@@ -44,14 +46,5 @@ interface CurrencyExchangerInterface {
    *     ),
    *   )
    */
-  static function loadMultiple(array $currency_codes);
-
-  /**
-   * Returns an array of operations links.
-   *
-   * @return array
-   *   The structure is the same as that of the 'links' item of theme_links()'
-   *   $variables argument.
-   */
-  static function operationsLinks();
+  function loadMultiple(array $currency_codes);
 }

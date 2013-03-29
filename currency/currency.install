@@ -133,13 +133,6 @@ function currency_schema() {
 }
 
 /**
- * Implements hook_uninstall().
- */
-function currency_uninstall() {
-  variable_del('currency_exchanger');
-}
-
-/**
  * Implements hook_requirements().
  */
 function currency_requirements($phase) {
@@ -151,4 +144,13 @@ function currency_requirements($phase) {
   );
 
   return $requirements;
+}
+
+/**
+ * Upgrades Delegator currency exchanger configuration.
+ */
+function currency_update_8300(array &$sandbox) {
+  update_variables_to_config('currency.exchanger.delegator', array(
+    'currency_exchanger' => 'exchangers',
+  ));
 }
