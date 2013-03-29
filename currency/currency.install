@@ -108,26 +108,6 @@ function currency_schema() {
       $schema['currency_locale_pattern']['fields'][$property]['object default'] = $default_value;
     }
   }
-  $schema['currency_exchanger_fixed_rates'] = array(
-    'fields' => array(
-      'currency_code_from' => array(
-        'type' => 'varchar',
-        'length' => 3,
-        'not null' => TRUE,
-      ),
-      'currency_code_to' => array(
-        'type' => 'varchar',
-        'length' => 3,
-        'not null' => TRUE,
-      ),
-      'rate' => array(
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-      ),
-    ),
-    'primary key' => array('currency_code_from', 'currency_code_to'),
-  );
 
   return $schema;
 }
@@ -147,10 +127,29 @@ function currency_requirements($phase) {
 }
 
 /**
- * Upgrades Delegator currency exchanger configuration.
+ * Upgrades \Drupal\currency\Plugin\currency\exchanger\Delegator configuration.
  */
 function currency_update_8300(array &$sandbox) {
   update_variables_to_config('currency.exchanger.delegator', array(
     'currency_exchanger' => 'exchangers',
   ));
+}
+
+
+/**
+ * Upgrades \Drupal\currency\Plugin\currency\exchanger\FixedRates
+ * configuration.
+ */
+function currency_update_8301(array &$sandbox) {
+  $config = config('currency.exchanger.fixed_rates');
+  $rates = $config->get('rates');
+  $rates_data = db_select('currency_exchanger_fixed_rates', 'cefr')
+    ->fields('cefr')
+    ->execute();
+  foreach ($rates_data as $rate_data) {
+    $rates[$rate_data->currency_code_from][$rate_data->currency_code_to] = $rate_data->rate;
+  }
+  $config->set('rates', $rates);
+  $config->save();
+  db_drop_table('currency_exchanger_fixed_rates');
 }
