@@ -61,26 +61,3 @@ function hook_currency_locale_pattern_info() {
 function hook_currency_locale_pattern_info_alter(array $locale_patterns) {
   $locale_patterns['nl_NL']->pattern = '¤ #.##0,0#';
 }
-
-/**
- * Expose currency exchangers.
- *
- * Currency exchangers are Ctools plugins. As such, this hook is a Ctools
- * plugin hook.
- *
- * @return array
- *   Keys are plugin machine names. Values are arrays with two items:
- *   - exchanger: an array with a "class" key, which contains the name of the
- *     exchanger class, which should implement CurrencyExchangerInterface.
- *   - title: the translated human-readable title. Defaults to TRUE.
- */
-function hook_currency_exchanger_info() {
-  $currency_exchangers['CurrencyExchangerFixedRates'] = array(
-    'exchanger' => array(
-      'class' => 'CurrencyExchangerFixedRates',
-    ),
-    'title' => t('Fixed rates'),
-  );
-
-  return $currency_exchangers;
-}

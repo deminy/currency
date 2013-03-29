@@ -30,9 +30,6 @@ define('CURRENCY_BCMATH_SCALE', 9);
  * Implements hook_hook_info().
  */
 function currency_hook_info() {
-  $hooks['currency_exchanger_info'] = array(
-    'group' => 'currency',
-  );
   $hooks['currency_info'] = array(
     'group' => 'currency',
   );
@@ -187,32 +184,6 @@ function currency_theme(array $existing, $type, $theme, $path) {
   );
 
   return $templates;
-}
-
-/**
- * Implements hook_ctools_plugin_type().
- */
-function currency_ctools_plugin_type() {
-  $plugins_types['currency_exchanger'] = array(
-    'classes' => array('exchanger'),
-    'defaults' => array(
-      'description' => '',
-      'title' => '',
-    ),
-    'hook' => 'currency_exchanger_info',
-    'use hooks' => TRUE,
-  );
-
-  return $plugins_types;
-}
-
-/**
- * Implements hook_ctools_plugin_directory().
- */
-function currency_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'ctools' && $plugin == 'export_ui') {
-    return 'ctools/plugins/' . $plugin;
-  }
 }
 
 /**
