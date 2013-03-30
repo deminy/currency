@@ -1,0 +1,24 @@
+currency_exchanger_delegator_config:
+  pattern: '/admin/config/regional/currency-exchange'
+  defaults:
+    _form: '\Drupal\currency\Controller\Exchanger\DelegatorForm'
+  requirements:
+    _permission: 'currency.exchanger.Delegator.administer'
+currency_exchanger_fixed_rates_overview:
+  pattern: '/admin/config/regional/currency-exchange/fixed'
+  defaults:
+    _content: '\Drupal\currency\Controller\Exchanger\FixedRatesOverview::overview'
+  requirements:
+    _permission: 'currency.exchanger.FixedRates.administer'
+currency_exchanger_fixed_rates_add:
+  pattern: '/admin/config/regional/currency-exchange/fixed/add'
+  defaults:
+    _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
+  requirements:
+    _permission: 'currency.exchanger.FixedRates.administer'
+currency_exchanger_fixed_rates_edit:
+  pattern: '/admin/config/regional/currency-exchange/fixed/{currency_code_from}/{currency_code_to}'
+  defaults:
+    _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
+  requirements:
+    _permission: 'currency.exchanger.FixedRates.administer'

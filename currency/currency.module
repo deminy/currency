@@ -52,22 +52,18 @@ function currency_hook_info() {
 function currency_menu() {
   $items['admin/config/regional/currency-exchange'] = array(
     'description' => 'Configure how currency exchange rates should be retrieved.',
+    'route_name' => 'currency_exchanger_delegator_config',
     'title' => 'Currency exchange',
-    'access arguments' => array('currency.currency_exchanger.administer'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('currency_form_currency_exchanger'),
   );
   $items['admin/config/regional/currency-exchange/fixed'] = array(
     'description' => 'Administer fixed currency exchange rates.',
+    'route_name' => 'currency_exchanger_fixed_rates_overview',
     'title' => 'Fixed rates',
-    'access arguments' => array('currency.currency_exchanger.administer'),
-    'page callback' => 'currency_currency_exchanger_fixed_rates_overview',
+    'type' => MENU_CALLBACK,
   );
   $items['admin/config/regional/currency-exchange/fixed/add'] = array(
-    'title' => 'Add a exchange rate',
-    'access arguments' => array('currency.currency_exchanger.administer'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('currency_form_currency_exchanger_fixed_rates'),
+    'title' => 'Add an exchange rate',
+    'route_name' => 'currency_exchanger_fixed_rates_add',
     'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/regional/currency-exchange/fixed/%currency_form_currency_exchanger_fixed_rates/%'] = array(
@@ -147,7 +143,7 @@ function currency_permission() {
     'restrict access' => TRUE,
     'title' => t('Administer currency locale patterns'),
   );
-  $permissions['currency.currency_exchanger.administer'] = array(
+  $permissions['currency.exchanger.Delegator.administer'] = array(
     'title' => t('Administer currency exchangers'),
   );
 
@@ -176,17 +172,6 @@ function currency_filter_info() {
 }
 
 /**
- * Implements hook_theme().
- */
-function currency_theme(array $existing, $type, $theme, $path) {
-  $templates['currency_form_currency_exchanger'] = array(
-    'render element' => 'form',
-  );
-
-  return $templates;
-}
-
-/**
  * Implements form process callback for a currency_amount element.
  */
 function currency_form_currency_amount_process(array $element, array &$form_state, array &$form) {
@@ -197,7 +182,6 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   if ($element['#maximum_amount'] !== FALSE && !is_numeric($element['#maximum_amount'])) {
     throw new Exception(t('The maximum amount must be a decimal number.'));
   }
-  ctools_include('export');
   $currency = FALSE;
   if ($element['#currency_code'] !== FALSE) {
     $currency = currency_load($element['#currency_code']);
@@ -425,6 +409,9 @@ function currency_form_currency_locale_validate(array $element, array &$form_sta
  *  Keys are ISO 4217 codes and values are currency titles.
  */
 function currency_options() {
+  // @todo.
+  return array();
+
   ctools_include('export');
   $options = array();
   foreach (currency_load_all() as $currency) {
@@ -648,6 +635,11 @@ function currency_filter_currency_localize_tips($filter, $format, $long) {
  * @return Currency
  */
 function currency_load($currency_code) {
+  // @todo.
+  require_once __DIR__ . '/includes/currency.inc';
+  return new \Currency(array(
+    'ISO4217Code' => 'XXX',
+  ));
   ctools_include('export');
 
   return ctools_export_crud_load('currency', $currency_code);
@@ -707,230 +699,6 @@ function currency_delete($currency) {
   db_delete('currency')
     ->condition('ISO4217Code', $currency_code)
     ->execute();
-}
-
-/**
- * Implements form build callback: the currency exchanger overview form.
- *
- * @see theme_currency_form_currency_exchangers()
- */
-function currency_form_currency_exchanger(array $form, array &$form_state) {
-  ctools_include('plugins');
-  $exchangers_info = ctools_get_plugins('currency', 'currency_exchanger');
-  $currency_exchangers = CurrencyExchanger::loadConfiguration();
-  $weight = 0;
-  foreach (array_keys($currency_exchangers) as $name) {
-    $exchanger_info = $exchangers_info[$name];
-
-    $form['exchangers']['#tree'] = TRUE;
-    $form['exchangers'][$name]['#tree'] = TRUE;
-    $form['exchangers'][$name]['enabled'] = array(
-      '#default_value' => $currency_exchangers[$name],
-      '#title' => t('Enabled'),
-      '#type' => 'checkbox',
-    );
-    $form['exchangers'][$name]['title'] = array(
-      '#description' => $exchanger_info['description'],
-      '#markup' => $exchanger_info['title'],
-      '#title' => t('Title'),
-      '#type' => 'item',
-    );
-    $form['exchangers'][$name]['weight'] = array(
-      '#default_value' => $weight++,
-      '#delta' => count($exchangers_info),
-      '#title' => t('Weight'),
-      '#type' => 'weight',
-    );
-    // @todo Convert this to a dropbutton in 8.x-3.x.
-    $form['exchangers'][$name]['operations'] = array(
-      '#markup' => theme('links', array(
-        'links' => $exchanger_info['exchanger']['class']::operationsLinks(),
-        'attributes' => array(
-          'class' => array('links', 'inline', 'operations'),
-        ),
-      )),
-      '#title' => t('Operations'),
-      '#type' => 'markup',
-    );
-  }
-  $form['actions'] = array(
-    '#type' => 'actions',
-  );
-  $form['actions']['save'] = array(
-    '#value' => t('Save'),
-    '#type' => 'submit',
-  );
-
-  return $form;
-}
-
-/**
- * Implements form submit callback.
- *
- * @see currency_form_currency_exchangers()
- */
-function currency_form_currency_exchanger_submit(array $form, array &$form_state) {
-  uasort($form_state['values']['exchangers'], 'drupal_sort_weight');
-  $configuration = array();
-  foreach ($form_state['values']['exchangers'] as $name => $exchanger_configuration) {
-    $configuration[$name] = (bool) $exchanger_configuration['enabled'];
-  }
-  CurrencyExchanger::saveConfiguration($configuration);
-  drupal_set_message(t('The configuration options have been saved.'));
-}
-
-/**
- * Implements theme function: themes the currency exchanger overview form.
- *
- * @see currency_form_currency_exchangers()
- */
-function theme_currency_form_currency_exchanger(array $variables) {
-  drupal_add_tabledrag('currency-exchangers', 'order', 'sibling', 'form-select');
-  $header = array(t('Title'), t('Enabled'), t('Weight'), t('Operations'));
-  $rows = array();
-  $names = element_children($variables['form']['exchangers']);
-  foreach ($names as $name) {
-    $elements = &$variables['form']['exchangers'][$name];
-    $row_data = array();
-    foreach (array('title', 'enabled', 'weight', 'operations') as $key) {
-      $elements[$key]['#title_display'] = 'invisible';
-      $row_data[] = drupal_render($elements[$key]);
-    }
-    $rows[] = array(
-      'class' => array('draggable'),
-      'data' => $row_data,
-    );
-  }
-
-  return theme('table', array(
-    'attributes' => array(
-      'id' => 'currency-exchangers',
-    ),
-    'header' => $header,
-    'rows' => $rows,
-  )) . drupal_render_children($variables['form']);
-}
-
-/**
- * Displays CurrencyExchangerFixedRates' exchange rate overview.
- *
- * @return string
- */
-function currency_currency_exchanger_fixed_rates_overview() {
-  $header = array(t('From'), t('To'), t('Conversion rate'), t('Operations'));
-  $rows = array();
-  $rates = CurrencyExchangerFixedRates::loadAll();
-  foreach ($rates as $currency_code_from => $currency_codes_to) {
-    $currency_from = currency_load($currency_code_from);
-    foreach ($currency_codes_to as $currency_code_to => $rate) {
-      $currency_to = currency_load($currency_code_to);
-      $operations = theme('links', array(
-        'links' => array(array(
-          'title' => t('edit'),
-          'href' => 'admin/config/regional/currency-exchange/fixed/' . $currency_code_from . '/' . $currency_code_to,
-        )),
-        'attributes' => array(
-          'class' => array('links', 'inline', 'operations'),
-        ),
-      ));
-      $rows[] = array(check_plain($currency_from->translateTitle()), check_plain($currency_to->translateTitle()), $currency_to->format($rate), $operations);
-    }
-  }
-  if (!$rows) {
-    $rows[] = array(array(
-      'data' => t('There are no exchange rates yet. <a href="@path">Add a exchange rate</a>.', array(
-        '@path' => url('admin/config/regional/currency-exchange/fixed/add'),
-      )),
-      'colspan' => 4,
-    ));
-  }
-
-  return theme('table', array(
-    'header' => $header,
-    'rows' => $rows,
-  ));
-}
-
-/**
- * Implements form build callback: CurrencyExchangerFixedRates' add/edit form.
- */
-function currency_form_currency_exchanger_fixed_rates(array $form, array &$form_state, $currency_code_from = NULL, $currency_code_to = NULL) {
-  $rate = $currency_code_from && $currency_code_to ? CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to) : NULL;
-
-  $options = currency_options();
-  $form['currency_code_from'] = array(
-    '#default_value' => isset($options[$currency_code_from]) ? $currency_code_from : 'XXX',
-    '#disabled' => !is_null($rate),
-    '#options' => $options,
-    '#required' => TRUE,
-    '#title' => t('Source currency'),
-    '#type' => 'select',
-  );
-  $form['currency_code_to'] = array(
-    '#default_value' => isset($options[$currency_code_to]) ? $currency_code_to : 'XXX',
-    '#disabled' => !is_null($rate),
-    '#options' => $options,
-    '#required' => TRUE,
-    '#title' => t('Source currency'),
-    '#type' => 'select',
-  );
-  $form['rate'] = array(
-    '#currency_code' => 'XXX',
-    '#default_value' => $rate,
-    '#required' => TRUE,
-    '#title' => t('Conversion rate'),
-    '#type' => 'currency_amount',
-  );
-  $form['actions'] = array(
-    '#type' => 'actions',
-  );
-  $form['actions']['save'] = array(
-    '#name' => 'save',
-    '#type' => 'submit',
-    '#value' => t('Save'),
-  );
-  if (!is_null($rate)) {
-    $form['actions']['delete'] = array(
-      '#limit_validation_errors' => array(array('currency_code_from'), array('currency_code_to')),
-      '#name' => 'delete',
-      '#type' => 'submit',
-      '#value' => t('Delete'),
-    );
-  }
-  $form['actions']['cancel'] = array(
-    '#markup' => l(t('Cancel'), 'admin/config/regional/currency-exchange/fixed'),
-    '#type' => 'markup',
-  );
-
-  return $form;
-}
-
-/**
- * Implements form submit callback for
- * currency_form_currency_exchanger_fixed_rates().
- */
-function currency_form_currency_exchanger_fixed_rates_submit(array $form, array &$form_state) {
-  $values = $form_state['values'];
-  $currency_from = currency_load($values['currency_code_from']);
-  $currency_to = currency_load($values['currency_code_to']);
-
-  switch ($form_state['triggering_element']['#name']) {
-    case 'save':
-      CurrencyExchangerFixedRates::save($currency_from->ISO4217Code, $currency_to->ISO4217Code, $values['rate']['amount']);
-      drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been saved.', array(
-        '@currency_title_from' => $currency_from->translateTitle(),
-        '@currency_title_to' => $currency_to->translateTitle(),
-      )));
-      break;
-    case 'delete':
-      CurrencyExchangerFixedRates::delete($currency_from->ISO4217Code, $currency_to->ISO4217Code);
-      drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been deleted.', array(
-        '@currency_title_from' => $currency_from->translateTitle(),
-        '@currency_title_to' => $currency_to->translateTitle(),
-      )));
-      break;
-  }
-  $form_state['redirect'] = 'admin/config/regional/currency-exchange/fixed';
 }
 
 /**

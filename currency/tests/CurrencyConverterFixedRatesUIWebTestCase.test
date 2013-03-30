@@ -38,7 +38,7 @@ class CurrencyExchangerFixedRatesUIWebTestCase extends DrupalWebTestCase {
 
     // Test the overview.
     $this->drupalGet($path);
-    $this->assertText(t('Add a exchange rate'));
+    $this->assertText(t('Add an exchange rate'));
 
     $currency_code_from = 'EUR';
     $currency_code_to = 'NLG';

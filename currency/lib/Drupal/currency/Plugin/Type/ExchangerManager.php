@@ -31,4 +31,20 @@ class ExchangerManager extends PluginManagerBase {
     $this->discovery = new CacheDecorator($this->discovery, 'currency_exchanger');
     $this->factory = new DefaultFactory($this->discovery);
   }
+
+  /**
+   * Overrides parent::getDefinitions().
+   */
+  public function getDefinitions() {
+    // Merge in default values.
+    $definitions = parent::getDefinitions();
+    foreach ($definitions as &$definition) {
+      $definition += array(
+        'description' => '',
+        'operations' => array(),
+      );
+    }
+
+    return $definitions;
+  }
 }
