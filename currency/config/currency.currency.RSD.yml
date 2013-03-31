@@ -6,4 +6,4 @@ sign: 'РСД'
 subunits: 100
 label: 'Serbian dinar'
 usage:
-    - { ISO8601From: '2006-10-25', ISO8601To: '', ISO3166Code: RS }
+    - { usageFrom: '2006-10-25', usageTo: '', countryCode: RS }

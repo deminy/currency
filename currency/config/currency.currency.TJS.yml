@@ -7,4 +7,4 @@ sign: ¤
 subunits: 100
 label: 'Tajikistani somoni'
 usage:
-    - { ISO8601From: '2000-10-26', ISO8601To: '', ISO3166Code: TJ }
+    - { usageFrom: '2000-10-26', usageTo: '', countryCode: TJ }

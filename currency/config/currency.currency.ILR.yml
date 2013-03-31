@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Israeli shekel'
 usage:
-    - { ISO8601From: '1980-02-22', ISO8601To: '1985-09-04', ISO3166Code: IL }
+    - { usageFrom: '1980-02-22', usageTo: '1985-09-04', countryCode: IL }

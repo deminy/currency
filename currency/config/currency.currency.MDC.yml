@@ -7,4 +7,4 @@ sign: ¤
 subunits: 0
 label: 'Moldovan cupon'
 usage:
-    - { ISO8601From: '1992-06-01', ISO8601To: '1993-11-29', ISO3166Code: MD }
+    - { usageFrom: '1992-06-01', usageTo: '1993-11-29', countryCode: MD }

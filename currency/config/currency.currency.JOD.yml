@@ -6,6 +6,6 @@ sign: JD
 subunits: 1000
 label: 'Jordanian dinar'
 usage:
-    - { ISO8601From: '1950-07-01', ISO8601To: '', ISO3166Code: JO }
-    - { ISO8601From: '1996-02-12', ISO8601To: '', ISO3166Code: PS }
-    - { ISO8601From: '1950-07-01', ISO8601To: '1967-06-01', ISO3166Code: PS }
+    - { usageFrom: '1950-07-01', usageTo: '', countryCode: JO }
+    - { usageFrom: '1996-02-12', usageTo: '', countryCode: PS }
+    - { usageFrom: '1950-07-01', usageTo: '1967-06-01', countryCode: PS }

@@ -6,4 +6,4 @@ sign: د.إ
 subunits: 100
 label: 'Emirati dirham'
 usage:
-    - { ISO8601From: '1973-05-19', ISO8601To: '', ISO3166Code: AE }
+    - { usageFrom: '1973-05-19', usageTo: '', countryCode: AE }

@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'U.S. dollar (next day)'
 usage:
-    - { ISO8601From: '', ISO8601To: '', ISO3166Code: US }
+    - { usageFrom: '', usageTo: '', countryCode: US }

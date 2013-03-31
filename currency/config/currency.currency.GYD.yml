@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Guyanese dollar'
 usage:
-    - { ISO8601From: '1966-05-26', ISO8601To: '', ISO3166Code: GY }
+    - { usageFrom: '1966-05-26', usageTo: '', countryCode: GY }

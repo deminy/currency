@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Solomon Island dollar'
 usage:
-    - { ISO8601From: '1977-10-24', ISO8601To: '', ISO3166Code: SB }
+    - { usageFrom: '1977-10-24', usageTo: '', countryCode: SB }

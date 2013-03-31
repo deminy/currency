@@ -7,24 +7,24 @@ sign: $
 subunits: 100
 label: 'U.S. dollar'
 usage:
-    - { ISO8601From: '1904-07-16', ISO8601To: '', ISO3166Code: AS }
-    - { ISO8601From: '1899-01-01', ISO8601To: '1959-01-01', ISO3166Code: CU }
-    - { ISO8601From: '1905-06-21', ISO8601To: '1947-10-01', ISO3166Code: DO }
-    - { ISO8601From: '2000-10-02', ISO8601To: '', ISO3166Code: EC }
-    - { ISO8601From: '1944-01-01', ISO8601To: '', ISO3166Code: FM }
-    - { ISO8601From: '1944-08-21', ISO8601To: '', ISO3166Code: GU }
-    - { ISO8601From: '1915', ISO8601To: '', ISO3166Code: HT }
-    - { ISO8601From: '1965-11-08', ISO8601To: '', ISO3166Code: IO }
-    - { ISO8601From: '1944-01-01', ISO8601To: '', ISO3166Code: MH }
-    - { ISO8601From: '1944-01-01', ISO8601To: '', ISO3166Code: MP }
-    - { ISO8601From: '1903-11-18', ISO8601To: '', ISO3166Code: PA }
-    - { ISO8601From: '1898-12-10', ISO8601To: '', ISO3166Code: PR }
-    - { ISO8601From: '1944-01-01', ISO8601To: '', ISO3166Code: PW }
-    - { ISO8601From: '2001-01-01', ISO8601To: '', ISO3166Code: SV }
-    - { ISO8601From: '1969-09-08', ISO8601To: '', ISO3166Code: TC }
-    - { ISO8601From: '1999-10-20', ISO8601To: '', ISO3166Code: TL }
-    - { ISO8601From: '1944-01-01', ISO8601To: '', ISO3166Code: UM }
-    - { ISO8601From: '1792-01-01', ISO8601To: '', ISO3166Code: US }
-    - { ISO8601From: '1833-01-01', ISO8601To: '', ISO3166Code: VG }
-    - { ISO8601From: '1837-01-01', ISO8601To: '', ISO3166Code: VI }
-    - { ISO8601From: '2009-04-12', ISO8601To: '', ISO3166Code: ZW }
+    - { usageFrom: '1904-07-16', usageTo: '', countryCode: AS }
+    - { usageFrom: '1899-01-01', usageTo: '1959-01-01', countryCode: CU }
+    - { usageFrom: '1905-06-21', usageTo: '1947-10-01', countryCode: DO }
+    - { usageFrom: '2000-10-02', usageTo: '', countryCode: EC }
+    - { usageFrom: '1944-01-01', usageTo: '', countryCode: FM }
+    - { usageFrom: '1944-08-21', usageTo: '', countryCode: GU }
+    - { usageFrom: '1915', usageTo: '', countryCode: HT }
+    - { usageFrom: '1965-11-08', usageTo: '', countryCode: IO }
+    - { usageFrom: '1944-01-01', usageTo: '', countryCode: MH }
+    - { usageFrom: '1944-01-01', usageTo: '', countryCode: MP }
+    - { usageFrom: '1903-11-18', usageTo: '', countryCode: PA }
+    - { usageFrom: '1898-12-10', usageTo: '', countryCode: PR }
+    - { usageFrom: '1944-01-01', usageTo: '', countryCode: PW }
+    - { usageFrom: '2001-01-01', usageTo: '', countryCode: SV }
+    - { usageFrom: '1969-09-08', usageTo: '', countryCode: TC }
+    - { usageFrom: '1999-10-20', usageTo: '', countryCode: TL }
+    - { usageFrom: '1944-01-01', usageTo: '', countryCode: UM }
+    - { usageFrom: '1792-01-01', usageTo: '', countryCode: US }
+    - { usageFrom: '1833-01-01', usageTo: '', countryCode: VG }
+    - { usageFrom: '1837-01-01', usageTo: '', countryCode: VI }
+    - { usageFrom: '2009-04-12', usageTo: '', countryCode: ZW }

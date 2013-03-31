@@ -6,5 +6,5 @@ sign: BR
 subunits: 100
 label: 'Ethiopian birr'
 usage:
-    - { ISO8601From: '1993-05-24', ISO8601To: '1997-11-08', ISO3166Code: ER }
-    - { ISO8601From: '1976-09-15', ISO8601To: '', ISO3166Code: ET }
+    - { usageFrom: '1993-05-24', usageTo: '1997-11-08', countryCode: ER }
+    - { usageFrom: '1976-09-15', usageTo: '', countryCode: ET }

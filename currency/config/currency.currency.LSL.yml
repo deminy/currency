@@ -6,4 +6,4 @@ sign: L
 subunits: 100
 label: 'Basotho loti'
 usage:
-    - { ISO8601From: '1980-01-22', ISO8601To: '', ISO3166Code: LS }
+    - { usageFrom: '1980-01-22', usageTo: '', countryCode: LS }

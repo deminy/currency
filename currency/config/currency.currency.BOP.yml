@@ -6,4 +6,4 @@ sign: b$
 subunits: 100
 label: 'Bolivian peso'
 usage:
-    - { ISO8601From: '1963-01-01', ISO8601To: '1986-12-31', ISO3166Code: BO }
+    - { usageFrom: '1963-01-01', usageTo: '1986-12-31', countryCode: BO }

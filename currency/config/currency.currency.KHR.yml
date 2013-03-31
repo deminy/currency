@@ -6,4 +6,4 @@ sign: ៛
 subunits: 100
 label: 'Cambodian riel'
 usage:
-    - { ISO8601From: '1980-03-20', ISO8601To: '', ISO3166Code: KH }
+    - { usageFrom: '1980-03-20', usageTo: '', countryCode: KH }

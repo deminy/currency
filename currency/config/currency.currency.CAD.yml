@@ -7,4 +7,4 @@ sign: $
 subunits: 100
 label: 'Canadian dollar'
 usage:
-    - { ISO8601From: '1858-01-01', ISO8601To: '', ISO3166Code: CA }
+    - { usageFrom: '1858-01-01', usageTo: '', countryCode: CA }

@@ -7,4 +7,4 @@ sign: $a
 subunits: 100
 label: 'Argentine peso argentino'
 usage:
-    - { ISO8601From: '1983-06-01', ISO8601To: '1985-06-14', ISO3166Code: AR }
+    - { usageFrom: '1983-06-01', usageTo: '1985-06-14', countryCode: AR }

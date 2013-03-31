@@ -6,5 +6,5 @@ sign: ₨
 subunits: 100
 label: 'Pakistani rupee'
 usage:
-    - { ISO8601From: '1948-04-01', ISO8601To: '1972-01-01', ISO3166Code: BD }
-    - { ISO8601From: '1948-04-01', ISO8601To: '', ISO3166Code: PK }
+    - { usageFrom: '1948-04-01', usageTo: '1972-01-01', countryCode: BD }
+    - { usageFrom: '1948-04-01', usageTo: '', countryCode: PK }

@@ -6,4 +6,4 @@ sign: Ft
 subunits: 100
 label: 'Hungarian forint'
 usage:
-    - { ISO8601From: '1946-07-23', ISO8601To: '', ISO3166Code: HU }
+    - { usageFrom: '1946-07-23', usageTo: '', countryCode: HU }

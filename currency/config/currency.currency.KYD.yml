@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Caymanian dollar'
 usage:
-    - { ISO8601From: '1971-01-01', ISO8601To: '', ISO3166Code: KY }
+    - { usageFrom: '1971-01-01', usageTo: '', countryCode: KY }

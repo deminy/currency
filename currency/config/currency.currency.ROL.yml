@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Romanian leu'
 usage:
-    - { ISO8601From: '1952-01-28', ISO8601To: '2006-12-31', ISO3166Code: RO }
+    - { usageFrom: '1952-01-28', usageTo: '2006-12-31', countryCode: RO }

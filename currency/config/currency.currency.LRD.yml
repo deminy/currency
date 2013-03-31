@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Liberian dollar'
 usage:
-    - { ISO8601From: '1944-01-01', ISO8601To: '', ISO3166Code: LR }
+    - { usageFrom: '1944-01-01', usageTo: '', countryCode: LR }

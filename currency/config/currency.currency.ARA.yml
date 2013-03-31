@@ -7,4 +7,4 @@ sign: ₳
 subunits: 100
 label: 'Argentine austral'
 usage:
-    - { ISO8601From: '1985-06-14', ISO8601To: '1992-01-01', ISO3166Code: AR }
+    - { usageFrom: '1985-06-14', usageTo: '1992-01-01', countryCode: AR }

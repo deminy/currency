@@ -6,4 +6,4 @@ sign: ¥
 subunits: 100
 label: 'Chinese renminbi'
 usage:
-    - { ISO8601From: '1953-03-01', ISO8601To: '', ISO3166Code: CN }
+    - { usageFrom: '1953-03-01', usageTo: '', countryCode: CN }

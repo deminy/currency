@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Singapore dollar'
 usage:
-    - { ISO8601From: '1967-06-12', ISO8601To: '', ISO3166Code: SG }
+    - { usageFrom: '1967-06-12', usageTo: '', countryCode: SG }

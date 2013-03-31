@@ -6,4 +6,4 @@ sign: Sh.So.
 subunits: 100
 label: 'Somali shilling'
 usage:
-    - { ISO8601From: '1960-07-01', ISO8601To: '', ISO3166Code: SO }
+    - { usageFrom: '1960-07-01', usageTo: '', countryCode: SO }

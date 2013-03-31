@@ -6,4 +6,4 @@ sign: G
 subunits: 100
 label: 'Haitian gourde'
 usage:
-    - { ISO8601From: '1872-08-26', ISO8601To: '', ISO3166Code: HT }
+    - { usageFrom: '1872-08-26', usageTo: '', countryCode: HT }

@@ -9,4 +9,4 @@ sign: ''
 subunits: 100
 label: 'Russian ruble'
 usage:
-    - { ISO8601From: '1999-01-01', ISO8601To: '', ISO3166Code: RU }
+    - { usageFrom: '1999-01-01', usageTo: '', countryCode: RU }

@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Bahamian dollar'
 usage:
-    - { ISO8601From: '1966-05-25', ISO8601To: '', ISO3166Code: BS }
+    - { usageFrom: '1966-05-25', usageTo: '', countryCode: BS }

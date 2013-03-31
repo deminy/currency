@@ -6,5 +6,5 @@ sign: ¤
 subunits: 0
 label: 'No currency'
 usage:
-    - { ISO8601From: '', ISO8601To: '', ISO3166Code: AQ }
-    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }
+    - { usageFrom: '', usageTo: '', countryCode: AQ }
+    - { usageFrom: '', usageTo: '', countryCode: ZZ }

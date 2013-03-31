@@ -6,12 +6,12 @@ sign: $
 subunits: 100
 label: 'East Caribbean dollar'
 usage:
-    - { ISO8601From: '1965-10-06', ISO8601To: '', ISO3166Code: AG }
-    - { ISO8601From: '1965-10-06', ISO8601To: '', ISO3166Code: AI }
-    - { ISO8601From: '1965-10-06', ISO8601To: '1973-12-03', ISO3166Code: BB }
-    - { ISO8601From: '1965-10-06', ISO8601To: '', ISO3166Code: DM }
-    - { ISO8601From: '1967-02-27', ISO8601To: '', ISO3166Code: GD }
-    - { ISO8601From: '1965-10-06', ISO8601To: '', ISO3166Code: KN }
-    - { ISO8601From: '1965-10-06', ISO8601To: '', ISO3166Code: LC }
-    - { ISO8601From: '1967-02-27', ISO8601To: '', ISO3166Code: MS }
-    - { ISO8601From: '1965-10-06', ISO8601To: '', ISO3166Code: VC }
+    - { usageFrom: '1965-10-06', usageTo: '', countryCode: AG }
+    - { usageFrom: '1965-10-06', usageTo: '', countryCode: AI }
+    - { usageFrom: '1965-10-06', usageTo: '1973-12-03', countryCode: BB }
+    - { usageFrom: '1965-10-06', usageTo: '', countryCode: DM }
+    - { usageFrom: '1967-02-27', usageTo: '', countryCode: GD }
+    - { usageFrom: '1965-10-06', usageTo: '', countryCode: KN }
+    - { usageFrom: '1965-10-06', usageTo: '', countryCode: LC }
+    - { usageFrom: '1967-02-27', usageTo: '', countryCode: MS }
+    - { usageFrom: '1965-10-06', usageTo: '', countryCode: VC }

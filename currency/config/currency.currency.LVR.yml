@@ -6,4 +6,4 @@ sign: Lvr
 subunits: 0
 label: 'Latvian rublis'
 usage:
-    - { ISO8601From: '1992-05-07', ISO8601To: '1993-10-17', ISO3166Code: LV }
+    - { usageFrom: '1992-05-07', usageTo: '1993-10-17', countryCode: LV }

@@ -6,4 +6,4 @@ sign: Lek
 subunits: 100
 label: 'Albanian lek'
 usage:
-    - { ISO8601From: '1965-08-16', ISO8601To: '', ISO3166Code: AL }
+    - { usageFrom: '1965-08-16', usageTo: '', countryCode: AL }

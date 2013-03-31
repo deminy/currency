@@ -6,4 +6,4 @@ sign: ¤
 subunits: null
 label: 'Belgian financial franc'
 usage:
-    - { ISO8601From: '', ISO8601To: '', ISO3166Code: BE }
+    - { usageFrom: '', usageTo: '', countryCode: BE }

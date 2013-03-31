@@ -6,6 +6,6 @@ sign: ₧
 subunits: 100
 label: 'Spanish peseta'
 usage:
-    - { ISO8601From: '1873-01-01', ISO8601To: '2002-02-28', ISO3166Code: AD }
-    - { ISO8601From: '1868-10-19', ISO8601To: '2002-02-28', ISO3166Code: ES }
-    - { ISO8601From: '1800-01-01', ISO8601To: '1898-12-10', ISO3166Code: PR }
+    - { usageFrom: '1873-01-01', usageTo: '2002-02-28', countryCode: AD }
+    - { usageFrom: '1868-10-19', usageTo: '2002-02-28', countryCode: ES }
+    - { usageFrom: '1800-01-01', usageTo: '1898-12-10', countryCode: PR }

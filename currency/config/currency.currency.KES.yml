@@ -6,4 +6,4 @@ sign: KSh
 subunits: 100
 label: 'Kenyan shilling'
 usage:
-    - { ISO8601From: '1966-09-14', ISO8601To: '', ISO3166Code: KE }
+    - { usageFrom: '1966-09-14', usageTo: '', countryCode: KE }

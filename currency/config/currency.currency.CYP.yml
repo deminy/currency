@@ -6,4 +6,4 @@ sign: £
 subunits: 100
 label: 'Cypriot pound'
 usage:
-    - { ISO8601From: '1914-09-10', ISO8601To: '2008-01-31', ISO3166Code: CY }
+    - { usageFrom: '1914-09-10', usageTo: '2008-01-31', countryCode: CY }

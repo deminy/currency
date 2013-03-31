@@ -6,9 +6,9 @@ sign: ₣
 subunits: 0
 label: 'Central African franc'
 usage:
-    - { ISO8601From: '1993-01-01', ISO8601To: '', ISO3166Code: CF }
-    - { ISO8601From: '1993-01-01', ISO8601To: '', ISO3166Code: CG }
-    - { ISO8601From: '1973-04-01', ISO8601To: '', ISO3166Code: CM }
-    - { ISO8601From: '1993-01-01', ISO8601To: '', ISO3166Code: GA }
-    - { ISO8601From: '1993-01-01', ISO8601To: '', ISO3166Code: GQ }
-    - { ISO8601From: '1993-01-01', ISO8601To: '', ISO3166Code: TD }
+    - { usageFrom: '1993-01-01', usageTo: '', countryCode: CF }
+    - { usageFrom: '1993-01-01', usageTo: '', countryCode: CG }
+    - { usageFrom: '1973-04-01', usageTo: '', countryCode: CM }
+    - { usageFrom: '1993-01-01', usageTo: '', countryCode: GA }
+    - { usageFrom: '1993-01-01', usageTo: '', countryCode: GQ }
+    - { usageFrom: '1993-01-01', usageTo: '', countryCode: TD }

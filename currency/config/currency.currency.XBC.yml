@@ -6,4 +6,4 @@ sign: ¤
 subunits: 0
 label: 'Bond Markets Unit European Unit of Account 9 (E.U.A.-9)'
 usage:
-    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }
+    - { usageFrom: '', usageTo: '', countryCode: ZZ }

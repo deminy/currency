@@ -6,4 +6,4 @@ sign: B/.
 subunits: 100
 label: 'Panamanian balboa'
 usage:
-    - { ISO8601From: '1903-11-04', ISO8601To: '', ISO3166Code: PA }
+    - { usageFrom: '1903-11-04', usageTo: '', countryCode: PA }

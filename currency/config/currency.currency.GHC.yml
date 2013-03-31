@@ -6,4 +6,4 @@ sign: GH¢
 subunits: 100
 label: 'Ghanaian cedi'
 usage:
-    - { ISO8601From: '1979-03-09', ISO8601To: '2007-12-31', ISO3166Code: GH }
+    - { usageFrom: '1979-03-09', usageTo: '2007-12-31', countryCode: GH }

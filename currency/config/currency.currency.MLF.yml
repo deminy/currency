@@ -6,4 +6,4 @@ sign: MAF
 subunits: 100
 label: 'Malian franc'
 usage:
-    - { ISO8601From: '1962-07-02', ISO8601To: '1984-08-31', ISO3166Code: ML }
+    - { usageFrom: '1962-07-02', usageTo: '1984-08-31', countryCode: ML }

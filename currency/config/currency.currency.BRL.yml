@@ -7,4 +7,4 @@ sign: R$
 subunits: 100
 label: 'Brazilian real'
 usage:
-    - { ISO8601From: '1994-07-01', ISO8601To: '', ISO3166Code: BR }
+    - { usageFrom: '1994-07-01', usageTo: '', countryCode: BR }

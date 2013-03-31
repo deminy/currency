@@ -7,4 +7,4 @@ sign: Lt
 subunits: 100
 label: 'Lithuanian litas'
 usage:
-    - { ISO8601From: '1993-06-25', ISO8601To: '', ISO3166Code: LT }
+    - { usageFrom: '1993-06-25', usageTo: '', countryCode: LT }

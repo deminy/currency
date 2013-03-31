@@ -6,4 +6,4 @@ sign: د.ك
 subunits: 1000
 label: 'Kuwaiti dinar'
 usage:
-    - { ISO8601From: '1961-04-01', ISO8601To: '', ISO3166Code: KW }
+    - { usageFrom: '1961-04-01', usageTo: '', countryCode: KW }

@@ -6,4 +6,4 @@ sign: m
 subunits: 100
 label: 'Azerbaijani manat'
 usage:
-    - { ISO8601From: '2006-01-01', ISO8601To: '', ISO3166Code: AZ }
+    - { usageFrom: '2006-01-01', usageTo: '', countryCode: AZ }

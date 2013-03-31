@@ -7,4 +7,4 @@ sign: NCz$
 subunits: 100
 label: 'Brazilian cruzado novo'
 usage:
-    - { ISO8601From: '1989-01-15', ISO8601To: '1990-03-16', ISO3166Code: BR }
+    - { usageFrom: '1989-01-15', usageTo: '1990-03-16', countryCode: BR }

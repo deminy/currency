@@ -7,4 +7,4 @@ sign: Bs
 subunits: 100
 label: 'Venezuelan bolívar'
 usage:
-    - { ISO8601From: '2008-01-01', ISO8601To: '', ISO3166Code: VE }
+    - { usageFrom: '2008-01-01', usageTo: '', countryCode: VE }

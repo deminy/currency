@@ -6,4 +6,4 @@ sign: ر.ق
 subunits: 100
 label: 'Qatari rial'
 usage:
-    - { ISO8601From: '1973-05-19', ISO8601To: '', ISO3166Code: QA }
+    - { usageFrom: '1973-05-19', usageTo: '', countryCode: QA }

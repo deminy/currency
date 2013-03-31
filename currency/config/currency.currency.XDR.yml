@@ -6,4 +6,4 @@ sign: SDR
 subunits: 0
 label: 'Special Drawing Right'
 usage:
-    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }
+    - { usageFrom: '', usageTo: '', countryCode: ZZ }

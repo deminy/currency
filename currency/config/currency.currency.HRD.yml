@@ -7,4 +7,4 @@ sign: ¤
 subunits: 0
 label: 'Croatian dinar'
 usage:
-    - { ISO8601From: '1991-12-23', ISO8601To: '1995-01-01', ISO3166Code: HR }
+    - { usageFrom: '1991-12-23', usageTo: '1995-01-01', countryCode: HR }

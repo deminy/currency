@@ -6,4 +6,4 @@ sign: S
 subunits: 100
 label: 'Austrian schilling'
 usage:
-    - { ISO8601From: '1947-12-04', ISO8601To: '2002-02-28', ISO3166Code: AT }
+    - { usageFrom: '1947-12-04', usageTo: '2002-02-28', countryCode: AT }

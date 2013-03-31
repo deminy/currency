@@ -6,4 +6,4 @@ sign: ل.د
 subunits: 1000
 label: 'Libyan dinar'
 usage:
-    - { ISO8601From: '1971-09-01', ISO8601To: '', ISO3166Code: LY }
+    - { usageFrom: '1971-09-01', usageTo: '', countryCode: LY }

@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Mexican peso'
 usage:
-    - { ISO8601From: '1822-01-01', ISO8601To: '1992-12-31', ISO3166Code: MX }
+    - { usageFrom: '1822-01-01', usageTo: '1992-12-31', countryCode: MX }

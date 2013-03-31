@@ -7,5 +7,5 @@ sign: ₤
 subunits: 100
 label: 'Sudanese pound'
 usage:
-    - { ISO8601From: '2007-01-10', ISO8601To: '', ISO3166Code: SD }
-    - { ISO8601From: '2007-01-10', ISO8601To: '2011-09-01', ISO3166Code: SS }
+    - { usageFrom: '2007-01-10', usageTo: '', countryCode: SD }
+    - { usageFrom: '2007-01-10', usageTo: '2011-09-01', countryCode: SS }

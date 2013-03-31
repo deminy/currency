@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Cape Verdean escudo'
 usage:
-    - { ISO8601From: '1914-01-01', ISO8601To: '', ISO3166Code: CV }
+    - { usageFrom: '1914-01-01', usageTo: '', countryCode: CV }

@@ -6,4 +6,4 @@ sign: VT
 subunits: 0
 label: 'Vanuatu vatu'
 usage:
-    - { ISO8601From: '1981-01-01', ISO8601To: '', ISO3166Code: VU }
+    - { usageFrom: '1981-01-01', usageTo: '', countryCode: VU }

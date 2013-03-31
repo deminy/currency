@@ -6,4 +6,4 @@ sign: ₡
 subunits: 100
 label: 'Costa Rican colon'
 usage:
-    - { ISO8601From: '1896-10-26', ISO8601To: '', ISO3166Code: CR }
+    - { usageFrom: '1896-10-26', usageTo: '', countryCode: CR }

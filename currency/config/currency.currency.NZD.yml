@@ -6,8 +6,8 @@ sign: $
 subunits: 100
 label: 'New Zealand dollar'
 usage:
-    - { ISO8601From: '1967-07-10', ISO8601To: '', ISO3166Code: CK }
-    - { ISO8601From: '1967-07-10', ISO8601To: '', ISO3166Code: NU }
-    - { ISO8601From: '1967-07-10', ISO8601To: '', ISO3166Code: NZ }
-    - { ISO8601From: '1969-01-13', ISO8601To: '', ISO3166Code: PN }
-    - { ISO8601From: '1967-07-10', ISO8601To: '', ISO3166Code: TK }
+    - { usageFrom: '1967-07-10', usageTo: '', countryCode: CK }
+    - { usageFrom: '1967-07-10', usageTo: '', countryCode: NU }
+    - { usageFrom: '1967-07-10', usageTo: '', countryCode: NZ }
+    - { usageFrom: '1969-01-13', usageTo: '', countryCode: PN }
+    - { usageFrom: '1967-07-10', usageTo: '', countryCode: TK }

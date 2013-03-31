@@ -6,4 +6,4 @@ sign: fr.
 subunits: 10
 label: 'Monegasque franc'
 usage:
-    - { ISO8601From: '1960-01-01', ISO8601To: '2002-02-17', ISO3166Code: MC }
+    - { usageFrom: '1960-01-01', usageTo: '2002-02-17', countryCode: MC }

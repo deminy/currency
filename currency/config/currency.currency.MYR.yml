@@ -6,6 +6,6 @@ sign: RM
 subunits: 100
 label: 'Malaysian ringgit'
 usage:
-    - { ISO8601From: '1963-09-16', ISO8601To: '1967-06-12', ISO3166Code: BN }
-    - { ISO8601From: '1963-09-16', ISO8601To: '', ISO3166Code: MY }
-    - { ISO8601From: '1963-09-16', ISO8601To: '1967-06-12', ISO3166Code: SG }
+    - { usageFrom: '1963-09-16', usageTo: '1967-06-12', countryCode: BN }
+    - { usageFrom: '1963-09-16', usageTo: '', countryCode: MY }
+    - { usageFrom: '1963-09-16', usageTo: '1967-06-12', countryCode: SG }

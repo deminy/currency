@@ -6,4 +6,4 @@ sign: WS$
 subunits: 100
 label: 'Samoan tala'
 usage:
-    - { ISO8601From: '1967-07-10', ISO8601To: '', ISO3166Code: WS }
+    - { usageFrom: '1967-07-10', usageTo: '', countryCode: WS }

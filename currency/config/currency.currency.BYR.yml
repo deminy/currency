@@ -7,4 +7,4 @@ sign: Br
 subunits: 100
 label: 'Belarussian ruble'
 usage:
-    - { ISO8601From: '2000-01-01', ISO8601To: '', ISO3166Code: BY }
+    - { usageFrom: '2000-01-01', usageTo: '', countryCode: BY }

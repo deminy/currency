@@ -6,4 +6,4 @@ sign: ﷼
 subunits: 1000
 label: 'South Yemeni dinar'
 usage:
-    - { ISO8601From: '1965-04-01', ISO8601To: '1996-01-01', ISO3166Code: YD }
+    - { usageFrom: '1965-04-01', usageTo: '1996-01-01', countryCode: YD }

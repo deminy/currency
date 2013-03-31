@@ -6,6 +6,6 @@ sign: ₤
 subunits: 100
 label: 'Italian lira'
 usage:
-    - { ISO8601From: '1862-08-24', ISO8601To: '2002-02-28', ISO3166Code: IT }
-    - { ISO8601From: '1865-12-23', ISO8601To: '2001-02-28', ISO3166Code: SM }
-    - { ISO8601From: '1870-10-19', ISO8601To: '2002-02-28', ISO3166Code: VA }
+    - { usageFrom: '1862-08-24', usageTo: '2002-02-28', countryCode: IT }
+    - { usageFrom: '1865-12-23', usageTo: '2001-02-28', countryCode: SM }
+    - { usageFrom: '1870-10-19', usageTo: '2002-02-28', countryCode: VA }

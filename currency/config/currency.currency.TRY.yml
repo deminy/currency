@@ -7,4 +7,4 @@ sign: TL
 subunits: 100
 label: 'Turkish lira'
 usage:
-    - { ISO8601From: '2005-01-01', ISO8601To: '', ISO3166Code: TR }
+    - { usageFrom: '2005-01-01', usageTo: '', countryCode: TR }

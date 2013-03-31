@@ -6,4 +6,4 @@ sign: ¤
 subunits: null
 label: 'Gold franc'
 usage:
-    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }
+    - { usageFrom: '', usageTo: '', countryCode: ZZ }

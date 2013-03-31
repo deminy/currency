@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'South Korean hwan'
 usage:
-    - { ISO8601From: '1953-02-15', ISO8601To: '1962-06-10', ISO3166Code: KR }
+    - { usageFrom: '1953-02-15', usageTo: '1962-06-10', countryCode: KR }
