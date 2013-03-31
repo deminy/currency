@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: AWG
+currencyNumber: '533'
+sign: Afl.
+subunits: 100
+label: 'Aruban florin'
+usage:
+    - { ISO8601From: '1986-01-01', ISO8601To: '', ISO3166Code: AW }

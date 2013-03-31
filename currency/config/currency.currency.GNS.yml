@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: GNS
+currencyNumber: null
+sign: ¤
+subunits: 100
+label: 'Guinean syli'
+usage:
+    - { ISO8601From: '1972-10-02', ISO8601To: '1986-01-06', ISO3166Code: GN }

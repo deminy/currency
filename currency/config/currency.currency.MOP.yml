@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: MOP
+currencyNumber: '446'
+sign: MOP$
+subunits: 100
+label: 'Macanese pataca'
+usage:
+    - { ISO8601From: '1901-01-01', ISO8601To: '', ISO3166Code: MO }

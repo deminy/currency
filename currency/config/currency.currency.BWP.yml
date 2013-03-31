@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: BWP
+currencyNumber: '072'
+sign: P
+subunits: 100
+label: 'Botswanan pula'
+usage:
+    - { ISO8601From: '1976-08-23', ISO8601To: '', ISO3166Code: BW }

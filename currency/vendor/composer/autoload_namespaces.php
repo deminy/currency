@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'BartFeenstra' => array($vendorDir . '/bartfeenstra/cldr/src', $vendorDir . '/bartfeenstra/currency/src'),
+    'BartFeenstra' => $vendorDir . '/bartfeenstra/cldr/src',
 );

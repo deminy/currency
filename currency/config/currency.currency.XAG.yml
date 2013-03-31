@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: XAG
+currencyNumber: '961'
+sign: ¤
+subunits: 0
+label: Silver
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }

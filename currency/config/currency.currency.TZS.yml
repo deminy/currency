@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: TZS
+currencyNumber: '834'
+sign: ''
+subunits: 100
+label: 'Tanzanian Shilling'
+usage:
+    - { ISO8601From: '1966-06-14', ISO8601To: '', ISO3166Code: TZ }

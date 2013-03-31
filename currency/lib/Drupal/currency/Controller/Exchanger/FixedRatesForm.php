@@ -10,6 +10,7 @@ namespace Drupal\currency\Controller\Exchanger;
 use Drupal\Core\ControllerInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\currency\Plugin\Core\Entity\Currency;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -63,7 +64,7 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
     $plugin = $this->manager->createInstance('currency_fixed_rates');
     $rate = $currency_code_from && $currency_code_to ? $plugin->load($currency_code_from, $currency_code_to) : NULL;
 
-    $options = currency_options();
+    $options = Currency::options();
     $form['currency_code_from'] = array(
       '#default_value' => isset($options[$currency_code_from]) ? $currency_code_from : 'XXX',
       '#disabled' => !is_null($rate),
@@ -120,8 +121,8 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
    */
   public function submitForm(array &$form, array &$form_state) {
     $values = $form_state['values'];
-    $currency_from = currency_load($values['currency_code_from']);
-    $currency_to = currency_load($values['currency_code_to']);
+    $currency_from = entity_load('currency', $values['currency_code_from']);
+    $currency_to = entity_load('currency', $values['currency_code_to']);
 
     switch ($form_state['triggering_element']['#name']) {
       case 'save':

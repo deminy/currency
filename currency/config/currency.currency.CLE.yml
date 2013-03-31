@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: CLE
+currencyNumber: null
+sign: Eº
+subunits: 100
+label: 'Chilean escudo'
+usage:
+    - { ISO8601From: '1960-01-01', ISO8601To: '1975-09-29', ISO3166Code: CL }

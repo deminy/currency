@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: PYG
+currencyNumber: '600'
+sign: ₲
+subunits: 100
+label: 'Paraguayan guaraní'
+usage:
+    - { ISO8601From: '1943-11-01', ISO8601To: '', ISO3166Code: PY }

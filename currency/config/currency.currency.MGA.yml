@@ -1,0 +1,10 @@
+alternativeSigns: {  }
+exchangeRates:
+    MGF: '5'
+currencyCode: MGA
+currencyNumber: '969'
+sign: Ar
+subunits: 5
+label: 'Malagasy ariary'
+usage:
+    - { ISO8601From: '1983-11-01', ISO8601To: '', ISO3166Code: MG }

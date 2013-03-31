@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: CUC
+currencyNumber: '931'
+sign: $
+subunits: 100
+label: 'Cuban convertible peso'
+usage:
+    - { ISO8601From: '1994-01-01', ISO8601To: '', ISO3166Code: CU }

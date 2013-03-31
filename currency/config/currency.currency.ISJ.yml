@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: ISJ
+currencyNumber: null
+sign: kr
+subunits: 100
+label: 'Icelandic krona'
+usage:
+    - { ISO8601From: '1918-12-01', ISO8601To: '1981-01-01', ISO3166Code: IS }

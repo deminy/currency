@@ -5,6 +5,8 @@
  * Contains class CurrencyViewsHandlerFilterWebTestCase.
  */
 
+use Drupal\currency\Plugin\Core\Entity\Currency;
+
 /**
  * Tests CurrencyViewsHandlerFilter.
  */
@@ -130,7 +132,7 @@ class CurrencyViewsHandlerFilterWebTestCase extends ViewsSqlTest {
     $account = $this->drupalCreateUser(array('administer views'));
     $this->drupalLogin($account);
     $this->drupalGet('admin/structure/views/nojs/config-item/test_view/default/filter/currency_code');
-    foreach (currency_options() as $option) {
+    foreach (Currency::options() as $option) {
       $this->assertText($option);
     }
   }

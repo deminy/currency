@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: RWF
+currencyNumber: '646'
+sign: ₣
+subunits: 100
+label: 'Rwandan franc'
+usage:
+    - { ISO8601From: '1964-05-19', ISO8601To: '', ISO3166Code: RW }

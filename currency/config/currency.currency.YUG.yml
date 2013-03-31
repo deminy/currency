@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates:
+    YUO: '1000000000'
+currencyCode: YUG
+currencyNumber: null
+sign: дин
+subunits: 100
+label: 'Yugoslav dinar'
+usage: {  }

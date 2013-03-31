@@ -8,6 +8,7 @@
 use BartFeenstra\Currency\AmountInvalidDecimalSeparatorException;
 use BartFeenstra\Currency\AmountNotNumericException;
 use BartFeenstra\Currency\Input;
+use Drupal\currency\Plugin\Core\Entity\Currency;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -184,13 +185,13 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   }
   $currency = FALSE;
   if ($element['#currency_code'] !== FALSE) {
-    $currency = currency_load($element['#currency_code']);
+    $currency = entity_load('currency', $element['#currency_code']);
     if (!$currency) {
       throw new Exception(t('A valid ISO 4217 currency code needs to be set.'));
     }
   }
   else {
-    $currency = currency_load('XXX');
+    $currency = entity_load('currency', 'XXX');
   }
 
   // Modify the element.
@@ -207,7 +208,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
       '#type' => 'select',
       '#title' => t('Currency'),
       '#title_display' => 'invisible',
-      '#options' => currency_options(),
+      '#options' => Currency::options(),
       '#required' => $element['#required'],
       '#default_value' => 'XXX',
     );
@@ -255,7 +256,7 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
   }
 
   // Confirm the amount lies within the allowed range.
-  $currency = currency_load($currency_code);
+  $currency = entity_load('currency', $currency_code);
   if ($element['#minimum_amount'] !== FALSE && bccomp($element['#minimum_amount'], $amount) == 1) {
     form_error($element['amount'], t('The minimum amount is !amount.', array(
       '!amount' => $currency->format($element['#minimum_amount']),
@@ -403,29 +404,6 @@ function currency_form_currency_locale_validate(array $element, array &$form_sta
 }
 
 /**
- * Returns an options list of currencies.
- *
- * @return array
- *  Keys are ISO 4217 codes and values are currency titles.
- */
-function currency_options() {
-  // @todo.
-  return array();
-
-  ctools_include('export');
-  $options = array();
-  foreach (currency_load_all() as $currency) {
-    $options[$currency->ISO4217Code] = t('@currency_title (@currency_code)', array(
-      '@currency_title' => $currency->translateTitle(),
-      '@currency_code' => $currency->ISO4217Code,
-    ));
-  }
-  natcasesort($options);
-
-  return $options;
-}
-
-/**
  * Implements Ctools exportable UI edit form callback.
  */
 function currency_form_currency(array &$form, array &$form_state) {
@@ -436,8 +414,8 @@ function currency_form_currency(array &$form, array &$form_state) {
   $form['info']['ISO4217Code']['#maxlength'] = 3;
   $form['info']['ISO4217Code']['#size'] = 3;
 
-  $form['ISO4217Number'] = array(
-    '#default_value' => $currency->ISO4217Number,
+  $form['currencyNumber'] = array(
+    '#default_value' => $currency->currencyNumber,
     '#element_validate' => array('currency_form_element_validate_iso_4217_number'),
     '#maxlength' => 3,
     '#title' => t('ISO 4217 number'),
@@ -470,7 +448,7 @@ function currency_form_currency(array &$form, array &$form_state) {
   );
 
   $form['rounding_step'] = array(
-    '#default_value' => $currency->rounding_step,
+    '#default_value' => $currency->roundingStep,
     '#element_validate' => array('element_validate_number'),
     '#required' => TRUE,
     '#size' => 5,
@@ -529,7 +507,7 @@ function currency_form_element_validate_iso_4217_code(array $element, array $for
     form_error($element, t('The currency code should be three letters.'));
   }
   if ($element['#default_value'] !== $element['#value']) {
-    $currency = currency_load($currency_code);
+    $currency = entity_load('currency', $currency_code);
     if ($currency) {
       form_error($element, t('The currency code is already in use by !link.', array(
         '!link' => l($currency->translateTitle(), "admin/config/regional/currency/currency/list/$currency->ISO4217Code/edit"),
@@ -611,8 +589,7 @@ function _currency_filter_currency_localize_process(array $matches) {
   catch (Exception $e) {
     return $matches[0];
   }
-  ctools_include('export');
-  $currency = currency_load($currency_code);
+  $currency = entity_load('currency', $currency_code);
   if ($currency) {
     return $currency->format($amount);
   }
@@ -625,80 +602,6 @@ function _currency_filter_currency_localize_process(array $matches) {
  */
 function currency_filter_currency_localize_tips($filter, $format, $long) {
   return t('Use <code>[currency-localize:<strong>currency-code</strong>:<strong>amount</strong>]</code> to localize an amount of money. The <code>currency-code</code> and <code>amount</code> parameters are the ISO 4217 currency code and the actual amount to display. Example: <code>[currency-localize:EUR:99.95]</code>.');
-}
-
-/**
- * Loads a currency.
- *
- * @param string $currency_code
- *
- * @return Currency
- */
-function currency_load($currency_code) {
-  // @todo.
-  require_once __DIR__ . '/includes/currency.inc';
-  return new \Currency(array(
-    'ISO4217Code' => 'XXX',
-  ));
-  ctools_include('export');
-
-  return ctools_export_crud_load('currency', $currency_code);
-}
-
-/**
- * Loads all currencies.
- *
- * @return array
- *   An array of Currency objects.
- */
-function currency_load_all() {
-  ctools_include('export');
-
-  return ctools_export_crud_load_all('currency');
-}
-
-/**
- * Saves a currency.
- *
- * @param Currency $currency
- *
- * @return integer
- *   The result of drupal_write_record().
- */
-function currency_save(Currency $currency) {
-  if ($currency->export_type & EXPORT_IN_DATABASE) {
-    $update = array('ISO4217Code');
-  }
-  else {
-    $update = array();
-    $currency->export_type = EXPORT_IN_DATABASE;
-  }
-  $status = drupal_write_record('currency', $currency, $update);
-  if (module_exists('i18n_string')) {
-    i18n_string_object_update('currency', $currency);
-  }
-
-  return $status;
-}
-
-
-/**
- * Deletes a currency.
- *
- * @param Currency|string $currency
- *   A Currency object, or the currency's ISO 4217 code.
- *
- * @return Currency
- */
-function currency_delete($currency) {
-  $currency_code = is_object($currency) ? $currency->ISO4217Code : $currency;
-  if (module_exists('i18n_string')) {
-    $currency = is_object($currency) ? $currency : currency_load($currency_code);
-    i18n_string_object_remove('currency', $currency);
-  }
-  db_delete('currency')
-    ->condition('ISO4217Code', $currency_code)
-    ->execute();
 }
 
 /**

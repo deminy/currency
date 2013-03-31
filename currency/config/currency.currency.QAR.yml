@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: QAR
+currencyNumber: '634'
+sign: ر.ق
+subunits: 100
+label: 'Qatari rial'
+usage:
+    - { ISO8601From: '1973-05-19', ISO8601To: '', ISO3166Code: QA }

@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: SLL
+currencyNumber: '694'
+sign: Le
+subunits: 100
+label: 'Sierran Leonean leone'
+usage:
+    - { ISO8601From: '1964-08-04', ISO8601To: '', ISO3166Code: SL }

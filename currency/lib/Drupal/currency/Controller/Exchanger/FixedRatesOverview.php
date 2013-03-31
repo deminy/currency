@@ -58,15 +58,17 @@ class FixedRatesOverview implements ControllerInterface {
     );
     foreach ($rates as $currency_code_from => $currency_codes_to) {
       foreach ($currency_codes_to as $currency_code_to => $rate) {
-        // @todo Use human-readable currency names and a formatted rate.
+        // @todo Use formatted rates.
+        $currency_from = entity_load('currency', $currency_code_from);
+        $currency_to = entity_load('currency', $currency_code_to);
         $row['currency_from'] = array(
-          '#markup' => $currency_code_from,
+          '#markup' => $currency_from->label(),
           '#title' => t('From'),
           '#title_display' => 'invisible',
           '#type' => 'item',
         );
         $row['currency_to'] = array(
-          '#markup' => $currency_code_to,
+          '#markup' => $currency_to->label(),
           '#title' => t('To'),
           '#title_display' => 'invisible',
           '#type' => 'item',

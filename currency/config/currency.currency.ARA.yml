@@ -1,0 +1,10 @@
+alternativeSigns: {  }
+exchangeRates:
+    ARP: '1000'
+currencyCode: ARA
+currencyNumber: null
+sign: ₳
+subunits: 100
+label: 'Argentine austral'
+usage:
+    - { ISO8601From: '1985-06-14', ISO8601To: '1992-01-01', ISO3166Code: AR }

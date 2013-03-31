@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: BEL
+currencyNumber: '992'
+sign: ¤
+subunits: null
+label: 'Belgian financial franc'
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: BE }

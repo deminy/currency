@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: BEF
+currencyNumber: '056'
+sign: fr.
+subunits: 10
+label: 'Belgian franc'
+usage:
+    - { ISO8601From: '1831-02-07', ISO8601To: '2002-02-28', ISO3166Code: BE }

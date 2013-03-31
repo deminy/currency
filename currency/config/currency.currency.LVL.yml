@@ -1,0 +1,10 @@
+alternativeSigns: {  }
+exchangeRates:
+    LVR: '200'
+currencyCode: LVL
+currencyNumber: '428'
+sign: Ls
+subunits: 100
+label: 'Latvian lats'
+usage:
+    - { ISO8601From: '1993-06-28', ISO8601To: '', ISO3166Code: LV }

@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: XPT
+currencyNumber: '962'
+sign: ¤
+subunits: 0
+label: Platinum
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }

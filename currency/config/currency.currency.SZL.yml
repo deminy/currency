@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: SZL
+currencyNumber: '748'
+sign: L
+subunits: 100
+label: 'Swazi lilangeni'
+usage:
+    - { ISO8601From: '1974-09-06', ISO8601To: '', ISO3166Code: SZ }

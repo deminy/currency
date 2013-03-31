@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: XFO
+currencyNumber: null
+sign: ¤
+subunits: null
+label: 'Gold franc'
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }

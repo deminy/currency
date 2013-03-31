@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: STD
+currencyNumber: '678'
+sign: Db
+subunits: 100
+label: 'São Toméan dobra'
+usage:
+    - { ISO8601From: '1977-09-08', ISO8601To: '', ISO3166Code: ST }

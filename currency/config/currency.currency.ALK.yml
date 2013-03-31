@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: ALK
+currencyNumber: null
+sign: ¤
+subunits: 100
+label: 'Albanian lek'
+usage:
+    - { ISO8601From: '1946-11-01', ISO8601To: '1965-08-16', ISO3166Code: AL }

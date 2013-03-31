@@ -1,0 +1,10 @@
+alternativeSigns: {  }
+exchangeRates:
+    BRR: '2750'
+currencyCode: BRL
+currencyNumber: '986'
+sign: R$
+subunits: 100
+label: 'Brazilian real'
+usage:
+    - { ISO8601From: '1994-07-01', ISO8601To: '', ISO3166Code: BR }

@@ -21,14 +21,14 @@ function currency_exchange_rate_db_table_views_data() {
   $properties = array(
     'currency_code_from' => array(
       'ISO4217Code' => t('Source currency code'),
-      'ISO4217Number' => t('Source currency number'),
+      'currencyNumber' => t('Source currency number'),
       'subunits' => t('Source currency number subunits'),
       'sign' => t('Source currency sign'),
       'title' => t('Source currency name'),
     ),
     'currency_code_to' => array(
       'ISO4217Code' => t('Destination currency code'),
-      'ISO4217Number' => t('Destination currency number'),
+      'currencyNumber' => t('Destination currency number'),
       'subunits' => t('Destination currency number of subunits'),
       'sign' => t('Destination currency sign'),
       'title' => t('Destination currency name'),

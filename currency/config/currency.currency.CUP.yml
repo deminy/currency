@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: CUP
+currencyNumber: '192'
+sign: $
+subunits: 100
+label: 'Cuban peso'
+usage:
+    - { ISO8601From: '1859-01-01', ISO8601To: '', ISO3166Code: CU }

@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: AOK
+currencyNumber: null
+sign: ¤
+subunits: 100
+label: 'Angolan kwanza'
+usage:
+    - { ISO8601From: '1977-01-08', ISO8601To: '1991-03-01', ISO3166Code: AO }

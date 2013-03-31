@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: MAF
+currencyNumber: null
+sign: ¤
+subunits: 0
+label: 'Moroccan franc'
+usage:
+    - { ISO8601From: '1881-01-01', ISO8601To: '1959-10-17', ISO3166Code: MA }

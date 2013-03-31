@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: AED
+currencyNumber: '784'
+sign: د.إ
+subunits: 100
+label: 'Emirati dirham'
+usage:
+    - { ISO8601From: '1973-05-19', ISO8601To: '', ISO3166Code: AE }

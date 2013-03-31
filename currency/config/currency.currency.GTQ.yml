@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: GTQ
+currencyNumber: '320'
+sign: Q
+subunits: 100
+label: 'Guatamalan quetzal'
+usage:
+    - { ISO8601From: '1925-05-27', ISO8601To: '', ISO3166Code: GT }

@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: VND
+currencyNumber: '704'
+sign: ₫
+subunits: 100
+label: 'Vietnamese dong'
+usage:
+    - { ISO8601From: '1985-09-14', ISO8601To: '', ISO3166Code: VN }

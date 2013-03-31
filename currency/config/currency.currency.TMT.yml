@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: TMT
+currencyNumber: '934'
+sign: m
+subunits: 100
+label: 'Turkmenistani manat'
+usage:
+    - { ISO8601From: '2009-01-01', ISO8601To: '', ISO3166Code: TM }

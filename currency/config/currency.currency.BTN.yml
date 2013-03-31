@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: BTN
+currencyNumber: '064'
+sign: Nu.
+subunits: 100
+label: 'Buthanese ngultrum'
+usage:
+    - { ISO8601From: '1974-04-16', ISO8601To: '', ISO3166Code: BT }

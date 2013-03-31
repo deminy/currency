@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: SAR
+currencyNumber: '682'
+sign: ﷼
+subunits: 100
+label: 'Saudi riyal'
+usage:
+    - { ISO8601From: '1952-10-22', ISO8601To: '', ISO3166Code: SA }

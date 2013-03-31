@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: MXV
+currencyNumber: '979'
+sign: ¤
+subunits: 100
+label: 'Mexican Unidad de Inversion'
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: MX }

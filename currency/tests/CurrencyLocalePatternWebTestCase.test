@@ -56,7 +56,7 @@ class CurrencyLocalePatternWebTestCase extends DrupalWebTestCase {
    * Test format().
    */
   function testFormat() {
-    $currency = currency_load('EUR');
+    $currency = entity_load('currency', 'EUR');
     $locale_pattern = new CurrencyLocalePattern(array(
       'pattern' => '¤-#,##0.00[XXX][999]',
       'symbol_decimal_separator' => ',',

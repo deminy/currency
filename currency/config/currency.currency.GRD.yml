@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: GRD
+currencyNumber: '300'
+sign: ₯
+subunits: 100
+label: 'Greek drachma'
+usage:
+    - { ISO8601From: '1954-05-01', ISO8601To: '2002-02-28', ISO3166Code: GR }

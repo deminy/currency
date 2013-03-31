@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: GMD
+currencyNumber: '270'
+sign: D
+subunits: 100
+label: 'Gambian dalasi'
+usage:
+    - { ISO8601From: '1971-07-01', ISO8601To: '', ISO3166Code: GM }

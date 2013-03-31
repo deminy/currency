@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: FJD
+currencyNumber: '242'
+sign: $
+subunits: 100
+label: 'Fiji dollar'
+usage:
+    - { ISO8601From: '1969-01-13', ISO8601To: '', ISO3166Code: FJ }

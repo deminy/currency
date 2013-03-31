@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: DDM
+currencyNumber: '278'
+sign: M
+subunits: 100
+label: 'German Democratic Republican mark'
+usage:
+    - { ISO8601From: '1948-07-20', ISO8601To: '1990-10-02', ISO3166Code: DD }

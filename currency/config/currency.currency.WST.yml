@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: WST
+currencyNumber: '882'
+sign: WS$
+subunits: 100
+label: 'Samoan tala'
+usage:
+    - { ISO8601From: '1967-07-10', ISO8601To: '', ISO3166Code: WS }

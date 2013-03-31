@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: XTS
+currencyNumber: '963'
+sign: ¤
+subunits: 0
+label: 'Testing currency'
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }

@@ -116,14 +116,14 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
     if ($this->definition['currency_code_field']) {
       $currency_code = $this->get_value($values, 'currency_code_field');
       if ($currency_code) {
-        $currency = currency_load($currency_code);
+        $currency = entity_load('currency', $currency_code);
       }
     }
     if (!$currency) {
-      $currency = currency_load($this->definition['currency_code']);
+      $currency = entity_load('currency', $this->definition['currency_code']);
     }
     if (!$currency) {
-      $currency = currency_load('XXX');
+      $currency = entity_load('currency', 'XXX');
     }
     if (!$currency) {
       throw new RuntimeException(t('Could not load currency with ISO 4217 code XXX.'));

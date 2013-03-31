@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: XFU
+currencyNumber: Nil
+sign: ¤
+subunits: 0
+label: 'UIC franc'
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: ZZ }

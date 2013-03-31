@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: TND
+currencyNumber: '788'
+sign: د.ت
+subunits: 1000
+label: 'Tunisian dinar'
+usage:
+    - { ISO8601From: '1958-11-01', ISO8601To: '', ISO3166Code: TN }

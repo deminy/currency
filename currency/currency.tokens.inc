@@ -60,10 +60,9 @@ function currency_tokens($type, array $tokens, array $data = array(), array $opt
       unset($tokens['code']);
     }
     if ($tokens) {
-      ctools_include('export');
-      $currency = currency_load($data['currency']);
+      $currency = entity_load('currency', $data['currency']);
       $map = array(
-        'number' => 'ISO4217Number',
+        'number' => 'currencyNumber',
         'subunits' => 'subunits',
         'sign' => 'sign',
         'title' => 'title',

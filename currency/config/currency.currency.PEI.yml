@@ -1,0 +1,10 @@
+alternativeSigns: {  }
+exchangeRates:
+    PEH: '1000'
+currencyCode: PEI
+currencyNumber: null
+sign: I/.
+subunits: 100
+label: 'Peruvian inti'
+usage:
+    - { ISO8601From: '1985-02-01', ISO8601To: '1991-07-01', ISO3166Code: PE }

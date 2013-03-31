@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: MRO
+currencyNumber: '478'
+sign: UM
+subunits: 5
+label: 'Mauritanian ouguiya'
+usage:
+    - { ISO8601From: '1973-06-29', ISO8601To: '', ISO3166Code: MR }

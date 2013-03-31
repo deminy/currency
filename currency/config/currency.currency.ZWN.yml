@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates:
+    ZWD: '1000'
+currencyCode: ZWN
+currencyNumber: '942'
+sign: $
+subunits: 100
+label: 'Zimbabwean dollar'
+usage: {  }

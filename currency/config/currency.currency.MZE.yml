@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: MZE
+currencyNumber: null
+sign: ¤
+subunits: 100
+label: 'Mozambican escudo'
+usage:
+    - { ISO8601From: '1975-06-25', ISO8601To: '1980-06-16', ISO3166Code: MZ }

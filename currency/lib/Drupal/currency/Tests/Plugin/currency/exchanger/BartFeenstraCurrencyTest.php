@@ -7,12 +7,12 @@
 
 namespace Drupal\currency\Tests\Plugin\currency\exchanger;
 
-use Drupal\simpletest\DrupalUnitTestBase;
+use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests \Drupal\currency\Plugin\currency\exchanger\BartFeenstraCurrency.
  */
-class BartFeenstraCurrencyTest extends DrupalUnitTestBase {
+class BartFeenstraCurrencyTest extends WebTestBase {
 
   public static $modules = array('currency');
 

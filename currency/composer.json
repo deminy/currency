@@ -1,6 +1,5 @@
 {
   "require" : {
-    "bartfeenstra/cldr" : "1.x-dev",
-    "bartfeenstra/currency" : "1.x-dev"
+    "bartfeenstra/cldr" : "1.x-dev"
   }
 }

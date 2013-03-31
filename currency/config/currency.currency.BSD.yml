@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: BSD
+currencyNumber: '044'
+sign: $
+subunits: 100
+label: 'Bahamian dollar'
+usage:
+    - { ISO8601From: '1966-05-25', ISO8601To: '', ISO3166Code: BS }

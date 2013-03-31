@@ -5,6 +5,8 @@
  * Contains hook implementations and shared functions.
  */
 
+use Drupal\currency\Plugin\Core\Entity\Currency;
+
 /**
  * The database table's default update interval.
  */
@@ -106,7 +108,7 @@ function currency_exchange_rate_db_table_form_global_configuration(array $form, 
   $form['currency_exchange_rate_db_table_currency_codes_from'] = array(
     '#default_value' => variable_get('currency_exchange_rate_db_table_currency_codes_from', array()),
     '#multiple' => TRUE,
-    '#options' => currency_options(),
+    '#options' => Currency::options(),
     '#size' => 9,
     '#title' => t('Source currencies'),
     '#type' => 'select',
@@ -114,7 +116,7 @@ function currency_exchange_rate_db_table_form_global_configuration(array $form, 
   $form['currency_exchange_rate_db_table_currency_codes_to'] = array(
     '#default_value' => variable_get('currency_exchange_rate_db_table_currency_codes_to', array()),
     '#multiple' => TRUE,
-    '#options' => currency_options(),
+    '#options' => Currency::options(),
     '#size' => 9,
     '#title' => t('Destination currencies'),
     '#type' => 'select',

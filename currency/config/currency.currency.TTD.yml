@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: TTD
+currencyNumber: '780'
+sign: $
+subunits: 100
+label: 'Trinidadian dollar'
+usage:
+    - { ISO8601From: '1964-01-01', ISO8601To: '', ISO3166Code: TT }

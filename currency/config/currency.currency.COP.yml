@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: COP
+currencyNumber: '170'
+sign: $
+subunits: 100
+label: 'Colombian peso'
+usage:
+    - { ISO8601From: '1905-01-01', ISO8601To: '', ISO3166Code: CO }

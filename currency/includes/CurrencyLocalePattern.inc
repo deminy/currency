@@ -92,7 +92,7 @@ class CurrencyLocalePattern {
     }
 
     $formatted = $formatter->format($amount, $currency->sign);
-    $formatted = str_replace(array('[XXX]', '[999]'), array($currency->ISO4217Code, $currency->ISO4217Number), $formatted);
+    $formatted = str_replace(array('[XXX]', '[999]'), array($currency->ISO4217Code, $currency->currencyNumber), $formatted);
 
     return $formatted;
   }

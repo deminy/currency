@@ -1,0 +1,9 @@
+alternativeSigns: {  }
+exchangeRates: {  }
+currencyCode: ECV
+currencyNumber: '983'
+sign: ¤
+subunits: 0
+label: 'Ecuadorian Unidad de Valor Constante'
+usage:
+    - { ISO8601From: '', ISO8601To: '', ISO3166Code: EC }
