@@ -67,7 +67,7 @@ function currency_menu() {
     'page callback' => 'currency_currency_exchanger_fixed_rates_overview',
   );
   $items['admin/config/regional/currency-exchange/fixed/add'] = array(
-    'title' => 'Add a exchange rate',
+    'title' => 'Add an exchange rate',
     'access arguments' => array('currency.currency_exchanger.administer'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('currency_form_currency_exchanger_fixed_rates'),
@@ -867,7 +867,7 @@ function currency_currency_exchanger_fixed_rates_overview() {
   }
   if (!$rows) {
     $rows[] = array(array(
-      'data' => t('There are no exchange rates yet. <a href="@path">Add a exchange rate</a>.', array(
+      'data' => t('There are no exchange rates yet. <a href="@path">Add an exchange rate</a>.', array(
         '@path' => url('admin/config/regional/currency-exchange/fixed/add'),
       )),
       'colspan' => 4,
