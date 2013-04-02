@@ -23,7 +23,8 @@ class CurrencyBundle extends Bundle {
   public function build(ContainerBuilder $container) {
     $container->register('plugin.manager.currency.exchanger', 'Drupal\currency\Plugin\Type\ExchangerManager')
       ->addArgument('%container.namespaces%');
-    $container->register('currency.exchanger', 'Drupal\currency\Plugin\currency\exchanger\Delegator');
+    $container->register('currency.exchange_delegator', 'Drupal\currency\ExchangeDelegator')
+      ->addArgument(new Reference('plugin.manager.currency.exchanger'));
     $container->register('currency.locale_delegator', 'Drupal\currency\LocaleDelegator')
       ->addArgument(new Reference('language_manager'));
   }

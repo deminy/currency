@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Plugin\currency\exchanger\DelegatorTest.
+ * Contains class \Drupal\currency\Tests\ExchangeDelegatorTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\currency\exchanger;
+namespace Drupal\currency\Tests;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Plugin\currency\exchanger\Delegator.
+ * Tests \Drupal\currency\ExchangeDelegator.
  */
-class DelegatorTest extends WebTestBase {
+class ExchangeDelegatorTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -21,56 +21,47 @@ class DelegatorTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
-      'name' => 'Drupal\currency\Plugin\currency\exchanger\Delegator',
+      'name' => 'Drupal\currency\ExchangeDelegator',
       'group' => 'Currency',
     );
-  }
-
-  /**
-   * Gets the exchanger plugin.
-   *
-   * @return \Drupal\currency\Plugin\currency\exchanger\BartFeenstraCurrency
-   */
-  public function getPlugin() {
-    return drupal_container()->get('plugin.manager.currency.exchanger')->createInstance('currency_delegator');
   }
 
   /**
    * Tests saveConfiguration() and loadConfiguration().
    */
   public function testSaveConfiguration() {
+    $exchangeDelegator = drupal_container()->get('currency.exchange_delegator');
     $configuration = array(
       'currency_bartfeenstra_currency' => TRUE,
       'currency_fixed_rates' => TRUE,
       'foo' => FALSE,
     );
-    $plugin = $this->getPlugin();
-    $plugin->saveConfiguration($configuration);
-    $this->assertEqual($plugin->loadConfiguration(), $configuration);
+    $exchangeDelegator->saveConfiguration($configuration);
+    $this->assertEqual($exchangeDelegator->loadConfiguration(), $configuration);
   }
 
   /**
    * Tests load().
    */
   function testLoad() {
-    $plugin = $this->getPlugin();
+    $exchangeDelegator = drupal_container()->get('currency.exchange_delegator');
 
     // Test an available exchange rate.
-    $this->assertIdentical($plugin->load('EUR', 'NLG'), '2.20371');
+    $this->assertIdentical($exchangeDelegator->load('EUR', 'NLG'), '2.20371');
 
     // Test an unavailable exchange rate for which the reverse rate is
     // available.
-    $this->assertIdentical($plugin->load('NLG', 'EUR'), '0.453780216');
+    $this->assertIdentical($exchangeDelegator->load('NLG', 'EUR'), '0.453780216');
   }
 
   /**
    * Tests loadMultiple().
    */
   function testLoadMultiple() {
-    $plugin = $this->getPlugin();
+    $exchangeDelegator = drupal_container()->get('currency.exchange_delegator');
 
     // Test an available exchange rate.
-    $rates = $plugin->loadMultiple(array(
+    $rates = $exchangeDelegator->loadMultiple(array(
       'EUR' => array('NLG'),
     ));
     $this->assertTrue(isset($rates['EUR']));
@@ -79,7 +70,7 @@ class DelegatorTest extends WebTestBase {
 
     // Test an unavailable exchange rate for which the reverse rate is
     // available.
-    $rates = $plugin->loadMultiple(array(
+    $rates = $exchangeDelegator->loadMultiple(array(
       'NLG' => array('EUR'),
     ));
     $this->assertTrue(isset($rates['NLG']));

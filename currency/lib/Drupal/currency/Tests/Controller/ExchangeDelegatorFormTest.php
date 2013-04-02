@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Form\Exchanger\DelegatorFormTest.
+ * Contains \Drupal\currency\Tests\Controller\ExchangeDelegatorFormTest.
  */
 
-namespace Drupal\currency\Tests\Form\Exchanger;
+namespace Drupal\currency\Tests\Controller\Exchanger;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Form\Exchanger\DelegatorForm.
+ * Tests \Drupal\currency\Controller\ExchangeDelegatorForm.
  */
-class DelegatorFormTest extends WebTestBase {
+class ExchangeDelegatorFormTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -27,21 +27,12 @@ class DelegatorFormTest extends WebTestBase {
   }
 
   /**
-   * Gets the exchanger plugin.
-   *
-   * @return \Drupal\currency\Plugin\currency\exchanger\BartFeenstraCurrency
-   */
-  public function getPlugin() {
-    return drupal_container()->get('plugin.manager.currency.exchanger')->createInstance('currency_delegator');
-  }
-
-  /**
    * Test CurrencyExchanger's UI.
    */
   function testCurrencyExchangerUI() {
-    $plugin = $this->getPlugin();
+    $exchange_delegator = drupal_container()->get('currency.exchange_delegator');
 
-    $user = $this->drupalCreateUser(array('currency.exchanger.Delegator.administer'));
+    $user = $this->drupalCreateUser(array('currency.exchanger_delegator.administer'));
     $this->drupalLogin($user);
 
     // Test the default configuration.

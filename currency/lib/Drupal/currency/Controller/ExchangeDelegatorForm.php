@@ -2,50 +2,61 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Controller\Exchanger\DelegatorForm.
+ * Contains \Drupal\currency\Controller\ExchangeDelegatorForm.
  */
 
 namespace Drupal\currency\Controller\Exchanger;
 
+use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\ControllerInterface;
 use Drupal\Core\Form\FormInterface;
-use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\currency\ExchangeDelegator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides the currency_delegator exchanger configuration form.
+ * Provides the configuration form for \Drupal\currency\ExchangeDelegator.
  */
-class DelegatorForm implements FormInterface, ControllerInterface {
+class ExchangeDelegatorForm implements FormInterface, ControllerInterface {
+
+  /**
+   * A currency exchange delegator.
+   *
+   * @var \Drupal\currency\ExchangeDelegator
+   */
+  protected $exchangeDelegator;
 
   /**
    * A currency exchanger plugin manager.
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
-  protected $manager;
+  protected $pluginManager;
 
   /**
    * Constructor.
    *
+   * @param \Drupal\currency\ExchangeDelegator $exchangeDelegator
+   *   A currency exchange delegator.
    * @param \Drupal\Component\Plugin\PluginManagerInterface $manager
    *   A currency exchanger plugin manager.
    */
-  public function __construct(PluginManagerInterface $manager) {
-    $this->manager = $manager;
+  public function __construct(ExchangeDelegator $exchangeDelegator, PluginManagerInterface $pluginManager) {
+    $this->exchangeDelegator = $exchangeDelegator;
+    $this->pluginManager = $pluginManager;
   }
 
   /**
    * Implements \Drupal\Core\ControllerInterface::create().
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('plugin.manager.currency.exchanger'));
+    return new static($container->get('currency.exchange_delegator'), $container->get('plugin.manager.currency.exchanger'));
   }
 
   /**
    * Implements \Drupal\Core\Form\FormInterface::getFormID().
    */
   public function getFormID() {
-    return 'currency_exchanger_delegator';
+    return 'currency_delegator';
   }
 
   /**
@@ -53,8 +64,7 @@ class DelegatorForm implements FormInterface, ControllerInterface {
    */
   public function buildForm(array $form, array &$form_state) {
     $definitions = $this->manager->getDefinitions();
-    $delegator_plugin = $this->manager->createInstance('currency_delegator');
-    $configuration = $delegator_plugin->loadConfiguration();
+    $configuration = $this->exchangeDelegator->loadConfiguration();
 
     $form['exchangers'] = array(
       '#header' => array(t('Title'), t('Enabled'), t('Weight'), t('Operations')),
@@ -127,13 +137,12 @@ class DelegatorForm implements FormInterface, ControllerInterface {
    * Implements \Drupal\Core\Form\FormInterface::validateForm().
    */
   public function submitForm(array &$form, array &$form_state) {
-    $plugin = $this->manager->createInstance('currency_delegator');
     uasort($form_state['values']['exchangers'], 'drupal_sort_weight');
     $configuration = array();
     foreach ($form_state['values']['exchangers'] as $plugin_name => $exchanger_configuration) {
       $configuration[$plugin_name] = (bool) $exchanger_configuration['enabled'];
     }
-    $plugin->saveConfiguration($configuration);
+    $this->exchangeDelegator->saveConfiguration($configuration);
     drupal_set_message(t('The configuration options have been saved.'));
   }
 }

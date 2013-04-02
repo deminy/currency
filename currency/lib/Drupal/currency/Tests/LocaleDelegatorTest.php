@@ -11,7 +11,7 @@ use Drupal\currency\LocaleDelegator;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests class CurrencyLocalePattern.
+ * Tests class Drupal\currency\LocaleDelegator.
  */
 class LocaleDelegatorTest extends WebTestBase {
 
@@ -22,7 +22,7 @@ class LocaleDelegatorTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
-      'name' => 'Drupal\currency\Tests\LocaleDelegator',
+      'name' => 'Drupal\currency\LocaleDelegator',
       'group' => 'Currency',
     );
   }

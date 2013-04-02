@@ -7,7 +7,7 @@
 
 use BartFeenstra\Currency\AmountInvalidDecimalSeparatorException;
 use BartFeenstra\Currency\AmountNotNumericException;
-use BartFeenstra\Currency\Input;
+use Drupal\currency\Input;
 use Drupal\currency\Plugin\Core\Entity\Currency;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -28,7 +28,7 @@ define('CURRENCY_BCMATH_SCALE', 9);
 function currency_menu() {
   $items['admin/config/regional/currency-exchange'] = array(
     'description' => 'Configure how currency exchange rates should be retrieved.',
-    'route_name' => 'currency_exchanger_delegator_config',
+    'route_name' => 'currency_delegator_config',
     'title' => 'Currency exchange',
   );
   $items['admin/config/regional/currency-exchange/fixed'] = array(
@@ -119,7 +119,7 @@ function currency_permission() {
     'restrict access' => TRUE,
     'title' => t('Administer currency locale patterns'),
   );
-  $permissions['currency.exchanger.Delegator.administer'] = array(
+  $permissions['currency.exchanger_delegator.administer'] = array(
     'title' => t('Administer currency exchangers'),
   );
 
@@ -130,18 +130,18 @@ function currency_permission() {
  * Implements hook_filter_info().
  */
 function currency_filter_info() {
-  // Use "currency_exchange" as the machine name for backwards compatibility
-  // with Currency 7.x-1.x.
   $filters['currency_exchange'] = array(
     'process callback' => 'currency_filter_currency_exchange_process',
-    'title' => t('Currency exchange'),
     'tips callback' => 'currency_filter_currency_exchange_tips',
+    'title' => t('Currency exchange'),
+    'type' => FILTER_TYPE_MARKUP_LANGUAGE,
   );
   $filters['currency_localize'] = array(
     'cache' => FALSE,
     'process callback' => 'currency_filter_currency_localize_process',
     'tips callback' => 'currency_filter_currency_localize_tips',
     'title' => t('Currency amount formatting'),
+    'type' => FILTER_TYPE_MARKUP_LANGUAGE,
   );
 
   return $filters;
@@ -517,11 +517,9 @@ function _currency_filter_currency_exchange_process(array $matches) {
   $currency_code_to = $matches[2];
   $amount = str_replace(':', '', $matches[3]);
   if (strlen($amount) !== 0) {
-    try {
-      $amount = Input::parseAmount($amount);
-    }
+    $amount = Input::parseAmount($amount);
     // The amount is invalid, so return the token.
-    catch (Exception $e) {
+    if (!$amount) {
       return $matches[0];
     }
   }
@@ -530,7 +528,9 @@ function _currency_filter_currency_exchange_process(array $matches) {
     $amount = 1;
   }
 
-  if ($rate = CurrencyExchanger::load($currency_code_from, $currency_code_to)) {
+  $exchanger = drupal_container()->get('currency.exchange_delegator');
+  $rate = $exchanger->load($currency_code_from, $currency_code_to);
+  if ($rate) {
     return bcmul($amount, $rate, CURRENCY_BCMATH_SCALE);
   }
   // The filter failed, so return the token.
@@ -557,11 +557,9 @@ function currency_filter_currency_localize_process($text, $filter, $format, $lan
  */
 function _currency_filter_currency_localize_process(array $matches) {
   $currency_code = $matches[1];
-  try {
-    $amount = Input::parseAmount($matches[2]);
-  }
+  $amount = Input::parseAmount($matches[2]);
   // The amount is invalid, so return the token.
-  catch (Exception $e) {
+  if (!$amount) {
     return $matches[0];
   }
   $currency = entity_load('currency', $currency_code);

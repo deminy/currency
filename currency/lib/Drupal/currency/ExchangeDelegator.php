@@ -2,28 +2,34 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Plugin\currency\exchanger\Delegator.
+ * Contains \Drupal\currency\ExchangeDelegator.
  */
 
-namespace Drupal\currency\Plugin\currency\exchanger;
+namespace Drupal\currency;
 
-use Drupal\Component\Annotation\Plugin;
-use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Annotation\Translation;
+use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\currency\Exchanger\ExchangerInterface;
 
 /**
- * A currency exchanger that delegates its tasks to all other exchangers.
- *
- * @Plugin(
- *   id = "currency_delegator",
- *   label = @Translation("All exchangers"),
- *   operations = {
- *     "admin/config/regional/currency-exchange" = @Translation("configure"),
- *   }
- * )
+ * Delegates currency exchange to all currency exchanger plugins.
  */
-class Delegator extends PluginBase implements ExchangerInterface {
+class ExchangeDelegator implements ExchangerInterface {
+
+  /**
+   * A currency exchanger plugin manager.
+   *
+   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   */
+  protected $pluginManager = NULL;
+
+  /**
+   * Constructor.
+   *
+   * @param Drupal\Component\Plugin\PluginManagerInterface $pluginManager
+   */
+  function __construct(PluginManagerInterface $pluginManager) {
+    $this->pluginManager = $pluginManager;
+  }
 
   /**
    * Loads the configuration.
@@ -33,15 +39,8 @@ class Delegator extends PluginBase implements ExchangerInterface {
    *   describe whether the plugins are enabled. Items are ordered by weight.
    */
   public function loadConfiguration() {
-    // @todo Use dependency injection when http://drupal.org/node/1863816 is
-    // fixed.
-    $manager = drupal_container()->get('plugin.manager.currency.exchanger');
-    $definitions = $manager->getDefinitions();
-    $configuration = config('currency.exchanger.delegator')->get('exchangers') + array_fill_keys(array_keys($definitions), TRUE);
-    // Skip this plugin, because it can never delegate to itself. It should
-    // never be part of the configuration anyway. This unset() is just a
-    // fail-safe.
-    unset($configuration['currency_delegator']);
+    $definitions = $this->pluginManager->getDefinitions();
+    $configuration = config('currency.exchange_delegator')->get('exchangers') + array_fill_keys(array_keys($definitions), TRUE);
 
     return $configuration;
   }
@@ -56,7 +55,7 @@ class Delegator extends PluginBase implements ExchangerInterface {
    * @return NULL
    */
   public function saveConfiguration(array $configuration) {
-    $config = config('currency.exchanger.delegator');
+    $config = config('currency.exchange_delegator');
     $config->set('exchangers', $configuration);
     $config->save();
   }
@@ -67,13 +66,10 @@ class Delegator extends PluginBase implements ExchangerInterface {
    * @return array
    */
   public function loadExchangers() {
-    // @todo Use dependency injection when http://drupal.org/node/1863816 is
-    // fixed.
-    $manager = drupal_container()->get('plugin.manager.currency.exchanger');
     $names = array_keys(array_filter($this->loadConfiguration()));
     $plugins = array();
     foreach ($names as $name) {
-      $plugins[$name] = $manager->createInstance($name);
+      $plugins[$name] = $this->pluginManager->createInstance($name);
     }
 
     return $plugins;

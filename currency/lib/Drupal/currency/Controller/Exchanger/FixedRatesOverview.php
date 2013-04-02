@@ -56,7 +56,7 @@ class FixedRatesOverview implements ControllerInterface {
    *   A renderable array.
    */
   public function overview() {
-    $rates = $this->configFactory->get('currency.exchanger.fixed_rates')->get('rates');
+    $rates = $this->configFactory->get('currency.exchange_delegator.fixed_rates')->get('rates');
 
     $form['rates'] = array(
       '#empty' => t('There are no exchange rates yet. <a href="@path">Add an exchange rate</a>.', array(

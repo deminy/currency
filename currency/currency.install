@@ -23,7 +23,7 @@ function currency_requirements($phase) {
  * Upgrades \Drupal\currency\Plugin\currency\exchanger\Delegator configuration.
  */
 function currency_update_8300(array &$sandbox) {
-  update_variables_to_config('currency.exchanger.delegator', array(
+  update_variables_to_config('currency.exchange_delegator', array(
     'currency_exchanger' => 'exchangers',
   ));
 }
