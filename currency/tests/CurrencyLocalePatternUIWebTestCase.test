@@ -41,12 +41,11 @@ class CurrencyLocalePatternUIWebTestCase extends DrupalWebTestCase {
       'locale[locale][language_code]' => 'nl',
       'locale[locale][country_code]' => 'ZA',
       'pattern' => 'foo',
-      'symbol_decimal_separator' => '@',
-      'symbol_grouping_separator' => '#',
+      'decimalSeparator' => '@',
+      'groupingSeparator' => '#',
     );
     $this->drupalPost($path, $valid_values, t('Save'));
-    ctools_include('export');
-    $locale_pattern = ctools_export_crud_load('currency_locale_pattern', 'nl_ZA');
+    $locale_pattern = entity_load('currency_locale_pattern', 'nl_ZA');
     $this->assertTrue($locale_pattern);
   }
 }

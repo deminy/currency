@@ -13,11 +13,6 @@ use Drupal\currency\Plugin\Core\Entity\Currency;
 require_once __DIR__ . '/vendor/autoload.php';
 
 /**
- * The default locale.
- */
-define('CURRENCY_DEFAULT_LOCALE', 'en_US');
-
-/**
  * The value for the currency_sign form element's "custom" option.
  */
 define('CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE', '###CUSTOM###');
@@ -26,26 +21,6 @@ define('CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE', '###CUSTOM###');
  * The number of decimals for BCMath calculations.
  */
 define('CURRENCY_BCMATH_SCALE', 9);
-
-/**
- * Implements hook_hook_info().
- */
-function currency_hook_info() {
-  $hooks['currency_info'] = array(
-    'group' => 'currency',
-  );
-  $hooks['currency_info_alter'] = array(
-    'group' => 'currency',
-  );
-  $hooks['currency_locale_pattern_info'] = array(
-    'group' => 'currency',
-  );
-  $hooks['currency_locale_pattern_info_alter'] = array(
-    'group' => 'currency',
-  );
-
-  return $hooks;
-}
 
 /**
  * Implements hook_menu().

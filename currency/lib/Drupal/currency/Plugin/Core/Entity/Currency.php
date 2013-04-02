@@ -166,16 +166,13 @@ class Currency extends ConfigEntityBase {
    * Format an amount using this currency and the environment's default locale
    * pattern.
    *
-   * This is a wrapper for CurrencyLocalePattern::format() in situations where
-   * the environment's default locale pattern should be used.
-   *
    * @param string $amount
    *   A numeric string.
    *
    * @return string
    */
   function format($amount) {
-    return CurrencyLocalePattern::loadFromEnv()->format($this, $amount);
+    drupal_container()->get('currency.locale')->getLocalePattern()->format($this, $amount);
   }
 
   /**

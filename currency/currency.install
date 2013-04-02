@@ -5,54 +5,6 @@
  * Installation and uninstallation functionality.
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
-
-/**
- * Implements hook_schema().
- */
-function currency_schema() {
-  $schema['currency_locale_pattern'] = array(
-    'description' => 'Locale-specific amount formatting.',
-    'export' => array(
-      'key' => 'locale',
-      'key name' => 'Locale',
-      'default hook' => 'currency_locale_pattern_info',
-      'object' => 'CurrencyLocalePattern',
-    ),
-    'fields' => array(
-      'export_module' => array(
-        'type' => 'varchar',
-        'length' => 255,
-      ),
-      'export_type' => array(
-        'type' => 'int',
-        'length' => 'tiny',
-      ),
-      'locale' => array(
-        'type' => 'varchar',
-        'length' => 5,
-      ),
-      'pattern' => array(
-        'type' => 'varchar',
-        'length' => 255,
-      ),
-    ),
-    'primary key' => array('locale'),
-  );
-  // Set Ctools object defaults based on CurrencyLocalePattern's default
-  // values.
-  // Manually include the class' file, because the registry may not have been
-  // loaded yet.
-  require_once __DIR__ . '/includes/CurrencyLocalePattern.inc';
-  foreach (get_class_vars('CurrencyLocalePattern') as $property => $default_value) {
-    if (isset($schema['currency_locale_pattern']['fields'][$property])) {
-      $schema['currency_locale_pattern']['fields'][$property]['object default'] = $default_value;
-    }
-  }
-
-  return $schema;
-}
-
 /**
  * Implements hook_requirements().
  */
@@ -75,7 +27,6 @@ function currency_update_8300(array &$sandbox) {
     'currency_exchanger' => 'exchangers',
   ));
 }
-
 
 /**
  * Upgrades \Drupal\currency\Plugin\currency\exchanger\FixedRates
@@ -121,4 +72,32 @@ function currency_update_8302(array &$sandbox) {
     $currency->save();
   }
   db_drop_table('currency');
+}
+
+/**
+ * Upgrades currency locale patterns.
+ */
+function currency_update_8303(array &$sandbox) {
+  $currencies_data = db_select('currency_locale_pattern', 'clp')
+    ->fields('clp')
+    ->execute();
+  foreach ($locale_patterns_data as $locale_pattern_data) {
+    // Create a locale pattern entity, or alter an existing one with the same
+    // locale.
+    $locale_pattern = entity_load('currency_locale_pattern', $locale_pattern_data->locale);
+    if (!$locale_pattern) {
+      $locale_pattern = entity_create('currency_locale_pattern');
+      $locale_pattern->locale = $locale_pattern_data->locale;
+    }
+
+    // Update the entity with the old data.
+    $locale_pattern->pattern = $currency_data->pattern;
+    $currency->decimalSeparator = $currency_data->symbol_decimal_separator;
+    $currency->groupingSeparator = $currency_data->symbol_grouping_separator;
+    $currency->sign = $currency_data->sign;
+    $currency->subunits = $currency_data->subunits;
+
+    $currency->save();
+  }
+  db_drop_table('currency_locale_pattern');
 }

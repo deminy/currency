@@ -9,6 +9,7 @@ namespace Drupal\currency;
 
 use Drupal\Core\Cache\CacheFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -23,5 +24,7 @@ class CurrencyBundle extends Bundle {
     $container->register('plugin.manager.currency.exchanger', 'Drupal\currency\Plugin\Type\ExchangerManager')
       ->addArgument('%container.namespaces%');
     $container->register('currency.exchanger', 'Drupal\currency\Plugin\currency\exchanger\Delegator');
+    $container->register('currency.locale_delegator', 'Drupal\currency\LocaleDelegator')
+      ->addArgument(new Reference('language_manager'));
   }
 }

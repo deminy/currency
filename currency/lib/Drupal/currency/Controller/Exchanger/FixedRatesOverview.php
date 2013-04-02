@@ -9,6 +9,7 @@ namespace Drupal\currency\Controller\Exchanger;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\ControllerInterface;
+use Drupal\currency\LocaleDelegator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,20 +25,28 @@ class FixedRatesOverview implements ControllerInterface {
   protected $configFacory;
 
   /**
+   * A locale delegator.
+   *
+   * @var \Drupal\currency\LocaleDelegator
+   */
+  protected $localeDelegator;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactory $configFactory
    *   The config factory.
    */
-  public function __construct(ConfigFactory $configFactory) {
+  public function __construct(ConfigFactory $configFactory, LocaleDelegator $localeDelegator) {
     $this->configFactory = $configFactory;
+    $this->localeDelegator = $localeDelegator;
   }
 
   /**
    * Implements \Drupal\Core\ControllerInterface::create().
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('config.factory'));
+    return new static($container->get('config.factory'), $container->get('currency.locale_delegator'));
   }
 
   /**
@@ -58,7 +67,6 @@ class FixedRatesOverview implements ControllerInterface {
     );
     foreach ($rates as $currency_code_from => $currency_codes_to) {
       foreach ($currency_codes_to as $currency_code_to => $rate) {
-        // @todo Use formatted rates.
         $currency_from = entity_load('currency', $currency_code_from);
         $currency_to = entity_load('currency', $currency_code_to);
         $row['currency_from'] = array(
@@ -74,7 +82,7 @@ class FixedRatesOverview implements ControllerInterface {
           '#type' => 'item',
         );
         $row['rate'] = array(
-          '#markup' => $rate,
+          '#markup' => $this->localeDelegator->getLocalePattern()->format($currency_to, $rate),
           '#title' => t('Exchange rate'),
           '#title_display' => 'invisible',
           '#type' => 'item',
