@@ -2,30 +2,29 @@
 
 /**
  * @file
- * Contains class CurrencyWebTestCase.
+ * Contains class \Drupal\currency\Tests\Plugin\Core\Entity\CurrencyTest.
  */
 
+namespace Drupal\currency\Tests\Plugin\Core\Entity;
+
+use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\simpletest\WebTestBase;
+
 /**
- * Tests class Currency.
+ * Tests class Drupal\currency\Plugin\Core\Entity\Currency.
  */
-class CurrencyWebTestCase extends DrupalWebTestCase {
+class CurrencyTest extends WebTestBase {
+
+  public static $modules = array('currency');
 
   /**
    * Implements DrupalTestCase::getInfo().
    */
   static function getInfo() {
     return array(
-      'name' => 'Currency',
+      'name' => 'Drupal\currency\Plugin\Core\Entity\Currency',
       'group' => 'Currency',
     );
-  }
-
-  /**
-   * Overides parent::setUp().
-   */
-  function setUp(array $modules = array()) {
-    $this->profile = 'testing';
-    parent::setUp($modules + array('currency'));
   }
 
   /**
@@ -46,5 +45,20 @@ class CurrencyWebTestCase extends DrupalWebTestCase {
     $currency = entity_load('currency', 'JPY');
     $this->assertTrue($currency->roundAmount('12.34'), '12.340');
     $this->assertTrue($currency->roundAmount('1234.5678'), '1234.568');
+  }
+
+  /**
+   * Tests getDecimals().
+   */
+  function testGetDecimals() {
+    $currencies = array(
+      'MGA' => 1,
+      'EUR' => 2,
+      'JPY' => 3,
+    );
+    foreach ($currencies as $currency_code => $decimals) {
+      $currency = entity_load('currency', $currency_code);
+      $this->assertEqual($currency->getDecimals(), $decimals);
+    }
   }
 }
