@@ -30,17 +30,19 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
-  protected $manager;
+  protected $pluginManager;
 
   /**
    * Constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactory $configFactory
    *   The config factory.
+   * @param \Drupal\Component\Plugin\PluginManagerInterface $pluginManager
+   *   The currency exchanger plugin manager.
    */
-  public function __construct(ConfigFactory $configFactory, PluginManagerInterface $manager) {
+  public function __construct(ConfigFactory $configFactory, PluginManagerInterface $pluginManager) {
     $this->configFactory = $configFactory;
-    $this->manager = $manager;
+    $this->pluginManager = $pluginManager;
   }
 
   /**
@@ -61,7 +63,7 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
    * Implements \Drupal\Core\Form\FormInterface::buildForm().
    */
   public function buildForm(array $form, array &$form_state, $currency_code_from = NULL, $currency_code_to = NULL) {
-    $plugin = $this->manager->createInstance('currency_fixed_rates');
+    $plugin = $this->pluginManager->createInstance('currency_fixed_rates');
     $rate = $currency_code_from && $currency_code_to ? $plugin->load($currency_code_from, $currency_code_to) : NULL;
 
     $options = Currency::options();
@@ -120,23 +122,24 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
    * Implements \Drupal\Core\Form\FormInterface::validateForm().
    */
   public function submitForm(array &$form, array &$form_state) {
+    $plugin = $this->pluginManager->createInstance('currency_fixed_rates');
     $values = $form_state['values'];
     $currency_from = entity_load('currency', $values['currency_code_from']);
     $currency_to = entity_load('currency', $values['currency_code_to']);
 
     switch ($form_state['triggering_element']['#name']) {
       case 'save':
-        CurrencyExchangerFixedRates::save($currency_from->ISO4217Code, $currency_to->ISO4217Code, $values['rate']['amount']);
+        $plugin->save($currency_from->currencyCode, $currency_to->currencyCode, $values['rate']['amount']);
         drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been saved.', array(
-          '@currency_title_from' => $currency_from->translateTitle(),
-          '@currency_title_to' => $currency_to->translateTitle(),
+          '@currency_title_from' => $currency_from->label(),
+          '@currency_title_to' => $currency_to->label(),
         )));
         break;
       case 'delete':
-        CurrencyExchangerFixedRates::delete($currency_from->ISO4217Code, $currency_to->ISO4217Code);
+        $plugin->delete($currency_from->currencyCode, $currency_to->currencyCode);
         drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been deleted.', array(
-          '@currency_title_from' => $currency_from->translateTitle(),
-          '@currency_title_to' => $currency_to->translateTitle(),
+          '@currency_title_from' => $currency_from->label(),
+          '@currency_title_to' => $currency_to->label(),
         )));
         break;
     }
