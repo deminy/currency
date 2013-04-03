@@ -43,7 +43,7 @@ function currency_menu() {
     'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/regional/currency-exchange/fixed/%currency_form_currency_exchanger_fixed_rates/%'] = array(
-    'title' => 'Configure a exchange rate',
+    'title' => 'Configure an exchange rate',
     'access arguments' => array('currency.currency_exchanger.administer'),
     'load arguments' => array(6),
     'page callback' => 'drupal_get_form',
@@ -121,6 +121,9 @@ function currency_permission() {
   );
   $permissions['currency.exchanger_delegator.administer'] = array(
     'title' => t('Administer currency exchangers'),
+  );
+  $permissions['currency.exchanger_fixed_rates.administer'] = array(
+    'title' => t('Administer fixed exchange rates'),
   );
 
   return $permissions;

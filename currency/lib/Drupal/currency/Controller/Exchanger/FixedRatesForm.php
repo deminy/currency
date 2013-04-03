@@ -7,6 +7,7 @@
 
 namespace Drupal\currency\Controller\Exchanger;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\ControllerInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
@@ -62,22 +63,24 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
   /**
    * Implements \Drupal\Core\Form\FormInterface::buildForm().
    */
-  public function buildForm(array $form, array &$form_state, $currency_code_from = NULL, $currency_code_to = NULL) {
+  public function buildForm(array $form, array &$form_state, $currency_code_from = 'XXX', $currency_code_to = 'XXX') {
     $plugin = $this->pluginManager->createInstance('currency_fixed_rates');
-    $rate = $currency_code_from && $currency_code_to ? $plugin->load($currency_code_from, $currency_code_to) : NULL;
+    $rate = $plugin->load($currency_code_from, $currency_code_to);
 
     $options = Currency::options();
     $form['currency_code_from'] = array(
-      '#default_value' => isset($options[$currency_code_from]) ? $currency_code_from : 'XXX',
-      '#disabled' => !is_null($rate),
+      '#default_value' => $currency_code_from,
+      '#disabled' => !is_null($rate) && $currency_code_from != 'XXX',
+      '#empty_value' => 'XXX',
       '#options' => $options,
       '#required' => TRUE,
       '#title' => t('Source currency'),
       '#type' => 'select',
     );
     $form['currency_code_to'] = array(
-      '#default_value' => isset($options[$currency_code_to]) ? $currency_code_to : 'XXX',
-      '#disabled' => !is_null($rate),
+      '#default_value' => $currency_code_to,
+      '#disabled' => !is_null($rate) && $currency_code_to != 'XXX',
+      '#empty_value' => 'XXX',
       '#options' => $options,
       '#required' => TRUE,
       '#title' => t('Source currency'),
@@ -85,7 +88,9 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
     );
     $form['rate'] = array(
       '#currency_code' => 'XXX',
-      '#default_value' => $rate,
+      '#default_value' => array(
+        'amount' => $rate,
+      ),
       '#required' => TRUE,
       '#title' => t('Conversion rate'),
       '#type' => 'currency_amount',

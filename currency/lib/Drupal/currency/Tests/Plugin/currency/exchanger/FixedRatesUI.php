@@ -2,37 +2,37 @@
 
 /**
  * @file
- * Contains class CurrencyExchangerFixedRatesUIWebTestCase.
+ * Contains class \Drupal\currency\Tests\Plugin\currency\exchanger\FixedRatesUI.
  */
 
+namespace Drupal\currency\Tests\Plugin\currency\exchanger;
+
+use Drupal\simpletest\WebTestBase;
+
 /**
- * Tests the UI for CurrencyExchangerFixedRates.
+ * Tests \Drupal\currency\Plugin\currency\exchanger\FixedRates.
  */
-class CurrencyExchangerFixedRatesUIWebTestCase extends DrupalWebTestCase {
+class FixedRatesUI extends WebTestBase {
+
+  public static $modules = array('currency');
 
   /**
    * Implements DrupalTestCase::getInfo().
    */
   static function getInfo() {
     return array(
-      'name' => 'CurrencyExchangerFixedRates UI',
+      'name' => 'Drupal\currency\Plugin\currency\exchanger\FixedRates UI',
       'group' => 'Currency',
     );
-  }
-
-  /**
-   * Overrides parent::setUp().
-   */
-  function setUp(array $modules = array()) {
-    $this->profile = 'testing';
-    parent::setUp($modules + array('currency'));
   }
 
   /**
    * Test CurrencyExchanger's UI.
    */
   function testCurrencyExchangerFixedRatesUI() {
-    $user = $this->drupalCreateUser(array('currency.currency_exchanger.administer'));
+    $plugin = drupal_container()->get('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
+
+    $user = $this->drupalCreateUser(array('currency.exchanger_fixed_rates.administer'));
     $this->drupalLogin($user);
     $path = 'admin/config/regional/currency-exchange/fixed';
 
@@ -51,7 +51,7 @@ class CurrencyExchangerFixedRatesUIWebTestCase extends DrupalWebTestCase {
       'rate[amount]' => $rate,
     );
     $this->drupalPost($path . '/add', $values, t('Save'));
-    $this->assertIdentical(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
+    $this->assertIdentical($plugin->load($currency_code_from, $currency_code_to), $rate);
 
     // Test editing a exchange rate.
     $rate = '6';
@@ -60,11 +60,11 @@ class CurrencyExchangerFixedRatesUIWebTestCase extends DrupalWebTestCase {
     );
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
     drupal_static_reset('CurrencyExchangerFixedRates');
-    $this->assertIdentical(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to), $rate);
+    $this->assertIdentical($plugin->load($currency_code_from, $currency_code_to), $rate);
 
     // Test deleting a exchange rate.
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));
     drupal_static_reset('CurrencyExchangerFixedRates');
-    $this->assertFalse(CurrencyExchangerFixedRates::load($currency_code_from, $currency_code_to));
+    $this->assertFalse($plugin->load($currency_code_from, $currency_code_to));
   }
 }
