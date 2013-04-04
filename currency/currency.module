@@ -518,7 +518,7 @@ function _currency_filter_currency_exchange_process(array $matches) {
     $amount = 1;
   }
 
-  $exchanger = drupal_container()->get('currency.exchange_delegator');
+  $exchanger = \Drupal::service('currency.exchange_delegator');
   $rate = $exchanger->load($currency_code_from, $currency_code_to);
   if ($rate) {
     return bcmul($amount, $rate, CURRENCY_BCMATH_SCALE);
@@ -578,7 +578,7 @@ function currency_filter_currency_localize_tips($filter, $format, $long) {
  *   The source currency code if the rate could be found, FALSE if it couldn't.
  */
 function currency_form_currency_exchanger_fixed_rates_load($currency_code_from, $currency_code_to) {
-  $plugin = drupal_container()->get('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
+  $plugin = \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
   $rate = $plugin->load($currency_code_from, $currency_code_to);
 
   return $rate !== FALSE ? $currency_code_from : FALSE;

@@ -31,7 +31,7 @@ class LocaleDelegatorTest extends WebTestBase {
    * Tests getCountryCode().
    */
   function testGetCountryCode() {
-    $delegator = drupal_container()->get('currency.locale_delegator');
+    $delegator = \Drupal::service('currency.locale_delegator');
 
     // Test getting the default.
     $this->assertEqual($delegator->getCountryCode(), NULL);
@@ -45,7 +45,7 @@ class LocaleDelegatorTest extends WebTestBase {
    * Tests getLocalePattern().
    */
   function testGetLocalePattern() {
-    $delegator = drupal_container()->get('currency.locale_delegator');
+    $delegator = \Drupal::service('currency.locale_delegator');
 
     // Test loading the fallback locale.
     $locale_pattern = $delegator->getLocalePattern();

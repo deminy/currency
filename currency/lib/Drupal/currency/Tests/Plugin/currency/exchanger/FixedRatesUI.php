@@ -30,7 +30,7 @@ class FixedRatesUI extends WebTestBase {
    * Test CurrencyExchanger's UI.
    */
   function testCurrencyExchangerFixedRatesUI() {
-    $plugin = drupal_container()->get('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
+    $plugin = \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
 
     $user = $this->drupalCreateUser(array('currency.exchanger_fixed_rates.administer'));
     $this->drupalLogin($user);

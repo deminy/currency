@@ -32,7 +32,7 @@ class BartFeenstraCurrencyTest extends WebTestBase {
    * @return \Drupal\currency\Plugin\currency\exchanger\BartFeenstraCurrency
    */
   public function getPlugin() {
-    return drupal_container()->get('plugin.manager.currency.exchanger')->createInstance('currency_bartfeenstra_currency');
+    return \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_bartfeenstra_currency');
   }
 
   /**

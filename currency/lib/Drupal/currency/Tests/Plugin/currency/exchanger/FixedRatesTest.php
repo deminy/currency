@@ -32,7 +32,7 @@ class FixedRatesTest extends WebTestBase {
    * @return \Drupal\currency\Plugin\currency\exchanger\FixedRates
    */
   public function getPlugin() {
-    return drupal_container()->get('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
+    return \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
   }
 
   /**

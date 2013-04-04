@@ -172,7 +172,7 @@ class Currency extends ConfigEntityBase {
    * @return string
    */
   function format($amount) {
-    return drupal_container()->get('currency.locale_delegator')->getLocalePattern()->format($this, $amount);
+    return \Drupal::service('currency.locale_delegator')->getLocalePattern()->format($this, $amount);
   }
 
   /**

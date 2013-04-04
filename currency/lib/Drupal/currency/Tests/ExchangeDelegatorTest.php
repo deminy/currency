@@ -30,7 +30,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    * Tests saveConfiguration() and loadConfiguration().
    */
   public function testSaveConfiguration() {
-    $exchangeDelegator = drupal_container()->get('currency.exchange_delegator');
+    $exchangeDelegator = \Drupal::service('currency.exchange_delegator');
     $configuration = array(
       'currency_bartfeenstra_currency' => TRUE,
       'currency_fixed_rates' => TRUE,
@@ -44,7 +44,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    * Tests load().
    */
   function testLoad() {
-    $exchangeDelegator = drupal_container()->get('currency.exchange_delegator');
+    $exchangeDelegator = \Drupal::service('currency.exchange_delegator');
 
     // Test an available exchange rate.
     $this->assertIdentical($exchangeDelegator->load('EUR', 'NLG'), '2.20371');
@@ -58,7 +58,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    * Tests loadMultiple().
    */
   function testLoadMultiple() {
-    $exchangeDelegator = drupal_container()->get('currency.exchange_delegator');
+    $exchangeDelegator = \Drupal::service('currency.exchange_delegator');
 
     // Test an available exchange rate.
     $rates = $exchangeDelegator->loadMultiple(array(
