@@ -5,8 +5,6 @@
  * Provides currency information and allows users to add custom currencies.
  */
 
-use BartFeenstra\Currency\AmountInvalidDecimalSeparatorException;
-use BartFeenstra\Currency\AmountNotNumericException;
 use Drupal\currency\Input;
 use Drupal\currency\Plugin\Core\Entity\Currency;
 
@@ -220,16 +218,12 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
   $amount = $value['amount'];
   $currency_code = isset($value['currency_code']) ? $value['currency_code'] : $element['#currency_code'];
 
-  try {
-    $amount = Input::parseAmount($amount);
-  }
-  catch (AmountInvalidDecimalSeparatorException $e) {
-    form_error($element['amount'], t('The amount can only have no or one decimal separator and it must be one of %decimal_separators.', array(
-     '%decimal_separators' => implode(Input::$decimalSeparators),
+  // Confirm that the amount is numeric.
+  $amount = Input::parseAmount($amount);
+  if ($amount === FALSE) {
+    form_error($element['amount'], t('%title is not numeric.', array(
+      '%title' => $element['#title'],
     )));
-  }
-  catch (AmountNotNumericException $e) {
-    form_error($element['amount'], t('The amount can only consist of a minus sign, decimals and one decimal mark.'));
   }
 
   // Confirm the amount lies within the allowed range.
