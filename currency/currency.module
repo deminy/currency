@@ -156,16 +156,15 @@ function currency_filter_info() {
 function currency_form_currency_amount_process(array $element, array &$form_state, array &$form) {
   // Validate element configuration.
   if ($element['#minimum_amount'] !== FALSE && !is_numeric($element['#minimum_amount'])) {
-    throw new Exception(t('The minimum amount must be a decimal number.'));
+    throw new RuntimeException('The minimum amount must be a decimal number.');
   }
   if ($element['#maximum_amount'] !== FALSE && !is_numeric($element['#maximum_amount'])) {
-    throw new Exception(t('The maximum amount must be a decimal number.'));
+    throw new RuntimeException('The maximum amount must be a decimal number.');
   }
-  $currency = FALSE;
-  if ($element['#currency_code'] !== FALSE) {
+  if ($element['#currency_code']) {
     $currency = entity_load('currency', $element['#currency_code']);
     if (!$currency) {
-      throw new Exception(t('A valid ISO 4217 currency code needs to be set.'));
+      throw new RuntimeException('A valid ISO 4217 currency code needs to be set.');
     }
   }
   else {
@@ -259,17 +258,12 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
  * Implements form process callback for a currency_sign element.
  */
 function currency_form_currency_sign_process(array $element, array &$form_state, array &$form) {
-  $currency = FALSE;
-  $currency = new Currency();
+  $currency = NULL;
   if ($element['#currency_code']) {
-    try {
-      $currency->resourceLoad($element['#currency_code']);
-    }
-    catch (Exception $e) {
-    }
+    $currency = entity_load('currency', $element['#currency_code']);
   }
   if (!$currency) {
-    $currency->resourceLoad('XXX');
+    $currency = entity_load('currency', 'XXX');
   }
 
   // Modify the element.
@@ -333,8 +327,7 @@ function currency_form_currency_sign_validate(array $element, array &$form_state
  * Implements form process callback for a currency_locale element.
  */
 function currency_form_currency_locale_process(array $element, array &$form_state, array &$form) {
-  require_once DRUPAL_ROOT . '/includes/iso.inc';
-  require_once DRUPAL_ROOT . '/includes/locale.inc';
+  require_once DRUPAL_ROOT . '/core/includes/standard.inc';
 
   $locale_language_code = isset($element['#default_value']) ? substr($element['#default_value'], 0, 2) : '';
   $locale_country_code = isset($element['#default_value']) ? substr($element['#default_value'], 3) : '';
@@ -348,10 +341,10 @@ function currency_form_currency_locale_process(array $element, array &$form_stat
   );
 
   $options = array();
-  foreach (_locale_get_predefined_list() as $language_code => $language_data) {
-    $options[$language_code] = $language_data[0];
+  foreach (standard_language_list() as $language_code => $language_names) {
+    $options[$language_code] = $language_names[0];
   }
-  asort($options);
+  natcasesort($options);
   $element['locale']['language_code'] = array(
     '#default_value' => $locale_language_code,
     '#empty_value' => '',

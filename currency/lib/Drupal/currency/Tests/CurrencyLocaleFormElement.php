@@ -2,13 +2,19 @@
 
 /**
  * @file
- * Contains class CurrencyAmountFormElementWebTestCase.
+ * Contains class \Drupal\currency\Tests\CurrencyLocaleFormElement.
  */
 
+namespace Drupal\currency\Tests;
+
+use Drupal\simpletest\WebTestBase;
+
 /**
- * Tests the currency_amount form element.
+ * Tests the currency_locale form element.
  */
-class CurrencyLocaleFormElementWebTestCase extends DrupalWebTestCase {
+class CurrencyLocaleFormElement extends WebTestBase {
+
+  public static $modules = array('currency_test');
 
   /**
    * Implements DrupalTestCase::getInfo().
@@ -18,14 +24,6 @@ class CurrencyLocaleFormElementWebTestCase extends DrupalWebTestCase {
       'name' => 'currency_locale form element',
       'group' => 'Currency',
     );
-  }
-
-  /**
-   * Overrides parent::setUp().
-   */
-  function setUp(array $modules = array()) {
-    $this->profile = 'testing';
-    parent::setUp($modules + array('currency_test'));
   }
 
   /**
@@ -40,7 +38,6 @@ class CurrencyLocaleFormElementWebTestCase extends DrupalWebTestCase {
       'locale[locale][country_code]' => 'ZA',
     );
     $this->drupalPost($path, $values, t('Submit'));
-    $this->assertUrl('user');
     $this->assertRaw("\$form_state['locale'] = " . var_export('nl_ZA', TRUE));
   }
 }

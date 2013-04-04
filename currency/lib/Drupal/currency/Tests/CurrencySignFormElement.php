@@ -2,13 +2,19 @@
 
 /**
  * @file
- * Contains class CurrencySignFormElementWebTestCase.
+ * Contains class \Drupal\currency\Tests\CurrencySignFormElement.
  */
 
+namespace Drupal\currency\Tests;
+
+use Drupal\simpletest\WebTestBase;
+
 /**
- * Tests the currency_amount form element.
+ * Tests the currency_sign form element.
  */
-class CurrencySignFormElementWebTestCase extends DrupalWebTestCase {
+class CurrencySignFormElement extends WebTestBase {
+
+  public static $modules = array('currency_test');
 
   /**
    * Implements DrupalTestCase::getInfo().
@@ -18,14 +24,6 @@ class CurrencySignFormElementWebTestCase extends DrupalWebTestCase {
       'name' => 'currency_sign form element',
       'group' => 'Currency',
     );
-  }
-
-  /**
-   * Overrides parent::setUp().
-   */
-  function setUp(array $modules = array()) {
-    $this->profile = 'testing';
-    parent::setUp($modules + array('currency_test'));
   }
 
   /**
@@ -39,16 +37,14 @@ class CurrencySignFormElementWebTestCase extends DrupalWebTestCase {
       'sign[sign]' => '',
     );
     $this->drupalPost($path, $values, t('Submit'));
-    $this->assertUrl('user');
     $this->assertRaw("\$form_state['sign'] = ''");
 
     // Test a suggested sign.
     $values =  array(
-      'sign[sign]' => '¤',
+      'sign[sign]' => '€',
     );
-    $this->drupalPost($path, $values, t('Submit'));
-    $this->assertUrl('user');
-    $this->assertRaw("\$form_state['sign'] = '¤'");
+    $this->drupalPost($path . '/EUR', $values, t('Submit'));
+    $this->assertRaw("\$form_state['sign'] = '€'");
 
     // Test a custom sign.
     $values =  array(
@@ -56,22 +52,19 @@ class CurrencySignFormElementWebTestCase extends DrupalWebTestCase {
       'sign[sign_custom]' => 'foobar',
     );
     $this->drupalPost($path, $values, t('Submit'));
-    $this->assertUrl('user');
     $this->assertRaw("\$form_state['sign'] = 'foobar'");
     $this->drupalGet($path . '//foobar');
-    $this->assertRaw('<option value="' . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . '" selected="selected">');
     $this->assertRaw('<option value="' . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . '" selected="selected">');
     // Check if the sign element is set to a custom value.
     $this->assertFieldByXPath("//select[@name='sign[sign]']/option[@value='" . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . "' and @selected='selected']");
     // Check if the custom sign input element has the custom sign as its value.
     $this->assertFieldByXPath("//input[@name='sign[sign_custom]' and @value='foobar']");
 
-    // Test a custom currency.
+    // Test a non-existing currency.
     $values =  array(
       'sign[sign]' => '',
     );
     $this->drupalPost($path . '/ZZZ', $values, t('Submit'));
-    $this->assertUrl('user');
     $this->assertRaw("\$form_state['sign'] = ''");
   }
 }

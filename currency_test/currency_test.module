@@ -95,8 +95,6 @@ function currency_test_form_currency_sign(array $form, array &$form_state, $curr
  * Implements form submit callback for testing the submission of form elements.
  */
 function currency_test_form_submit(array $form, array &$form_state) {
-  // Redirect, so we can test whether form errors were thrown.
-  $form_state['redirect'] = 'user';
   // Display the form element value, so we can test if it is processed.
   foreach ($form_state['values'] as $name => $value) {
     drupal_set_message("\$form_state['$name'] = " . var_export($value, TRUE));
