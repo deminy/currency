@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Controller\ExchangeDelegatorForm.
  */
 
-namespace Drupal\currency\Controller\Exchanger;
+namespace Drupal\currency\Controller;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\ControllerInterface;
@@ -63,7 +63,7 @@ class ExchangeDelegatorForm implements FormInterface, ControllerInterface {
    * Implements \Drupal\Core\Form\FormInterface::buildForm().
    */
   public function buildForm(array $form, array &$form_state) {
-    $definitions = $this->manager->getDefinitions();
+    $definitions = $this->pluginManager->getDefinitions();
     $configuration = $this->exchangeDelegator->loadConfiguration();
 
     $form['exchangers'] = array(
@@ -74,7 +74,7 @@ class ExchangeDelegatorForm implements FormInterface, ControllerInterface {
     $weight = 0;
     foreach ($configuration as $plugin_name => $enabled) {
       $weight++;
-      $plugin = $this->manager->createInstance($plugin_name);
+      $plugin = $this->pluginManager->createInstance($plugin_name);
       $plugin_definition = $definitions[$plugin_name];
 
       $form['exchangers'][$plugin_name] = array(

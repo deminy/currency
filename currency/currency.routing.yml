@@ -1,7 +1,7 @@
 currency_delegator_config:
   pattern: '/admin/config/regional/currency-exchange'
   defaults:
-    _form: '\Drupal\currency\Controller\Exchanger\DelegatorForm'
+    _form: '\Drupal\currency\Controller\ExchangeDelegatorForm'
   requirements:
     _permission: 'currency.exchanger_delegator.administer'
 currency_exchanger_fixed_rates_overview:

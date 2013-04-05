@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Tests\Controller\ExchangeDelegatorFormTest.
  */
 
-namespace Drupal\currency\Tests\Controller\Exchanger;
+namespace Drupal\currency\Tests\Controller;
 
 use Drupal\simpletest\WebTestBase;
 
@@ -21,7 +21,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
-      'name' => 'Drupal\currency\Form\Exchanger\DelegatorForm',
+      'name' => 'Drupal\currency\Controller\ExchangeDelegatorForm',
       'group' => 'Currency',
     );
   }
@@ -39,7 +39,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
     $this->assertEqual(array(
       'currency_fixed_rates' => TRUE,
       'currency_bartfeenstra_currency' => TRUE,
-    ), $plugin->loadConfiguration());
+    ), $exchange_delegator->loadConfiguration());
     // Test overridden configuration.
     $path = 'admin/config/regional/currency-exchange';
     $values = array(
@@ -49,6 +49,6 @@ class ExchangeDelegatorFormTest extends WebTestBase {
     $this->assertEqual(array(
       'currency_fixed_rates' => FALSE,
       'currency_bartfeenstra_currency' => TRUE,
-    ), $plugin->loadConfiguration());
+    ), $exchange_delegator->loadConfiguration());
   }
 }
