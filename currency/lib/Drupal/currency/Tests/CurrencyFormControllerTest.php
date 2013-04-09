@@ -2,45 +2,43 @@
 
 /**
  * @file
- * Contains class CurrencyUIWebTestCase.
+ * Contains class \Drupal\currency\Tests\CurrencyFormControllerTest.
  */
 
+namespace Drupal\currency\Tests;
+
+use Drupal\simpletest\WebTestBase;
+
 /**
- * Tests the Ctools exportables UI for Currency exportables.
+ * Tests the currency UI.
  */
-class CurrencyUIWebTestCase extends DrupalWebTestCase {
+class CurrencyFormControllerTest extends WebTestBase {
+
+  public static $modules = array('currency');
 
   /**
    * Implements DrupalTestCase::getInfo().
    */
   static function getInfo() {
     return array(
-      'name' => 'Currency UI',
+      'name' => 'Drupal\currency\CurrencyFormController',
       'group' => 'Currency',
     );
   }
 
   /**
-   * Overrides parent::setUp().
+   * Test Currency's UI.
    */
-  function setUp(array $modules = array()) {
-    $this->profile = 'testing';
-    parent::setUp($modules + array('currency'));
-  }
-
-  /**
-   * Test Currency's exportables UI.
-   */
-  function testCurrencyExportablesUI() {
-    $user = $this->drupalCreateUser(array('currency.currency.administer'));
+  function testUI() {
+    $user = $this->drupalCreateUser(array('currency.currency.view', 'currency.currency.create', 'currency.currency.update', 'currency.currency.delete'));
     $this->drupalLogin($user);
     $path = 'admin/config/regional/currency/add';
 
     // Test valid values.
     $valid_values = array(
-      'ISO4217Code' => 'ABC',
-      'currencyNumber' => '123',
-      'title' => 'foo',
+      'currency_code' => 'ABC',
+      'currency_number' => '123',
+      'label' => 'foo',
       'rounding_step' => '1',
       'sign[sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
       'sign[sign_custom]' => 'foobar',
@@ -51,10 +49,10 @@ class CurrencyUIWebTestCase extends DrupalWebTestCase {
     $this->assertTrue($currency);
 
     // Test invalid values.
-    $valid_values['ISO4217Code'] = 'XYZ';
+    $valid_values['currency_code'] = 'XYZ';
     $invalid_values =  array(
-      'ISO4217Code' => 'EUR',
-      'currencyNumber' => 'abc',
+      'currency_code' => 'EUR',
+      'currency_number' => 'abc',
       'rounding_step' => 'x',
       'subunits' => 'x',
     );

@@ -15,6 +15,7 @@ use Drupal\Core\Annotation\Translation;
  * Defines a currency entity class.
  *
  * @Plugin(
+ *   access_controller_class = "Drupal\currency\CurrencyAccessController",
  *   config_prefix = "currency.currency",
  *   controller_class = "Drupal\currency\CurrencyStorageController",
  *   entity_keys = {
@@ -24,10 +25,13 @@ use Drupal\Core\Annotation\Translation;
  *     "status" = "status"
  *   },
  *   fieldable = FALSE,
+ *   form_controller_class = {
+ *     "default" = "Drupal\currency\CurrencyFormController"
+ *   },
  *   id = "currency",
  *   label = @Translation("Currency"),
- *   module = "currency",
- *   translatable = TRUE
+ *   list_controller_class = "Drupal\currency\CurrencyListController",
+ *   module = "currency"
  * )
  */
 class Currency extends ConfigEntityBase {
@@ -119,6 +123,21 @@ class Currency extends ConfigEntityBase {
    */
   public function id() {
     return isset($this->currencyCode) ? $this->currencyCode : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  function uri() {
+    $uri = array(
+      'options' => array(
+        'entity' => $this,
+        'entity_type' => $this->entityType,
+      ),
+      'path' => 'admin/config/regional/currency/' . $this->id(),
+    );
+
+    return $uri;
   }
 
   /**

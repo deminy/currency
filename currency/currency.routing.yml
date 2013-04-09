@@ -22,3 +22,47 @@ currency_exchanger_fixed_rates_edit:
     _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
+currency_entity_list:
+  pattern: '/admin/config/regional/currency'
+  defaults:
+    _content: '\Drupal\currency\Controller\CurrencyUI::listing'
+  requirements:
+    _permission: 'currency.currency.view'
+currency_currency_add:
+  pattern: '/admin/config/regional/currency/add'
+  defaults:
+    _content: '\Drupal\currency\Controller\CurrencyUI::add'
+  requirements:
+    _permission: 'currency.currency.create'
+currency_currency_edit:
+  pattern: '/admin/config/regional/currency/{currency}/edit'
+  converters:
+    currency: 'currency'
+  defaults:
+    _content: '\Drupal\currency\Controller\CurrencyUI::edit'
+  requirements:
+    _permission: 'currency.currency.update'
+currency_currency_delete:
+  pattern: '/admin/config/regional/currency/{currency}/delete'
+  converters:
+    currency: 'currency'
+  defaults:
+    _form: '\Drupal\currency\Controller\CurrencyDeleteForm'
+  requirements:
+    _permission: 'currency.currency.delete'
+currency_currency_enable:
+  pattern: '/admin/config/regional/currency/{currency}/enable'
+  converters:
+    currency: 'currency'
+  defaults:
+    _controller: '\Drupal\currency\Controller\CurrencyUI::enable'
+  requirements:
+    _permission: 'currency.currency.update'
+currency_currency_disable:
+  pattern: '/admin/config/regional/currency/{currency}/disable'
+  converters:
+    currency: 'currency'
+  defaults:
+    _controller: '\Drupal\currency\Controller\CurrencyUI::disable'
+  requirements:
+    _permission: 'currency.currency.update'

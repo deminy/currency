@@ -24,6 +24,21 @@ define('CURRENCY_BCMATH_SCALE', 9);
  * Implements hook_menu().
  */
 function currency_menu() {
+  $items['admin/config/regional/currency/add'] = array(
+    'route_name' => 'currency_currency_add',
+    'title' => 'Add a currency',
+    'type' => MENU_LOCAL_ACTION,
+  );
+  $items['admin/config/regional/currency/%/edit'] = array(
+    'route_name' => 'currency_currency_edit',
+    'title' => 'Edit a currency',
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/config/regional/currency/%/delete'] = array(
+    'route_name' => 'currency_currency_delete',
+    'title' => 'Delete a currency',
+    'type' => MENU_CALLBACK,
+  );
   $items['admin/config/regional/currency-exchange'] = array(
     'description' => 'Configure how currency exchange rates should be retrieved.',
     'route_name' => 'currency_delegator_config',
@@ -46,20 +61,6 @@ function currency_menu() {
     'load arguments' => array(6),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('currency_form_currency_exchanger_fixed_rates', 5, 6),
-    'type' => MENU_CALLBACK,
-  );
-  $items['admin/config/regional/currency/list/%currency/translate'] = array(
-    'title' => 'Translate',
-    'access arguments' => array('currency.currency.administer'),
-    'page callback' => 'i18n_string_object_translate_page',
-    'page arguments' => array('currency', 5),
-    'type' => MENU_LOCAL_TASK,
-  );
-  $items['admin/config/regional/currency/list/%currency/translate/%i18n_language'] = array(
-    'title' => 'Translate',
-    'access arguments' => array('currency.currency.administer'),
-    'page callback' => 'i18n_string_object_translate_page',
-    'page arguments' => array('currency', 5, 8),
     'type' => MENU_CALLBACK,
   );
 
@@ -122,6 +123,18 @@ function currency_permission() {
   );
   $permissions['currency.exchanger_fixed_rates.administer'] = array(
     'title' => t('Administer fixed exchange rates'),
+  );
+  $permissions['currency.currency.view'] = array(
+    'title' => t('View currencies'),
+  );
+  $permissions['currency.currency.create'] = array(
+    'title' => t('Add new currencies'),
+  );
+  $permissions['currency.currency.update'] = array(
+    'title' => t('Edit currencies'),
+  );
+  $permissions['currency.currency.delete'] = array(
+    'title' => t('Delete currencies'),
   );
 
   return $permissions;
@@ -371,60 +384,6 @@ function currency_form_currency_locale_validate(array $element, array &$form_sta
 /**
  * Implements Ctools exportable UI edit form callback.
  */
-function currency_form_currency(array &$form, array &$form_state) {
-  $currency = $form_state['item'];
-
-  $form['info']['ISO4217Code']['#description'] = '';
-  $form['info']['ISO4217Code']['#element_validate'] = array('currency_form_element_validate_iso_4217_code');
-  $form['info']['ISO4217Code']['#maxlength'] = 3;
-  $form['info']['ISO4217Code']['#size'] = 3;
-
-  $form['currencyNumber'] = array(
-    '#default_value' => $currency->currencyNumber,
-    '#element_validate' => array('currency_form_element_validate_iso_4217_number'),
-    '#maxlength' => 3,
-    '#title' => t('ISO 4217 number'),
-    '#type' => 'textfield',
-    '#size' => 3,
-  );
-
-  $form['title'] = array(
-    '#default_value' => $currency->title,
-    '#maxlength' => 255,
-    '#required' => TRUE,
-    '#title' => t('Title'),
-    '#type' => 'textfield',
-  );
-
-  $form['sign'] = array(
-    '#currency_code' => $currency->ISO4217Code,
-    '#default_value' => $currency->sign,
-    '#title' => t('Sign'),
-    '#type' => 'currency_sign',
-  );
-
-  $form['subunits'] = array(
-    '#default_value' => $currency->subunits,
-    '#element_validate' => array('element_validate_number'),
-    '#required' => TRUE,
-    '#size' => 3,
-    '#title' => t('Number of subunits'),
-    '#type' => 'textfield',
-  );
-
-  $form['rounding_step'] = array(
-    '#default_value' => $currency->roundingStep,
-    '#element_validate' => array('element_validate_number'),
-    '#required' => TRUE,
-    '#size' => 5,
-    '#title' => t('Rounding step'),
-    '#type' => 'textfield',
-  );
-}
-
-/**
- * Implements Ctools exportable UI edit form callback.
- */
 function currency_form_currency_locale_pattern(array &$form, array &$form_state) {
   require_once DRUPAL_ROOT . '/includes/iso.inc';
 
@@ -475,7 +434,7 @@ function currency_form_element_validate_iso_4217_code(array $element, array $for
     $currency = entity_load('currency', $currency_code);
     if ($currency) {
       form_error($element, t('The currency code is already in use by !link.', array(
-        '!link' => l($currency->translateTitle(), "admin/config/regional/currency/currency/list/$currency->ISO4217Code/edit"),
+        '!link' => l($currency->label(), "admin/config/regional/currency/$currency->currencyCode/edit"),
       )));
     }
   }
