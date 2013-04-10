@@ -2,13 +2,19 @@
 
 /**
  * @file
- * Contains class CurrencyExchangeRateDBTableModuleInstallUninstall.
+ * Contains class \Drupal\currency_exchange_rate_db_table\Tests\ModuleInstallUninstall.
  */
 
+namespace Drupal\currency_exchange_rate_db_table\Tests;
+
+use Drupal\simpletest\WebTestBase;
+
 /**
- * Tests installing and uninstalling the module.
+ * Tests module installation and uninstallation.
  */
-class CurrencyExchangeRateDBTableModuleInstallUninstall extends DrupalWebTestCase {
+class ModuleInstallUninstall extends WebTestBase {
+
+  public static $modules = array('currency_exchange_rate_db_table');
 
   /**
    * Implements DrupalTestCase::getInfo().
@@ -21,20 +27,12 @@ class CurrencyExchangeRateDBTableModuleInstallUninstall extends DrupalWebTestCas
   }
 
   /**
-   * Overrides parent::setUp().
-   */
-  function setUp(array $modules = array()) {
-    $this->profile = 'testing';
-    parent::setUp($modules + array('currency_exchange_rate_db_table'));
-  }
-
-  /**
    * Test uninstall.
    */
-  function testUninstalla() {
+  function testUninstallation() {
     $this->assertTrue(module_exists('currency_exchange_rate_db_table'));
     module_disable(array('currency_exchange_rate_db_table'));
-    drupal_uninstall_modules(array('currency_exchange_rate_db_table'));
+    module_uninstall(array('currency_exchange_rate_db_table'));
     $this->assertFalse(module_exists('currency_exchange_rate_db_table'));
   }
 }
