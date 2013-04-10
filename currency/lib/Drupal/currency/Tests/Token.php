@@ -2,30 +2,28 @@
 
 /**
  * @file
- * Contains class CurrencyTokenWebTestCase.
+ * Contains class \Drupal\currency\Tests\Token.
  */
+
+namespace Drupal\currency\Tests;
+
+use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests Token integration.
+ * Tests token integration.
  */
-class CurrencyTokenWebTestCase extends DrupalWebTestCase {
+class Token extends WebTestBase {
+
+  public static $modules = array('currency');
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * Overrides parent::getInfo().
    */
   static function getInfo() {
     return array(
       'name' => 'Token integration',
       'group' => 'Currency',
     );
-  }
-
-  /**
-   * Overrides parent::setUp().
-   */
-  function setUp(array $modules = array()) {
-    $this->profile = 'testing';
-    parent::setUp($modules + array('currency'));
   }
 
   /**
