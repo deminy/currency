@@ -24,6 +24,10 @@ define('CURRENCY_BCMATH_SCALE', 9);
  * Implements hook_menu().
  */
 function currency_menu() {
+  $items['admin/config/regional/currency'] = array(
+    'route_name' => 'currency_currency_list',
+    'title' => 'Currencies',
+  );
   $items['admin/config/regional/currency/add'] = array(
     'route_name' => 'currency_currency_add',
     'title' => 'Add a currency',

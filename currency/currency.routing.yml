@@ -22,7 +22,7 @@ currency_exchanger_fixed_rates_edit:
     _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
-currency_entity_list:
+currency_currency_list:
   pattern: '/admin/config/regional/currency'
   defaults:
     _content: '\Drupal\currency\Controller\CurrencyUI::listing'
