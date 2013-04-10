@@ -26,8 +26,12 @@ use Drupal\currency\Plugin\Core\Entity\Currency;
  *     "status" = "status"
  *   },
  *   fieldable = FALSE,
+ *   form_controller_class = {
+ *     "default" = "Drupal\currency\CurrencyLocalePatternFormController"
+ *   },
  *   id = "currency_locale_pattern",
  *   label = @Translation("Currency locale pattern"),
+ *   list_controller_class = "Drupal\currency\CurrencyLocalePatternListController",
  *   module = "currency"
  * )
  */
@@ -65,13 +69,6 @@ class CurrencyLocalePattern extends ConfigEntityBase {
   public $pattern = NULL;
 
   /**
-   * Whether the locale pattern is enabled.
-   *
-   * @var string
-   */
-  public $status = NULL;
-
-  /**
    * The UUID for this entity.
    *
    * @var string
@@ -83,6 +80,39 @@ class CurrencyLocalePattern extends ConfigEntityBase {
    */
   public function id() {
     return isset($this->locale) ? $this->locale : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function label($langcode = NULL) {
+    require_once DRUPAL_ROOT . '/core/includes/standard.inc';
+
+    list($language_code, $country_code) = explode('_', $this->locale);
+    $languages = standard_language_list();
+    $countries = country_get_list();
+
+    return t('@language (@country)', array(
+      '@language' => isset($languages[$language_code]) ? $languages[$language_code][0] : $language_code,
+      '@country' => isset($countries[$country_code]) ? $countries[$country_code] : $country_code,
+    ), array(
+      'langcode' => $langcode,
+    ));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  function uri() {
+    $uri = array(
+      'options' => array(
+        'entity' => $this,
+        'entity_type' => $this->entityType,
+      ),
+      'path' => 'admin/config/regional/currency_locale_pattern/' . $this->id(),
+    );
+
+    return $uri;
   }
 
   /**

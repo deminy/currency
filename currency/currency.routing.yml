@@ -1,3 +1,4 @@
+# Currency exchangers.
 currency_delegator_config:
   pattern: '/admin/config/regional/currency-exchange'
   defaults:
@@ -22,6 +23,8 @@ currency_exchanger_fixed_rates_edit:
     _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
+
+# Currency entities.
 currency_currency_list:
   pattern: '/admin/config/regional/currency'
   defaults:
@@ -66,3 +69,29 @@ currency_currency_disable:
     _controller: '\Drupal\currency\Controller\CurrencyUI::disable'
   requirements:
     _permission: 'currency.currency.update'
+
+# Currency locale pattern entities.
+currency_locale_pattern_list:
+  pattern: '/admin/config/regional/currency_locale_pattern'
+  defaults:
+    _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::listing'
+  requirements:
+    _permission: 'currency.currency_locale_pattern.view'
+currency_locale_pattern_add:
+  pattern: '/admin/config/regional/currency_locale_pattern/add'
+  defaults:
+    _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::add'
+  requirements:
+    _permission: 'currency.currency_locale_pattern.create'
+currency_locale_pattern_edit:
+  pattern: '/admin/config/regional/currency_locale_pattern/{currency_locale_pattern}/edit'
+  defaults:
+    _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::edit'
+  requirements:
+    _permission: 'currency.currency_locale_pattern.update'
+currency_locale_pattern_delete:
+  pattern: '/admin/config/regional/currency_locale_pattern/{currency_locale_pattern}/delete'
+  defaults:
+    _form: '\Drupal\currency\Controller\CurrencyLocalePatternDeleteForm'
+  requirements:
+    _permission: 'currency.currency_locale_pattern.delete'
