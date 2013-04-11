@@ -5,4 +5,5 @@ currencyNumber: null
 sign: ₤
 subunits: 100
 label: 'Vatican lira'
-usage: {  }
+usage:
+    - { usageFrom: '1929', usageTo: '2002', countryCode: VA }

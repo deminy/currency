@@ -1,5 +1,6 @@
 alternativeSigns: {  }
-exchangeRates: {  }
+exchangeRates:
+    VAL: '1'
 currencyCode: ITL
 currencyNumber: '380'
 sign: ₤

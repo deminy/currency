@@ -5,4 +5,5 @@ currencyNumber: null
 sign: $
 subunits: 100
 label: 'Dominion of Newfoundland dollar'
-usage: {  }
+usage:
+    - { usageFrom: '1865', usageTo: '', countryCode: '' }

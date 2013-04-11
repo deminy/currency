@@ -6,4 +6,4 @@ sign: ¤
 subunits: null
 label: 'Belgian financial franc'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: BE }
+    - { usageFrom: '', usageTo: '2001-12-31', countryCode: BE }
