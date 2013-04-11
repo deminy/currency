@@ -68,7 +68,7 @@ function currency_exchange_rate_db_table_refresh() {
   $currency_codes_from = variable_get('currency_exchange_rate_db_table_currency_codes_from', array());
   $currency_codes_to = variable_get('currency_exchange_rate_db_table_currency_codes_to', array());
   $currency_codes = array_fill_keys($currency_codes_from, $currency_codes_to);
-  $rates = CurrencyExchanger::loadMultiple($currency_codes);
+  $rates = \Drupal::service('currency.exchange_delegator')->loadMultiple($currency_codes);
   $delete_query = db_delete('currency_exchange_rate_db_table');
   foreach ($rates as $currency_code_from => $currency_code_from_rates) {
     // Prevent unavailable rates from being saved.

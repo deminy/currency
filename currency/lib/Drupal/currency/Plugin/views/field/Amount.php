@@ -2,67 +2,77 @@
 
 /**
  * @file
- * Contains class CurrencyAmountViewsHandlerField.
+ * Contains \Drupal\currency\Plugin\views\field\Amount.
  */
+
+namespace Drupal\currency\Plugin\views\field;
+
+use Drupal\Component\Annotation\Plugin;
+use Drupal\views\Plugin\views\field\FieldPluginBase;
 
 /**
  * A Views field handler for currency amounts.
  *
- * This handler has two definition properties, that function identically to and
- * provide default values for the handler's options:
+ * This handler has two definition properties:
  * - currency_code
  * - currency_code_field
  * - currency_code_table
- *   See $this->option_definition() for a detailed explanation.
+ * See $self::defaultDefinition() for a detailed explanation.
+ *
+ * @ingroup views_field_handlers
+ *
+ * @Plugin(
+ *   id = "currency_amount"
+ * )
  */
-class CurrencyAmountViewsHandlerField extends views_handler_field {
+class Amount extends FieldPluginBase {
 
   /**
-   * Implements the undocumented views_object::definition property.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public $definition = array(
-    // A default currency code to use for the amounts.
-    'currency_code' => 'XXX',
-    // The name of the database field the currency code is in.
-    'currency_code_field' => NULL,
-    // The name of the database table currency_field is in. Defaults to the
-    // same table this handler is used on.
-    'currency_code_table' => NULL,
-  );
-
-  /**
-   * Overrides parent::set_definition().
-   */
-  function set_definition($definition) {
-    $this->definition = array_merge($this->definition, $definition);
-    if (isset($definition['field'])) {
-      $this->real_field = $definition['field'];
-    }
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->definition += $this->defaultDefinition();
   }
 
   /**
-   * Overrides parent::query().
+   * Returns default definition values.
+   *
+   * @return array
+   */
+  function defaultDefinition() {
+    return array(
+      // A default currency code to use for the amounts.
+      'currency_code' => 'XXX',
+      // The name of the database field the currency code is in.
+      'currency_code_field' => NULL,
+      // The name of the database table currency_field is in. Defaults to the
+      // same table this handler is used on.
+      'currency_code_table' => NULL,
+    );
+  }
+
+  /**
+   * {@inheritdoc}
    */
   function query() {
-    $this->ensure_my_table();
+    $this->ensureMyTable();
     if ($this->definition['currency_code_field']) {
       $this->additional_fields['currency_code_field'] = array(
         'field' => $this->definition['currency_code_field'],
-        'table' => $this->definition['currency_code_table'] ? $this->definition['currency_code_table'] : $this->table_alias,
+        'table' => $this->definition['currency_code_table'] ? $this->definition['currency_code_table'] : $this->tableAlias,
       );
     }
     parent::query();
   }
 
   /**
-   * Overrides parent::option_definition().
+   * {@inheritdoc}
    *
    * @var array
    */
-  function option_definition() {
-    $options = parent::option_definition();
+  function defineOptions() {
+    $options = parent::defineOptions();
 
     // Whether to round amounts.
     $options['currency_round'] = array(
@@ -73,10 +83,10 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
   }
 
   /**
-   * Overrides parent::options_form().
+   * {@inheritdoc}
    */
-  function options_form(&$form, &$form_state) {
-    parent::options_form($form, $form_state);
+  function buildOptionsForm(&$form, &$form_state) {
+    parent::buildOptionsForm($form, $form_state);
 
     $form['currency_round'] = array(
       '#type' => 'checkbox',
@@ -86,9 +96,7 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
   }
 
   /**
-   * Overrides parent::render().
-   *
-   * @throws RuntimeException
+   * {@inheritdoc}
    */
   function render($values) {
     $currency = $this->getCurrency($values);
@@ -110,7 +118,7 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
    *
    * @return Currency
    */
-  function getCurrency(stdClass $values) {
+  function getCurrency(\stdClass $values) {
     $currency = NULL;
 
     if ($this->definition['currency_code_field']) {
@@ -133,7 +141,7 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
   }
 
   /**
-   * Gets this field's.
+   * Gets this field's amount.
    *
    * If the amount cannot be fetched from your implementation's database field
    * as a numeric string, you should override this method so it returns a
@@ -145,7 +153,7 @@ class CurrencyAmountViewsHandlerField extends views_handler_field {
    * @return string
    *   A numeric string.
    */
-  function getAmount(stdClass $values) {
+  function getAmount(\stdClass $values) {
     return $this->get_value($values);
   }
 }
