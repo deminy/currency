@@ -43,10 +43,12 @@ class CurrencyFormControllerTest extends WebTestBase {
       'sign[sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
       'sign[sign_custom]' => 'foobar',
       'subunits' => 2,
+      'status' => FALSE,
     );
     $this->drupalPost($path, $valid_values, t('Save'));
     $currency = entity_load('currency', 'ABC');
     $this->assertTrue($currency);
+    $this->assertFalse($currency->status());
 
     // Test invalid values.
     $valid_values['currency_code'] = 'XYZ';

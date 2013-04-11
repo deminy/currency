@@ -31,6 +31,7 @@ class CurrencyFormController extends EntityFormController {
     $currency->sign = $values['sign'];
     $currency->subunits = $values['subunits'];
     $currency->roundingStep = $values['rounding_step'];
+    $currency->setStatus($values['status']);
 
     return $currency;
   }
@@ -65,6 +66,12 @@ class CurrencyFormController extends EntityFormController {
       '#size' => 3,
       '#title' => t('ISO 4217 number'),
       '#type' => 'textfield',
+    );
+
+    $form['status'] = array(
+      '#default_value' => $currency->status(),
+      '#title' => t('Enabled'),
+      '#type' => 'checkbox',
     );
 
     $form['label'] = array(
