@@ -31,6 +31,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    */
   public function testSaveConfiguration() {
     $exchangeDelegator = \Drupal::service('currency.exchange_delegator');
+
     $configuration = array(
       'currency_bartfeenstra_currency' => TRUE,
       'currency_fixed_rates' => TRUE,
