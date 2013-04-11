@@ -171,10 +171,13 @@ class Currency extends ConfigEntityBase {
   public static function options() {
     $options = array();
     foreach (entity_load_multiple('currency') as $currency) {
-      $options[$currency->currencyCode] = t('@currency_title (@currency_code)', array(
-        '@currency_title' => $currency->label(),
-        '@currency_code' => $currency->currencyCode,
-      ));
+      // Do not show disabled currencies.
+      if ($currency->status()) {
+        $options[$currency->currencyCode] = t('@currency_title (@currency_code)', array(
+          '@currency_title' => $currency->label(),
+          '@currency_code' => $currency->currencyCode,
+        ));
+      }
     }
     natcasesort($options);
 
