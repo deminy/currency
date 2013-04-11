@@ -8,6 +8,7 @@
 namespace Drupal\currency\Tests\Plugin\Core\Entity;
 
 use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\currency\Usage;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -60,5 +61,28 @@ class CurrencyTest extends WebTestBase {
       $currency = entity_load('currency', $currency_code);
       $this->assertEqual($currency->getDecimals(), $decimals);
     }
+  }
+
+  /**
+   * Tests isObsolete().
+   */
+  function testIsObsolete() {
+    // A currency without usage data.
+    $currency = new Currency(array(), 'currency');
+    $this->assertFalse($currency->isObsolete());
+
+    // A currency that is no longer being used.
+    $currency->usage[] = new Usage(array(
+      'usageFrom' => '1813-01-01',
+      'usageTo' => '2002-02-28',
+    ));
+    $this->assertTrue($currency->isObsolete());
+
+    // A currency that will become obsolete next year.
+    $currency->usage[] = new Usage(array(
+      'usageFrom' => '1813-01-01',
+      'usageTo' => date('o') + 1 . '-02-28',
+    ));
+    $this->assertFalse($currency->isObsolete());
   }
 }

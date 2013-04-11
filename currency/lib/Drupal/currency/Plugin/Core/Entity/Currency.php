@@ -229,4 +229,37 @@ class Currency extends ConfigEntityBase {
 
     return bcmul(round(bcdiv($amount, $rounding_step, CURRENCY_BCMATH_SCALE)), $rounding_step, $decimals);
   }
+
+  /**
+   * Checks if the currency is no longer used in the world.
+   *
+   * @param int $reference
+   *   A Unix timestamp to check the currency's usage for. Defaults to now.
+   *
+   * @return bool|null
+   */
+  function isObsolete($reference = NULL) {
+    // Without usage information, we cannot know if the currency is obsolete.
+    if (!$this->usage) {
+      return FALSE;
+    }
+
+    // Default to the current date and time.
+    if (is_null($reference)) {
+      $reference = time();
+    }
+
+    // Mark the currency obsolete if all usages have an end date before that
+    // comes before $reference.
+    $obsolete = 0;
+    foreach ($this->usage as $usage) {
+      if ($usage->usageTo) {
+        $to = strtotime($usage->usageTo);
+        if ($to !== FALSE && $to < $reference) {
+          $obsolete++;
+        }
+      }
+    }
+    return $obsolete == count($this->usage);
+  }
 }

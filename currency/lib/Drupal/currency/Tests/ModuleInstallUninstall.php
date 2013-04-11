@@ -35,4 +35,20 @@ class ModuleInstallUninstall extends WebTestBase {
     module_uninstall(array('currency'));
     $this->assertFalse(module_exists('currency'));
   }
+
+  /**
+   * Test configuration import.
+   */
+  function testConfigImport() {
+    // The Dutch guilder was replaced by the Belgian franc, the euro, and the
+    // Surinamese guilder. This means it is obsolete and should be disabled by
+    // default.
+    $currency = entity_load('currency', 'NLG');
+    $this->assertFalse($currency->status());
+
+    // The euro is still in use in most countries and should be enabled by
+    // default.
+    $currency = entity_load('currency', 'EUR');
+    $this->assertTrue($currency->status());
+  }
 }
