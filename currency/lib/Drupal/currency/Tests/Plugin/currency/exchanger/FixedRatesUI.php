@@ -29,7 +29,7 @@ class FixedRatesUI extends WebTestBase {
   /**
    * Test CurrencyExchanger's UI.
    */
-  function testCurrencyExchangerFixedRatesUI() {
+  function testUI() {
     $plugin = \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
 
     $user = $this->drupalCreateUser(array('currency.exchanger_fixed_rates.administer'));
@@ -59,12 +59,10 @@ class FixedRatesUI extends WebTestBase {
       'rate[amount]' => $rate,
     );
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
-    drupal_static_reset('CurrencyExchangerFixedRates');
     $this->assertIdentical($plugin->load($currency_code_from, $currency_code_to), $rate);
 
     // Test deleting a exchange rate.
     $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));
-    drupal_static_reset('CurrencyExchangerFixedRates');
     $this->assertFalse($plugin->load($currency_code_from, $currency_code_to));
   }
 }

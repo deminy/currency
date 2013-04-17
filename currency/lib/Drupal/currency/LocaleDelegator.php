@@ -8,6 +8,7 @@
 namespace Drupal\currency;
 
 use Drupal\Core\Language\LanguageManager;
+use Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern;
 
 /**
  * 
@@ -34,6 +35,13 @@ class LocaleDelegator {
   protected $languageManager = NULL;
 
   /**
+   * The locale pattern to use.
+   *
+   * @var Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
+   */
+  protected $localePattern;
+
+  /**
    * Constructor.
    *
    * @param Drupal\Core\Language\LanguageManager $language_manager
@@ -43,9 +51,19 @@ class LocaleDelegator {
   }
 
   /**
-   * Loads a single CurrencyLocalePattern based on environment variables.
+   * Sets the locale pattern to use.
    *
-   * If no country code is set using self::setCountryCode(), the
+   * @param $locale_pattern \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
+   */
+  function setLocalePattern(CurrencyLocalePattern $locale_pattern) {
+    return $this->localePattern = $locale_pattern;
+  }
+
+  /**
+   * Loads the locale pattern to use.
+   *
+   * If no locale pattern was explicitly set, it will load one based on the
+   * environment. If no country code is set using self::setCountryCode(), the
    * "site_default_country" system variable will be used instead. If a
    * CurrencyLocalePattern could not be loaded using these country sources and
    * $language->language, the locale pattern for en_US will be loaded. This is
@@ -53,12 +71,11 @@ class LocaleDelegator {
    *
    * @throws RuntimeException
    *
-   * @return CurrencyLocalePattern
+   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
    */
   function getLocalePattern() {
-    $locale_pattern = &drupal_static(__CLASS__);
-
-    if (is_null($locale_pattern)) {
+    if (is_null($this->localePattern)) {
+      $locale_pattern = NULL;
       $language_code = $this->languageManager->getLanguage(LANGUAGE_TYPE_CONTENT)->langcode;
 
       // Try this request's country code.
@@ -77,14 +94,17 @@ class LocaleDelegator {
         $locale_pattern = entity_load('currency_locale_pattern', $this::DEFAULT_LOCALE);
       }
 
-      if (!$locale_pattern) {
+      if ($locale_pattern) {
+        $this->setLocalePattern($locale_pattern);
+      }
+      else {
         throw new \RuntimeException(t('The locale pattern for !default_locale could not be loaded.', array(
           '!default_locale' => $this::DEFAULT_LOCALE,
         )));
       }
     }
 
-    return $locale_pattern;
+    return $this->localePattern;
   }
 
   /**
@@ -94,7 +114,7 @@ class LocaleDelegator {
    * @return null
    */
   function resetLocalePattern() {
-    drupal_static_reset(__CLASS__);
+    $this->localePattern = NULL;
   }
 
   /**
