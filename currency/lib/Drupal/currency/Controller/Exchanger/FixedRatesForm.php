@@ -83,7 +83,7 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
       '#empty_value' => 'XXX',
       '#options' => $options,
       '#required' => TRUE,
-      '#title' => t('Source currency'),
+      '#title' => t('Destination currency'),
       '#type' => 'select',
     );
     $form['rate'] = array(

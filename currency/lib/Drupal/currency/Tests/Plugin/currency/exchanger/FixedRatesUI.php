@@ -41,7 +41,7 @@ class FixedRatesUI extends WebTestBase {
     $this->assertText(t('Add an exchange rate'));
 
     $currency_code_from = 'EUR';
-    $currency_code_to = 'NLG';
+    $currency_code_to = 'UAH';
 
     // Test adding a exchange rate.
     $rate = '3';
