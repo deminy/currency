@@ -35,6 +35,7 @@ display:
           field: amount_currency_code_definition
           id: amount_currency_code_definition
           table: currency_test
+          currency_round: TRUE
         amount_currency_code_field_definition:
           field: amount_currency_code_field_definition
           id: amount_currency_code_field_definition
