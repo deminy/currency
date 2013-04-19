@@ -977,3 +977,15 @@ function currency_form_currency_exchanger_fixed_rates_load($currency_code_from, 
 
   return $rate !== FALSE ? $currency_code_from : FALSE;
 }
+
+/**
+ * Implements hook_webform_select_options_info().
+ */
+function currency_webform_select_options_info() {
+  $options['currency'] = array(
+    'title' => t('Currencies'),
+    'options callback' => 'currency_options',
+  );
+
+  return $options;
+}
