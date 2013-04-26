@@ -7,15 +7,15 @@
 
 namespace Drupal\currency\Plugin\currency\exchanger;
 
-use Drupal\Component\Annotation\Plugin;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Annotation\Translation;
+use Drupal\currency\Annotation\CurrencyExchanger;
 use Drupal\currency\Exchanger\ExchangerInterface;
 
 /**
  * Provides manually entered exchange rates.
  *
- * @Plugin(
+ * @CurrencyExchanger(
  *   id = "currency_fixed_rates",
  *   label = @Translation("Fixed rates"),
  *   operations = {

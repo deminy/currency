@@ -7,15 +7,15 @@
 
 namespace Drupal\currency\Plugin\currency\exchanger;
 
-use Drupal\Component\Annotation\Plugin;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Annotation\Translation;
+use Drupal\currency\Annotation\CurrencyExchanger;
 use Drupal\currency\Exchanger\ExchangerInterface;
 
 /**
  * Provides fixed exchange rates as provided by bartfeenstra/currency.
  *
- * @Plugin(
+ * @CurrencyExchanger(
  *   id = "currency_bartfeenstra_currency",
  *   label = @Translation("Historical rates")
  * )
