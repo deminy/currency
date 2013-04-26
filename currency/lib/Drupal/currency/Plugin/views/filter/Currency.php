@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Plugin\views\filter;
 
-use Drupal\Component\Annotation\Plugin;
+use Drupal\Component\Annotation\PluginID;
 use Drupal\currency\Plugin\Core\Entity\Currency as CurrencyEntity;
 use Drupal\views\Plugin\views\filter\InOperator;
 
@@ -16,9 +16,7 @@ use Drupal\views\Plugin\views\filter\InOperator;
  *
  * @ingroup views_filter_handlers
  *
- * @Plugin(
- *   id = "currency"
- * )
+ * @PluginID("currency")
  */
 class Currency extends InOperator {
 

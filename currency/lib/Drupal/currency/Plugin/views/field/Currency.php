@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Plugin\views\field;
 
-use Drupal\Component\Annotation\Plugin;
+use Drupal\Component\Annotation\PluginID;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 
 /**
@@ -19,9 +19,7 @@ use Drupal\views\Plugin\views\field\FieldPluginBase;
  *
  * @ingroup views_field_handlers
  *
- * @Plugin(
- *   id = "currency"
- * )
+ * @PluginID("currency")
  */
 class Currency extends FieldPluginBase {
 
