@@ -43,24 +43,24 @@
     },
     {
         "name": "symfony/yaml",
-        "version": "v2.1.8",
-        "version_normalized": "2.1.8.0",
+        "version": "v2.1.9",
+        "version_normalized": "2.1.9.0",
         "target-dir": "Symfony/Component/Yaml",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Yaml.git",
-            "reference": "v2.1.8"
+            "reference": "v2.1.9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.1.8",
-            "reference": "v2.1.8",
+            "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.1.9",
+            "reference": "v2.1.9",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2013-01-27 16:12:43",
+        "time": "2013-03-23 01:54:33",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -92,12 +92,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/bartfeenstra/currency.git",
-            "reference": "11313067ec092dd62c18619dc02b200d4658a424"
+            "reference": "0e8b99d1daea675d11c0c20a50a707ede32e2ff8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/11313067ec092dd62c18619dc02b200d4658a424",
-            "reference": "11313067ec092dd62c18619dc02b200d4658a424",
+            "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/0e8b99d1daea675d11c0c20a50a707ede32e2ff8",
+            "reference": "0e8b99d1daea675d11c0c20a50a707ede32e2ff8",
             "shasum": ""
         },
         "require-dev": {
@@ -107,7 +107,7 @@
             "php": "To use the PHP helpers, you need PHP 5.3 or higher.",
             "symfony/yaml": "To use the PHP helpers, you need symfony/yaml 2.1."
         },
-        "time": "2013-03-28 14:26:46",
+        "time": "2013-04-11 19:15:56",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
