@@ -30,6 +30,8 @@ class Token extends WebTestBase {
    * Tests token integration.
    */
   function testTokenIntegration() {
+    $token_service = \Drupal::token();
+
     $data = array(
       'EUR' => array(
         '[currency:code]' => 'EUR',
@@ -47,7 +49,7 @@ class Token extends WebTestBase {
         'currency' => $currency_code,
       );
       foreach ($tokens as $token => $replacement) {
-        $this->assertEqual(token_replace($token, $data), $replacement);
+        $this->assertEqual($token_service->replace($token, $data), $replacement);
       }
     }
   }
