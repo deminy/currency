@@ -7,17 +7,24 @@
 
 namespace Drupal\currency\Plugin\Core\Entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Component\Annotation\Plugin;
 use Drupal\Core\Annotation\Translation;
+use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\Annotation\EntityType;
 
 /**
  * Defines a currency entity class.
  *
- * @Plugin(
- *   access_controller_class = "Drupal\currency\CurrencyAccessController",
+ * @EntityType(
  *   config_prefix = "currency.currency",
- *   controller_class = "Drupal\currency\CurrencyStorageController",
+ *   controllers = {
+ *     "access" = "Drupal\currency\CurrencyAccessController",
+ *     "form" = {
+ *       "default" = "Drupal\currency\CurrencyFormController"
+ *     },
+ *     "list" = "Drupal\currency\CurrencyListController",
+ *     "storage" = "Drupal\currency\CurrencyStorageController",
+ *   },
  *   entity_keys = {
  *     "id" = "currencyCode",
  *     "label" = "label",
@@ -25,12 +32,8 @@ use Drupal\Core\Annotation\Translation;
  *     "status" = "status"
  *   },
  *   fieldable = FALSE,
- *   form_controller_class = {
- *     "default" = "Drupal\currency\CurrencyFormController"
- *   },
  *   id = "currency",
  *   label = @Translation("Currency"),
- *   list_controller_class = "Drupal\currency\CurrencyListController",
  *   module = "currency"
  * )
  */

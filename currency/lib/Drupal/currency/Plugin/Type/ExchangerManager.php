@@ -25,7 +25,7 @@ class ExchangerManager extends PluginManagerBase {
    * @param array $namespaces
    *   An array of paths keyed by their corresponding namespaces.
    */
-  public function __construct(array $namespaces) {
+  public function __construct(\Traversable $namespaces) {
     $this->discovery = new AnnotatedClassDiscovery('currency', 'exchanger', $namespaces);
     $this->discovery = new AlterDecorator($this->discovery, 'currency_exchanger');
     $this->discovery = new CacheDecorator($this->discovery, 'currency_exchanger');

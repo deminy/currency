@@ -10,15 +10,22 @@ namespace Drupal\currency\Plugin\Core\Entity;
 use BartFeenstra\CLDR\CurrencyFormatter;
 use Drupal\Component\Annotation\Plugin;
 use Drupal\Core\Annotation\Translation;
+use Drupal\Core\Entity\Annotation\EntityType;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\currency\Plugin\Core\Entity\Currency;
 
 /**
  * Defines a currency entity class.
  *
- * @Plugin(
+ * @EntityType(
  *   config_prefix = "currency.currency_locale_pattern",
- *   controller_class = "Drupal\Core\Config\Entity\ConfigStorageController",
+ *   controllers = {
+ *     "form" = {
+ *       "default" = "Drupal\currency\CurrencyLocalePatternFormController"
+ *     },
+ *     "list" = "Drupal\currency\CurrencyLocalePatternListController",
+ *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
+ *   },
  *   entity_keys = {
  *     "id" = "locale",
  *     "label" = "locale",
@@ -26,12 +33,8 @@ use Drupal\currency\Plugin\Core\Entity\Currency;
  *     "status" = "status"
  *   },
  *   fieldable = FALSE,
- *   form_controller_class = {
- *     "default" = "Drupal\currency\CurrencyLocalePatternFormController"
- *   },
  *   id = "currency_locale_pattern",
  *   label = @Translation("Currency locale pattern"),
- *   list_controller_class = "Drupal\currency\CurrencyLocalePatternListController",
  *   module = "currency"
  * )
  */

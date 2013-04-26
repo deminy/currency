@@ -1,0 +1,10 @@
+services:
+  plugin.manager.currency.exchanger:
+    class: Drupal\currency\Plugin\Type\ExchangerManager
+    arguments: ['@container.namespaces']
+  currency.exchange_delegator:
+    class: Drupal\currency\ExchangeDelegator
+    arguments: ['@plugin.manager.currency.exchanger', '@config.factory']
+  currency.locale_delegator:
+    class: Drupal\currency\LocaleDelegator
+    arguments: ['@language_manager']
