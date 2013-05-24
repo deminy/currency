@@ -3,3 +3,4 @@ description: Provides a database table in which currency exchange rates are cach
 core: 8.x
 dependencies:
   - currency
+type: module
