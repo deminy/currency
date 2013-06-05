@@ -22,7 +22,7 @@ class CurrencyLocalePatternTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
-      'name' => 'Drupal\currency\Tests\Plugin\Core\Entity\CurrencyLocalePattern',
+      'name' => 'Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern',
       'group' => 'Currency',
     );
   }
