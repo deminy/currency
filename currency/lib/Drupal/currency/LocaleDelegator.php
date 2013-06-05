@@ -7,6 +7,7 @@
 
 namespace Drupal\currency;
 
+use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageManager;
 use Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern;
 
@@ -76,7 +77,7 @@ class LocaleDelegator {
   function getLocalePattern() {
     if (is_null($this->localePattern)) {
       $locale_pattern = NULL;
-      $language_code = $this->languageManager->getLanguage(LANGUAGE_TYPE_CONTENT)->langcode;
+      $language_code = $this->languageManager->getLanguage(Language::TYPE_CONTENT)->langcode;
 
       // Try this request's country code.
       if ($this->countryCode) {

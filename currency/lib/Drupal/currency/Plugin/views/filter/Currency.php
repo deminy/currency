@@ -23,7 +23,7 @@ class Currency extends InOperator {
   /**
    * {@inheritdoc}
    */
-  function get_value_options() {
+  function getValueOptions() {
     if (is_null($this->value_options)) {
       $this->value_options = CurrencyEntity::options();
     }

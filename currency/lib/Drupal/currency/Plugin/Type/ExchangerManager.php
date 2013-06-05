@@ -29,7 +29,7 @@ class ExchangerManager extends PluginManagerBase {
     $annotation_namespaces = array(
       'Drupal\currency\Annotation' => drupal_get_path('module', 'currency') . '/lib',
     );
-    $this->discovery = new AnnotatedClassDiscovery('currency', 'exchanger', $namespaces, $annotation_namespaces, 'Drupal\currency\Annotation\CurrencyExchanger');
+    $this->discovery = new AnnotatedClassDiscovery('currency/exchanger', $namespaces, $annotation_namespaces, 'Drupal\currency\Annotation\CurrencyExchanger');
     $this->discovery = new AlterDecorator($this->discovery, 'currency_exchanger');
     $this->discovery = new CacheDecorator($this->discovery, 'currency_exchanger');
     $this->factory = new DefaultFactory($this->discovery);

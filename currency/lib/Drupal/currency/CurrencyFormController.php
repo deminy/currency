@@ -39,8 +39,8 @@ class CurrencyFormController extends EntityFormController {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, array &$form_state, EntityInterface $currency) {
-    $currency = $this->getEntity($form_state);
+  public function form(array $form, array &$form_state) {
+    $currency = $this->getEntity();
 
     $form['currency_code'] = array(
       '#default_value' => $currency->currencyCode,

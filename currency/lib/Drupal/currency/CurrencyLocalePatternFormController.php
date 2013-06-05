@@ -36,9 +36,9 @@ class CurrencyLocalePatternFormController extends EntityFormController {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, array &$form_state, Entityinterface $currency_locale_pattern) {
+  public function form(array $form, array &$form_state) {
     require_once DRUPAL_ROOT . '/core/includes/standard.inc';
-    $currency_locale_pattern = $this->getEntity($form_state);
+    $currency_locale_pattern = $this->getEntity();
 
     $form['locale'] = array(
       '#title' => t('Locale'),
