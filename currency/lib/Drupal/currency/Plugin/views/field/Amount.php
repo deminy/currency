@@ -120,7 +120,7 @@ class Amount extends FieldPluginBase {
     $currency = NULL;
 
     if ($this->definition['currency_code_field']) {
-      $currency_code = $this->get_value($values, 'currency_code_field');
+      $currency_code = $this->getValue($values, 'currency_code_field');
       if ($currency_code) {
         $currency = entity_load('currency', $currency_code);
       }
@@ -152,6 +152,6 @@ class Amount extends FieldPluginBase {
    *   A numeric string.
    */
   function getAmount(\stdClass $values) {
-    return $this->get_value($values);
+    return $this->getValue($values);
   }
 }

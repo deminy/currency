@@ -69,7 +69,7 @@ class AmountTest extends WebTestBase {
     );
     foreach ($values as $row => $row_values) {
       foreach ($row_values as $field => $value) {
-        $this->assertEqual($view->get('executable')->field[$field]->advanced_render($view->get('executable')->result[$row]), $value);
+        $this->assertEqual($view->get('executable')->field[$field]->advancedRender($view->get('executable')->result[$row]), $value);
       }
     }
   }

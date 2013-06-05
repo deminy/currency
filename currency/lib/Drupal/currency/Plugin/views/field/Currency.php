@@ -39,7 +39,7 @@ class Currency extends FieldPluginBase {
    * {@inheritdoc}
    */
   function render($values) {
-    $currency_code = $this->get_value($values);
+    $currency_code = $this->getValue($values);
     $currency = entity_load('currency', $currency_code);
     $property = $this->configuration['currency_property'];
     if ($currency) {
