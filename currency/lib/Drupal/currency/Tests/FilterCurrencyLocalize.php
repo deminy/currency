@@ -17,7 +17,7 @@ class FilterCurrencyLocalize extends WebTestBase {
   public static $modules = array('currency');
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(

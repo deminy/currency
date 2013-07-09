@@ -26,7 +26,7 @@ use Drupal\currency\Exchanger\ExchangerInterface;
 class FixedRates extends PluginBase implements ExchangerInterface {
 
   /**
-   * Implements \Drupal\currency\Exchanger\ExchangerInterface::load().
+   * {@inheritdoc}
    */
   public function load($currency_code_from, $currency_code_to) {
     $rates = $this->loadAll();
@@ -43,7 +43,7 @@ class FixedRates extends PluginBase implements ExchangerInterface {
   }
 
   /**
-   * Implements \Drupal\currency\Exchanger\ExchangerInterface::loadMultiple().
+   * {@inheritdoc}
    */
   public function loadMultiple(array $currency_codes) {
     $rates = array();
@@ -64,7 +64,7 @@ class FixedRates extends PluginBase implements ExchangerInterface {
    *   self::loadMultiple().
    */
   public function loadAll() {
-    $config = config('currency.exchanger.fixed_rates');
+    $config = \Drupal::config('currency.exchanger.fixed_rates');
 
     return $config->get('rates');
   }
@@ -79,7 +79,7 @@ class FixedRates extends PluginBase implements ExchangerInterface {
    * @return NULL
    */
   public function save($currency_code_from, $currency_code_to, $rate) {
-    $config = config('currency.exchanger.fixed_rates');
+    $config = \Drupal::config('currency.exchanger.fixed_rates');
     $rates = $config->get('rates');
     $rates[$currency_code_from][$currency_code_to] = $rate;
     $config->set('rates', $rates);
@@ -95,7 +95,7 @@ class FixedRates extends PluginBase implements ExchangerInterface {
    * @return NULL
    */
   public function delete($currency_code_from, $currency_code_to) {
-    $config = config('currency.exchanger.fixed_rates');
+    $config = \Drupal::config('currency.exchanger.fixed_rates');
     $rates = $config->get('rates');
     unset($rates[$currency_code_from][$currency_code_to]);
     $config->set('rates', $rates);

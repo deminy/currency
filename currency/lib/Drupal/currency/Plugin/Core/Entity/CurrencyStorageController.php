@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Definition of Drupal\currency\CurrencyStorageController.
+ * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyStorageController.
  */
 
-namespace Drupal\currency;
+namespace Drupal\currency\Plugin\Core\Entity;
 
 use Drupal\Core\Config\Entity\ConfigStorageController;
 use Drupal\currency\Usage;

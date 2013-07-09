@@ -18,12 +18,13 @@ use Drupal\Core\Entity\Annotation\EntityType;
  * @EntityType(
  *   config_prefix = "currency.currency",
  *   controllers = {
- *     "access" = "Drupal\currency\CurrencyAccessController",
+ *     "access" = "Drupal\currency\Plugin\Core\Entity\AccessController",
  *     "form" = {
- *       "default" = "Drupal\currency\CurrencyFormController"
+ *       "default" = "Drupal\currency\Plugin\Core\Entity\CurrencyFormController",
+ *       "delete" = "Drupal\currency\Plugin\Core\Entity\CurrencyDeleteFormController"
  *     },
- *     "list" = "Drupal\currency\CurrencyListController",
- *     "storage" = "Drupal\currency\CurrencyStorageController",
+ *     "list" = "Drupal\currency\Plugin\Core\Entity\CurrencyListController",
+ *     "storage" = "Drupal\currency\Plugin\Core\Entity\CurrencyStorageController",
  *   },
  *   entity_keys = {
  *     "id" = "currencyCode",

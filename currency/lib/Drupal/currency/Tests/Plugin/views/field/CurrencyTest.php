@@ -17,7 +17,7 @@ class CurrencyTest extends WebTestBase {
   public static $modules = array('currency_test', 'views');
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(

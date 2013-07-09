@@ -35,7 +35,7 @@ class CurrencyCRUD extends WebTestBase {
     $currency_code = 'ABC';
 
     // Test that no currency with this currency code exists yet.
-    $config = config('currency.currency.' . $currency_code);
+    $config = \Drupal::config('currency.currency.' . $currency_code);
     $this->assertIdentical($config->get('currencyNumber'), NULL);
 
     // Test creating a custom currency.
@@ -47,7 +47,7 @@ class CurrencyCRUD extends WebTestBase {
     $currency->set('currencyCode', $currency_code);
     $currency->set('currencyNumber', '123');
     $currency->save();
-    $config = config('currency.currency.' . $currency_code);
+    $config = \Drupal::config('currency.currency.' . $currency_code);
     $this->assertEqual($config->get('currencyNumber'), '123');
 
     // Test loading a custom currency.
@@ -63,7 +63,7 @@ class CurrencyCRUD extends WebTestBase {
 
     // Test deleting a custom currency.
     $currency->delete();
-    $config = config('currency.currency.' . $currency_code);
+    $config = \Drupal::config('currency.currency.' . $currency_code);
     $this->assertIdentical($config->get('currencyNumber'), NULL);
   }
 }

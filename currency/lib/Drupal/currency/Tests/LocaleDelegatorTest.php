@@ -18,7 +18,7 @@ class LocaleDelegatorTest extends WebTestBase {
   public static $modules = array('currency');
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(
@@ -52,7 +52,7 @@ class LocaleDelegatorTest extends WebTestBase {
     $this->assertEqual($locale_pattern->locale, $delegator::DEFAULT_LOCALE);
 
     // Test loading the locale based on the site's default country.
-    config('system.data')->set('country.default', 'US');
+    \Drupal::config('system.data')->set('country.default', 'US');
     $locale_pattern = $delegator->getLocalePattern();
     $this->assertEqual($locale_pattern->locale, 'en_US');
 

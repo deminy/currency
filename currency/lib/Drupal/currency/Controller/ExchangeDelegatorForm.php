@@ -8,7 +8,7 @@
 namespace Drupal\currency\Controller;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
-use Drupal\Core\ControllerInterface;
+use Drupal\Core\Controller\ControllerInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\currency\ExchangeDelegator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -46,21 +46,21 @@ class ExchangeDelegatorForm implements FormInterface, ControllerInterface {
   }
 
   /**
-   * Implements \Drupal\Core\ControllerInterface::create().
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static($container->get('currency.exchange_delegator'), $container->get('plugin.manager.currency.exchanger'));
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::getFormID().
+   * {@inheritdoc}
    */
   public function getFormID() {
     return 'currency_delegator';
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::buildForm().
+   * {@inheritdoc}
    */
   public function buildForm(array $form, array &$form_state) {
     $definitions = $this->pluginManager->getDefinitions();
@@ -74,7 +74,7 @@ class ExchangeDelegatorForm implements FormInterface, ControllerInterface {
     $weight = 0;
     foreach ($configuration as $plugin_name => $enabled) {
       $weight++;
-      $plugin = $this->pluginManager->createInstance($plugin_name);
+      $plugin = $this->pluginManager->createInstance($plugin_name, array());
       $plugin_definition = $definitions[$plugin_name];
 
       $form['exchangers'][$plugin_name] = array(
@@ -128,13 +128,13 @@ class ExchangeDelegatorForm implements FormInterface, ControllerInterface {
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::validateForm().
+   * {@inheritdoc}
    */
   public function validateForm(array &$form, array &$form_state) {
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::validateForm().
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
     uasort($form_state['values']['exchangers'], 'drupal_sort_weight');

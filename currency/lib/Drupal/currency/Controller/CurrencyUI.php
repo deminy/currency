@@ -9,8 +9,9 @@ namespace Drupal\currency\Controller;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityManager;
-use Drupal\Core\ControllerInterface;
+use Drupal\Core\Controller\ControllerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Returns responses for Currency entity UI routes.
@@ -35,7 +36,7 @@ class CurrencyUI implements ControllerInterface {
   }
 
   /**
-   * Implements \Drupal\Core\ControllerInterface::create().
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -52,33 +53,7 @@ class CurrencyUI implements ControllerInterface {
   public function add() {
     $currency = $this->entityManager->getStorageController('currency')->create(array());
 
-    return entity_get_form($currency);
-  }
-
-  /**
-   * Builds a currency edit form.
-   *
-   * @param EntityInterface $currency
-   *
-   * @return array
-   *   A renderable array.
-   */
-  public function edit(EntityInterface $currency) {
-    drupal_set_title(t('Edit @label', array(
-      '@label' => $currency->label(),
-    )));
-
-    return entity_get_form($currency);
-  }
-
-  /**
-   * Lists all entities.
-   *
-   * @return array
-   *   A renderable array.
-   */
-  public function listing() {
-    return $this->entityManager->getListController('currency')->render();
+    return drupal_get_form($this->entityManager->getFormController('currency', 'default')->setEntity($currency));
   }
 
   /**
@@ -89,7 +64,7 @@ class CurrencyUI implements ControllerInterface {
   public function enable(EntityInterface $currency) {
     $currency->enable();
     $currency->save();
-    drupal_goto('admin/config/regional/currency');
+    return new RedirectResponse(url('admin/config/regional/currency', array('absolute' => TRUE)));
   }
 
   /**
@@ -100,6 +75,6 @@ class CurrencyUI implements ControllerInterface {
   public function disable(EntityInterface $currency) {
     $currency->disable();
     $currency->save();
-    drupal_goto('admin/config/regional/currency');
+    return new RedirectResponse(url('admin/config/regional/currency', array('absolute' => TRUE)));
   }
 }

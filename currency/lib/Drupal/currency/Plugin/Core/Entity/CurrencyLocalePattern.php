@@ -8,10 +8,10 @@
 namespace Drupal\currency\Plugin\Core\Entity;
 
 use BartFeenstra\CLDR\CurrencyFormatter;
-use Drupal\Component\Annotation\Plugin;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Entity\Annotation\EntityType;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Language\LanguageManager;
 use Drupal\currency\Plugin\Core\Entity\Currency;
 
 /**
@@ -20,10 +20,12 @@ use Drupal\currency\Plugin\Core\Entity\Currency;
  * @EntityType(
  *   config_prefix = "currency.currency_locale_pattern",
  *   controllers = {
+ *     "access" = "Drupal\currency\Plugin\Core\Entity\AccessController",
  *     "form" = {
- *       "default" = "Drupal\currency\CurrencyLocalePatternFormController"
+ *       "default" = "Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternFormController",
+ *       "delete" = "Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternDeleteFormController"
  *     },
- *     "list" = "Drupal\currency\CurrencyLocalePatternListController",
+ *     "list" = "Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternListController",
  *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
  *   },
  *   entity_keys = {
@@ -89,11 +91,9 @@ class CurrencyLocalePattern extends ConfigEntityBase {
    * {@inheritdoc}
    */
   public function label($langcode = NULL) {
-    require_once DRUPAL_ROOT . '/core/includes/standard.inc';
-
     list($language_code, $country_code) = explode('_', $this->locale);
-    $languages = standard_language_list();
-    $countries = country_get_list();
+    $languages = LanguageManager::getStandardLanguageList();
+    $countries = \Drupal::service('country_manager')->getList();
 
     return t('@language (@country)', array(
       '@language' => isset($languages[$language_code]) ? $languages[$language_code][0] : $language_code,

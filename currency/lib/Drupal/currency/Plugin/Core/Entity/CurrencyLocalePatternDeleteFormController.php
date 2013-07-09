@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Controller\CurrencyLocalePatternDeleteForm.
+ * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternDeleteForm.
  */
 
-namespace Drupal\currency\Controller;
+namespace Drupal\currency\Plugin\Core\Entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\ConfirmFormBase;
@@ -29,6 +29,13 @@ class CurrencyLocalePatternDeleteForm extends ConfirmFormBase {
     return t('Do you really want to delete @label?', array(
       '@label' => $this->currency_locale_pattern->label(),
     ));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfirmText() {
+    return t('Delete');
   }
 
   /**

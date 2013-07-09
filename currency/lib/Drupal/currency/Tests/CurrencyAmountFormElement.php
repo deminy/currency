@@ -17,7 +17,7 @@ class CurrencyAmountFormElement extends WebTestBase {
   public static $modules = array('currency_test');
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(

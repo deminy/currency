@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Definition of Drupal\currency\CurrencyLocalePatternListController.
+ * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternListController.
  */
 
-namespace Drupal\currency;
+namespace Drupal\currency\Plugin\Core\Entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Config\Entity\ConfigEntityListController;

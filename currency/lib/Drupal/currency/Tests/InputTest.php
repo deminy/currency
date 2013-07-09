@@ -16,7 +16,7 @@ use Drupal\simpletest\UnitTestBase;
 class InputTest extends UnitTestBase {
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * {@inheritdoc}
    */
   public static function getInfo() {
     return array(

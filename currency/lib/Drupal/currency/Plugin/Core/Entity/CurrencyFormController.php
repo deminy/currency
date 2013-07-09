@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Definition of Drupal\currency\CurrencyFormController.
+ * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyFormController.
  */
 
-namespace Drupal\currency;
+namespace Drupal\currency\Plugin\Core\Entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityFormController;

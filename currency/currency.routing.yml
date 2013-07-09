@@ -5,18 +5,21 @@ currency_delegator_config:
     _form: '\Drupal\currency\Controller\ExchangeDelegatorForm'
   requirements:
     _permission: 'currency.exchanger_delegator.administer'
+
 currency_exchanger_fixed_rates_overview:
   pattern: '/admin/config/regional/currency-exchange/fixed'
   defaults:
     _content: '\Drupal\currency\Controller\Exchanger\FixedRatesOverview::overview'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
+
 currency_exchanger_fixed_rates_add:
   pattern: '/admin/config/regional/currency-exchange/fixed/add'
   defaults:
     _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
+
 currency_exchanger_fixed_rates_edit:
   pattern: '/admin/config/regional/currency-exchange/fixed/{currency_code_from}/{currency_code_to}'
   defaults:
@@ -28,43 +31,41 @@ currency_exchanger_fixed_rates_edit:
 currency_currency_list:
   pattern: '/admin/config/regional/currency'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyUI::listing'
+    _content: '\Drupal\Core\Entity\Controller\EntityListController::listing'
+    entity_type: 'currency'
   requirements:
     _permission: 'currency.currency.view'
+
 currency_currency_add:
   pattern: '/admin/config/regional/currency/add'
   defaults:
     _content: '\Drupal\currency\Controller\CurrencyUI::add'
   requirements:
     _permission: 'currency.currency.create'
+
 currency_currency_edit:
   pattern: '/admin/config/regional/currency/{currency}/edit'
-  converters:
-    currency: 'currency'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyUI::edit'
+    _entity_form: 'currency.default'
   requirements:
     _permission: 'currency.currency.update'
+
 currency_currency_delete:
   pattern: '/admin/config/regional/currency/{currency}/delete'
-  converters:
-    currency: 'currency'
   defaults:
-    _form: '\Drupal\currency\Controller\CurrencyDeleteForm'
+    _entity_form: 'currency.delete'
   requirements:
-    _permission: 'currency.currency.delete'
+    _entity_access: 'currency.delete'
+
 currency_currency_enable:
   pattern: '/admin/config/regional/currency/{currency}/enable'
-  converters:
-    currency: 'currency'
   defaults:
     _controller: '\Drupal\currency\Controller\CurrencyUI::enable'
   requirements:
     _permission: 'currency.currency.update'
+
 currency_currency_disable:
   pattern: '/admin/config/regional/currency/{currency}/disable'
-  converters:
-    currency: 'currency'
   defaults:
     _controller: '\Drupal\currency\Controller\CurrencyUI::disable'
   requirements:
@@ -74,24 +75,28 @@ currency_currency_disable:
 currency_locale_pattern_list:
   pattern: '/admin/config/regional/currency_locale_pattern'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::listing'
+    _content: '\Drupal\Core\Entity\Controller\EntityListController::listing'
+    entity_type: 'currency_locale_pattern'
   requirements:
     _permission: 'currency.currency_locale_pattern.view'
+
 currency_locale_pattern_add:
   pattern: '/admin/config/regional/currency_locale_pattern/add'
   defaults:
     _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::add'
   requirements:
     _permission: 'currency.currency_locale_pattern.create'
+
 currency_locale_pattern_edit:
   pattern: '/admin/config/regional/currency_locale_pattern/{currency_locale_pattern}/edit'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::edit'
+    _entity_form: 'currency_locale_pattern.default'
   requirements:
-    _permission: 'currency.currency_locale_pattern.update'
+    _entity_access: 'currency_locale_pattern.update'
+
 currency_locale_pattern_delete:
   pattern: '/admin/config/regional/currency_locale_pattern/{currency_locale_pattern}/delete'
   defaults:
-    _form: '\Drupal\currency\Controller\CurrencyLocalePatternDeleteForm'
+    _entity_form: 'currency_locale_pattern.delete'
   requirements:
-    _permission: 'currency.currency_locale_pattern.delete'
+    _entity_access: 'currency_locale_pattern.delete'

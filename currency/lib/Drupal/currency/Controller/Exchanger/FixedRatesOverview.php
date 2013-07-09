@@ -9,7 +9,7 @@ namespace Drupal\currency\Controller\Exchanger;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\ControllerInterface;
+use Drupal\Core\Controller\ControllerInterface;
 use Drupal\currency\LocaleDelegator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -56,7 +56,7 @@ class FixedRatesOverview implements ControllerInterface {
   }
 
   /**
-   * Implements \Drupal\Core\ControllerInterface::create().
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static($container->get('config.factory'), $container->get('currency.locale_delegator'), $container->get('plugin.manager.currency.exchanger'));

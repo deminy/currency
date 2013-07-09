@@ -8,7 +8,7 @@
 namespace Drupal\currency\Controller\Exchanger;
 
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\ControllerInterface;
+use Drupal\Core\Controller\ControllerInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\currency\Plugin\Core\Entity\Currency;
@@ -47,21 +47,21 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
   }
 
   /**
-   * Implements \Drupal\Core\ControllerInterface::create().
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static($container->get('config.factory'), $container->get('plugin.manager.currency.exchanger'));
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::getFormID().
+   * {@inheritdoc}
    */
   public function getFormID() {
     return 'currency_exchanger_fixed_rates';
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::buildForm().
+   * {@inheritdoc}
    */
   public function buildForm(array $form, array &$form_state, $currency_code_from = 'XXX', $currency_code_to = 'XXX') {
     $plugin = $this->pluginManager->createInstance('currency_fixed_rates');
@@ -118,13 +118,13 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::validateForm().
+   * {@inheritdoc}
    */
   public function validateForm(array &$form, array &$form_state) {
   }
 
   /**
-   * Implements \Drupal\Core\Form\FormInterface::validateForm().
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
     $plugin = $this->pluginManager->createInstance('currency_fixed_rates');

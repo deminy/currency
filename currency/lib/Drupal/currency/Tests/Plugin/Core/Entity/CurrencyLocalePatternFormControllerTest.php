@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\CurrencyLocalePatternFormControllerTest.
+ * Contains class \Drupal\currency\Tests\Plugin\Core\Entity\CurrencyLocalePatternFormControllerTest.
  */
 
-namespace Drupal\currency\Tests;
+namespace Drupal\currency\Tests\Plugin\Core\Entity;
 
 use Drupal\simpletest\WebTestBase;
 
@@ -17,7 +17,7 @@ class CurrencyLocalePatternFormControllerTest extends WebTestBase {
   public static $modules = array('currency');
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(

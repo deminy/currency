@@ -31,21 +31,21 @@ class LocaleDelegator {
   /**
    * A language manager.
    *
-   * @var Drupal\Core\Language\LanguageManager
+   * @var \Drupal\Core\Language\LanguageManager
    */
   protected $languageManager = NULL;
 
   /**
    * The locale pattern to use.
    *
-   * @var Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
+   * @var \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
    */
   protected $localePattern;
 
   /**
    * Constructor.
    *
-   * @param Drupal\Core\Language\LanguageManager $language_manager
+   * @param \Drupal\Core\Language\LanguageManager $language_manager
    */
   function __construct(LanguageManager $language_manager) {
     $this->languageManager = $language_manager;
@@ -77,7 +77,7 @@ class LocaleDelegator {
   function getLocalePattern() {
     if (is_null($this->localePattern)) {
       $locale_pattern = NULL;
-      $language_code = $this->languageManager->getLanguage(Language::TYPE_CONTENT)->langcode;
+      $language_code = $this->languageManager->getLanguage(Language::TYPE_CONTENT)->id;
 
       // Try this request's country code.
       if ($this->countryCode) {
@@ -85,7 +85,7 @@ class LocaleDelegator {
       }
 
       // Try the site's default country code.
-      $country_code = config('system.data')->get('country.default');
+      $country_code = \Drupal::config('system.data')->get('country.default');
       if (!$locale_pattern && $country_code) {
         $locale_pattern = entity_load('currency_locale_pattern', $language_code . '_' . $country_code);
       }

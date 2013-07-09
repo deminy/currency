@@ -86,7 +86,7 @@ class ExchangeDelegator implements ExchangerInterface {
   }
 
   /**
-   * Implements \Drupal\currency\Exchanger\ExchangerInterface::load().
+   * {@inheritdoc}
    */
   public function load($currency_code_from, $currency_code_to) {
     if ($currency_code_from == $currency_code_to) {
@@ -101,7 +101,7 @@ class ExchangeDelegator implements ExchangerInterface {
   }
 
   /**
-   * Implements \Drupal\currency\Exchanger\ExchangerInterface::loadMultiple().
+   * {@inheritdoc}
    */
   public function loadMultiple(array $currency_codes) {
     $rates = array();

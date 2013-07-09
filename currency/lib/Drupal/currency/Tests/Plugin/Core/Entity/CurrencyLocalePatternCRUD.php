@@ -38,7 +38,7 @@ class CurrencyLocalePatternCRUD extends WebTestBase {
     $locale = 'xx_XX';
 
     // Test that no locale pattern with this locale code exists yet.
-    $config = config('currency.currency_locale_pattern.' . $locale);
+    $config = \Drupal::config('currency.currency_locale_pattern.' . $locale);
     $this->assertIdentical($config->get('pattern'), NULL);
 
     // Test creating a custom locale pattern.
@@ -51,7 +51,7 @@ class CurrencyLocalePatternCRUD extends WebTestBase {
     $locale_pattern->set('locale', $locale);
     $locale_pattern->set('pattern', $pattern);
     $locale_pattern->save();
-    $config = config('currency.currency_locale_pattern.' . $locale);
+    $config = \Drupal::config('currency.currency_locale_pattern.' . $locale);
     $this->assertEqual($config->get('pattern'), $pattern);
 
     // Test loading a custom currency locale pattern.
@@ -60,7 +60,7 @@ class CurrencyLocalePatternCRUD extends WebTestBase {
 
     // Test deleting a custom currency.
     $locale_pattern->delete();
-    $config = config('currency.currency_locale_pattern.' . $locale);
+    $config = \Drupal::config('currency.currency_locale_pattern.' . $locale);
     $this->assertIdentical($config->get('pattern'), NULL);
   }
 }

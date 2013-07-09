@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Definition of Drupal\currency\CurrencyLocalePatternFormController.
+ * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternFormController.
  */
 
-namespace Drupal\currency;
+namespace Drupal\currency\Plugin\Core\Entity;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityFormController;
+use Drupal\Core\Language\LanguageManager;
 
 /**
  * Provides a currency_locale_pattern add/edit form.
@@ -37,7 +37,6 @@ class CurrencyLocalePatternFormController extends EntityFormController {
    * {@inheritdoc}
    */
   public function form(array $form, array &$form_state) {
-    require_once DRUPAL_ROOT . '/core/includes/standard.inc';
     $currency_locale_pattern = $this->getEntity();
 
     $form['locale'] = array(
@@ -52,7 +51,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       $locale_country_code = NULL;
     }
     $options = array();
-    foreach (standard_language_list() as $language_code => $language_names) {
+    foreach (LanguageManager::getStandardLanguageList() as $language_code => $language_names) {
       $options[$language_code] = $language_names[0];
     }
     natcasesort($options);
@@ -67,7 +66,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
     $form['locale']['country_code'] = array(
       '#default_value' => $locale_country_code,
       '#empty_value' => '',
-      '#options' => country_get_list(),
+      '#options' => \Drupal::service('country_manager')->getList(),
       '#required' => TRUE,
       '#title' => t('Country'),
       '#type' => 'select',

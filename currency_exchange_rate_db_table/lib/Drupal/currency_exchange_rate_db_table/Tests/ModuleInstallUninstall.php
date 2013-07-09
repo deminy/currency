@@ -17,7 +17,7 @@ class ModuleInstallUninstall extends WebTestBase {
   public static $modules = array('currency_exchange_rate_db_table');
 
   /**
-   * Implements DrupalTestCase::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(

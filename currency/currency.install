@@ -47,7 +47,7 @@ function currency_update_8300(array &$sandbox) {
  * configuration.
  */
 function currency_update_8301(array &$sandbox) {
-  $config = config('currency.exchanger.fixed_rates');
+  $config = \Drupal::config('currency.exchanger.fixed_rates');
   $rates = $config->get('rates');
   $rates_data = db_select('currency_exchanger_fixed_rates', 'cefr')
     ->fields('cefr')

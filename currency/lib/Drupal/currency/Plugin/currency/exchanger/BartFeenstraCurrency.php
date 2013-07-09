@@ -23,7 +23,7 @@ use Drupal\currency\Exchanger\ExchangerInterface;
 class BartFeenstraCurrency extends PluginBase implements ExchangerInterface {
 
   /**
-   * Implements \Drupal\currency\Exchanger\ExchangerInterface::load().
+   * {@inheritdoc}
    */
   function load($currency_code_from, $currency_code_to) {
     $currency_from = entity_load('currency', $currency_code_from);
@@ -42,7 +42,7 @@ class BartFeenstraCurrency extends PluginBase implements ExchangerInterface {
   }
 
   /**
-   * Implements \Drupal\currency\Exchanger\ExchangerInterface::loadMultiple().
+   * {@inheritdoc}
    */
   function loadMultiple(array $currency_codes) {
     $rates = array();
