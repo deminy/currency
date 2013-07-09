@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests Drupal\currency\CurrencyLocalePatternDeleteForm
  */
-class CurrencyLocalePatternDeleteFormTest extends WebTestBase {
+class CurrencyLocalePatternDeleteFormControllerTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -21,7 +21,7 @@ class CurrencyLocalePatternDeleteFormTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
-      'name' => 'Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternDeleteForm',
+      'name' => 'Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternDeleteFormController',
       'group' => 'Currency',
     );
   }
