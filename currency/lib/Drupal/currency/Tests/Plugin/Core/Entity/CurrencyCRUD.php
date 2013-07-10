@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Tests\Plugin\Core\Entity;
 
-use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
 use Drupal\currency\Usage;
 use Drupal\simpletest\WebTestBase;
 
@@ -40,24 +40,24 @@ class CurrencyCRUD extends WebTestBase {
 
     // Test creating a custom currency.
     $currency = entity_create('currency', array());
-    $this->assertTrue($currency instanceof Currency);
-    $this->assertTrue($currency->uuid);
+    $this->assertTrue($currency instanceof CurrencyInterface);
+    $this->assertTrue($currency->uuid());
 
     // Test saving a custom currency.
-    $currency->set('currencyCode', $currency_code);
-    $currency->set('currencyNumber', '123');
+    $currency->setCurrencyCode($currency_code);
+    $currency->setCurrencyNumber('123');
     $currency->save();
     $config = \Drupal::config('currency.currency.' . $currency_code);
     $this->assertEqual($config->get('currencyNumber'), '123');
 
     // Test loading a custom currency.
     $currency_loaded = entity_load('currency', $currency_code);
-    $this->assertEqual($currency->get('currencyNumber'), $currency_loaded->get('currencyNumber'));
+    $this->assertEqual($currency->getCurrencyNumber(), $currency_loaded->getCurrencyNumber());
 
     // Test loading a default currency.
     $currency_loaded = entity_load('currency', 'EUR');
-    $this->assertTrue($currency_loaded instanceof Currency);
-    foreach ($currency_loaded->usage as $usage) {
+    $this->assertTrue($currency_loaded instanceof CurrencyInterface);
+    foreach ($currency_loaded->getUsage() as $usage) {
       $this->assertTrue($usage instanceof Usage);
     }
 

@@ -47,8 +47,9 @@ class CurrencyFormControllerTest extends WebTestBase {
     );
     $this->drupalPost($path, $valid_values, t('Save'));
     $currency = entity_load('currency', 'ABC');
-    $this->assertTrue($currency);
-    $this->assertFalse($currency->status());
+    if ($this->assertTrue($currency)) {
+      $this->assertFalse($currency->status());
+    }
 
     // Test invalid values.
     $valid_values['currency_code'] = 'XYZ';

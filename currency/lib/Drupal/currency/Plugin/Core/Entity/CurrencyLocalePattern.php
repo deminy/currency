@@ -12,7 +12,7 @@ use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Entity\Annotation\EntityType;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Language\LanguageManager;
-use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
 
 /**
  * Defines a currency entity class.
@@ -40,21 +40,21 @@ use Drupal\currency\Plugin\Core\Entity\Currency;
  *   module = "currency"
  * )
  */
-class CurrencyLocalePattern extends ConfigEntityBase {
+class CurrencyLocalePattern extends ConfigEntityBase implements CurrencyLocalePatternInterface {
 
   /**
    * The decimal separator character.
    *
    * @var string
    */
-  public $decimalSeparator = NULL;
+  protected $decimalSeparator = NULL;
 
   /**
    * The grouping separator character.
    *
    * @var string
    */
-  public $groupingSeparator = NULL;
+  protected $groupingSeparator = NULL;
 
   /**
    * The locale identifier.
@@ -71,7 +71,7 @@ class CurrencyLocalePattern extends ConfigEntityBase {
    *
    * @var string
    */
-  public $pattern = NULL;
+  protected $pattern = NULL;
 
   /**
    * The UUID for this entity.
@@ -81,10 +81,67 @@ class CurrencyLocalePattern extends ConfigEntityBase {
   public $uuid = NULL;
 
   /**
-   * Overrides parent::id().
+   * {@inheritdoc}
+   */
+  public function setDecimalSeparator($separator) {
+    $this->decimalSeparator = $separator;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDecimalSeparator() {
+    return $this->decimalSeparator;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setGroupingSeparator($separator) {
+    $this->groupingSeparator = $separator;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getGroupingSeparator() {
+    return $this->groupingSeparator;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setLocale($language_code, $country_code) {
+    $this->locale = strtolower($language_code) . '_' . strtoupper($country_code);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPattern($pattern) {
+    $this->pattern = $pattern;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPattern() {
+    return $this->pattern;
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function id() {
-    return isset($this->locale) ? $this->locale : NULL;
+    return $this->locale;
   }
 
   /**
@@ -119,15 +176,9 @@ class CurrencyLocalePattern extends ConfigEntityBase {
   }
 
   /**
-   * Formats an amount using this pattern.
-   *
-   * @param Currency $currency
-   * @param string $amount
-   *   A numeric string.
-   *
-   * @return string
+   * {@inheritdoc}
    */
-  function format(Currency $currency, $amount) {
+  function format(CurrencyInterface $currency, $amount) {
     static $formatter = NULL;
 
     if (is_null($formatter) || $formatter->pattern != $this->pattern) {
@@ -137,9 +188,46 @@ class CurrencyLocalePattern extends ConfigEntityBase {
       ));
     }
 
-    $formatted = $formatter->format($amount, $currency->sign);
-    $formatted = str_replace(array('[XXX]', '[999]'), array($currency->currencyCode, $currency->currencyNumber), $formatted);
+    $formatted = $formatter->format($amount, $currency->getSign());
+    $formatted = str_replace(array('[XXX]', '[999]'), array($currency->id(), $currency->getCurrencyNumber()), $formatted);
 
     return $formatted;
+  }
+
+  /**
+   * Gets the language code.
+   *
+   * @return string
+   */
+  public function getLanguageCode() {
+    if ($this->id()) {
+      $fragments = explode('_', $this->id());
+      return $fragments[0];
+    }
+  }
+
+  /**
+   * Gets the country code.
+   *
+   * @return string
+   */
+  public function getCountryCode() {
+    if ($this->id()) {
+      $fragments = explode('_', $this->id());
+      return $fragments[1];
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getExportProperties() {
+    $properties['decimalSeparator'] = $this->getDecimalSeparator();
+    $properties['groupingSeparator'] = $this->getGroupingSeparator();
+    $properties['locale'] = $this->id();
+    $properties['pattern'] = $this->getPattern();
+    $properties['uuid'] = $this->uuid();
+
+    return $properties;
   }
 }

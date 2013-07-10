@@ -47,7 +47,7 @@ class Currency extends FieldPluginBase {
         return $currency->label();
       }
       else {
-        return $currency->$property;
+        return $currency->get($property);
       }
     }
     else {

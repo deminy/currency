@@ -25,12 +25,12 @@ class CurrencyFormController extends EntityFormController {
     // which is why we build the entity manually.
     $values = $form_state['values'];
     $currency = clone $this->getEntity($form_state);
-    $currency->currencyCode = $values['currency_code'];
-    $currency->currencyNumber = $values['currency_number'];
-    $currency->label = $values['label'];
-    $currency->sign = $values['sign'];
-    $currency->subunits = $values['subunits'];
-    $currency->roundingStep = $values['rounding_step'];
+    $currency->setCurrencyCode($values['currency_code']);
+    $currency->setCurrencyNumber($values['currency_number']);
+    $currency->setLabel($values['label']);
+    $currency->setSign($values['sign']);
+    $currency->setSubunits($values['subunits']);
+    $currency->setRoundingStep($values['rounding_step']);
     $currency->setStatus($values['status']);
 
     return $currency;
@@ -43,7 +43,7 @@ class CurrencyFormController extends EntityFormController {
     $currency = $this->getEntity();
 
     $form['currency_code'] = array(
-      '#default_value' => $currency->currencyCode,
+      '#default_value' => $currency->id(),
       '#disabled' => (bool) $currency->id(),
       '#element_validate' => array('currency_form_element_validate_iso_4217_code'),
       '#maxlength' => 3,
@@ -58,7 +58,7 @@ class CurrencyFormController extends EntityFormController {
     // @todo Make sure that no other currency with this number already exists
     // when adding a new currency.
     $form['currency_number'] = array(
-      '#default_value' => $currency->currencyNumber,
+      '#default_value' => $currency->getCurrencyNumber(),
       '#element_validate' => array('currency_form_element_validate_iso_4217_number'),
       '#maxlength' => 3,
       '#pattern' => '[\d]{3}',
@@ -75,7 +75,7 @@ class CurrencyFormController extends EntityFormController {
     );
 
     $form['label'] = array(
-      '#default_value' => $currency->label,
+      '#default_value' => $currency->label(),
       '#maxlength' => 255,
       '#required' => TRUE,
       '#title' => t('Name'),
@@ -83,14 +83,14 @@ class CurrencyFormController extends EntityFormController {
     );
 
     $form['sign'] = array(
-      '#currency_code' => $currency->currencyCode,
-      '#default_value' => $currency->sign,
+      '#currency_code' => $currency->id(),
+      '#default_value' => $currency->getSign(),
       '#title' => t('Sign'),
       '#type' => 'currency_sign',
     );
 
     $form['subunits'] = array(
-      '#default_value' => $currency->subunits,
+      '#default_value' => $currency->getSubunits(),
       '#min' => 0,
       '#required' => TRUE,
       '#title' => t('Number of subunits'),
@@ -98,7 +98,7 @@ class CurrencyFormController extends EntityFormController {
     );
 
     $form['rounding_step'] = array(
-      '#default_value' => $currency->roundingStep,
+      '#default_value' => $currency->getRoundingStep(),
       '#min' => 0,
       '#required' => TRUE,
       '#title' => t('Rounding step'),

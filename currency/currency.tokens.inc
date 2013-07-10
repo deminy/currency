@@ -69,7 +69,7 @@ function currency_tokens($type, array $tokens, array $data = array(), array $opt
       );
       foreach ($tokens as $token => $original) {
         if (isset($map[$token])) {
-          $replacements[$original] = $currency->{$map[$token]};
+          $replacements[$original] = $currency->get($map[$token]);
         }
       }
     }

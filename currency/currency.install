@@ -27,7 +27,7 @@ function currency_install() {
   $currencies = entity_load_multiple('currency');
   foreach ($currencies as $currency) {
     if ($currency->isObsolete()) {
-      $currency->setStatus(FALSE);
+      $currency->disable();
       $currency->save();
     }
   }
@@ -72,16 +72,16 @@ function currency_update_8302(array &$sandbox) {
     $currency = entity_load('currency', $currency_data->ISO4217Code);
     if (!$currency) {
       $currency = entity_create('currency');
-      $currency->currencyCode = $currency_data->ISO4217Code;
+      $currency->setCurrencyCode($currency_data->ISO4217Code);
     }
 
     // Update the entity with the old data.
     // @todo Find out how to migrate translated titles.
-    $currency->currencyNumber = $currency_data->ISO4217Number;
-    $currency->label = $currency_data->title;
-    $currency->roundingStep = $currency_data->rounding_step;
-    $currency->sign = $currency_data->sign;
-    $currency->subunits = $currency_data->subunits;
+    $currency->setCurrencyNumber($currency_data->ISO4217Number);
+    $currency->setLabel($currency_data->title);
+    $currency->setRoundingStep($currency_data->rounding_step);
+    $currency->setSign($currency_data->sign);
+    $currency->setSubunits($currency_data->subunits);
 
     $currency->save();
   }
@@ -105,11 +105,11 @@ function currency_update_8303(array &$sandbox) {
     }
 
     // Update the entity with the old data.
-    $locale_pattern->pattern = $currency_data->pattern;
-    $currency->decimalSeparator = $currency_data->symbol_decimal_separator;
-    $currency->groupingSeparator = $currency_data->symbol_grouping_separator;
-    $currency->sign = $currency_data->sign;
-    $currency->subunits = $currency_data->subunits;
+    $locale_pattern->setPattern($currency_data->pattern);
+    $currency->setDecimalSeparator($currency_data->symbol_decimal_separator);
+    $currency->setGroupingSeparator($currency_data->symbol_grouping_separator);
+    $currency->setSign($currency_data->sign);
+    $currency->setSubunits($currency_data->subunits);
 
     $currency->save();
   }

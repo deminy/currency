@@ -223,7 +223,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
     '#title' => t('Amount'),
     '#title_display' => 'invisible',
     '#description' => $description,
-    '#prefix' => $element['#currency_code'] ? $currency->sign : NULL,
+    '#prefix' => $element['#currency_code'] ? $currency->getSign() : NULL,
     '#required' => $element['#required'],
     '#size' => 9,
   );
@@ -288,7 +288,7 @@ function currency_form_currency_sign_process(array $element, array &$form_state,
     drupal_get_path('module', 'currency') . '/currency.css',
   );
 
-  $signs = array_merge(array($currency->sign), $currency->alternativeSigns);
+  $signs = array_merge(array($currency->getSign()), $currency->getAlternativeSigns());
   $signs = array_combine($signs, $signs);
   $signs = array_unique(array_filter(array_merge(array(
     CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE => t('- Custom -'),
@@ -350,7 +350,7 @@ function currency_form_element_validate_iso_4217_code(array $element, array $for
     $currency = entity_load('currency', $currency_code);
     if ($currency) {
       form_error($element, t('The currency code is already in use by !link.', array(
-        '!link' => l($currency->label(), "admin/config/regional/currency/$currency->currencyCode/edit"),
+        '!link' => l($currency->label(), 'admin/config/regional/currency/' . $currency->id() . '/edit'),
       )));
     }
   }

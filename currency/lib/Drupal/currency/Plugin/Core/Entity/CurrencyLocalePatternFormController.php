@@ -25,10 +25,10 @@ class CurrencyLocalePatternFormController extends EntityFormController {
     // which is why we build the entity manually.
     $values = $form_state['values'];
     $currency = clone $this->getEntity($form_state);
-    $currency->locale = $values['language_code'] . '_' . $values['country_code'];
-    $currency->pattern = $values['pattern'];
-    $currency->decimalSeparator = $values['decimal_separator'];
-    $currency->groupingSeparator = $values['grouping_separator'];
+    $currency->setLocale($values['language_code'], $values['country_code']);
+    $currency->setPattern($values['pattern']);
+    $currency->setDecimalSeparator($values['decimal_separator']);
+    $currency->setGroupingSeparator($values['grouping_separator']);
 
     return $currency;
   }
@@ -43,20 +43,13 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       '#title' => t('Locale'),
       '#type' => 'details',
     );
-    if ($currency_locale_pattern->locale) {
-      list($locale_language_code, $locale_country_code) = explode('_', $currency_locale_pattern->locale);
-    }
-    else {
-      $locale_language_code = NULL;
-      $locale_country_code = NULL;
-    }
     $options = array();
     foreach (LanguageManager::getStandardLanguageList() as $language_code => $language_names) {
       $options[$language_code] = $language_names[0];
     }
     natcasesort($options);
     $form['locale']['language_code'] = array(
-      '#default_value' => $locale_language_code,
+      '#default_value' => $currency_locale_pattern->getLanguageCode(),
       '#empty_value' => '',
       '#options' => $options,
       '#required' => TRUE,
@@ -64,7 +57,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       '#type' => 'select',
     );
     $form['locale']['country_code'] = array(
-      '#default_value' => $locale_country_code,
+      '#default_value' => $currency_locale_pattern->getCountryCode(),
       '#empty_value' => '',
       '#options' => \Drupal::service('country_manager')->getList(),
       '#required' => TRUE,
@@ -76,7 +69,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       '#type' => 'details',
     );
     $form['cldr']['pattern'] = array(
-      '#default_value' => $currency_locale_pattern->pattern,
+      '#default_value' => $currency_locale_pattern->getPattern(),
       '#description' => t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>. Non-standard characters are allowed. <code>[XXX]</code> and <code>[999]</code> will be replaced by the ISO 4217 currency code and number.'),
       '#maxlength' => 255,
       '#required' => TRUE,
@@ -84,13 +77,13 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       '#type' => 'textfield',
     );
     $form['cldr']['decimal_separator'] = array(
-      '#default_value' => $currency_locale_pattern->decimalSeparator,
+      '#default_value' => $currency_locale_pattern->getDecimalSeparator(),
       '#maxlength' => 255,
       '#title' => t('Decimal separator'),
       '#type' => 'textfield',
     );
     $form['cldr']['grouping_separator'] = array(
-      '#default_value' => $currency_locale_pattern->groupingSeparator,
+      '#default_value' => $currency_locale_pattern->getGroupingSeparator(),
       '#maxlength' => 255,
       '#title' => t('Group separator'),
       '#type' => 'textfield',
@@ -107,7 +100,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
     // If this entity is new, its locale/ID has to be unique.
     $currency_locale_pattern = $this->buildEntity($form, $form_state);
     if ($currency_locale_pattern->isNew()) {
-      $currency_locale_pattern_loaded = entity_load('currency_locale_pattern', $currency_locale_pattern->locale);
+      $currency_locale_pattern_loaded = entity_load('currency_locale_pattern', $currency_locale_pattern->id());
       if ($currency_locale_pattern_loaded) {
         form_set_error('locale', t(' A pattern for this locale already exists.'));
       }

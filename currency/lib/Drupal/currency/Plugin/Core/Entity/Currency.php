@@ -7,10 +7,10 @@
 
 namespace Drupal\currency\Plugin\Core\Entity;
 
-use Drupal\Component\Annotation\Plugin;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\Annotation\EntityType;
+use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
 
 /**
  * Defines a currency entity class.
@@ -38,7 +38,7 @@ use Drupal\Core\Entity\Annotation\EntityType;
  *   module = "currency"
  * )
  */
-class Currency extends ConfigEntityBase {
+class Currency extends ConfigEntityBase implements CurrencyInterface {
 
   /**
    * Alternative (non-official) currency signs.
@@ -46,7 +46,7 @@ class Currency extends ConfigEntityBase {
    * @var array
    *   An array of strings that are similar to self::sign.
    */
-  public $alternativeSigns = array();
+  protected $alternativeSigns = array();
 
   /**
    * ISO 4217 currency code.
@@ -60,7 +60,7 @@ class Currency extends ConfigEntityBase {
    *
    * @var string
    */
-  public $currencyNumber = NULL;
+  protected $currencyNumber = NULL;
 
   /**
    * Exchange rates to other currencies.
@@ -68,7 +68,7 @@ class Currency extends ConfigEntityBase {
    * @var array
    *   Keys are ISO 4217 codes, values are numeric strings.
    */
-  public $exchangeRates = array();
+  protected $exchangeRates = array();
 
   /**
    * The human-readable name.
@@ -78,34 +78,27 @@ class Currency extends ConfigEntityBase {
   public $label = NULL;
 
   /**
-   * The module implementing this currency.
-   *
-   * @var string
-   */
-  protected $module = 'currency';
-
-  /**
    * The number of subunits to round amounts in this currency to.
    *
    * @see Currency::getRoundingStep()
    *
    * @var integer
    */
-  public $roundingStep = NULL;
+  protected $roundingStep = NULL;
 
   /**
    * The currency's official sign, such as '€' or '$'.
    *
    * @var string
    */
-  public $sign = '¤';
+  protected $sign = '¤';
 
   /**
    * The number of subunits this currency has.
    *
    * @var integer|null
    */
-  public $subunits = NULL;
+  protected $subunits = NULL;
 
   /**
    * This currency's usage.
@@ -113,7 +106,7 @@ class Currency extends ConfigEntityBase {
    * @var array
    *   An array of \Drupal\currency\Usage objects.
    */
-  public $usage = array();
+  protected $usage = array();
 
   /**
    * The UUID for this entity.
@@ -122,11 +115,140 @@ class Currency extends ConfigEntityBase {
    */
   public $uuid = NULL;
 
+  public function __construct(array $values, $entity_type) {
+    parent::__construct($values, $entity_type);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setAlternativeSigns(array $signs) {
+    $this->alternativeSigns = $signs;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAlternativeSigns() {
+    return $this->alternativeSigns;
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @see self::id()
+   */
+  public function setCurrencyCode($code) {
+    $this->currencyCode = $code;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setCurrencyNumber($number) {
+    $this->currencyNumber = $number;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCurrencyNumber() {
+    return $this->currencyNumber;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setExchangeRates(array $rates) {
+    $this->exchangeRates = $rates;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getExchangeRates() {
+    return $this->exchangeRates;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setLabel($label) {
+    $this->label = $label;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRoundingStep($step) {
+    $this->roundingStep = $step;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSign($sign) {
+    $this->sign = $sign;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSign() {
+    return $this->sign;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSubunits($subunits) {
+    $this->subunits = $subunits;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSubunits() {
+    return $this->subunits;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUsage(array $usage) {
+    $this->usage = $usage;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUsage() {
+    return $this->usage;
+  }
+
   /**
    * Overrides parent::id().
    */
   public function id() {
-    return isset($this->currencyCode) ? $this->currencyCode : NULL;
+    return $this->currencyCode;
   }
 
   /**
@@ -145,11 +267,7 @@ class Currency extends ConfigEntityBase {
   }
 
   /**
-   * Returns the number of decimals.
-   *
-   * @todo Port this to the Entity Field API.
-   *
-   * @return int
+   * {@inheritdoc}
    */
   public function getDecimals() {
     $decimals = 0;
@@ -164,22 +282,19 @@ class Currency extends ConfigEntityBase {
   }
 
   /**
-   * Returns an options list of all currencies.
+   * {@inheritdoc}
    *
    * @todo Inject the entity manager service when
    * http://drupal.org/node/1863816 is fixed.
-   *
-   * @return array
-   *   Keys are currency codes. Values are human-readable currency labels.
    */
   public static function options() {
     $options = array();
     foreach (entity_load_multiple('currency') as $currency) {
       // Do not show disabled currencies.
       if ($currency->status()) {
-        $options[$currency->currencyCode] = t('@currency_title (@currency_code)', array(
+        $options[$currency->id()] = t('@currency_title (@currency_code)', array(
           '@currency_title' => $currency->label(),
-          '@currency_code' => $currency->currencyCode,
+          '@currency_code' => $currency->id(),
         ));
       }
     }
@@ -189,23 +304,14 @@ class Currency extends ConfigEntityBase {
   }
 
   /**
-   * Format an amount using this currency and the environment's default locale
-   * pattern.
-   *
-   * @param string $amount
-   *   A numeric string.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   function format($amount) {
     return \Drupal::service('currency.locale_delegator')->getLocalePattern()->format($this, $amount);
   }
 
   /**
-   * Returns the rounding step.
-   *
-   * @return string|false
-   *   The rounding step as a numeric string, or FALSE if unavailable.
+   * {@inheritdoc}
    */
   function getRoundingStep() {
     if (is_numeric($this->roundingStep)) {
@@ -216,19 +322,10 @@ class Currency extends ConfigEntityBase {
     elseif (is_numeric($this->subunits)) {
       return $this->subunits > 0 ? bcdiv(1, $this->subunits, CURRENCY_BCMATH_SCALE) : 1;
     }
-    else {
-      return FALSE;
-    }
   }
 
   /**
-   * Rounds an amount.
-   *
-   * @param string $amount
-   *   A numeric string.
-   *
-   * @return string
-   *   A numeric string.
+   * {@inheritdoc}
    */
   function roundAmount($amount) {
     $rounding_step = $this->getRoundingStep();
@@ -238,12 +335,7 @@ class Currency extends ConfigEntityBase {
   }
 
   /**
-   * Checks if the currency is no longer used in the world.
-   *
-   * @param int $reference
-   *   A Unix timestamp to check the currency's usage for. Defaults to now.
-   *
-   * @return bool|null
+   * {@inheritdoc}
    */
   function isObsolete($reference = NULL) {
     // Without usage information, we cannot know if the currency is obsolete.
@@ -268,5 +360,24 @@ class Currency extends ConfigEntityBase {
       }
     }
     return $obsolete == count($this->usage);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getExportProperties() {
+    $properties['alternativeSigns'] = $this->getAlternativeSigns();
+    $properties['currencyCode'] = $this->id();
+    $properties['currencyNumber'] = $this->getCurrencyNumber();
+    $properties['exchangeRates'] = $this->getExchangeRates();
+    $properties['label'] = $this->label();
+    $properties['roundingStep'] = $this->getRoundingStep();
+    $properties['sign'] = $this->getSign();
+    $properties['subunits'] = $this->getSubunits();
+    $properties['status'] = $this->status();
+    $properties['usage'] = $this->getUsage();
+    $properties['uuid'] = $this->uuid();
+
+    return $properties;
   }
 }

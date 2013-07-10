@@ -134,14 +134,14 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
 
     switch ($form_state['triggering_element']['#name']) {
       case 'save':
-        $plugin->save($currency_from->currencyCode, $currency_to->currencyCode, $values['rate']['amount']);
+        $plugin->save($currency_from->id(), $currency_to->id(), $values['rate']['amount']);
         drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been saved.', array(
           '@currency_title_from' => $currency_from->label(),
           '@currency_title_to' => $currency_to->label(),
         )));
         break;
       case 'delete':
-        $plugin->delete($currency_from->currencyCode, $currency_to->currencyCode);
+        $plugin->delete($currency_from->id(), $currency_to->id());
         drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been deleted.', array(
           '@currency_title_from' => $currency_from->label(),
           '@currency_title_to' => $currency_to->label(),

@@ -21,7 +21,6 @@ class AccessController extends EntityAccessController {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, $langcode, AccountInterface $account) {
-    debug('currency.' . $entity->entityType() . '.' . $operation);
     return user_access('currency.' . $entity->entityType() . '.' . $operation, $account);
   }
 }
