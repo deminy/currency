@@ -47,6 +47,7 @@ usage:
     - { usageFrom: '1999-01-01', usageTo: '', countryCode: IE }
     - { usageFrom: '1999-01-01', usageTo: '', countryCode: IT }
     - { usageFrom: '1999-01-01', usageTo: '', countryCode: LU }
+    - { usageFrom: '2014-01-01', usageTo: '', countryCode: LV }
     - { usageFrom: '1999-01-01', usageTo: '', countryCode: MC }
     - { usageFrom: '2002-01-01', usageTo: '', countryCode: ME }
     - { usageFrom: '1999-01-01', usageTo: '', countryCode: MF }
