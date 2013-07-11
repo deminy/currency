@@ -1,4 +1,8 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
     "hash": "d3a353594342e4d9553e187be3d17387",
     "packages": [
         {
@@ -47,12 +51,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bartfeenstra/currency.git",
-                "reference": "0e8b99d1daea675d11c0c20a50a707ede32e2ff8"
+                "reference": "a1b4db3393dc2e7fa567d28a7722ae85bf587035"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/0e8b99d1daea675d11c0c20a50a707ede32e2ff8",
-                "reference": "0e8b99d1daea675d11c0c20a50a707ede32e2ff8",
+                "url": "https://api.github.com/repos/bartfeenstra/currency/zipball/a1b4db3393dc2e7fa567d28a7722ae85bf587035",
+                "reference": "a1b4db3393dc2e7fa567d28a7722ae85bf587035",
                 "shasum": ""
             },
             "require-dev": {
@@ -80,21 +84,21 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-04-11 19:15:56"
+            "time": "2013-07-11 08:54:09"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.1.9",
+            "version": "v2.1.11",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.1.9"
+                "reference": "v2.1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.1.9",
-                "reference": "v2.1.9",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.1.11",
+                "reference": "v2.1.11",
                 "shasum": ""
             },
             "require": {
@@ -122,7 +126,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-23 01:54:33"
+            "time": "2013-05-10 00:09:46"
         }
     ],
     "packages-dev": [
