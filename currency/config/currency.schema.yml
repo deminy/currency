@@ -1,0 +1,49 @@
+currency.currency.*:
+  label: 'Currency'
+  mapping:
+    alternativeSigns:
+      sequence:
+        type: string
+      type: sequence
+    exchangeRates:
+      type: mapping
+    currencyCode:
+      type: string
+    currencyNumber:
+      type: string
+    label:
+      type: label
+    sign:
+      type: string
+    subunits:
+      type: integer
+    status:
+      type: boolean
+    usage:
+      sequence:
+        mapping:
+          countryCode:
+            type: string
+          usageFrom:
+            type: string
+          usageTo:
+            type: string
+        type: mapping
+      type: sequence
+    uuid:
+      type: string
+  type: mapping
+
+currency.currency_locale_pattern.*:
+  label: 'Currency locale apttern'
+  mapping:
+    decimalSeparator:
+      type: string
+    groupingSeparator:
+      type: string
+    locale:
+      type: string
+    pattern:
+      type: string
+    uuid:
+      type: string
