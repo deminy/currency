@@ -7,6 +7,7 @@
 
 use Drupal\currency\Input;
 use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\Component\Utility\NestedArray;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -105,16 +106,16 @@ function currency_element_info() {
     '#process' => array('currency_form_currency_amount_process'),
     '#default_value' => array(
       'amount' => NULL,
-      'currency_code' => 'XXX',
+      'currency_code' => NULL,
     ),
     '#element_validate' => array('currency_form_currency_amount_validate'),
     // The minimum amount as a numeric string, or FALSE to omit.
     '#minimum_amount' => FALSE,
     // The maximum amount as a numeric string, or FALSE to omit.
     '#maximum_amount' => FALSE,
-    // The ISO 4217 code of the currency the amount should be in. Use FALSE to
-    // let users choose.
-    '#currency_code' => FALSE,
+    // The ISO 4217 codes of the currencies the amount must be in. Use an empty
+    // array to allow any currency.
+    '#limit_currency_codes' => array(),
   );
   // An element to set a currency sign.
   $elements['currency_sign'] = array(
@@ -175,18 +176,23 @@ function currency_permission() {
 function currency_form_currency_amount_process(array $element, array &$form_state, array &$form) {
   // Validate element configuration.
   if ($element['#minimum_amount'] !== FALSE && !is_numeric($element['#minimum_amount'])) {
-    throw new RuntimeException('The minimum amount must be a decimal number.');
+    throw new RuntimeException('The minimum amount must be a number.');
   }
   if ($element['#maximum_amount'] !== FALSE && !is_numeric($element['#maximum_amount'])) {
-    throw new RuntimeException('The maximum amount must be a decimal number.');
+    throw new RuntimeException('The maximum amount must be a number.');
   }
-  if ($element['#currency_code']) {
-    $currency = entity_load('currency', $element['#currency_code']);
-    if (!$currency) {
-      throw new RuntimeException('A valid ISO 4217 currency code needs to be set.');
-    }
+  if ($element['#limit_currency_codes']
+    && $element['#default_value']['currency_code']
+    && !in_array($element['#default_value']['currency_code'], $element['#limit_currency_codes'])) {
+    throw new \InvalidArgumentException('The default currency is not in the list of allowed currencies.');
   }
-  else {
+
+  // Load the default currency.
+  $currency = NULL;
+  if ($element['#default_value']['currency_code']) {
+    $currency = entity_load('currency', $element['#default_value']['currency_code']);
+  }
+  if(!$currency) {
     $currency = entity_load('currency', 'XXX');
   }
 
@@ -198,15 +204,21 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   );
 
   // Add the currency element.
-  if (!$element['#currency_code']) {
+  if (count($element['#limit_currency_codes']) == 1) {
+    $element['currency_code'] = array(
+      '#value' => reset($element['#limit_currency_codes']),
+      '#type' => 'value',
+    );
+  }
+  else {
     $element['currency_code'] = array(
       '#default_value' => $element['#default_value']['currency_code'],
       '#type' => 'select',
       '#title' => t('Currency'),
       '#title_display' => 'invisible',
-      '#options' => Currency::options(),
+      '#options' => $element['#limit_currency_codes'] ? array_intersect_key(Currency::options(), $element['#limit_currency_codes']) : Currency::options(),
       '#required' => $element['#required'],
-      '#default_value' => 'XXX',
+      '#default_value' => $currency->id(),
     );
   }
 
@@ -223,7 +235,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
     '#title' => t('Amount'),
     '#title_display' => 'invisible',
     '#description' => $description,
-    '#prefix' => $element['#currency_code'] ? $currency->getSign() : NULL,
+    '#prefix' => count($element['#limit_currency_codes']) == 1 ? $currency->getSign() : NULL,
     '#required' => $element['#required'],
     '#size' => 9,
   );
@@ -235,9 +247,9 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
  * Implements form validate callback for a currency_amount element.
  */
 function currency_form_currency_amount_validate(array $element, array &$form_state) {
-  $value = $element['#value'];
+  $value = NestedArray::getValue($form_state['values'], $element['#parents']);
   $amount = $value['amount'];
-  $currency_code = isset($value['currency_code']) ? $value['currency_code'] : $element['#currency_code'];
+  $currency_code = $value['currency_code'];
 
   // Confirm that the amount is numeric.
   $amount = Input::parseAmount($amount);

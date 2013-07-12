@@ -87,9 +87,10 @@ class FixedRatesForm implements FormInterface, ControllerInterface {
       '#type' => 'select',
     );
     $form['rate'] = array(
-      '#currency_code' => $currency_code_to,
+      '#limit_currency_codes' => array($currency_code_to),
       '#default_value' => array(
         'amount' => $rate,
+        'currency_code' => $currency_code_to,
       ),
       '#required' => TRUE,
       '#title' => t('Conversion rate'),

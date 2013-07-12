@@ -126,7 +126,7 @@ function currency_test_views_data() {
 function currency_test_form_currency_amount(array $form, array &$form_state, $minimum_amount, $maximum_amount, $currency_code = FALSE) {
   $form['#submit'] = array('currency_test_form_submit');
   $form['amount'] = array(
-    '#currency_code' => $currency_code,
+    '#limit_currency_codes' => $currency_code ? array($currency_code) : array(),
     '#type' => 'currency_amount',
     '#title' => t('Foo amount'),
     '#minimum_amount' => $minimum_amount,
