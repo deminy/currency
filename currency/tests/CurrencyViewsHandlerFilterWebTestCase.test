@@ -15,6 +15,7 @@ class CurrencyViewsHandlerFilterWebTestCase extends ViewsSqlTest {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'CurrencyViewsFilterHandler',
       'group' => 'Currency',
       'dependencies' => array('views'),

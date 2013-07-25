@@ -15,6 +15,7 @@ class CurrencySignFormElementWebTestCase extends DrupalWebTestCase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'currency_sign form element',
       'group' => 'Currency',
     );

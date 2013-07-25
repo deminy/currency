@@ -15,6 +15,7 @@ class CurrencyLocalePatternUIWebTestCase extends DrupalWebTestCase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'CurrencyLocalePattern UI',
       'group' => 'Currency',
     );

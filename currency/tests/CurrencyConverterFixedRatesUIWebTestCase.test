@@ -15,6 +15,7 @@ class CurrencyExchangerFixedRatesUIWebTestCase extends DrupalWebTestCase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'CurrencyExchangerFixedRates UI',
       'group' => 'Currency',
     );

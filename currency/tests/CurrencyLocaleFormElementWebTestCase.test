@@ -15,6 +15,7 @@ class CurrencyLocaleFormElementWebTestCase extends DrupalWebTestCase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'currency_locale form element',
       'group' => 'Currency',
     );

@@ -15,6 +15,7 @@ class CurrencyWebTestCase extends DrupalWebTestCase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Currency',
       'group' => 'Currency',
     );

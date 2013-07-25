@@ -15,6 +15,7 @@ class CurrencyExchangeRateDBTableModuleInstallUninstall extends DrupalWebTestCas
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Module installation and uninstallation',
       'group' => 'Currency exchange rate database table',
     );

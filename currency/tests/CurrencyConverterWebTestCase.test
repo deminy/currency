@@ -15,6 +15,7 @@ class CurrencyExchangerWebTestCase extends DrupalWebTestCase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'CurrencyExchanger',
       'group' => 'Currency',
     );
