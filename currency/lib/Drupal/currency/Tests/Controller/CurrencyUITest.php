@@ -21,6 +21,7 @@ class CurrencyUITest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Controller\CurrencyUI',
       'group' => 'Currency',
     );

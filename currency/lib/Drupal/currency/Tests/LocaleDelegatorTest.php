@@ -22,6 +22,7 @@ class LocaleDelegatorTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\LocaleDelegator',
       'group' => 'Currency',
     );

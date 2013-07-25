@@ -21,6 +21,7 @@ class FilterCurrencyLocalize extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'currency_localize input filter',
       'group' => 'Currency',
     );

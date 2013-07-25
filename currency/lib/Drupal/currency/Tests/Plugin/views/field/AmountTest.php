@@ -21,6 +21,7 @@ class AmountTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\views\field\Amount',
       'group' => 'Currency',
       'dependencies' => array('views'),

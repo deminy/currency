@@ -21,6 +21,7 @@ class CurrencyAmountFormElement extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'currency_amount form element',
       'group' => 'Currency',
     );

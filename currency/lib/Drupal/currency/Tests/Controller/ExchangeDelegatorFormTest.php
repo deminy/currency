@@ -21,6 +21,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Controller\ExchangeDelegatorForm',
       'group' => 'Currency',
     );

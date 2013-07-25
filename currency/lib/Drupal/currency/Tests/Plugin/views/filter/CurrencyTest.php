@@ -22,6 +22,7 @@ class CurrencyTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\views\filter\Currency',
       'group' => 'Currency',
       'dependencies' => array('views'),

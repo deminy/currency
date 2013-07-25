@@ -23,6 +23,7 @@ class CurrencyCRUD extends WebTestBase {
    */
   public static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\Core\Entity\Currency entity CRUD',
       'group' => 'Currency',
     );

@@ -21,6 +21,7 @@ class FilterCurrencyExchange extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'currency_exchange input filter',
       'group' => 'Currency',
     );

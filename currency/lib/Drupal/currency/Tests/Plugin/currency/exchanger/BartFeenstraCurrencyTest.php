@@ -21,6 +21,7 @@ class BartFeenstraCurrencyTest extends WebTestBase {
    */
   public static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\currency\exchanger\BartFeenstraCurrency',
       'group' => 'Currency',
     );

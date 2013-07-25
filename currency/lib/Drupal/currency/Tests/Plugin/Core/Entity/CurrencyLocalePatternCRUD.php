@@ -22,6 +22,7 @@ class CurrencyLocalePatternCRUD extends WebTestBase {
    */
   public static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern entity CRUD',
       'group' => 'Currency',
     );

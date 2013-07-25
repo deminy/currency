@@ -21,6 +21,7 @@ class CurrencySignFormElement extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'currency_sign form element',
       'group' => 'Currency',
     );

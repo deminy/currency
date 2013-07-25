@@ -21,6 +21,7 @@ class CurrencyLocalePatternUITest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Controller\CurrencyLocalePatternUI',
       'group' => 'Currency',
     );

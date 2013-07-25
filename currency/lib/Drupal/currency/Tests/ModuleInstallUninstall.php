@@ -21,6 +21,7 @@ class ModuleInstallUninstall extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Module installation and uninstallation',
       'group' => 'Currency',
     );

@@ -21,6 +21,7 @@ class CurrencyFormControllerTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\CurrencyFormController',
       'group' => 'Currency',
     );

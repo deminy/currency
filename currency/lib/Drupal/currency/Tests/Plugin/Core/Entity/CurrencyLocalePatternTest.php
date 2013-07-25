@@ -22,6 +22,7 @@ class CurrencyLocalePatternTest extends DrupalUnitTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern',
       'group' => 'Currency',
     );

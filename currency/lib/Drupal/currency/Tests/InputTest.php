@@ -20,6 +20,7 @@ class InputTest extends UnitTestBase {
    */
   public static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Input',
       'group' => 'Currency',
     );

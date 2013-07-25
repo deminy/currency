@@ -23,6 +23,7 @@ class CurrencyTest extends DrupalUnitTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\Core\Entity\Currency',
       'group' => 'Currency',
     );

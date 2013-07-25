@@ -21,6 +21,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\ExchangeDelegator',
       'group' => 'Currency',
     );

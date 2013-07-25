@@ -21,6 +21,7 @@ class CurrencyDeleteFormControllerTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\Core\Entity\CurrencyDeleteFormController',
       'group' => 'Currency',
     );

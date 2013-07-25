@@ -21,6 +21,7 @@ class CurrencyLocalePatternFormControllerTest extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\CurrencyLocalePatternFormController',
       'group' => 'Currency',
     );

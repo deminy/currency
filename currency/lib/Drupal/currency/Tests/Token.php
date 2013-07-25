@@ -21,6 +21,7 @@ class Token extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Token integration',
       'group' => 'Currency',
     );

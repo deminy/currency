@@ -21,6 +21,7 @@ class FixedRatesUI extends WebTestBase {
    */
   static function getInfo() {
     return array(
+      'description' => '',
       'name' => 'Drupal\currency\Plugin\currency\exchanger\FixedRates UI',
       'group' => 'Currency',
     );
