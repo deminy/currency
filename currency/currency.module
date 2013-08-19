@@ -6,7 +6,7 @@
  */
 
 use Drupal\currency\Input;
-use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\currency\Entity\Currency;
 use Drupal\Component\Utility\NestedArray;
 
 require_once __DIR__ . '/vendor/autoload.php';

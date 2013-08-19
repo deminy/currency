@@ -9,7 +9,7 @@ namespace Drupal\currency;
 
 use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageManager;
-use Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern;
+use Drupal\currency\Entity\CurrencyLocalePattern;
 
 /**
  * 
@@ -38,7 +38,7 @@ class LocaleDelegator {
   /**
    * The locale pattern to use.
    *
-   * @var \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
+   * @var \Drupal\currency\Entity\CurrencyLocalePattern
    */
   protected $localePattern;
 
@@ -54,7 +54,7 @@ class LocaleDelegator {
   /**
    * Sets the locale pattern to use.
    *
-   * @param $locale_pattern \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
+   * @param $locale_pattern \Drupal\currency\Entity\CurrencyLocalePattern
    */
   function setLocalePattern(CurrencyLocalePattern $locale_pattern) {
     return $this->localePattern = $locale_pattern;
@@ -72,7 +72,7 @@ class LocaleDelegator {
    *
    * @throws RuntimeException
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern
+   * @return \Drupal\currency\Entity\CurrencyLocalePattern
    */
   function getLocalePattern() {
     if (is_null($this->localePattern)) {

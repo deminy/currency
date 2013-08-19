@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern.
+ * Definition of Drupal\currency\Entity\CurrencyLocalePattern.
  */
 
-namespace Drupal\currency\Plugin\Core\Entity;
+namespace Drupal\currency\Entity;
 
 use BartFeenstra\CLDR\CurrencyFormatter;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Entity\Annotation\EntityType;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Language\LanguageManager;
-use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
+use Drupal\currency\Entity\CurrencyInterface;
 
 /**
  * Defines a currency entity class.
@@ -20,12 +20,12 @@ use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
  * @EntityType(
  *   config_prefix = "currency.currency_locale_pattern",
  *   controllers = {
- *     "access" = "Drupal\currency\Plugin\Core\Entity\AccessController",
+ *     "access" = "Drupal\currency\Entity\AccessController",
  *     "form" = {
- *       "default" = "Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternFormController",
- *       "delete" = "Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternDeleteFormController"
+ *       "default" = "Drupal\currency\Entity\CurrencyLocalePatternFormController",
+ *       "delete" = "Drupal\currency\Entity\CurrencyLocalePatternDeleteFormController"
  *     },
- *     "list" = "Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternListController",
+ *     "list" = "Drupal\currency\Entity\CurrencyLocalePatternListController",
  *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
  *   },
  *   entity_keys = {

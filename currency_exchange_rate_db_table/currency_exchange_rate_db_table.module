@@ -5,7 +5,7 @@
  * Contains hook implementations and shared functions.
  */
 
-use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\currency\Entity\Currency;
 
 /**
  * The database table's default update interval.

@@ -11,7 +11,7 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Controller\ControllerInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
-use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\currency\Entity\Currency;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

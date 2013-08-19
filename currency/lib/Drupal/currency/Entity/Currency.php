@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Plugin\Core\Entity\Currency.
+ * Definition of Drupal\currency\Entity\Currency.
  */
 
-namespace Drupal\currency\Plugin\Core\Entity;
+namespace Drupal\currency\Entity;
 
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\Annotation\EntityType;
-use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
+use Drupal\currency\Entity\CurrencyInterface;
 
 /**
  * Defines a currency entity class.
@@ -18,13 +18,13 @@ use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
  * @EntityType(
  *   config_prefix = "currency.currency",
  *   controllers = {
- *     "access" = "Drupal\currency\Plugin\Core\Entity\AccessController",
+ *     "access" = "Drupal\currency\Entity\AccessController",
  *     "form" = {
- *       "default" = "Drupal\currency\Plugin\Core\Entity\CurrencyFormController",
- *       "delete" = "Drupal\currency\Plugin\Core\Entity\CurrencyDeleteFormController"
+ *       "default" = "Drupal\currency\Entity\CurrencyFormController",
+ *       "delete" = "Drupal\currency\Entity\CurrencyDeleteFormController"
  *     },
- *     "list" = "Drupal\currency\Plugin\Core\Entity\CurrencyListController",
- *     "storage" = "Drupal\currency\Plugin\Core\Entity\CurrencyStorageController",
+ *     "list" = "Drupal\currency\Entity\CurrencyListController",
+ *     "storage" = "Drupal\currency\Entity\CurrencyStorageController",
  *   },
  *   entity_keys = {
  *     "id" = "currencyCode",

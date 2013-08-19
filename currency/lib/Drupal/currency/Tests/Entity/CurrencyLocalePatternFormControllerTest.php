@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Plugin\Core\Entity\CurrencyLocalePatternFormControllerTest.
+ * Contains class \Drupal\currency\Tests\Entity\CurrencyLocalePatternFormControllerTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\Core\Entity;
+namespace Drupal\currency\Tests\Entity;
 
 use Drupal\simpletest\WebTestBase;
 

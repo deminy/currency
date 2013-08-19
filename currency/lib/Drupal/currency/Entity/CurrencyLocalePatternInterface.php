@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternInterface.
+ * Definition of Drupal\currency\Entity\CurrencyLocalePatternInterface.
  */
 
-namespace Drupal\currency\Plugin\Core\Entity;
+namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 
@@ -19,7 +19,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    *
    * @param string $separator
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
    */
   public function setDecimalSeparator($separator);
 
@@ -35,7 +35,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    *
    * @param string $separator
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
    */
   public function setGroupingSeparator($separator);
 
@@ -64,7 +64,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    * @param string $language_code
    * @param string $country_code
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
    */
   public function setLocale($language_code, $country_code);
 
@@ -87,7 +87,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    *
    * @param string $pattern
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
    */
   public function setPattern($pattern);
 
@@ -101,7 +101,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
   /**
    * Formats an amount.
    *
-   * @param \Drupal\currency\Plugin\Core\Entity\CurrencyInterface $currency
+   * @param \Drupal\currency\Entity\CurrencyInterface $currency
    *   The currency the amount is in.
    * @param string $amount
    *   A numeric string.

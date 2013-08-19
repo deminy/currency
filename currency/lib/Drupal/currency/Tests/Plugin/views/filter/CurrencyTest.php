@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Tests\Plugin\views\filter;
 
-use Drupal\currency\Plugin\Core\Entity\Currency;
+use Drupal\currency\Entity\Currency;
 use Drupal\simpletest\WebTestBase;
 
 /**

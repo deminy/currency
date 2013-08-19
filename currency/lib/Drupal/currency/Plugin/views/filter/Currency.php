@@ -8,7 +8,7 @@
 namespace Drupal\currency\Plugin\views\filter;
 
 use Drupal\Component\Annotation\PluginID;
-use Drupal\currency\Plugin\Core\Entity\Currency as CurrencyEntity;
+use Drupal\currency\Entity\Currency as CurrencyEntity;
 use Drupal\views\Plugin\views\filter\InOperator;
 
 /**

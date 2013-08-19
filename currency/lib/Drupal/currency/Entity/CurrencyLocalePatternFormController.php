@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternFormController.
+ * Definition of Drupal\currency\Entity\CurrencyLocalePatternFormController.
  */
 
-namespace Drupal\currency\Plugin\Core\Entity;
+namespace Drupal\currency\Entity;
 
 use Drupal\Core\Entity\EntityFormController;
 use Drupal\Core\Language\LanguageManager;

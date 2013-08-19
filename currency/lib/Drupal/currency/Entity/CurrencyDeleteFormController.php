@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains Drupal\currency\Plugin\Core\Entity\CurrencyDeleteFormController.
+ * Contains Drupal\currency\Entity\CurrencyDeleteFormController.
  */
 
-namespace Drupal\currency\Plugin\Core\Entity;
+namespace Drupal\currency\Entity;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
 

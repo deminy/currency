@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Plugin\Core\Entity\CurrencyCRUD.
+ * Contains class \Drupal\currency\Tests\Entity\CurrencyCRUD.
  */
 
-namespace Drupal\currency\Tests\Plugin\Core\Entity;
+namespace Drupal\currency\Tests\Entity;
 
-use Drupal\currency\Plugin\Core\Entity\CurrencyInterface;
+use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\Usage;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Plugin\Core\Entity\Currency.
+ * Tests \Drupal\currency\Entity\Currency.
  */
 class CurrencyCRUD extends WebTestBase {
 
@@ -24,7 +24,7 @@ class CurrencyCRUD extends WebTestBase {
   public static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Plugin\Core\Entity\Currency entity CRUD',
+      'name' => 'Drupal\currency\Entity\Currency entity CRUD',
       'group' => 'Currency',
     );
   }

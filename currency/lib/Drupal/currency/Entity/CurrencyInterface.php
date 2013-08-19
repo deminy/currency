@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Plugin\Core\Entity\CurrencyInterface.
+ * Definition of Drupal\currency\Entity\CurrencyInterface.
  */
 
-namespace Drupal\currency\Plugin\Core\Entity;
+namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 
@@ -20,7 +20,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    * @param array $signs
    *   Values are currency signs.
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setAlternativeSigns(array $signs);
 
@@ -37,7 +37,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    *
    * @param string $number
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setCurrencyNumber($number);
 
@@ -54,7 +54,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    * @param array $rates
    *   Keys are ISO 4217 codes, values are numeric strings.
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setExchangeRates(array $rates);
 
@@ -71,7 +71,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    *
    * @param string $label
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setLabel($label);
 
@@ -80,7 +80,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    *
    * @param int $step
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setRoundingStep($step);
 
@@ -96,7 +96,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    *
    * @param string $sign
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setSign($sign);
 
@@ -112,7 +112,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    *
    * @param int $subunits
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setSubunits($subunits);
 
@@ -129,7 +129,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
    * @param array
    *   An array of \Drupal\currency\Usage objects.
    *
-   * @return \Drupal\currency\Plugin\Core\Entity\CurrencyInterface
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   public function setUsage(array $usage);
 

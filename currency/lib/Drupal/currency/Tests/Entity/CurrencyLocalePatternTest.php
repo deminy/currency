@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Plugin\Core\Entity\CurrencyLocalePatternTest.
+ * Contains class \Drupal\currency\Tests\Entity\CurrencyLocalePatternTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\Core\Entity;
+namespace Drupal\currency\Tests\Entity;
 
-use Drupal\currency\Plugin\Core\Entity\CurrencyLocalePatternInterface;
+use Drupal\currency\Entity\CurrencyLocalePatternInterface;
 use Drupal\simpletest\DrupalUnitTestBase;
 
 /**
- * Tests class Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern.
+ * Tests class Drupal\currency\Entity\CurrencyLocalePattern.
  */
 class CurrencyLocalePatternTest extends DrupalUnitTestBase {
 
@@ -23,7 +23,7 @@ class CurrencyLocalePatternTest extends DrupalUnitTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Plugin\Core\Entity\CurrencyLocalePattern',
+      'name' => 'Drupal\currency\Entity\CurrencyLocalePattern',
       'group' => 'Currency',
     );
   }
