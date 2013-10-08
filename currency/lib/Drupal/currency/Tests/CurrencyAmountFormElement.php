@@ -38,7 +38,7 @@ class CurrencyAmountFormElement extends WebTestBase {
       'amount[amount]' => '50,95',
       'amount[currency_code]' => 'EUR',
     );
-    $this->drupalPost($path, $values, t('Submit'));
+    $this->drupalPostForm($path, $values, t('Submit'));
     $this->assertRaw("\$form_state['amount'] = " . var_export(array(
       'amount' => '50.95',
       'currency_code' => 'EUR',
@@ -50,7 +50,7 @@ class CurrencyAmountFormElement extends WebTestBase {
     $values =  array(
       'amount[amount]' => '50,95',
     );
-    $this->drupalPost($path . '/NLG', $values, t('Submit'));
+    $this->drupalPostForm($path . '/NLG', $values, t('Submit'));
     $this->assertRaw("\$form_state['amount'] = " . var_export(array(
       'amount' => '50.95',
       'currency_code' => 'NLG',
@@ -71,7 +71,7 @@ class CurrencyAmountFormElement extends WebTestBase {
       $values =  array(
         'amount[amount]' => $amount,
       );
-      $this->drupalPost($path, $values, t('Submit'));
+      $this->drupalPostForm($path, $values, t('Submit'));
       $this->assertFieldByXPath("//input[@name='amount[amount]' and contains(@class, 'error')]");
       $this->assertNoFieldByXPath("//input[not(@name='amount[amount]') and contains(@class, 'error')]");
     }

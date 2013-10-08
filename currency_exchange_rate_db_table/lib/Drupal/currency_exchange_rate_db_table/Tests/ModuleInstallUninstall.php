@@ -14,6 +14,16 @@ use Drupal\simpletest\WebTestBase;
  */
 class ModuleInstallUninstall extends WebTestBase {
 
+  /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * {@inheritdoc}
+   */
   public static $modules = array('currency_exchange_rate_db_table');
 
   /**
@@ -28,12 +38,19 @@ class ModuleInstallUninstall extends WebTestBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+    $this->moduleHandler = $this->container->get('module_handler');
+  }
+
+  /**
    * Test uninstall.
    */
   function testUninstallation() {
-    $this->assertTrue(module_exists('currency_exchange_rate_db_table'));
-    module_disable(array('currency_exchange_rate_db_table'));
-    module_uninstall(array('currency_exchange_rate_db_table'));
-    $this->assertFalse(module_exists('currency_exchange_rate_db_table'));
+    $this->assertTrue($this->moduleHandler->moduleExists('currency_exchange_rate_db_table'));
+    $this->moduleHandler->uninstall(array('currency_exchange_rate_db_table'));
+    $this->assertFalse($this->moduleHandler->moduleExists('currency_exchange_rate_db_table'));
   }
 }

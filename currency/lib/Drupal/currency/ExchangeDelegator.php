@@ -33,8 +33,8 @@ class ExchangeDelegator implements ExchangerInterface {
   /**
    * Constructor.
    *
-   * @param Drupal\Component\Plugin\PluginManagerInterface $pluginManager
-   * @param Drupal\Core\Config\ConfigFactory $configFactory
+   * @param \Drupal\Component\Plugin\PluginManagerInterface $pluginManager
+   * @param \Drupal\Core\Config\ConfigFactory $configFactory
    */
   function __construct(PluginManagerInterface $pluginManager, ConfigFactory $configFactory) {
     $this->pluginManager = $pluginManager;

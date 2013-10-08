@@ -37,7 +37,7 @@ class CurrencyLocalePatternDeleteFormControllerTest extends WebTestBase {
       'locale' => 'zz_ZZ',
     ));
     $currency_locale_pattern->save();
-    $this->drupalPost('admin/config/regional/currency_locale_pattern/' . $currency_locale_pattern->id() . '/delete', array(), t('Delete'));
+    $this->drupalPostForm('admin/config/regional/currency_locale_pattern/' . $currency_locale_pattern->id() . '/delete', array(), t('Delete'));
     $this->assertFalse(entity_load_unchanged('currency_locale_pattern', $currency_locale_pattern->id()));
   }
 }

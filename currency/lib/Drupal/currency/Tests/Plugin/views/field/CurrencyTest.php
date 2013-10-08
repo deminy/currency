@@ -33,7 +33,7 @@ class CurrencyTest extends WebTestBase {
    */
   public function testHandler() {
     $view = entity_load('view', 'currency_test');
-    $view->get('executable')->execute('default');
+    $view->getExecutable()->execute('default');
     $this->assertEqual($view->get('executable')->field['currency_sign']->advancedRender($view->get('executable')->result[0]), '€');
     $this->assertEqual($view->get('executable')->field['currency_subunits']->advancedRender($view->get('executable')->result[0]), '100');
   }

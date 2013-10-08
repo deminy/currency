@@ -19,8 +19,22 @@ class CurrencyListController extends ConfigEntityListController {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $row = parent::buildHeader();
-    $row['id'] = t('Currency code');
+    $header = array(
+      'id' => t('Currency code'),
+      'label' => t('Name'),
+    ) + parent::buildHeader();
+
+    return $header;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildRow(EntityInterface $entity) {
+    $row = array(
+      'id' => $entity->id(),
+      'label' => $entity->label(),
+    ) + parent::buildRow($entity);
 
     return $row;
   }

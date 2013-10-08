@@ -46,7 +46,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
     $values = array(
       'exchangers[currency_fixed_rates][enabled]' => FALSE,
     );
-    $this->drupalPost($path, $values, t('Save'));
+    $this->drupalPostForm($path, $values, t('Save'));
     $this->assertEqual(array(
       'currency_fixed_rates' => FALSE,
       'currency_bartfeenstra_currency' => TRUE,

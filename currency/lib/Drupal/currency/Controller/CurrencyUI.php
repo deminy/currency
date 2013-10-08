@@ -7,16 +7,16 @@
 
 namespace Drupal\currency\Controller;
 
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityManager;
-use Drupal\Core\Controller\ControllerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Returns responses for Currency entity UI routes.
  */
-class CurrencyUI implements ControllerInterface {
+class CurrencyUI implements ContainerInjectionInterface {
 
   /**
    * Stores the Entity manager.

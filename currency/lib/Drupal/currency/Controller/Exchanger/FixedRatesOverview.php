@@ -9,14 +9,14 @@ namespace Drupal\currency\Controller\Exchanger;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Controller\ControllerInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\currency\LocaleDelegator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the overview of fixed exchange rates.
  */
-class FixedRatesOverview implements ControllerInterface {
+class FixedRatesOverview implements ContainerInjectionInterface {
 
   /**
    * The config factory.

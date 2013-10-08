@@ -7,14 +7,14 @@
 
 namespace Drupal\currency\Controller;
 
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityManager;
-use Drupal\Core\Controller\ControllerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for currency_locale_pattern entity UI routes.
  */
-class CurrencyLocalePatternUI implements ControllerInterface {
+class CurrencyLocalePatternUI implements ContainerInjectionInterface {
 
   /**
    * Stores the Entity manager.

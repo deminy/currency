@@ -9,6 +9,7 @@ namespace Drupal\currency\Plugin\views\field;
 
 use Drupal\Component\Annotation\PluginID;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
+use Drupal\views\ResultRow;
 
 /**
  * A Views field handler to get properties from currencies.
@@ -38,7 +39,7 @@ class Currency extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
-  function render($values) {
+  function render(ResultRow $values) {
     $currency_code = $this->getValue($values);
     $currency = entity_load('currency', $currency_code);
     $property = $this->configuration['currency_property'];

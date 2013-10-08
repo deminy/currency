@@ -375,7 +375,10 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     $properties['sign'] = $this->getSign();
     $properties['subunits'] = $this->getSubunits();
     $properties['status'] = $this->status();
-    $properties['usage'] = $this->getUsage();
+    $properties['usage'] = array();
+    foreach ($this->getUsage() as $usage) {
+      $properties['usage'][] = (array) $usage;
+    }
     $properties['uuid'] = $this->uuid();
 
     return $properties;

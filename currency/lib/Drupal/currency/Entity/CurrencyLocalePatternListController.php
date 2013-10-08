@@ -19,9 +19,9 @@ class CurrencyLocalePatternListController extends ConfigEntityListController {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $row = parent::buildHeader();
-    unset($row['id']);
-    $row['label'] = t('Locale');
+    $row = array(
+      'label' => t('Locale'),
+    ) + parent::buildHeader();
 
     return $row;
   }
@@ -30,8 +30,9 @@ class CurrencyLocalePatternListController extends ConfigEntityListController {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    $row = parent::buildRow($entity);
-    unset($row['id']);
+    $row = array(
+      'label' => $entity->label(),
+    ) + parent::buildRow($entity);
 
     return $row;
   }

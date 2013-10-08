@@ -37,14 +37,14 @@ class AmountTest extends WebTestBase {
     // Test view creation/editing.
     $account = $this->drupalCreateUser(array('administer views'));
     $this->drupalLogin($account);
-    $this->drupalPost('admin/structure/views/nojs/config-item/' . $view_id . '/default/field/amount_currency_code_definition', array(
+    $this->drupalPostForm('admin/structure/views/nojs/config-item/' . $view_id . '/default/field/amount_currency_code_definition', array(
       'options[currency_round]' => TRUE,
     ), t('Apply'));
-    $this->drupalPost('admin/structure/views/view/' . $view_id, array(), t('Save'));
+    $this->drupalPostForm('admin/structure/views/view/' . $view_id, array(), t('Save'));
 
     // Test view display.
     $view = entity_load('view', $view_id);
-    $view->get('executable')->execute('default');
+    $view->getExecutable()->execute('default');
     $values = array(
       array(
         // The amount_currency_code_definition field is rounded.

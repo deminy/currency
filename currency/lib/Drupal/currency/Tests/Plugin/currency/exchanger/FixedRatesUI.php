@@ -51,7 +51,7 @@ class FixedRatesUI extends WebTestBase {
       'currency_code_to' => $currency_code_to,
       'rate[amount]' => $rate,
     );
-    $this->drupalPost($path . '/add', $values, t('Save'));
+    $this->drupalPostForm($path . '/add', $values, t('Save'));
     $this->assertIdentical($plugin->load($currency_code_from, $currency_code_to), $rate);
 
     // Test editing a exchange rate.
@@ -59,11 +59,11 @@ class FixedRatesUI extends WebTestBase {
     $values = array(
       'rate[amount]' => $rate,
     );
-    $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
+    $this->drupalPostForm($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
     $this->assertIdentical($plugin->load($currency_code_from, $currency_code_to), $rate);
 
     // Test deleting a exchange rate.
-    $this->drupalPost($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));
+    $this->drupalPostForm($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));
     $this->assertFalse($plugin->load($currency_code_from, $currency_code_to));
   }
 }

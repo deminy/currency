@@ -31,7 +31,7 @@ currency_exchanger_fixed_rates_edit:
 currency_currency_list:
   path: '/admin/config/regional/currency'
   defaults:
-    _content: '\Drupal\Core\Entity\Controller\EntityListController::listing'
+    _entity_list: 'currency'
     entity_type: 'currency'
   requirements:
     _permission: 'currency.currency.view'
@@ -75,8 +75,7 @@ currency_currency_disable:
 currency_locale_pattern_list:
   path: '/admin/config/regional/currency_locale_pattern'
   defaults:
-    _content: '\Drupal\Core\Entity\Controller\EntityListController::listing'
-    entity_type: 'currency_locale_pattern'
+    _entity_list: 'currency_locale_pattern'
   requirements:
     _permission: 'currency.currency_locale_pattern.view'
 

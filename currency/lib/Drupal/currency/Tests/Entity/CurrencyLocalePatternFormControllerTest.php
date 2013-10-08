@@ -43,13 +43,13 @@ class CurrencyLocalePatternFormControllerTest extends WebTestBase {
       'decimal_separator' => '1',
       'grouping_separator' => 'foobar',
     );
-    $this->drupalPost($path, $valid_values, t('Save'));
+    $this->drupalPostForm($path, $valid_values, t('Save'));
     $currency = entity_load('currency_locale_pattern', 'nl_UA');
     $this->assertTrue($currency);
 
     // Edit and save an existing currency.
     $path = 'admin/config/regional/currency_locale_pattern/nl_UA/edit';
-    $this->drupalPost($path, array(), t('Save'));
+    $this->drupalPostForm($path, array(), t('Save'));
     $this->assertUrl('admin/config/regional/currency_locale_pattern');
   }
 }

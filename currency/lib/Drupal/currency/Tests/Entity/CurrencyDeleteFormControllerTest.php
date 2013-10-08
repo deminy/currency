@@ -37,7 +37,7 @@ class CurrencyDeleteFormControllerTest extends WebTestBase {
       'currencyCode' => 'ABC',
     ));
     $currency->save();
-    $this->drupalPost('admin/config/regional/currency/' . $currency->id() . '/delete', array(), t('Delete'));
+    $this->drupalPostForm('admin/config/regional/currency/' . $currency->id() . '/delete', array(), t('Delete'));
     $this->assertFalse((bool) entity_load_unchanged('currency', $currency->id()));
   }
 }

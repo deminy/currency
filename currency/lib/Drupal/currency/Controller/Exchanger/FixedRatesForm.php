@@ -8,7 +8,7 @@
 namespace Drupal\currency\Controller\Exchanger;
 
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Controller\ControllerInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\currency\Entity\Currency;
@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides the currency_delegator exchanger configuration form.
  */
-class FixedRatesForm implements FormInterface, ControllerInterface {
+class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
 
   /**
    * The config factory.

@@ -35,7 +35,7 @@ class CurrencyTest extends WebTestBase {
   public function testHandler() {
     $view_id = 'currency_test';
     $view = entity_load('view', $view_id);
-    $view->get('executable')->execute('default');
+    $view->getExecutable()->execute('default');
     // There are four rows, and the filter excludes NLG.
     $this->assertEqual(count($view->get('executable')->result), 3);
 

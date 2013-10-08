@@ -9,6 +9,7 @@ namespace Drupal\currency\Plugin\views\field;
 
 use Drupal\Component\Annotation\PluginID;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
+use Drupal\views\ResultRow;
 
 /**
  * A Views field handler for currency amounts.
@@ -96,7 +97,7 @@ class Amount extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
-  function render($values) {
+  public function render(ResultRow $values) {
     $currency = $this->getCurrency($values);
     $amount = $this->getAmount($values);
     if ($this->options['currency_round']) {
@@ -109,14 +110,14 @@ class Amount extends FieldPluginBase {
   /**
    * Loads the Currency for this field.
    *
-   * @throws RuntimeException
+   * @throws \RuntimeException
    *
-   * @param stdClass $values
+   * @param \Drupal\views\ResultRow $values
    *   A values object as received by $this->render().
    *
    * @return Currency
    */
-  function getCurrency(\stdClass $values) {
+  function getCurrency(ResultRow $values) {
     $currency = NULL;
 
     if ($this->definition['currency_code_field']) {
@@ -132,7 +133,7 @@ class Amount extends FieldPluginBase {
       $currency = entity_load('currency', 'XXX');
     }
     if (!$currency) {
-      throw new RuntimeException(t('Could not load currency with ISO 4217 code XXX.'));
+      throw new \RuntimeException(t('Could not load currency with ISO 4217 code XXX.'));
     }
 
     return $currency;
@@ -145,13 +146,13 @@ class Amount extends FieldPluginBase {
    * as a numeric string, you should override this method so it returns a
    * numeric/decimal representation of the amount.
    *
-   * @param stdClass $values
+   * @param \Drupal\views\ResultRow $values
    *   A values object as received by $this->render().
    *
    * @return string
    *   A numeric string.
    */
-  function getAmount(\stdClass $values) {
+  function getAmount(ResultRow $values) {
     return $this->getValue($values);
   }
 }

@@ -12,8 +12,19 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests module installation and uninstallation.
  */
-class ModuleInstallUninstall extends WebTestBase {
+class
+ModuleInstallUninstall extends WebTestBase {
 
+  /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * {@inheritdoc}
+   */
   public static $modules = array('currency');
 
   /**
@@ -28,13 +39,20 @@ class ModuleInstallUninstall extends WebTestBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+    $this->moduleHandler = $this->container->get('module_handler');
+  }
+
+  /**
    * Test uninstall.
    */
   function testUninstallation() {
-    $this->assertTrue(module_exists('currency'));
-    module_disable(array('currency'));
-    module_uninstall(array('currency'));
-    $this->assertFalse(module_exists('currency'));
+    $this->assertTrue($this->moduleHandler->moduleExists('currency'));
+    $this->moduleHandler->uninstall(array('currency'));
+    $this->assertFalse($this->moduleHandler->moduleExists('currency'));
   }
 
   /**

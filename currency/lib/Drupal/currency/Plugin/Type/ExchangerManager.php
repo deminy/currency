@@ -6,32 +6,34 @@
 
 namespace Drupal\currency\Plugin\Type;
 
-use Drupal\Component\Plugin\Factory\DefaultFactory;
-use Drupal\Component\Plugin\PluginManagerBase;
-use Drupal\Core\Plugin\Discovery\AnnotatedClassDiscovery;
-use Drupal\Core\Plugin\Discovery\AlterDecorator;
-use Drupal\Core\Plugin\Discovery\CacheDecorator;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Language\LanguageManager;
+use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
  * Manages discovery and instantiation of currency exchanger plugins.
  *
  * @see \Drupal\block\BlockInterface
  */
-class ExchangerManager extends PluginManagerBase {
+class ExchangerManager extends DefaultPluginManager {
 
   /**
    * Constructor.
    *
-   * @param array $namespaces
-   *   An array of paths keyed by their corresponding namespaces.
+   * @param \Traversable $namespaces
+   *   An object that implements \Traversable which contains the root paths
+   *   keyed by the corresponding namespace to look for plugin implementations.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
+   *   Cache backend instance to use.
+   * @param \Drupal\Core\Language\LanguageManager $language_manager
+   *   The language manager.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler to invoke the alter hook with.
    */
-  public function __construct(\Traversable $namespaces) {
-    $annotation_namespaces = array(
-      'Drupal\currency\Annotation' => drupal_get_path('module', 'currency') . '/lib',
-    );
-    $this->discovery = new AnnotatedClassDiscovery('currency/exchanger', $namespaces, $annotation_namespaces, 'Drupal\currency\Annotation\CurrencyExchanger');
-    $this->discovery = new AlterDecorator($this->discovery, 'currency_exchanger');
-    $this->discovery = new CacheDecorator($this->discovery, 'currency_exchanger');
-    $this->factory = new DefaultFactory($this->discovery);
+  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, LanguageManager $language_manager, ModuleHandlerInterface $module_handler) {
+    parent::__construct('Plugin/currency/exchanger', $namespaces, '\Drupal\currency\Annotation\CurrencyExchanger');
+    $this->alterInfo($module_handler, 'currency_exchanger');
+    $this->setCacheBackend($cache_backend, $language_manager, 'currency_exchanger');
   }
 }

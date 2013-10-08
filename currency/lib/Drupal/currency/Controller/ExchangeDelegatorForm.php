@@ -8,7 +8,7 @@
 namespace Drupal\currency\Controller;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
-use Drupal\Core\Controller\ControllerInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\currency\ExchangeDelegator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides the configuration form for \Drupal\currency\ExchangeDelegator.
  */
-class ExchangeDelegatorForm implements FormInterface, ControllerInterface {
+class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterface {
 
   /**
    * A currency exchange delegator.

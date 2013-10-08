@@ -37,14 +37,14 @@ class CurrencySignFormElement extends WebTestBase {
     $values =  array(
       'sign[sign]' => '',
     );
-    $this->drupalPost($path, $values, t('Submit'));
+    $this->drupalPostForm($path, $values, t('Submit'));
     $this->assertRaw("\$form_state['sign'] = ''");
 
     // Test a suggested sign.
     $values =  array(
       'sign[sign]' => '€',
     );
-    $this->drupalPost($path . '/EUR', $values, t('Submit'));
+    $this->drupalPostForm($path . '/EUR', $values, t('Submit'));
     $this->assertRaw("\$form_state['sign'] = '€'");
 
     // Test a custom sign.
@@ -52,7 +52,7 @@ class CurrencySignFormElement extends WebTestBase {
       'sign[sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
       'sign[sign_custom]' => 'foobar',
     );
-    $this->drupalPost($path, $values, t('Submit'));
+    $this->drupalPostForm($path, $values, t('Submit'));
     $this->assertRaw("\$form_state['sign'] = 'foobar'");
     $this->drupalGet($path . '//foobar');
     $this->assertRaw('<option value="' . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . '" selected="selected">');
@@ -65,7 +65,7 @@ class CurrencySignFormElement extends WebTestBase {
     $values =  array(
       'sign[sign]' => '',
     );
-    $this->drupalPost($path . '/ZZZ', $values, t('Submit'));
+    $this->drupalPostForm($path . '/ZZZ', $values, t('Submit'));
     $this->assertRaw("\$form_state['sign'] = ''");
   }
 }

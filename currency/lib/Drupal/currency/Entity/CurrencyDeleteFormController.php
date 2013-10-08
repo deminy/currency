@@ -35,8 +35,10 @@ class CurrencyDeleteFormController extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getCancelPath() {
-    return 'admin/config/regional/currency';
+  public function getCancelRoute() {
+    return array(
+      'route_name' => 'currency_currency_list',
+    );
   }
 
   /**

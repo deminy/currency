@@ -46,7 +46,7 @@ class CurrencyFormControllerTest extends WebTestBase {
       'subunits' => 2,
       'status' => FALSE,
     );
-    $this->drupalPost($path, $valid_values, t('Save'));
+    $this->drupalPostForm($path, $valid_values, t('Save'));
     $currency = entity_load('currency', 'ABC');
     if ($this->assertTrue($currency)) {
       $this->assertFalse($currency->status());
@@ -64,7 +64,7 @@ class CurrencyFormControllerTest extends WebTestBase {
       $values = array(
         $name => $invalid_value,
       ) + $valid_values;
-      $this->drupalPost($path, $values, t('Save'));
+      $this->drupalPostForm($path, $values, t('Save'));
       // Test that the invalid element is the only element to be flagged.
       $this->assertFieldByXPath("//input[@name='$name' and contains(@class, 'error')]");
       $this->assertNoFieldByXPath("//input[not(@name='$name') and contains(@class, 'error')]");
@@ -72,7 +72,7 @@ class CurrencyFormControllerTest extends WebTestBase {
 
     // Edit and save an existing currency.
     $path = 'admin/config/regional/currency/ABC/edit';
-    $this->drupalPost($path, array(), t('Save'));
+    $this->drupalPostForm($path, array(), t('Save'));
     $this->assertUrl('admin/config/regional/currency');
   }
 }
