@@ -31,41 +31,46 @@ class CurrencySignFormElement extends WebTestBase {
    * Test validation.
    */
   function testValidation() {
+    $state = \Drupal::state();
     $path = 'currency_test-form-element-currency-sign';
 
     // Test an empty sign.
     $values =  array(
-      'sign[sign]' => '',
+      'container[sign][sign]' => '',
     );
     $this->drupalPostForm($path, $values, t('Submit'));
-    $this->assertRaw("\$form_state['sign'] = ''");
+    $sign = $state->get('currency_test_currency_sign_element');
+    $this->assertEqual('', $sign);
 
     // Test a suggested sign.
     $values =  array(
-      'sign[sign]' => '€',
+      'container[sign][sign]' => '€',
     );
     $this->drupalPostForm($path . '/EUR', $values, t('Submit'));
-    $this->assertRaw("\$form_state['sign'] = '€'");
+    $sign = $state->get('currency_test_currency_sign_element');
+    $this->assertEqual('€', $sign);
 
     // Test a custom sign.
     $values =  array(
-      'sign[sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
-      'sign[sign_custom]' => 'foobar',
+      'container[sign][sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
+      'container[sign][sign_custom]' => 'foobar',
     );
     $this->drupalPostForm($path, $values, t('Submit'));
-    $this->assertRaw("\$form_state['sign'] = 'foobar'");
-    $this->drupalGet($path . '//foobar');
+    $sign = $state->get('currency_test_currency_sign_element');
+    $this->assertEqual('foobar', $sign);
+    $this->drupalGet($path . '/EUR/foobar');
     $this->assertRaw('<option value="' . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . '" selected="selected">');
     // Check if the sign element is set to a custom value.
-    $this->assertFieldByXPath("//select[@name='sign[sign]']/option[@value='" . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . "' and @selected='selected']");
+    $this->assertFieldByXPath("//select[@name='container[sign][sign]']/option[@value='" . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . "' and @selected='selected']");
     // Check if the custom sign input element has the custom sign as its value.
-    $this->assertFieldByXPath("//input[@name='sign[sign_custom]' and @value='foobar']");
+    $this->assertFieldByXPath("//input[@name='container[sign][sign_custom]' and @value='foobar']");
 
     // Test a non-existing currency.
     $values =  array(
-      'sign[sign]' => '',
+      'container[sign][sign]' => '',
     );
     $this->drupalPostForm($path . '/ZZZ', $values, t('Submit'));
-    $this->assertRaw("\$form_state['sign'] = ''");
+    $sign = $state->get('currency_test_currency_sign_element');
+    $this->assertEqual('', $sign);
   }
 }

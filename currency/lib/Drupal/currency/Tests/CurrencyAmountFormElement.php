@@ -31,30 +31,29 @@ class CurrencyAmountFormElement extends WebTestBase {
    * Test validation.
    */
   function testValidation() {
+    $state = \Drupal::state();
     $path = 'currency_test-form-element-currency-amount/50.00/100';
 
     // Test valid values.
     $values =  array(
-      'amount[amount]' => '50,95',
-      'amount[currency_code]' => 'EUR',
+      'container[amount][amount]' => '50,95',
+      'container[amount][currency_code]' => 'EUR',
     );
     $this->drupalPostForm($path, $values, t('Submit'));
-    $this->assertRaw("\$form_state['amount'] = " . var_export(array(
-      'amount' => '50.95',
-      'currency_code' => 'EUR',
-    ), TRUE));
+    $amount = $state->get('currency_test_currency_amount_element');
+    $this->assertEqual(50.95, $amount['amount']);
+    $this->assertEqual('EUR', $amount['currency_code']);
 
     // Test valid values with a predefined currency.
     $this->drupalGet($path . '/NLG');
-    $this->assertNoFieldByXPath("//input[@name='amount[currency_code]']");
+    $this->assertNoFieldByXPath("//input[@name='container[amount][currency_code]']");
     $values =  array(
-      'amount[amount]' => '50,95',
+      'container[amount][amount]' => '50,95',
     );
     $this->drupalPostForm($path . '/NLG', $values, t('Submit'));
-    $this->assertRaw("\$form_state['amount'] = " . var_export(array(
-      'amount' => '50.95',
-      'currency_code' => 'NLG',
-    ), TRUE));
+    $amount = $state->get('currency_test_currency_amount_element');
+    $this->assertEqual(50.95, $amount['amount']);
+    $this->assertEqual('NLG', $amount['currency_code']);
 
     // Test invalid values.
     $invalid_amounts = array(
@@ -69,11 +68,11 @@ class CurrencyAmountFormElement extends WebTestBase {
     );
     foreach ($invalid_amounts as $amount) {
       $values =  array(
-        'amount[amount]' => $amount,
+        'container[amount][amount]' => $amount,
       );
       $this->drupalPostForm($path, $values, t('Submit'));
-      $this->assertFieldByXPath("//input[@name='amount[amount]' and contains(@class, 'error')]");
-      $this->assertNoFieldByXPath("//input[not(@name='amount[amount]') and contains(@class, 'error')]");
+      $this->assertFieldByXPath("//input[@name='container[amount][amount]' and contains(@class, 'error')]");
+      $this->assertNoFieldByXPath("//input[not(@name='container[amount][amount]') and contains(@class, 'error')]");
     }
   }
 }
