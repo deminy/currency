@@ -33,25 +33,41 @@ class CurrencyLocalePatternTest extends DrupalUnitTestBase {
    */
   function setUp() {
     parent::setUp();
-    $this->currency_locale_pattern = entity_create('currency_locale_pattern', array(
-      'pattern' => '¤-#,##0.00[XXX][999]',
-      'decimalSeparator' => ',',
-      'groupingSeparator' => '.',
-    ));
+    $this->currency_locale_pattern = entity_create('currency_locale_pattern', array())
+      ->setLocale('nl', 'NL')
+      ->setPattern('¤-#,##0.00¤¤')
+      ->setDecimalSeparator('@')
+      ->setGroupingSeparator('%');
   }
 
   /**
    * Test format().
    */
   function testFormat() {
+    // ICU, the C library that PHP's Intl extension uses for formatting, is
+    // known to have trouble formatting combinations of currencies and locales
+    // that it does not know. In order to make sure this works, test such a
+    // combination, such as the Ukrainian Hryvnia (UAH) with Dutch, Netherlands
+    // (nl_NL).
     $currency = entity_create('currency', array())
-      ->setSign('€')
-      ->setCurrencyCode('EUR')
-      ->setCurrencyNumber('978');
-    $amount = 12345.6789;
-    $formatted = $this->currency_locale_pattern->format($currency, $amount);
-    $formatted_expected = '€-12.345,6789EUR978';
-    $this->assertEqual($formatted, $formatted_expected);
+      ->setSign('₴')
+      ->setCurrencyCode('UAH')
+      ->setCurrencyNumber('980');
+    $results = array(
+      // An amount with no decimals should be formatted without decimals and
+      // decimal separator.
+      '123' => '₴-123UAH',
+      // An amount with three groupings should have two grouping separators. All
+      // of its three decimals should be formatted, even if the currency only
+      // has two.
+      '1234567.890' => '₴-1%234%567@890UAH',
+      // An amount with only one decimal should be formatted with only one.
+      '.3' => '₴-0@3UAH',
+    );
+    foreach ($results as $amount=> $expected) {
+      $formatted = $this->currency_locale_pattern->format($currency, $amount);
+      $this->assertEqual($formatted, $expected);
+    }
   }
 
   /**

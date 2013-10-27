@@ -7,7 +7,6 @@
 
 namespace Drupal\currency\Entity;
 
-use BartFeenstra\CLDR\CurrencyFormatter;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Entity\Annotation\EntityType;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
@@ -179,19 +178,18 @@ class CurrencyLocalePattern extends ConfigEntityBase implements CurrencyLocalePa
    * {@inheritdoc}
    */
   function format(CurrencyInterface $currency, $amount) {
-    static $formatter = NULL;
+    $decimal_position = strpos($amount, '.');
+    $number_of_decimals = $decimal_position !== FALSE ? strlen(substr($amount, $decimal_position + 1)) : 0;
+    $formatter = new \NumberFormatter($this->id(), \NumberFormatter::PATTERN_DECIMAL, $this->getPattern());
+    $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $number_of_decimals);
+    $formatter->setSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL, $this->getDecimalSeparator());
+    $formatter->setSymbol(\NumberFormatter::MONETARY_SEPARATOR_SYMBOL, $this->getDecimalSeparator());
+    $formatter->setSymbol(\NumberFormatter::GROUPING_SEPARATOR_SYMBOL, $this->getGroupingSeparator());
+    $formatter->setSymbol(\NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL, $this->getGroupingSeparator());
+    $formatter->setSymbol(\NumberFormatter::CURRENCY_SYMBOL, $currency->getSign());
+    $formatter->setSymbol(\NumberFormatter::INTL_CURRENCY_SYMBOL, $currency->id());
 
-    if (is_null($formatter) || $formatter->pattern != $this->pattern) {
-      $formatter = new CurrencyFormatter($this->pattern, array(
-        CurrencyFormatter::SYMBOL_SPECIAL_DECIMAL_SEPARATOR => $this->decimalSeparator,
-        CurrencyFormatter::SYMBOL_SPECIAL_GROUPING_SEPARATOR => $this->groupingSeparator,
-      ));
-    }
-
-    $formatted = $formatter->format($amount, $currency->getSign());
-    $formatted = str_replace(array('[XXX]', '[999]'), array($currency->id(), $currency->getCurrencyNumber()), $formatted);
-
-    return $formatted;
+    return $formatted = $formatter->format($amount);
   }
 
   /**

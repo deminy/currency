@@ -15,6 +15,12 @@ function currency_requirements($phase) {
     'value' => $loaded ? t('Loaded') : t('Not loaded'),
     'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
   );
+  $loaded = extension_loaded('intl');
+  $requirements['currency_extension_intl'] = array(
+    'title' => t('PHP Intl extension'),
+    'value' => $loaded ? t('Loaded') : t('Not loaded'),
+    'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+  );
 
   return $requirements;
 }

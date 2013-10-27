@@ -1,5 +1,0 @@
-{
-  "require" : {
-    "bartfeenstra/cldr" : "1.x-dev"
-  }
-}

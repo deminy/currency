@@ -9,8 +9,6 @@ use Drupal\currency\Input;
 use Drupal\currency\Entity\Currency;
 use Drupal\Component\Utility\NestedArray;
 
-require_once __DIR__ . '/vendor/autoload.php';
-
 /**
  * The value for the currency_sign form element's "custom" option.
  */
