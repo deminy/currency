@@ -28,11 +28,6 @@ function currency_menu() {
     'route_name' => 'currency_currency_list',
     'title' => 'Currencies',
   );
-  $items['admin/config/regional/currency/add'] = array(
-    'route_name' => 'currency_currency_add',
-    'title' => 'Add a currency',
-    'type' => MENU_LOCAL_ACTION,
-  );
   $items['admin/config/regional/currency/%/edit'] = array(
     'route_name' => 'currency_currency_edit',
     'title' => 'Edit a currency',
@@ -48,11 +43,6 @@ function currency_menu() {
   $items['admin/config/regional/currency_locale_pattern'] = array(
     'route_name' => 'currency_locale_pattern_list',
     'title' => 'Currency formatting',
-  );
-  $items['admin/config/regional/currency_locale_pattern/add'] = array(
-    'route_name' => 'currency_locale_pattern_add',
-    'title' => 'Add a locale pattern',
-    'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/regional/currency_locale_pattern/%/edit'] = array(
     'route_name' => 'currency_locale_pattern_edit',
@@ -76,11 +66,6 @@ function currency_menu() {
     'route_name' => 'currency_exchanger_fixed_rates_overview',
     'title' => 'Fixed rates',
     'type' => MENU_CALLBACK,
-  );
-  $items['admin/config/regional/currency-exchange/fixed/add'] = array(
-    'title' => 'Add an exchange rate',
-    'route_name' => 'currency_exchanger_fixed_rates_add',
-    'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/regional/currency-exchange/fixed/%currency_form_currency_exchanger_fixed_rates/%'] = array(
     'title' => 'Configure an exchange rate',
