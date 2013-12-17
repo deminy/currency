@@ -146,6 +146,7 @@ function currency_uninstall() {
 function currency_requirements($phase) {
   $loaded = extension_loaded('BCMath');
   $requirements['currency_extension_bcmath'] = array(
+    'description' => '',
     'title' => t('PHP BCMath extension'),
     'value' => $loaded ? t('Loaded') : t('Not loaded'),
     'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
