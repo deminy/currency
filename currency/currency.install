@@ -11,12 +11,14 @@
 function currency_requirements($phase) {
   $loaded = extension_loaded('BCMath');
   $requirements['currency_extension_bcmath'] = array(
+    'description' => '',
     'title' => t('PHP BCMath extension'),
     'value' => $loaded ? t('Loaded') : t('Not loaded'),
     'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
   );
   $loaded = extension_loaded('intl');
   $requirements['currency_extension_intl'] = array(
+    'description' => '',
     'title' => t('PHP Intl extension'),
     'value' => $loaded ? t('Loaded') : t('Not loaded'),
     'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
