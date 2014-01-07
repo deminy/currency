@@ -16,6 +16,16 @@ use Drupal\simpletest\DrupalUnitTestBase;
  */
 class CurrencyTest extends DrupalUnitTestBase {
 
+  /**
+   * The currency under test.
+   *
+   * @var \Drupal\currency\Entity\CurrencyInterface
+   */
+  protected $currency;
+
+  /**
+   * {@inheritdoc}
+   */
   public static $modules = array('currency');
 
   /**
@@ -108,6 +118,15 @@ class CurrencyTest extends DrupalUnitTestBase {
     $currency_code = $this->randomName(3);
     $this->assertTrue($this->currency->setCurrencyCode($currency_code) instanceof CurrencyInterface);
     $this->assertIdentical($this->currency->id(), $currency_code);
+  }
+
+  /**
+   * Test getCurrencyCode() and setCurrencyCode.
+   */
+  function testGetCurrencyCode() {
+    $currency_code = $this->randomName(3);
+    $this->assertIdentical(spl_object_hash($this->currency->setCurrencyNumber($currency_code)), spl_object_hash($this->currency));
+    $this->assertIdentical($this->currency->getCurrencyNumber(), $currency_code);
   }
 
   /**

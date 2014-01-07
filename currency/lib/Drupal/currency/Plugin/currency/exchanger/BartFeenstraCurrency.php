@@ -8,8 +8,6 @@
 namespace Drupal\currency\Plugin\currency\exchanger;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Annotation\Translation;
-use Drupal\currency\Annotation\CurrencyExchanger;
 use Drupal\currency\Exchanger\ExchangerInterface;
 
 /**

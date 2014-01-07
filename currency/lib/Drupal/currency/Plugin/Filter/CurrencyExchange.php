@@ -7,9 +7,7 @@
 
 namespace Drupal\currency\Plugin\Filter;
 
-use Drupal\Core\Annotation\Translation;
 use Drupal\currency\Input;
-use Drupal\filter\Annotation\Filter;
 use Drupal\filter\Plugin\FilterBase;
 
 /**

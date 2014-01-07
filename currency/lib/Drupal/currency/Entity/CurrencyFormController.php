@@ -24,6 +24,7 @@ class CurrencyFormController extends EntityFormController {
     // include internal FAPI values and copying those pollutes the entity,
     // which is why we build the entity manually.
     $values = $form_state['values'];
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = clone $this->getEntity($form_state);
     $currency->setCurrencyCode($values['currency_code']);
     $currency->setCurrencyNumber($values['currency_number']);
@@ -40,6 +41,7 @@ class CurrencyFormController extends EntityFormController {
    * {@inheritdoc}
    */
   public function form(array $form, array &$form_state) {
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = $this->getEntity();
 
     $form['currency_code'] = array(
@@ -61,7 +63,7 @@ class CurrencyFormController extends EntityFormController {
       '#default_value' => $currency->getCurrencyNumber(),
       '#element_validate' => array('currency_form_element_validate_iso_4217_number'),
       '#maxlength' => 3,
-      '#pattern' => '[\d]{3}',
+//      '#pattern' => '[\d]{3}',
       '#placeholder' => '999',
       '#size' => 3,
       '#title' => t('ISO 4217 number'),

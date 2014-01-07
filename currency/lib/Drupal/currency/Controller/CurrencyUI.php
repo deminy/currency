@@ -40,7 +40,7 @@ class CurrencyUI implements ContainerInjectionInterface {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.entity')
+      $container->get('entity.manager')
     );
   }
 

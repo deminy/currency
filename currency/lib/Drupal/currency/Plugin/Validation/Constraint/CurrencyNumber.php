@@ -7,8 +7,6 @@
 
 namespace Drupal\currency\Plugin\Validation\Constraint;
 
-use Drupal\Component\Annotation\Plugin;
-use Drupal\Core\Annotation\Translation;
 use Symfony\Component\Validator\Constraints\Regex;
 
 /**

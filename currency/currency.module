@@ -171,6 +171,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   }
 
   // Load the default currency.
+  /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
   $currency = NULL;
   if ($element['#default_value']['currency_code']) {
     $currency = entity_load('currency', $element['#default_value']['currency_code']);
@@ -195,13 +196,12 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   }
   else {
     $element['currency_code'] = array(
-      '#default_value' => $element['#default_value']['currency_code'],
+      '#default_value' => $currency->id(),
       '#type' => 'select',
       '#title' => t('Currency'),
       '#title_display' => 'invisible',
       '#options' => $element['#limit_currency_codes'] ? array_intersect_key(Currency::options(), $element['#limit_currency_codes']) : Currency::options(),
       '#required' => $element['#required'],
-      '#default_value' => $currency->id(),
     );
   }
 
@@ -237,20 +237,21 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
   // Confirm that the amount is numeric.
   $amount = Input::parseAmount($amount);
   if ($amount === FALSE) {
-    form_error($element['amount'], t('%title is not numeric.', array(
+    \Drupal::formBuilder()->setError($element['amount'], $form_state, t('%title is not numeric.', array(
       '%title' => $element['#title'],
     )));
   }
 
   // Confirm the amount lies within the allowed range.
+  /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
   $currency = entity_load('currency', $currency_code);
   if ($element['#minimum_amount'] !== FALSE && bccomp($element['#minimum_amount'], $amount) == 1) {
-    form_error($element['amount'], t('The minimum amount is !amount.', array(
+    \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The minimum amount is !amount.', array(
       '!amount' => $currency->format($element['#minimum_amount']),
     )));
   }
   elseif ($element['#maximum_amount'] !== FALSE && bccomp($amount, $element['#maximum_amount']) == 1) {
-    form_error($element['amount'], t('The maximum amount is !amount.', array(
+    \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The maximum amount is !amount.', array(
       '!amount' => $currency->format($element['#maximum_amount']),
     )));
   }
@@ -268,6 +269,7 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
  * Implements form process callback for a currency_sign element.
  */
 function currency_form_currency_sign_process(array $element, array &$form_state, array &$form) {
+  /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
   $currency = NULL;
   if ($element['#currency_code']) {
     $currency = entity_load('currency', $element['#currency_code']);
@@ -324,27 +326,27 @@ function currency_form_currency_sign_process(array $element, array &$form_state,
 /**
  * Implements form validate callback for a currency_sign element.
  */
-function currency_form_currency_sign_validate(array $element, array &$form_state) {
+function currency_form_currency_sign_validate(array $element, array &$form_state, array $form) {
   // Set a scalar value.
   $sign = $element['#value']['sign'];
   if ($sign == CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE) {
     $sign = $element['#value']['sign_custom'];
   }
-  form_set_value($element, $sign, $form_state);
+  \Drupal::formBuilder()->setValue($element, $sign, $form_state);
 }
 
 /**
  * Implements Form API #element_validate callback.
  */
-function currency_form_element_validate_iso_4217_code(array $element, array $form, array &$form_state) {
+function currency_form_element_validate_iso_4217_code(array $element, array &$form_state, array $form) {
   $currency_code = $element['#value'];
   if (!preg_match('/[a-z]{3}/i', $currency_code)) {
-    form_error($element, t('The currency code should be three letters.'));
+    \Drupal::formBuilder()->setError($element, $form_state, t('The currency code must be three letters.'));
   }
   if ($element['#default_value'] !== $element['#value']) {
     $currency = entity_load('currency', $currency_code);
     if ($currency) {
-      form_error($element, t('The currency code is already in use by !link.', array(
+      \Drupal::formBuilder()->setError($element, $form_state, t('The currency code is already in use by !link.', array(
         '!link' => l($currency->label(), 'admin/config/regional/currency/' . $currency->id() . '/edit'),
       )));
     }
@@ -354,9 +356,9 @@ function currency_form_element_validate_iso_4217_code(array $element, array $for
 /**
  * Implements Form API #element_validate callback.
  */
-function currency_form_element_validate_iso_4217_number(array $element, array $form, array &$form_state) {
+function currency_form_element_validate_iso_4217_number(array $element, array &$form_state, array $form) {
   if ($element['#value'] && !preg_match('/\d{3}/i', $element['#value'])) {
-    form_error($element, t('@title should be three digits.', array(
+    \Drupal::formBuilder()->setError($element, $form_state, t('@title must be three digits.', array(
       '@title' => $element['#title'],
     )));
   }
@@ -373,6 +375,7 @@ function currency_form_element_validate_iso_4217_number(array $element, array $f
  *   The source currency code if the rate could be found, FALSE if it couldn't.
  */
 function currency_form_currency_exchanger_fixed_rates_load($currency_code_from, $currency_code_to) {
+  /** @var \Drupal\currency\Exchanger\ExchangerInterface $plugin */
   $plugin = \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
   $rate = $plugin->load($currency_code_from, $currency_code_to);
 

@@ -33,6 +33,28 @@ interface CurrencyInterface extends ConfigEntityInterface {
   public function getAlternativeSigns();
 
   /**
+   * Sets the ISO 4217 currency code.
+   *
+   * The currency code is identical to the entity's ID.
+   *
+   * @param string $code
+   *
+   * @return \Drupal\currency\Entity\CurrencyInterface
+   */
+  public function setCurrencyCode($code);
+
+  /**
+   * Gets the ISO 4217 currency code.
+   *
+   * The currency code is identical to the entity's ID.
+   *
+   * @see self::id()
+   *
+   * @return string
+   */
+  public function getCurrencyCode();
+
+  /**
    * Sets the ISO 4217 currency number.
    *
    * @param string $number

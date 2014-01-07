@@ -7,10 +7,7 @@
 
 namespace Drupal\currency\Entity;
 
-use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
-use Drupal\Core\Entity\Annotation\EntityType;
-use Drupal\currency\Entity\CurrencyInterface;
 
 /**
  * Defines a currency entity class.
@@ -115,6 +112,9 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    */
   public $uuid = NULL;
 
+  /**
+   * {@inheritdoc}
+   */
   public function __construct(array $values, $entity_type) {
     parent::__construct($values, $entity_type);
   }
@@ -137,13 +137,18 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
 
   /**
    * {@inheritdoc}
-   *
-   * @see self::id()
    */
   public function setCurrencyCode($code) {
     $this->currencyCode = $code;
 
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCurrencyCode() {
+    return $this->currencyCode;
   }
 
   /**
@@ -289,7 +294,9 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    */
   public static function options() {
     $options = array();
-    foreach (entity_load_multiple('currency') as $currency) {
+    /** @var \Drupal\currency\Entity\CurrencyInterface[] $currencies */
+    $currencies = entity_load_multiple('currency');
+    foreach ($currencies as $currency) {
       // Do not show disabled currencies.
       if ($currency->status()) {
         $options[$currency->id()] = t('@currency_title (@currency_code)', array(
@@ -317,7 +324,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     if (is_numeric($this->roundingStep)) {
       return $this->roundingStep;
     }
-    // If a rounding step was not set explicitely, the rounding step is equal
+    // If a rounding step was not set explicitly, the rounding step is equal
     // to one subunit.
     elseif (is_numeric($this->subunits)) {
       return $this->subunits > 0 ? bcdiv(1, $this->subunits, CURRENCY_BCMATH_SCALE) : 1;

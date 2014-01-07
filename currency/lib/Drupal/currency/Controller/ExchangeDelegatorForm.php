@@ -30,19 +30,19 @@ class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterfac
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
-  protected $pluginManager;
+  protected $currencyExchangerManager;
 
   /**
    * Constructor.
    *
-   * @param \Drupal\currency\ExchangeDelegator $exchangeDelegator
+   * @param \Drupal\currency\ExchangeDelegator $exchange_delegator
    *   A currency exchange delegator.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $manager
+   * @param \Drupal\Component\Plugin\PluginManagerInterface $currency_exchanger_manager
    *   A currency exchanger plugin manager.
    */
-  public function __construct(ExchangeDelegator $exchangeDelegator, PluginManagerInterface $pluginManager) {
-    $this->exchangeDelegator = $exchangeDelegator;
-    $this->pluginManager = $pluginManager;
+  public function __construct(ExchangeDelegator $exchange_delegator, PluginManagerInterface $currency_exchanger_manager) {
+    $this->exchangeDelegator = $exchange_delegator;
+    $this->currencyExchangerManager = $currency_exchanger_manager;
   }
 
   /**
@@ -63,18 +63,21 @@ class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterfac
    * {@inheritdoc}
    */
   public function buildForm(array $form, array &$form_state) {
-    $definitions = $this->pluginManager->getDefinitions();
+    $definitions = $this->currencyExchangerManager->getDefinitions();
     $configuration = $this->exchangeDelegator->loadConfiguration();
 
     $form['exchangers'] = array(
       '#header' => array(t('Title'), t('Enabled'), t('Weight'), t('Operations')),
-      '#tabledrag' => array(array('order', 'sibling', 'form-select')),
+      '#tabledrag' => array(array(
+        'action' => 'order',
+        'relationship' => 'sibling',
+        'group' => 'form-select',
+      )),
       '#type' => 'table',
     );
     $weight = 0;
     foreach ($configuration as $plugin_name => $enabled) {
       $weight++;
-      $plugin = $this->pluginManager->createInstance($plugin_name, array());
       $plugin_definition = $definitions[$plugin_name];
 
       $form['exchangers'][$plugin_name] = array(
