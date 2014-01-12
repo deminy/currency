@@ -50,7 +50,7 @@ class CurrencyExchange extends FilterBase {
       $amount = 1;
     }
 
-    $exchanger = \Drupal::service('currency.exchange_delegator');
+    $exchanger = \Drupal::service('currency.exchange_rate_provider');
     $rate = $exchanger->load($currency_code_from, $currency_code_to);
     if ($rate) {
       return bcmul($amount, $rate, CURRENCY_BCMATH_SCALE);

@@ -59,7 +59,7 @@ class FixedRatesOverview implements ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('config.factory'), $container->get('currency.locale_delegator'), $container->get('plugin.manager.currency.exchanger'));
+    return new static($container->get('config.factory'), $container->get('currency.locale_delegator'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**
@@ -69,7 +69,7 @@ class FixedRatesOverview implements ContainerInjectionInterface {
    *   A renderable array.
    */
   public function overview() {
-    $rates = $this->configFactory->get('currency.exchange_delegator.fixed_rates')->get();
+    $rates = $this->configFactory->get('currency.exchange_rate_provider.fixed_rates')->get();
     $plugin = $this->pluginManager->createInstance('currency_fixed_rates');
     $rates = $plugin->loadAll();
 

@@ -2,19 +2,18 @@
 
 /**
  * @file
- * Contains \Drupal\currency\ExchangeDelegator.
+ * Contains \Drupal\currency\ExchangeRateProvider.
  */
 
 namespace Drupal\currency;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\currency\Exchanger\ExchangerInterface;
 
 /**
- * Delegates currency exchange to all currency exchanger plugins.
+ * Provides currency exchange rates through plugins.
  */
-class ExchangeDelegator implements ExchangerInterface {
+class ExchangeRateProvider implements ExchangeRateProviderInterface {
 
   /**
    * A configuration factory.
@@ -50,7 +49,7 @@ class ExchangeDelegator implements ExchangerInterface {
    */
   public function loadConfiguration() {
     $definitions = $this->pluginManager->getDefinitions();
-    $configuration = $this->configFactory->get('currency.exchange_delegator')->get('exchangers') + array_fill_keys(array_keys($definitions), TRUE);
+    $configuration = $this->configFactory->get('currency.exchange_rate_provider')->get('exchangers') + array_fill_keys(array_keys($definitions), TRUE);
 
     return $configuration;
   }
@@ -65,7 +64,7 @@ class ExchangeDelegator implements ExchangerInterface {
    * @return NULL
    */
   public function saveConfiguration(array $configuration) {
-    $config = $this->configFactory->get('currency.exchange_delegator');
+    $config = $this->configFactory->get('currency.exchange_rate_provider');
     $config->set('exchangers', $configuration);
     $config->save();
   }
@@ -79,7 +78,7 @@ class ExchangeDelegator implements ExchangerInterface {
     $names = array_keys(array_filter($this->loadConfiguration()));
     $plugins = array();
     foreach ($names as $name) {
-      $plugins[$name] = $this->pluginManager->createInstance($name);
+      $plugins[$name] = $this->pluginManager->createInstance($name, array());
     }
 
     return $plugins;

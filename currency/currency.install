@@ -53,16 +53,16 @@ function currency_update_7200(array &$sandbox) {
 }
 
 /**
- * Upgrades \Drupal\currency\Plugin\currency\exchanger\Delegator configuration.
+ * Upgrades \Drupal\currency\Plugin\Currency\Exchanger\Delegator configuration.
  */
 function currency_update_8300(array &$sandbox) {
-  update_variables_to_config('currency.exchange_delegator', array(
+  update_variables_to_config('currency.exchange_rate_provider', array(
     'currency_exchanger' => 'exchangers',
   ));
 }
 
 /**
- * Upgrades \Drupal\currency\Plugin\currency\exchanger\FixedRates
+ * Upgrades \Drupal\currency\Plugin\Currency\Exchanger\FixedRates
  * configuration.
  */
 function currency_update_8301(array &$sandbox) {

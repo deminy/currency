@@ -1,16 +1,16 @@
 <?php
 
 /**
- * @file
- * Contains class \Drupal\currency\Tests\Plugin\currency\exchanger\FixedRatesUI.
+ * @file Contains
+ * \Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider\FixedRatesUI.
  */
 
-namespace Drupal\currency\Tests\Plugin\currency\exchanger;
+namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Plugin\currency\exchanger\FixedRates.
+ * Tests \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates.
  */
 class FixedRatesUI extends WebTestBase {
 
@@ -22,7 +22,7 @@ class FixedRatesUI extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Plugin\currency\exchanger\FixedRates UI',
+      'name' => '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates UI',
       'group' => 'Currency',
     );
   }
@@ -31,7 +31,7 @@ class FixedRatesUI extends WebTestBase {
    * Test CurrencyExchanger's UI.
    */
   function testUI() {
-    $plugin = \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
+    $plugin = \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_fixed_rates');
 
     $user = $this->drupalCreateUser(array('currency.exchanger_fixed_rates.administer'));
     $this->drupalLogin($user);

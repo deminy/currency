@@ -376,7 +376,7 @@ function currency_form_element_validate_iso_4217_number(array $element, array &$
  */
 function currency_form_currency_exchanger_fixed_rates_load($currency_code_from, $currency_code_to) {
   /** @var \Drupal\currency\Exchanger\ExchangerInterface $plugin */
-  $plugin = \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
+  $plugin = \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_fixed_rates');
   $rate = $plugin->load($currency_code_from, $currency_code_to);
 
   return $rate !== FALSE ? $currency_code_from : FALSE;

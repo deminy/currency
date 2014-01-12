@@ -31,7 +31,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
    * Test CurrencyExchanger's UI.
    */
   function testCurrencyExchangerUI() {
-    $exchange_delegator = \Drupal::service('currency.exchange_delegator');
+    $exchange_delegator = \Drupal::service('currency.exchange_rate_provider');
 
     $user = $this->drupalCreateUser(array('currency.exchanger_delegator.administer'));
     $this->drupalLogin($user);

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\ExchangeDelegatorTest.
+ * Contains class \Drupal\currency\Tests\ExchangeRateProviderTest.
  */
 
 namespace Drupal\currency\Tests;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Tests;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\ExchangeDelegator.
+ * Tests \Drupal\currency\ExchangeRateProvider.
  */
-class ExchangeDelegatorTest extends WebTestBase {
+class ExchangeRateProviderTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class ExchangeDelegatorTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\ExchangeDelegator',
+      'name' => '\Drupal\currency\ExchangeRateProvider web test',
       'group' => 'Currency',
     );
   }
@@ -31,7 +31,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    * Tests saveConfiguration() and loadConfiguration().
    */
   public function testSaveConfiguration() {
-    $exchangeDelegator = \Drupal::service('currency.exchange_delegator');
+    $exchangeDelegator = \Drupal::service('currency.exchange_rate_provider');
 
     $configuration = array(
       'currency_bartfeenstra_currency' => TRUE,
@@ -46,7 +46,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    * Tests load().
    */
   function testLoad() {
-    $exchangeDelegator = \Drupal::service('currency.exchange_delegator');
+    $exchangeDelegator = \Drupal::service('currency.exchange_rate_provider');
 
     // Test an available exchange rate.
     $this->assertIdentical($exchangeDelegator->load('EUR', 'NLG'), '2.20371');
@@ -60,7 +60,7 @@ class ExchangeDelegatorTest extends WebTestBase {
    * Tests loadMultiple().
    */
   function testLoadMultiple() {
-    $exchangeDelegator = \Drupal::service('currency.exchange_delegator');
+    $exchangeDelegator = \Drupal::service('currency.exchange_rate_provider');
 
     // Test an available exchange rate.
     $rates = $exchangeDelegator->loadMultiple(array(

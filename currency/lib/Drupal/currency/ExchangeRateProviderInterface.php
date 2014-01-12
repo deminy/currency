@@ -1,16 +1,15 @@
 <?php
 
 /**
- * @file
- * Contains interface CurrencyExchangerInterface.
+ * @file Contains \Drupal\currencu\ExchangeRateProviderInterface.
  */
 
-namespace Drupal\currency\Exchanger;
+namespace Drupal\currency;
 
 /**
- * Describes a currency exchanger.
+ * Describes a currency exchange rate provider.
  */
-interface ExchangerInterface {
+interface ExchangeRateProviderInterface {
 
   /**
    * Returns the exchange rate for two currencies.

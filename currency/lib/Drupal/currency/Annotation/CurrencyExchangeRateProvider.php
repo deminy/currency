@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Annotation\CurrencyExchanger.
+ * Contains \Drupal\currency\Annotation\CurrencyExchangeRateProvider.
  */
 
 namespace Drupal\currency\Annotation;
@@ -10,11 +10,11 @@ namespace Drupal\currency\Annotation;
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines a currency exchanger annotation object.
+ * Defines a currency exchange rate provider plugin definition.
  *
  * @Annotation
  */
-class CurrencyExchanger extends Plugin {
+class CurrencyExchangeRateProvider extends Plugin {
 
   /**
    * The translated human-readable plugin name (optional).

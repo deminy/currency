@@ -2,18 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Plugin\currency\exchanger\FixedRates.
+ * Contains \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates.
  */
 
-namespace Drupal\currency\Plugin\currency\exchanger;
+namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\currency\Exchanger\ExchangerInterface;
 
 /**
  * Provides manually entered exchange rates.
  *
- * @CurrencyExchanger(
+ * @CurrencyExchangeRateProvider(
  *   id = "currency_fixed_rates",
  *   label = @Translation("Fixed rates"),
  *   operations = {
@@ -21,7 +20,7 @@ use Drupal\currency\Exchanger\ExchangerInterface;
  *   }
  * )
  */
-class FixedRates extends PluginBase implements ExchangerInterface {
+class FixedRates extends PluginBase implements ExchangeRateProviderInterface {
 
   /**
    * {@inheritdoc}

@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Contains \Drupal\currency\Plugin\Type\ExchangerManager.
+ * @file Contains
+ * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\Manager.
  */
 
-namespace Drupal\currency\Plugin\Type;
+namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -12,11 +13,11 @@ use Drupal\Core\Language\LanguageManager;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * Manages discovery and instantiation of currency exchanger plugins.
+ * Manages currency exchange rate provider plugins.
  *
  * @see \Drupal\block\BlockInterface
  */
-class ExchangerManager extends DefaultPluginManager {
+class Manager extends DefaultPluginManager {
 
   /**
    * Constructor.
@@ -32,7 +33,7 @@ class ExchangerManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, LanguageManager $language_manager, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/currency/exchanger', $namespaces, '\Drupal\currency\Annotation\CurrencyExchanger');
+    parent::__construct('Plugin/Currency/ExchangeRateProvider', $namespaces, '\Drupal\currency\Annotation\CurrencyExchangeRateProvider');
     $this->alterInfo($module_handler, 'currency_exchanger');
     $this->setCacheBackend($cache_backend, $language_manager, 'currency_exchanger');
   }

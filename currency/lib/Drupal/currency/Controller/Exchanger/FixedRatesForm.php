@@ -50,7 +50,7 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('config.factory'), $container->get('plugin.manager.currency.exchanger'));
+    return new static($container->get('config.factory'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**

@@ -1,16 +1,16 @@
 <?php
 
 /**
- * @file
- * Contains class \Drupal\currency\Tests\Plugin\currency\exchanger\FixedRatesTest.
+ * @file Contains
+ * \Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider\FixedRatesTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\currency\exchanger;
+namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Plugin\currency\exchanger\FixedRates.
+ * Tests \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates.
  */
 class FixedRatesTest extends WebTestBase {
 
@@ -22,7 +22,7 @@ class FixedRatesTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Plugin\currency\exchanger\FixedRates',
+      'name' => '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates web test',
       'group' => 'Currency',
     );
   }
@@ -30,10 +30,10 @@ class FixedRatesTest extends WebTestBase {
   /**
    * Gets the exchanger plugin.
    *
-   * @return \Drupal\currency\Plugin\currency\exchanger\FixedRates
+   * @return \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates
    */
   public function getPlugin() {
-    return \Drupal::service('plugin.manager.currency.exchanger')->createInstance('currency_fixed_rates');
+    return \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_fixed_rates');
   }
 
   /**
