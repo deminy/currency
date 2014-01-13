@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Input.
+ * Contains \Drupal\currency\Input.
  */
 
 namespace Drupal\currency;
 
 /**
- * Helpers for parsing user input.
+ * Parses user-input amounts.
  */
 class Input {
 
-  public static $decimalSeparators = array(
+  protected $decimalSeparators = array(
     // A comma.
     ',',
     // A period (full stop).
@@ -31,12 +31,12 @@ class Input {
    * @return string|false
    *   A numeric string, or FALSE in case of failure.
    */
-  public static function parseAmount($amount, &$message = '') {
+  public function parseAmount($amount) {
     if (!is_numeric($amount)) {
-      $amount = static::parseAmountNegativeFormat($amount, $message);
+      $amount = static::parseAmountNegativeFormat($amount);
     }
     if (!is_numeric($amount)) {
-      $amount = static::parseAmountDecimalSeparator($amount, $message);
+      $amount = static::parseAmountDecimalSeparator($amount);
     }
 
     return is_numeric($amount) ? $amount : FALSE;
@@ -52,16 +52,16 @@ class Input {
    *   The amount with its decimal separator replaced by a period, or FALSE in
    *   case of failure.
    */
-  public static function parseAmountDecimalSeparator($amount) {
+  protected function parseAmountDecimalSeparator($amount) {
     $decimal_separator_counts = array();
-    foreach (static::$decimalSeparators as $decimal_separator) {
+    foreach ($this->decimalSeparators as $decimal_separator) {
       $decimal_separator_counts[$decimal_separator] = \mb_substr_count($amount, $decimal_separator);
     }
     $decimal_separator_counts_filtered = array_filter($decimal_separator_counts);
     if (count($decimal_separator_counts_filtered) > 1 || reset($decimal_separator_counts_filtered) !== FALSE && reset($decimal_separator_counts_filtered) != 1) {
       return FALSE;
     }
-    return str_replace(static::$decimalSeparators, '.', $amount);
+    return str_replace($this->decimalSeparators, '.', $amount);
   }
 
   /**
@@ -72,7 +72,7 @@ class Input {
    * @return string
    *   The amount with negative formatting replaced by a minus sign prefix.
    */
-  public static function parseAmountNegativeFormat($amount) {
+  protected function parseAmountNegativeFormat($amount) {
     // An amount wrapped in parentheses.
     $amount = preg_replace('/^\((.*?)\)$/', '-\\1', $amount);
     // An amount suffixed by a minus sign.

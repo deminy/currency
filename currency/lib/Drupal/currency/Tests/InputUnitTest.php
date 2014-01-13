@@ -2,18 +2,25 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\InputTest.
+ * Contains class \Drupal\currency\Tests\InputUnitTest.
  */
 
 namespace Drupal\currency\Tests;
 
 use Drupal\currency\Input;
-use Drupal\simpletest\UnitTestBase;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests \Drupal\currency\Input
  */
-class InputTest extends UnitTestBase {
+class InputUnitTest extends UnitTestCase {
+
+  /**
+   * The input parser under test.
+   *
+   * @var \Drupal\currency\Input
+   */
+  protected $input;
 
   /**
    * {@inheritdoc}
@@ -21,9 +28,16 @@ class InputTest extends UnitTestBase {
   public static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Input',
+      'name' => '\Drupal\currency\Input unit test',
       'group' => 'Currency',
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    $this->input = new Input();
   }
 
   /**
@@ -38,7 +52,7 @@ class InputTest extends UnitTestBase {
       '123,456,789.00,00',
     );
     foreach ($amounts_invalid as $amount) {
-      $this->assertFalse(Input::parseAmount($amount));
+      $this->assertFalse($this->input->parseAmount($amount));
     }
     $amounts_valid = array(
       // Integers.
@@ -62,8 +76,8 @@ class InputTest extends UnitTestBase {
     );
     foreach ($amounts_valid as $amount) {
       $amount_validated = NULL;
-      $amount_validated = Input::parseAmount($amount[0]);
-      $this->assertEqual($amount_validated, $amount[1]);
+      $amount_validated = $this->input->parseAmount($amount[0]);
+      $this->assertEquals($amount_validated, $amount[1]);
     }
   }
 }

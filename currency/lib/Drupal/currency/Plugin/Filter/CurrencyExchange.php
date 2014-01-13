@@ -39,7 +39,7 @@ class CurrencyExchange extends FilterBase {
     $currency_code_to = $matches[2];
     $amount = str_replace(':', '', $matches[3]);
     if (strlen($amount) !== 0) {
-      $amount = Input::parseAmount($amount);
+      $amount = \Drupal::service('currency.input')->parseAmount($amount);
       // The amount is invalid, so return the token.
       if (!$amount) {
         return $matches[0];

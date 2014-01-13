@@ -235,7 +235,7 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
   $currency_code = $value['currency_code'];
 
   // Confirm that the amount is numeric.
-  $amount = Input::parseAmount($amount);
+  $amount = \Drupal::service('currency.input')->parseAmount($amount);
   if ($amount === FALSE) {
     \Drupal::formBuilder()->setError($element['amount'], $form_state, t('%title is not numeric.', array(
       '%title' => $element['#title'],
@@ -258,7 +258,7 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
 
   // The amount in $form_state is a human-readable, optionally localized
   // string, which cannot be used by other code. $amount is a numeric string
-  // after running it through Input::parseAmount().
+  // after running it through \Drupal::service('currency.input')->parseAmount().
   form_set_value($element, array(
     'amount' => $amount,
     'currency_code' => $currency_code,

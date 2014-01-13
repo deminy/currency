@@ -37,7 +37,7 @@ class CurrencyLocalize extends FilterBase {
    */
   function processCallback(array $matches) {
     $currency_code = $matches[1];
-    $amount = Input::parseAmount($matches[2]);
+    $amount = \Drupal::service('currency.input')->parseAmount($matches[2]);
     // The amount is invalid, so return the token.
     if (!$amount) {
       return $matches[0];

@@ -8,3 +8,5 @@ services:
   currency.locale_delegator:
     class: Drupal\currency\LocaleDelegator
     arguments: ['@entity.manager', '@language_manager', '@config.factory']
+  currency.input:
+    class: Drupal\currency\Input
