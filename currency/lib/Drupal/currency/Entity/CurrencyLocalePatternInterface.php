@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @file
- * Definition of Drupal\currency\Entity\CurrencyLocalePatternInterface.
+ * @file Contains \Drupal\currency\Entity\CurrencyLocalePatternInterface.
  */
 
 namespace Drupal\currency\Entity;
@@ -67,6 +66,15 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
    */
   public function setLocale($language_code, $country_code);
+
+  /**
+   * Gets the locale.
+   *
+   * @see self::id()
+   *
+   * @return string
+   */
+  public function getLocale();
 
   /**
    * Gets the language code.

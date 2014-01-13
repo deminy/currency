@@ -7,4 +7,4 @@ services:
     arguments: ['@plugin.manager.currency.exchange_rate_provider', '@config.factory']
   currency.locale_delegator:
     class: Drupal\currency\LocaleDelegator
-    arguments: ['@language_manager']
+    arguments: ['@entity.manager', '@language_manager', '@config.factory']

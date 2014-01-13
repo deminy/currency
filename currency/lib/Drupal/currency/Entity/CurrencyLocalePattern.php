@@ -120,6 +120,13 @@ class CurrencyLocalePattern extends ConfigEntityBase implements CurrencyLocalePa
   /**
    * {@inheritdoc}
    */
+  public function getLocale() {
+    return $this->locale;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setPattern($pattern) {
     $this->pattern = $pattern;
 

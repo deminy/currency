@@ -41,7 +41,7 @@ interface ExchangeRateProviderInterface {
    *     'EUR' => array(
    *       'NLG' => 2.20371,
    *       'DEM' => 1.95583,
-   *       'XXX' => FALSE,
+   *       'XXX' => NULL,
    *     ),
    *   )
    */
