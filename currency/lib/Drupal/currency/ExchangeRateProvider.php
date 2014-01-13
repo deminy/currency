@@ -91,8 +91,8 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
     if ($currency_code_from == $currency_code_to) {
       return 1;
     }
-    foreach ($this->getPlugins() as $exchanger) {
-      if ($rate = $exchanger->load($currency_code_from, $currency_code_to)) {
+    foreach ($this->getPlugins() as $plugin) {
+      if ($rate = $plugin->load($currency_code_from, $currency_code_to)) {
         return $rate;
       }
     }
