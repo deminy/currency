@@ -20,7 +20,7 @@ interface ExchangeRateProviderInterface {
    * @return string|false
    *   A numeric string if the rate could be found, FALSE if it couldn't.
    */
-  function load($currency_code_from, $currency_code_to);
+  public function load($currency_code_from, $currency_code_to);
 
   /**
    * Returns the exchange rates for multiple currency combinations.
@@ -45,5 +45,5 @@ interface ExchangeRateProviderInterface {
    *     ),
    *   )
    */
-  function loadMultiple(array $currency_codes);
+  public function loadMultiple(array $currency_codes);
 }
