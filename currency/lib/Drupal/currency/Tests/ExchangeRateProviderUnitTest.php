@@ -105,7 +105,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
    */
   public function testSaveConfiguration() {
     $configuration = array(
-      'currency_bartfeenstra_currency' => TRUE,
+      'currency_historical_rates' => TRUE,
       'currency_fixed_rates' => TRUE,
       'foo' => FALSE,
     );

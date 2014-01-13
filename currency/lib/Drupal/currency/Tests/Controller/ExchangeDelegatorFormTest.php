@@ -39,7 +39,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
     // Test the default configuration.
     $this->assertEqual(array(
       'currency_fixed_rates' => TRUE,
-      'currency_bartfeenstra_currency' => TRUE,
+      'currency_historical_rates' => TRUE,
     ), $exchange_delegator->loadConfiguration());
     // Test overridden configuration.
     $path = 'admin/config/regional/currency-exchange';
@@ -49,7 +49,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
     $this->drupalPostForm($path, $values, t('Save'));
     $this->assertEqual(array(
       'currency_fixed_rates' => FALSE,
-      'currency_bartfeenstra_currency' => TRUE,
+      'currency_historical_rates' => TRUE,
     ), $exchange_delegator->loadConfiguration());
   }
 }

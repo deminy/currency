@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @file
- * Contains \Drupal\currency\Plugin\Currency\ExchangeRateProvider\BartFeenstraCurrency.
+ * @file Contains
+ * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates.
  */
 
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
@@ -10,14 +10,14 @@ namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 use Drupal\Component\Plugin\PluginBase;
 
 /**
- * Provides fixed exchange rates as provided by bartfeenstra/currency.
+ * Provides historical exchange rates.
  *
  * @CurrencyExchangeRateProvider(
- *   id = "currency_bartfeenstra_currency",
+ *   id = "currency_historical_rates",
  *   label = @Translation("Historical rates")
  * )
  */
-class BartFeenstraCurrency extends PluginBase implements ExchangeRateProviderInterface {
+class HistoricalRates extends PluginBase implements ExchangeRateProviderInterface {
 
   /**
    * {@inheritdoc}

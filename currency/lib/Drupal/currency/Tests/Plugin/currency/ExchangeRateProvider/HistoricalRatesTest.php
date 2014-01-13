@@ -2,7 +2,7 @@
 
 /**
  * @file Contains
- * \Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider\BartFeenstraCurrencyTest.
+ * \Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider\HistoricalRatesTest.
  */
 
 namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Plugin\Currency\ExchangeRateProvider\BartFeenstraCurrency.
+ * Tests \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates.
  */
-class BartFeenstraCurrencyTest extends WebTestBase {
+class HistoricalRatesTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class BartFeenstraCurrencyTest extends WebTestBase {
   public static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\BartFeenstraCurrency web test',
+      'name' => '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates web test',
       'group' => 'Currency',
     );
   }
@@ -30,10 +30,10 @@ class BartFeenstraCurrencyTest extends WebTestBase {
   /**
    * Gets the exchanger plugin.
    *
-   * @return \Drupal\currency\Plugin\Currency\ExchangeRateProvider\BartFeenstraCurrency
+   * @return \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
    */
   public function getPlugin() {
-    return \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_bartfeenstra_currency');
+    return \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_historical_rates');
   }
 
   /**
