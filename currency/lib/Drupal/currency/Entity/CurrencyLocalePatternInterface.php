@@ -114,5 +114,5 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    * @param string $amount
    *   A numeric string.
    */
-  public function format(CurrencyInterface $currency, $amount);
+  public function formatAmount(CurrencyInterface $currency, $amount);
 }

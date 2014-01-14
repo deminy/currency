@@ -97,13 +97,11 @@ class Amount extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = $this->getCurrency($values);
     $amount = $this->getAmount($values);
-    if ($this->options['currency_round']) {
-      $amount = $currency->roundAmount($amount);
-    }
 
-    return $currency->format($amount);
+    return $currency->formatAmount($amount, $this->options['currency_round']);
   }
 
   /**

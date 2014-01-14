@@ -15,11 +15,6 @@ use Drupal\Component\Utility\NestedArray;
 define('CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE', '###CUSTOM###');
 
 /**
- * The number of decimals for BCMath calculations.
- */
-define('CURRENCY_BCMATH_SCALE', 9);
-
-/**
  * Implements hook_menu().
  */
 function currency_menu() {
@@ -209,7 +204,7 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   $description = NULL;
   if ($element['#minimum_amount'] !== FALSE) {
     $description = t('The minimum amount is !amount.', array(
-      '!amount' => $currency->format($element['#minimum_amount']),
+      '!amount' => $currency->formatAmount($element['#minimum_amount']),
     ));
   }
   $element['amount'] = array(
@@ -247,12 +242,12 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
   $currency = entity_load('currency', $currency_code);
   if ($element['#minimum_amount'] !== FALSE && bccomp($element['#minimum_amount'], $amount) == 1) {
     \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The minimum amount is !amount.', array(
-      '!amount' => $currency->format($element['#minimum_amount']),
+      '!amount' => $currency->formatAmount($element['#minimum_amount']),
     )));
   }
   elseif ($element['#maximum_amount'] !== FALSE && bccomp($amount, $element['#maximum_amount']) == 1) {
     \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The maximum amount is !amount.', array(
-      '!amount' => $currency->format($element['#maximum_amount']),
+      '!amount' => $currency->formatAmount($element['#maximum_amount']),
     )));
   }
 

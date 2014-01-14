@@ -48,26 +48,21 @@ class CurrencyTest extends DrupalUnitTestBase {
   }
 
   /**
-   * Test format().
+   * Test formatAmount().
    */
-  function testFormat() {
+  function testFormatAmount() {
     // Do not install configuration in during setUp(), as not to decrease the
     // performance of the other test methods.
     $this->installConfig(array('currency'));
     $this->currency->setSign('€');
+    $this->currency->setSubunits(100);
     $amount = 12345.6789;
-    $formatted = $this->currency->format($amount);
+    $formatted = $this->currency->formatAmount($amount, TRUE);
+    $formatted_expected = '€12,345.68';
+    $this->assertEqual($formatted, $formatted_expected);
+    $formatted = $this->currency->formatAmount($amount, FALSE);
     $formatted_expected = '€12,345.6789';
     $this->assertEqual($formatted, $formatted_expected);
-  }
-
-  /**
-   * Test roundAmount().
-   */
-  function testRoundAmount() {
-    $this->currency->setSubunits(1000);
-    $this->assertTrue($this->currency->roundAmount('12.34'), '12.340');
-    $this->assertTrue($this->currency->roundAmount('1234.5678'), '1234.568');
   }
 
   /**

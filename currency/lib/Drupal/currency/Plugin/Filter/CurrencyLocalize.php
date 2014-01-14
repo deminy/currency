@@ -42,9 +42,10 @@ class CurrencyLocalize extends FilterBase {
     if (!$amount) {
       return $matches[0];
     }
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = entity_load('currency', $currency_code);
     if ($currency) {
-      return $currency->format($amount);
+      return $currency->formatAmount($amount);
     }
     // The currency code is invalid, so return the token.
     return $matches[0];

@@ -181,7 +181,7 @@ class CurrencyLocalePattern extends ConfigEntityBase implements CurrencyLocalePa
   /**
    * {@inheritdoc}
    */
-  function format(CurrencyInterface $currency, $amount) {
+  function formatAmount(CurrencyInterface $currency, $amount) {
     $decimal_position = strpos($amount, '.');
     $number_of_decimals = $decimal_position !== FALSE ? strlen(substr($amount, $decimal_position + 1)) : 0;
     $formatter = new \NumberFormatter($this->id(), \NumberFormatter::PATTERN_DECIMAL, $this->getPattern());

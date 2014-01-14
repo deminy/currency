@@ -98,7 +98,7 @@ class FixedRatesOverview implements ContainerInjectionInterface {
             '#type' => 'item',
           );
           $row['rate'] = array(
-            '#markup' => $this->localeDelegator->getLocalePattern()->format($currency_to, $rate),
+            '#markup' => $this->localeDelegator->getLocalePattern()->formatAmount($currency_to, $rate),
             '#title' => t('Exchange rate'),
             '#title_display' => 'invisible',
             '#type' => 'item',

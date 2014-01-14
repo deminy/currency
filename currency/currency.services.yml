@@ -10,3 +10,5 @@ services:
     arguments: ['@entity.manager', '@language_manager', '@config.factory']
   currency.input:
     class: Drupal\currency\Input
+  currency.math:
+    class: Drupal\currency\Math

@@ -11,10 +11,10 @@
 function currency_requirements($phase) {
   $loaded = extension_loaded('BCMath');
   $requirements['currency_extension_bcmath'] = array(
-    'description' => '',
+    'description' => t('BCMath is used to prevent possible precision loss during calculations.'),
     'title' => t('PHP BCMath extension'),
     'value' => $loaded ? t('Loaded') : t('Not loaded'),
-    'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+    'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_WARNING,
   );
   $loaded = extension_loaded('intl');
   $requirements['currency_extension_intl'] = array(

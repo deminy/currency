@@ -96,7 +96,7 @@ class LocaleDelegator {
    *
    * @throws \RuntimeException
    *
-   * @return \Drupal\currency\Entity\CurrencyLocalePattern
+   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
    */
   function getLocalePattern() {
     if (is_null($this->localePattern)) {

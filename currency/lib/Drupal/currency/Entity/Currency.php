@@ -276,9 +276,9 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    */
   public function getDecimals() {
     $decimals = 0;
-    if ($this->subunits > 0) {
+    if ($this->getSubunits() > 0) {
       $decimals = 1;
-      while (pow(10, $decimals) < $this->subunits) {
+      while (pow(10, $decimals) < $this->getSubunits()) {
         $decimals++;
       }
     }
@@ -313,8 +313,44 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * {@inheritdoc}
    */
-  function format($amount) {
-    return \Drupal::service('currency.locale_delegator')->getLocalePattern()->format($this, $amount);
+  function formatAmount($amount, $use_currency_precision = TRUE) {
+    if ($use_currency_precision && $this->getSubunits()) {
+      // Round the amount according the currency's configuration.
+      $amount = $this->getMath()->round($amount, $this->getRoundingStep());
+
+      $decimal_mark_position = strpos($amount, '.');
+      // The amount has no decimals yet, so add a decimal mark.
+      if ($decimal_mark_position === FALSE) {
+        $amount .= '.';
+      }
+      // Remove any existing trailing zeroes.
+      $amount = rtrim($amount, '0');
+      // Add the required number of trailing zeroes.
+      $amount_decimals = strlen(substr($amount, $decimal_mark_position + 1));
+      if ($amount_decimals < $this->getDecimals()) {
+        $amount .= str_repeat('0', $this->getDecimals() - $amount_decimals);
+      }
+    }
+
+    return $this->getLocaleDelegator()->getLocalePattern()->formatAmount($this, $amount);
+  }
+
+  /**
+   * Gets the locale delegator.
+   *
+   * @return \Drupal\currency\LocaleDelegator
+   */
+  protected function getLocaleDelegator() {
+    return \Drupal::service('currency.locale_delegator');
+  }
+
+  /**
+   * Gets the math service.
+   *
+   * @return \Drupal\currency\MathInterface
+   */
+  protected function getMath() {
+    return \Drupal::service('currency.math');
   }
 
   /**
@@ -326,19 +362,9 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     }
     // If a rounding step was not set explicitly, the rounding step is equal
     // to one subunit.
-    elseif (is_numeric($this->subunits)) {
-      return $this->subunits > 0 ? bcdiv(1, $this->subunits, CURRENCY_BCMATH_SCALE) : 1;
+    elseif (is_numeric($this->getSubunits())) {
+      return $this->getSubunits() > 0 ? $this->getMath()->divide(1, $this->getSubunits()) : 1;
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function roundAmount($amount) {
-    $rounding_step = $this->getRoundingStep();
-    $decimals = $this->getDecimals();
-
-    return bcmul(round(bcdiv($amount, $rounding_step, CURRENCY_BCMATH_SCALE)), $rounding_step, $decimals);
   }
 
   /**
@@ -378,7 +404,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     $properties['currencyNumber'] = $this->getCurrencyNumber();
     $properties['exchangeRates'] = $this->getExchangeRates();
     $properties['label'] = $this->label();
-    $properties['roundingStep'] = $this->getRoundingStep();
+    $properties['roundingStep'] = $this->roundingStep;
     $properties['sign'] = $this->getSign();
     $properties['subunits'] = $this->getSubunits();
     $properties['status'] = $this->status();

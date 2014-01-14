@@ -24,7 +24,6 @@ class AmountTest extends WebTestBase {
       'description' => '',
       'name' => 'Drupal\currency\Plugin\views\field\Amount',
       'group' => 'Currency',
-      'dependencies' => array('views'),
     );
   }
 
@@ -43,6 +42,7 @@ class AmountTest extends WebTestBase {
     $this->drupalPostForm('admin/structure/views/view/' . $view_id, array(), t('Save'));
 
     // Test view display.
+    /** @var \Drupal\views\Entity\View $view */
     $view = entity_load('view', $view_id);
     $view->getExecutable()->execute('default');
     $values = array(

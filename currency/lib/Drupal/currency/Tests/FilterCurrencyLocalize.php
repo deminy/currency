@@ -32,8 +32,8 @@ class FilterCurrencyLocalize extends WebTestBase {
    */
   function testCurrencyLocalze() {
     $tokens_valid = array(
-      '[currency-localize:EUR:100]' => '€100',
-      '[currency-localize:EUR:100,3210]' => '€100.3210',
+      '[currency-localize:EUR:100]' => '€100.00',
+      '[currency-localize:EUR:100,7654]' => '€100.77',
       '[currency-localize:EUR:1.99]' => '€1.99',
       '[currency-localize:EUR:2,99]' => '€2.99',
     );
@@ -48,6 +48,7 @@ class FilterCurrencyLocalize extends WebTestBase {
       // Invalid currency code and missing argument.
       '[currency-localize:123]',
     );
+    /** @var \Drupal\filter\Entity\FilterFormat $format */
     $format = entity_create('filter_format', array(
       'format' => 'currency_localize',
       'name' => 'Currency format',

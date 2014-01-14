@@ -65,7 +65,7 @@ class CurrencyLocalePatternTest extends DrupalUnitTestBase {
       '.3' => '₴-0@3UAH',
     );
     foreach ($results as $amount=> $expected) {
-      $formatted = $this->currency_locale_pattern->format($currency, $amount);
+      $formatted = $this->currency_locale_pattern->formatAmount($currency, $amount);
       $this->assertEqual($formatted, $expected);
     }
   }

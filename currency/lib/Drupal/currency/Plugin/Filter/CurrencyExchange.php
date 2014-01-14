@@ -7,8 +7,10 @@
 
 namespace Drupal\currency\Plugin\Filter;
 
-use Drupal\currency\Input;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\currency\MathInterface;
 use Drupal\filter\Plugin\FilterBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a filter to exchange currencies.
@@ -20,7 +22,38 @@ use Drupal\filter\Plugin\FilterBase;
  *   type = FILTER_TYPE_MARKUP_LANGUAGE
  * )
  */
-class CurrencyExchange extends FilterBase {
+class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The math service.
+   *
+   * @var \Drupal\currency\MathInterface
+   */
+  protected $math;
+
+  /**
+   * Constructs a new class instance
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param array $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\currency\MathInterface
+   *   The Currency math service.
+   */
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MathInterface $math) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->math = $math;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.math'));
+  }
 
   /**
    * {@inheritdoc}
@@ -53,7 +86,7 @@ class CurrencyExchange extends FilterBase {
     $exchanger = \Drupal::service('currency.exchange_rate_provider');
     $rate = $exchanger->load($currency_code_from, $currency_code_to);
     if ($rate) {
-      return bcmul($amount, $rate, CURRENCY_BCMATH_SCALE);
+      return $this->math->multiply($amount, $rate);
     }
     // The filter failed, so return the token.
     return $matches[0];

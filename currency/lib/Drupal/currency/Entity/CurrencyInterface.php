@@ -184,21 +184,13 @@ interface CurrencyInterface extends ConfigEntityInterface {
    *
    * @param string $amount
    *   A numeric string.
+   * @param boolean $use_currency_precision
+   *   Whether or not to use the precision (number of decimals) that the
+   *   currency is configured to. If FALSE, the amount will be formatted as-is.
    *
    * @return string
    */
-  function format($amount);
-
-  /**
-   * Rounds an amount.
-   *
-   * @param string $amount
-   *   A numeric string.
-   *
-   * @return string
-   *   A numeric string.
-   */
-  function roundAmount($amount);
+  function formatAmount($amount, $use_currency_precision = TRUE);
 
   /**
    * Checks if the currency is no longer used in the world.

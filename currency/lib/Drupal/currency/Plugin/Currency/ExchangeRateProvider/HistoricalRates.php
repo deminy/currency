@@ -8,6 +8,9 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\currency\MathInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides historical exchange rates.
@@ -17,7 +20,38 @@ use Drupal\Component\Plugin\PluginBase;
  *   label = @Translation("Historical rates")
  * )
  */
-class HistoricalRates extends PluginBase implements ExchangeRateProviderInterface {
+class HistoricalRates extends PluginBase implements ExchangeRateProviderInterface, ContainerFactoryPluginInterface {
+
+  /**
+   * The math service.
+   *
+   * @var \Drupal\currency\MathInterface
+   */
+  protected $math;
+
+  /**
+   * Constructs a new class instance
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param array $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\currency\MathInterface
+   *   The Currency math service.
+   */
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MathInterface $math) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->math = $math;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.math'));
+  }
 
   /**
    * {@inheritdoc}
@@ -35,7 +69,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
     $currency_to = entity_load('currency', $currency_code_to);
     $rates_to = $currency_to->getExchangeRates();
     if ($currency_to && isset($rates_to[$currency_code_from])) {
-      return bcdiv(1, $rates_to[$currency_code_from], CURRENCY_BCMATH_SCALE);
+      $this->math->divide(1, $rates_to[$currency_code_from]);
     }
 
     // There is no available exchange rate.
