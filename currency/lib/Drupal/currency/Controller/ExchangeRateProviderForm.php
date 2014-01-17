@@ -2,21 +2,22 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Controller\ExchangeDelegatorForm.
+ * Contains \Drupal\currency\Controller\ExchangeRateProviderForm.
  */
 
 namespace Drupal\currency\Controller;
 
-use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Form\FormInterface;
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\ExchangeRateProvider;
+use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides the configuration form for \Drupal\currency\ExchangeDelegator.
+ * Provides the configuration form for \Drupal\currency\ExchangeRateProvider.
  */
-class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterface {
+class ExchangeRateProviderForm extends FormBase implements ContainerInjectionInterface {
 
   /**
    * The currency exchange rate provider.
@@ -26,48 +27,51 @@ class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterfac
   protected $exchangeRateProvider;
 
   /**
-   * A currency exchanger plugin manager.
+   * The currency exchange rate provider manager.
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
-  protected $currencyExchangerManager;
+  protected $currencyExchangeRateProviderManager;
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
+   *   The translation manager.
    * @param \Drupal\currency\ExchangeRateProvider $exchange_rate_provider
    *   The currency exchange rate provider.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $currency_exchanger_manager
-   *   A currency exchanger plugin manager.
+   * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager
+   *   The currency exchange rate provider manager.
    */
-  public function __construct(ExchangeRateProvider $exchange_rate_provider, PluginManagerInterface $currency_exchanger_manager) {
+  public function __construct(TranslationInterface $translation_manager, ExchangeRateProvider $exchange_rate_provider, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
     $this->exchangeRateProvider = $exchange_rate_provider;
-    $this->currencyExchangerManager = $currency_exchanger_manager;
+    $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
+    $this->translationManager = $translation_manager;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('currency.exchange_rate_provider'), $container->get('plugin.manager.currency.exchange_rate_provider'));
+    return new static($container->get('string_translation'), $container->get('currency.exchange_rate_provider'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
-    return 'currency_delegator';
+  public function getFormId() {
+    return 'currency_exchange_rate_provider';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, array &$form_state) {
-    $definitions = $this->currencyExchangerManager->getDefinitions();
+    $definitions = $this->currencyExchangeRateProviderManager->getDefinitions();
     $configuration = $this->exchangeRateProvider->loadConfiguration();
 
     $form['exchangers'] = array(
-      '#header' => array(t('Title'), t('Enabled'), t('Weight'), t('Operations')),
+      '#header' => array($this->t('Title'), $this->t('Enabled'), $this->t('Weight'), $this->t('Operations')),
       '#tabledrag' => array(array(
         'action' => 'order',
         'relationship' => 'sibling',
@@ -89,19 +93,19 @@ class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterfac
       $form['exchangers'][$plugin_name]['title'] = array(
         '#description' => $plugin_definition['description'],
         '#markup' => $plugin_definition['label'],
-        '#title' => t('Title'),
+        '#title' => $this->t('Title'),
         '#title_display' => 'invisible',
         '#type' => 'item',
       );
       $form['exchangers'][$plugin_name]['enabled'] = array(
         '#default_value' => $enabled,
-        '#title' => t('Enabled'),
+        '#title' => $this->t('Enabled'),
         '#title_display' => 'invisible',
         '#type' => 'checkbox',
       );
       $form['exchangers'][$plugin_name]['weight'] = array(
         '#default_value' => $weight,
-        '#title' => t('Weight'),
+        '#title' => $this->t('Weight'),
         '#title_display' => 'invisible',
         '#type' => 'weight',
       );
@@ -114,7 +118,7 @@ class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterfac
       }
       $form['exchangers'][$plugin_name]['operations'] = array(
         '#links' => $links,
-        '#title' => t('Operations'),
+        '#title' => $this->t('Operations'),
         '#type' => 'operations',
       );
     }
@@ -124,7 +128,7 @@ class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterfac
     $form['actions']['save'] = array(
       '#button_type' => 'primary',
       '#type' => 'submit',
-      '#value' => t('Save'),
+      '#value' => $this->t('Save'),
     );
 
     return $form;
@@ -146,6 +150,6 @@ class ExchangeDelegatorForm implements FormInterface, ContainerInjectionInterfac
       $configuration[$plugin_name] = (bool) $exchanger_configuration['enabled'];
     }
     $this->exchangeRateProvider->saveConfiguration($configuration);
-    drupal_set_message(t('The configuration options have been saved.'));
+    drupal_set_message($this->t('The configuration options have been saved.'));
   }
 }

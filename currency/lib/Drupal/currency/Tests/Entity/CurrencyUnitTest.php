@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Entity\CurrencyTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyUnitTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -12,9 +12,9 @@ use Drupal\currency\Usage;
 use Drupal\simpletest\DrupalUnitTestBase;
 
 /**
- * Tests class Drupal\currency\Entity\Currency.
+ * Tests \Drupal\currency\Entity\Currency.
  */
-class CurrencyTest extends DrupalUnitTestBase {
+class CurrencyUnitTest extends DrupalUnitTestBase {
 
   /**
    * The currency under test.
@@ -34,7 +34,7 @@ class CurrencyTest extends DrupalUnitTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Entity\Currency',
+      'name' => '\Drupal\currency\Entity\Currency unit test',
       'group' => 'Currency',
     );
   }

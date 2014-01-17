@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Controller\CurrencyLocalePatternUITest.
+ * Contains \Drupal\currency\Tests\Controller\CurrencyLocalePatternWebTest.
  */
 
 namespace Drupal\currency\Tests\Controller;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Tests\Controller;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Controller\CurrencyLocalePatternUI.
+ * Tests \Drupal\currency\Controller\CurrencyLocalePattern.
  */
-class CurrencyLocalePatternUITest extends WebTestBase {
+class CurrencyLocalePatternWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyLocalePatternUITest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Controller\CurrencyLocalePatternUI',
+      'name' => '\Drupal\currency\Controller\CurrencyLocalePattern web test',
       'group' => 'Currency',
     );
   }

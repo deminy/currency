@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Controller\ExchangeDelegatorFormTest.
+ * Contains \Drupal\currency\Tests\Controller\ExchangeRateProviderFormWebTest.
  */
 
 namespace Drupal\currency\Tests\Controller;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Tests\Controller;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Controller\ExchangeDelegatorForm.
+ * Tests \Drupal\currency\Controller\ExchangeRateProviderForm.
  */
-class ExchangeDelegatorFormTest extends WebTestBase {
+class ExchangeRateProviderFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class ExchangeDelegatorFormTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Controller\ExchangeDelegatorForm',
+      'name' => '\Drupal\currency\Controller\ExchangeRateProviderForm web test',
       'group' => 'Currency',
     );
   }

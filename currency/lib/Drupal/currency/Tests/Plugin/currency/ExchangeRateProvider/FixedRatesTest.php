@@ -17,7 +17,7 @@ class FixedRatesTest extends WebTestBase {
   public static $modules = array('currency');
 
   /**
-   * Overrides parent::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Entity\CurrencyLocalePatternDeleteFormTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyLocalePatternDeleteFormWebTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests Drupal\currency\CurrencyLocalePatternDeleteForm
  */
-class CurrencyLocalePatternDeleteFormControllerTest extends WebTestBase {
+class CurrencyLocalePatternDeleteFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyLocalePatternDeleteFormControllerTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Entity\CurrencyLocalePatternDeleteFormController',
+      'name' => '\Drupal\currency\Entity\CurrencyLocalePatternDeleteFormController web test',
       'group' => 'Currency',
     );
   }

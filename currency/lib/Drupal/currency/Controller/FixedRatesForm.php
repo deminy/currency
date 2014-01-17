@@ -2,22 +2,23 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Controller\Exchanger\FixedRatesForm.
+ * Contains \Drupal\currency\Controller\FixedRatesForm.
  */
 
 namespace Drupal\currency\Controller\Exchanger;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Form\FormInterface;
-use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Form\FormBase;
 use Drupal\currency\Entity\Currency;
+use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides the currency_delegator exchanger configuration form.
+ * Provides the configuration form for the currency_fixed_rates plugin.
  */
-class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
+class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
 
   /**
    * The config factory.
@@ -27,44 +28,56 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
   protected $configFacory;
 
   /**
-   * A currency exchanger plugin manager.
+   * The currency storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   */
+  protected $currencyStorage;
+
+  /**
+   * The currency exchange rate provider manager.
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
-  protected $pluginManager;
+  protected $currencyExchangeRateProviderManager;
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
    * @param \Drupal\Core\Config\ConfigFactory $configFactory
    *   The config factory.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $pluginManager
-   *   The currency exchanger plugin manager.
+   * @param \Drupal\Core\Entity\EntityStorageControllerInterface $currency_storage
+   *   The currency storage.
+   * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager
+   *   The currency exchange rate provider plugin manager.
    */
-  public function __construct(ConfigFactory $configFactory, PluginManagerInterface $pluginManager) {
+  public function __construct(ConfigFactory $configFactory, EntityStorageControllerInterface $currency_storage, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
     $this->configFactory = $configFactory;
-    $this->pluginManager = $pluginManager;
+    $this->currencyStorage = $currency_storage;
+    $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('config.factory'), $container->get('plugin.manager.currency.exchange_rate_provider'));
+    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
+    $entity_manager = $container->get('entity.manager');
+    return new static($container->get('config.factory'), $entity_manager->getStorageController('currency'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
-    return 'currency_exchanger_fixed_rates';
+  public function getFormId() {
+    return 'currency_exchange_rate_provider_fixed_rates';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, array &$form_state, $currency_code_from = 'XXX', $currency_code_to = 'XXX') {
-    $plugin = $this->pluginManager->createInstance('currency_fixed_rates');
+    $plugin = $this->currencyExchangeRateProviderManager->createInstance('currency_fixed_rates');
     $rate = $plugin->load($currency_code_from, $currency_code_to);
 
     $options = Currency::options();
@@ -74,7 +87,7 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
       '#empty_value' => 'XXX',
       '#options' => $options,
       '#required' => TRUE,
-      '#title' => t('Source currency'),
+      '#title' => $this->t('Source currency'),
       '#type' => 'select',
     );
     $form['currency_code_to'] = array(
@@ -83,7 +96,7 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
       '#empty_value' => 'XXX',
       '#options' => $options,
       '#required' => TRUE,
-      '#title' => t('Destination currency'),
+      '#title' => $this->t('Destination currency'),
       '#type' => 'select',
     );
     $form['rate'] = array(
@@ -93,7 +106,7 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
         'currency_code' => $currency_code_to,
       ),
       '#required' => TRUE,
-      '#title' => t('Conversion rate'),
+      '#title' => $this->t('Exchange rate'),
       '#type' => 'currency_amount',
     );
     $form['actions'] = array(
@@ -103,7 +116,7 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
       '#button_type' => 'primary',
       '#name' => 'save',
       '#type' => 'submit',
-      '#value' => t('Save'),
+      '#value' => $this->t('Save'),
     );
     if (!is_null($rate)) {
       $form['actions']['delete'] = array(
@@ -111,7 +124,7 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
         '#limit_validation_errors' => array(array('currency_code_from'), array('currency_code_to')),
         '#name' => 'delete',
         '#type' => 'submit',
-        '#value' => t('Delete'),
+        '#value' => $this->t('Delete'),
       );
     }
 
@@ -128,22 +141,23 @@ class FixedRatesForm implements FormInterface, ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
-    $plugin = $this->pluginManager->createInstance('currency_fixed_rates');
+    /** @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates $plugin */
+    $plugin = $this->currencyExchangeRateProviderManager->createInstance('currency_fixed_rates');
     $values = $form_state['values'];
-    $currency_from = entity_load('currency', $values['currency_code_from']);
-    $currency_to = entity_load('currency', $values['currency_code_to']);
+    $currency_from = $this->currencyStorage->load($values['currency_code_from']);
+    $currency_to = $this->currencyStorage->load($values['currency_code_to']);
 
     switch ($form_state['triggering_element']['#name']) {
       case 'save':
         $plugin->save($currency_from->id(), $currency_to->id(), $values['rate']['amount']);
-        drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been saved.', array(
+        drupal_set_message($this->t('The exchange rate for @currency_title_from to @currency_title_to has been saved.', array(
           '@currency_title_from' => $currency_from->label(),
           '@currency_title_to' => $currency_to->label(),
         )));
         break;
       case 'delete':
         $plugin->delete($currency_from->id(), $currency_to->id());
-        drupal_set_message(t('The exchange rate for @currency_title_from to @currency_title_to has been deleted.', array(
+        drupal_set_message($this->t('The exchange rate for @currency_title_from to @currency_title_to has been deleted.', array(
           '@currency_title_from' => $currency_from->label(),
           '@currency_title_to' => $currency_to->label(),
         )));

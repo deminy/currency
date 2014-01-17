@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\CurrencySignFormElement.
+ * Contains \Drupal\currency\Tests\CurrencySignFormElement.
  */
 
 namespace Drupal\currency\Tests;

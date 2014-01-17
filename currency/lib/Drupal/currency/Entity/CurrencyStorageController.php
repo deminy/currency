@@ -17,9 +17,10 @@ use Drupal\Core\Config\Config;
 class CurrencyStorageController extends ConfigStorageController {
 
   /**
-   * Overrides parent::buildQuery().
+   * {@inheritdoc}
    */
   protected function buildQuery($ids, $revision_id = FALSE) {
+    /** @var \Drupal\currency\Entity\CurrencyInterface[] $currencies */
     $currencies = parent::buildQuery($ids, $revision_id);
     foreach ($currencies as $currency) {
       $usages_data = $currency->getUsage();

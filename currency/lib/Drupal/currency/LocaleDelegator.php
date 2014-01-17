@@ -59,7 +59,7 @@ class LocaleDelegator {
   protected $localePattern;
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    * @param \Drupal\Core\Language\LanguageManager $language_manager

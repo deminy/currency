@@ -2,28 +2,28 @@
 currency_delegator_config:
   path: '/admin/config/regional/currency-exchange'
   defaults:
-    _form: '\Drupal\currency\Controller\ExchangeDelegatorForm'
+    _form: '\Drupal\currency\Controller\ExchangeRateProviderForm'
   requirements:
     _permission: 'currency.exchanger_delegator.administer'
 
 currency_exchanger_fixed_rates_overview:
   path: '/admin/config/regional/currency-exchange/fixed'
   defaults:
-    _content: '\Drupal\currency\Controller\Exchanger\FixedRatesOverview::overview'
+    _content: '\Drupal\currency\Controller\FixedRatesOverview::overview'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
 
 currency_exchanger_fixed_rates_add:
   path: '/admin/config/regional/currency-exchange/fixed/add'
   defaults:
-    _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
+    _form: '\Drupal\currency\Controller\FixedRatesForm'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
 
 currency_exchanger_fixed_rates_edit:
   path: '/admin/config/regional/currency-exchange/fixed/{currency_code_from}/{currency_code_to}'
   defaults:
-    _form: '\Drupal\currency\Controller\Exchanger\FixedRatesForm'
+    _form: '\Drupal\currency\Controller\FixedRatesForm'
   requirements:
     _permission: 'currency.exchanger_fixed_rates.administer'
 
@@ -39,7 +39,7 @@ currency_currency_list:
 currency_currency_add:
   path: '/admin/config/regional/currency/add'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyUI::add'
+    _content: '\Drupal\currency\Controller\Currency::add'
   requirements:
     _entity_create_access: 'currency'
 
@@ -60,14 +60,14 @@ currency_currency_delete:
 currency_currency_enable:
   path: '/admin/config/regional/currency/{currency}/enable'
   defaults:
-    _controller: '\Drupal\currency\Controller\CurrencyUI::enable'
+    _controller: '\Drupal\currency\Controller\Currency::enable'
   requirements:
     _entity_access: 'currency.enable'
 
 currency_currency_disable:
   path: '/admin/config/regional/currency/{currency}/disable'
   defaults:
-    _controller: '\Drupal\currency\Controller\CurrencyUI::disable'
+    _controller: '\Drupal\currency\Controller\Currency::disable'
   requirements:
     _entity_access: 'currency.disable'
 
@@ -82,7 +82,7 @@ currency_locale_pattern_list:
 currency_locale_pattern_add:
   path: '/admin/config/regional/currency_locale_pattern/add'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::add'
+    _content: '\Drupal\currency\Controller\CurrencyLocalePattern::add'
   requirements:
     _entity_create_access: 'currency_locale_pattern'
 

@@ -20,7 +20,7 @@ class CurrencyAmountElement implements FormInterface {
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
+  public function getFormId() {
     return 'currency_test_currency_amount_element';
   }
 

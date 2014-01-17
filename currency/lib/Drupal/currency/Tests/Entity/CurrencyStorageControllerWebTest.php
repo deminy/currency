@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Entity\CurrencyCRUD.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyStorageControllerWebTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -12,19 +12,19 @@ use Drupal\currency\Usage;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Entity\Currency.
+ * Tests \Drupal\currency\Entity\CurrencyStorageController.
  */
-class CurrencyCRUD extends WebTestBase {
+class CurrencyStorageControllerWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
   /**
-   * Overrides parent::getInfo().
+   * {@inheritdoc}
    */
   public static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Entity\Currency entity CRUD',
+      'name' => '\Drupal\currency\Entity\CurrencyStorageController web test',
       'group' => 'Currency',
     );
   }

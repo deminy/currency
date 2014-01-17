@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\currency\Tests\Plugin\views\field\AmountTest.
+ * Contains Drupal\currency\Tests\Plugin\views\field\AmountWebTest.
  */
 
 namespace Drupal\currency\Tests\Plugin\views\field;
@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests Drupal\currency\Plugin\views\field\Amount.
  */
-class AmountTest extends WebTestBase {
+class AmountWebTest extends WebTestBase {
 
   public static $modules = array('currency_test', 'views_ui');
 
@@ -22,7 +22,7 @@ class AmountTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Plugin\views\field\Amount',
+      'name' => '\Drupal\currency\Plugin\views\field\Amount web test',
       'group' => 'Currency',
     );
   }

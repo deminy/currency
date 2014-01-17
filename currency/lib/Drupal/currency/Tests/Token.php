@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Token.
+ * Contains \Drupal\currency\Tests\Token.
  */
 
 namespace Drupal\currency\Tests;
@@ -17,7 +17,7 @@ class Token extends WebTestBase {
   public static $modules = array('currency');
 
   /**
-   * Overrides parent::getInfo().
+   * {@inheritdoc}
    */
   static function getInfo() {
     return array(

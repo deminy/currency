@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Controller\CurrencyLocalePatternUI.
+ * Contains \Drupal\currency\Controller\CurrencyLocalePattern.
  */
 
 namespace Drupal\currency\Controller;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Returns responses for currency_locale_pattern entity UI routes.
  */
-class CurrencyLocalePatternUI implements ContainerInjectionInterface {
+class CurrencyLocalePattern implements ContainerInjectionInterface {
 
   /**
    * Stores the Entity manager.
@@ -24,7 +24,7 @@ class CurrencyLocalePatternUI implements ContainerInjectionInterface {
   protected $entityManager;
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
    * @param \Drupal\Core\Entity\EntityManager $entity_manager
    *   The Entity manager.
@@ -51,6 +51,6 @@ class CurrencyLocalePatternUI implements ContainerInjectionInterface {
   public function add() {
     $locale_pattern = $this->entityManager->getStorageController('currency_locale_pattern')->create(array());
 
-    return entity_get_form($locale_pattern);
+    return $this->entityManager->getForm($locale_pattern);
   }
 }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Entity\CurrencyLocalePatternTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyLocalePatternUnitTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -11,9 +11,9 @@ use Drupal\currency\Entity\CurrencyLocalePatternInterface;
 use Drupal\simpletest\DrupalUnitTestBase;
 
 /**
- * Tests class Drupal\currency\Entity\CurrencyLocalePattern.
+ * Tests \Drupal\currency\Entity\CurrencyLocalePattern.
  */
-class CurrencyLocalePatternTest extends DrupalUnitTestBase {
+class CurrencyLocalePatternUnitTest extends DrupalUnitTestBase {
 
   public static $modules = array('currency');
 
@@ -23,7 +23,7 @@ class CurrencyLocalePatternTest extends DrupalUnitTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Entity\CurrencyLocalePattern',
+      'name' => '\Drupal\currency\Entity\CurrencyLocalePattern unit test',
       'group' => 'Currency',
     );
   }

@@ -30,7 +30,7 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
   protected $currencyExchangeRateProviderManager;
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
    * @param \Drupal\Component\Plugin\PluginManagerInterface $currency_exchange_rate_provider_manager
    * @param \Drupal\Core\Config\ConfigFactory $config_factory

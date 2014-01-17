@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency_exchange_rate_db_table\Tests\ModuleInstallUninstall.
+ * Contains \Drupal\currency_exchange_rate_db_table\Tests\ModuleInstallUninstall.
  */
 
 namespace Drupal\currency_exchange_rate_db_table\Tests;

@@ -44,7 +44,7 @@ class CurrencyDeleteFormController extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
+  public function getFormId() {
     return 'currency_delete';
   }
 

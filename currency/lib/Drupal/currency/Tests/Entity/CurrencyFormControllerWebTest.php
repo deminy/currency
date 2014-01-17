@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Entity\CurrencyFormControllerTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyFormControllerWebTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Tests\Entity;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests the currency UI.
+ * Tests \Drupal\currency\CurrencyFormController.
  */
-class CurrencyFormControllerTest extends WebTestBase {
+class CurrencyFormControllerWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyFormControllerTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\CurrencyFormController',
+      'name' => '\Drupal\currency\CurrencyFormController web test',
       'group' => 'Currency',
     );
   }
@@ -47,6 +47,7 @@ class CurrencyFormControllerTest extends WebTestBase {
       'status' => FALSE,
     );
     $this->drupalPostForm($path, $valid_values, t('Save'));
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = entity_load('currency', 'ABC');
     if ($this->assertTrue($currency)) {
       $this->assertFalse($currency->status());

@@ -250,7 +250,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   }
 
   /**
-   * Overrides parent::id().
+   * {@inheritdoc}
    */
   public function id() {
     return $this->currencyCode;

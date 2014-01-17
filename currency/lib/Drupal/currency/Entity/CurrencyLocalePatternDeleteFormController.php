@@ -42,7 +42,7 @@ class CurrencyLocalePatternDeleteFormController extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
+  public function getFormId() {
     return 'currency_locale_pattern_delete';
   }
 

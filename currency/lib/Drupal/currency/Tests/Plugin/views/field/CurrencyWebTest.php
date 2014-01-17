@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\currency\Tests\Plugin\views\field\CurrencyTest.
+ * Contains Drupal\currency\Tests\Plugin\views\field\CurrencyWebTest.
  */
 
 namespace Drupal\currency\Tests\Plugin\views\field;
@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests Drupal\currency\Plugin\views\field\Currency.
  */
-class CurrencyTest extends WebTestBase {
+class CurrencyWebTest extends WebTestBase {
 
   public static $modules = array('currency_test', 'views');
 
@@ -22,9 +22,8 @@ class CurrencyTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Plugin\views\field\Currency',
+      'name' => '\Drupal\currency\Plugin\views\field\Currency web test',
       'group' => 'Currency',
-      'dependencies' => array('views'),
     );
   }
 
@@ -32,6 +31,7 @@ class CurrencyTest extends WebTestBase {
    * Tests the handler.
    */
   public function testHandler() {
+    /** @var \Drupal\views\Entity\View $view */
     $view = entity_load('view', 'currency_test');
     $view->getExecutable()->execute('default');
     $this->assertEqual($view->get('executable')->field['currency_sign']->advancedRender($view->get('executable')->result[0]), '€');

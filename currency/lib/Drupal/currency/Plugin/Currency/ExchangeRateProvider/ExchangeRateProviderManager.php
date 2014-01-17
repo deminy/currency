@@ -17,10 +17,10 @@ use Drupal\Core\Plugin\DefaultPluginManager;
  *
  * @see \Drupal\block\BlockInterface
  */
-class ExchangeRateProviderManager extends DefaultPluginManager {
+class ExchangeRateProviderManager extends DefaultPluginManager implements ExchangeRateProviderManagerInterface {
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths

@@ -17,7 +17,7 @@ class HistoricalRatesTest extends WebTestBase {
   public static $modules = array('currency');
 
   /**
-   * Overrides parent::getInfo().
+   * {@inheritdoc}
    */
   public static function getInfo() {
     return array(

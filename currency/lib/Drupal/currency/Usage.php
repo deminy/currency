@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Usage.
+ * Contains \Drupal\currency\Usage.
  */
 
 namespace Drupal\currency;
@@ -34,7 +34,7 @@ class Usage  {
   public $countryCode = NULL;
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
    * @param array $properties
    *   Keys are property names. Values are the property values to set.

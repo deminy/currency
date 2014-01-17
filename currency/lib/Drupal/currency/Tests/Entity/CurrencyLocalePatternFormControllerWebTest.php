@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency\Tests\Entity\CurrencyLocalePatternFormControllerTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyLocalePatternFormControllerWebTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests the Drupal\currency\CurrencyLocalePatternFormController.
  */
-class CurrencyLocalePatternFormControllerTest extends WebTestBase {
+class CurrencyLocalePatternFormControllerWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyLocalePatternFormControllerTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\CurrencyLocalePatternFormController',
+      'name' => '\Drupal\currency\CurrencyLocalePatternFormController web test',
       'group' => 'Currency',
     );
   }

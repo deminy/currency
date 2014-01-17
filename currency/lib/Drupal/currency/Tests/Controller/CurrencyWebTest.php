@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Controller\CurrencyUITest.
+ * Contains \Drupal\currency\Tests\Controller\CurrencyWebTest.
  */
 
 namespace Drupal\currency\Tests\Controller;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Tests\Controller;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Controller\CurrencyUI.
+ * Tests \Drupal\currency\Controller\Currency.
  */
-class CurrencyUITest extends WebTestBase {
+class CurrencyWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyUITest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Controller\CurrencyUI',
+      'name' => '\Drupal\currency\Controller\Currency web test',
       'group' => 'Currency',
     );
   }
