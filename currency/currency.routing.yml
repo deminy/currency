@@ -41,14 +41,14 @@ currency_currency_add:
   defaults:
     _content: '\Drupal\currency\Controller\CurrencyUI::add'
   requirements:
-    _permission: 'currency.currency.create'
+    _entity_create_access: 'currency'
 
 currency_currency_edit:
   path: '/admin/config/regional/currency/{currency}/edit'
   defaults:
     _entity_form: 'currency.default'
   requirements:
-    _permission: 'currency.currency.update'
+    _entity_access: 'currency.update'
 
 currency_currency_delete:
   path: '/admin/config/regional/currency/{currency}/delete'
@@ -62,14 +62,14 @@ currency_currency_enable:
   defaults:
     _controller: '\Drupal\currency\Controller\CurrencyUI::enable'
   requirements:
-    _permission: 'currency.currency.update'
+    _entity_access: 'currency.enable'
 
 currency_currency_disable:
   path: '/admin/config/regional/currency/{currency}/disable'
   defaults:
     _controller: '\Drupal\currency\Controller\CurrencyUI::disable'
   requirements:
-    _permission: 'currency.currency.update'
+    _entity_access: 'currency.disable'
 
 # Currency locale pattern entities.
 currency_locale_pattern_list:
@@ -84,7 +84,7 @@ currency_locale_pattern_add:
   defaults:
     _content: '\Drupal\currency\Controller\CurrencyLocalePatternUI::add'
   requirements:
-    _permission: 'currency.currency_locale_pattern.create'
+    _entity_create_access: 'currency_locale_pattern'
 
 currency_locale_pattern_edit:
   path: '/admin/config/regional/currency_locale_pattern/{currency_locale_pattern}/edit'

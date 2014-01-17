@@ -22,9 +22,21 @@ class CurrencyAccessController extends EntityAccessController {
    */
   protected function checkAccess(EntityInterface $currency, $operation, $langcode, AccountInterface $account) {
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
+
+    // Don't let the default currency be deleted.
     if ($currency->getCurrencyCode() == 'XXX' && $operation == 'delete') {
       return FALSE;
     }
+
+    // The "enable" and "disable" operations are aliases for "update", but with
+    // extra checks.
+    if ($operation == 'enable') {
+      return $currency->status() ? FALSE : $currency->access('update', $account);
+    }
+    if ($operation == 'disable') {
+      return $currency->status() ? $currency->access('update', $account) : FALSE;
+    }
+
     return $account->hasPermission('currency.currency.' . $operation);
   }
 
