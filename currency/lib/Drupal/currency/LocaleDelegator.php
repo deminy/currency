@@ -101,7 +101,7 @@ class LocaleDelegator {
   function getLocalePattern() {
     if (is_null($this->localePattern)) {
       $locale_pattern = NULL;
-      $language_code = $this->languageManager->getLanguage(Language::TYPE_CONTENT)->id;
+      $language_code = $this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id;
 
       // Try this request's country code.
       if ($this->getCountryCode()) {

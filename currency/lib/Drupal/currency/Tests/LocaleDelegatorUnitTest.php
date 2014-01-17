@@ -6,6 +6,7 @@
 
 namespace Drupal\currency\Tests;
 
+use Drupal\Core\Language\Language;
 use Drupal\currency\LocaleDelegator;
 use Drupal\Tests\UnitTestCase;
 
@@ -112,7 +113,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
 
     $this->currencyLocalePatternStorage->expects($this->any())
       ->method('load')
-      ->with($this->languageManager->getLanguage()->id . '_' . $request_country_code)
+      ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id . '_' . $request_country_code)
       ->will($this->returnValue($locale_pattern));
 
     // Test loading the fallback locale.
@@ -144,7 +145,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
 
     $this->currencyLocalePatternStorage->expects($this->any())
       ->method('load')
-      ->with($this->languageManager->getLanguage()->id . '_' . $site_default_country)
+      ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id . '_' . $site_default_country)
       ->will($this->returnValue($locale_pattern));
 
     // Test loading the fallback locale.
@@ -193,7 +194,8 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
     $language->id = $language_code;
 
     $this->languageManager->expects($this->any())
-      ->method('getLanguage')
+      ->method('getCurrentLanguage')
+      ->with(Language::TYPE_CONTENT)
       ->will($this->returnValue($language));
   }
 }
