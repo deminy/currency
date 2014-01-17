@@ -20,7 +20,11 @@ class CurrencyAccessController extends EntityAccessController {
   /**
    * {@inheritdoc}
    */
-  protected function checkAccess(EntityInterface $entity, $operation, $langcode, AccountInterface $account) {
+  protected function checkAccess(EntityInterface $currency, $operation, $langcode, AccountInterface $account) {
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
+    if ($currency->getCurrencyCode() == 'XXX' && $operation == 'delete') {
+      return FALSE;
+    }
     return $account->hasPermission('currency.currency.' . $operation);
   }
 

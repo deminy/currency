@@ -31,9 +31,15 @@ class CurrencyUITest extends WebTestBase {
    * Tests listing().
    */
   function testListing() {
-    $account = $this->drupalCreateUser(array('currency.currency.view'));
+    $account = $this->drupalCreateUser(array('currency.currency.view', 'currency.currency.delete'));
     $this->drupalLogin($account);
     $this->drupalGet('admin/config/regional/currency');
     $this->assertText('euro');
+    $this->assertLinkByHref('admin/config/regional/currency/EUR');
+    $this->assertLinkByHref('admin/config/regional/currency/EUR/delete');
+    // Make sure that there is an edit link, but no delete link for the default
+    // currency.
+    $this->assertLinkByHref('admin/config/regional/currency/XXX');
+    $this->assertNoLinkByHref('admin/config/regional/currency/XXX/delete');
   }
 }
