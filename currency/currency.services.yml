@@ -1,6 +1,6 @@
 services:
   plugin.manager.currency.exchange_rate_provider:
-    class: Drupal\currency\Plugin\Currency\ExchangeRateProvider\Manager
+    class: Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManager
     arguments: ['@container.namespaces', '@cache.cache', '@language_manager', '@module_handler']
   currency.exchange_rate_provider:
     class: Drupal\currency\ExchangeRateProvider

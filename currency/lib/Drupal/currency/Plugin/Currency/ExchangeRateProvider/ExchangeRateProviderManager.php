@@ -2,7 +2,7 @@
 
 /**
  * @file Contains
- * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\Manager.
+ * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManager.
  */
 
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
@@ -17,7 +17,7 @@ use Drupal\Core\Plugin\DefaultPluginManager;
  *
  * @see \Drupal\block\BlockInterface
  */
-class Manager extends DefaultPluginManager {
+class ExchangeRateProviderManager extends DefaultPluginManager {
 
   /**
    * Constructor.
