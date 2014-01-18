@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Entity\CurrencyLocalePattern.
+ * Definition of Drupal\currency\Entity\CurrencyLocale.
  */
 
 namespace Drupal\currency\Entity;
@@ -11,17 +11,17 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Language\LanguageManager;
 
 /**
- * Defines a currency entity class.
+ * Defines a currency locale entity.
  *
  * @EntityType(
- *   config_prefix = "currency.currency_locale_pattern",
+ *   config_prefix = "currency.currency_locale",
  *   controllers = {
- *     "access" = "Drupal\currency\Entity\CurrencyLocalePatternAccessController",
+ *     "access" = "Drupal\currency\Entity\CurrencyLocaleAccessController",
  *     "form" = {
- *       "default" = "Drupal\currency\Entity\CurrencyLocalePatternFormController",
- *       "delete" = "Drupal\currency\Entity\CurrencyLocalePatternDeleteFormController"
+ *       "default" = "Drupal\currency\Entity\CurrencyLocaleFormController",
+ *       "delete" = "Drupal\currency\Entity\CurrencyLocaleDeleteFormController"
  *     },
- *     "list" = "Drupal\currency\Entity\CurrencyLocalePatternListController",
+ *     "list" = "Drupal\currency\Entity\CurrencyLocaleListController",
  *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
  *   },
  *   entity_keys = {
@@ -31,12 +31,12 @@ use Drupal\Core\Language\LanguageManager;
  *     "status" = "status"
  *   },
  *   fieldable = FALSE,
- *   id = "currency_locale_pattern",
- *   label = @Translation("Currency locale pattern"),
+ *   id = "currency_locale",
+ *   label = @Translation("Currency currency locale"),
  *   module = "currency"
  * )
  */
-class CurrencyLocalePattern extends ConfigEntityBase implements CurrencyLocalePatternInterface {
+class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface {
 
   /**
    * The decimal separator character.
@@ -172,7 +172,7 @@ class CurrencyLocalePattern extends ConfigEntityBase implements CurrencyLocalePa
         'entity' => $this,
         'entity_type' => $this->entityType,
       ),
-      'path' => 'admin/config/regional/currency_locale_pattern/' . $this->id(),
+      'path' => 'admin/config/regional/currency_locale/' . $this->id(),
     );
 
     return $uri;

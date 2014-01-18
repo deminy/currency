@@ -71,31 +71,31 @@ currency_currency_disable:
   requirements:
     _entity_access: 'currency.disable'
 
-# Currency locale pattern entities.
-currency_locale_pattern_list:
-  path: '/admin/config/regional/currency_locale_pattern'
+# Currency currency locale entities.
+currency_locale_list:
+  path: '/admin/config/regional/currency_locale'
   defaults:
-    _entity_list: 'currency_locale_pattern'
+    _entity_list: 'currency_locale'
   requirements:
-    _permission: 'currency.currency_locale_pattern.view'
+    _permission: 'currency.currency_locale.view'
 
-currency_locale_pattern_add:
-  path: '/admin/config/regional/currency_locale_pattern/add'
+currency_locale_add:
+  path: '/admin/config/regional/currency_locale/add'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyLocalePattern::add'
+    _content: '\Drupal\currency\Controller\CurrencyLocale::add'
   requirements:
-    _entity_create_access: 'currency_locale_pattern'
+    _entity_create_access: 'currency_locale'
 
-currency_locale_pattern_edit:
-  path: '/admin/config/regional/currency_locale_pattern/{currency_locale_pattern}/edit'
+currency_locale_edit:
+  path: '/admin/config/regional/currency_locale/{currency_locale}/edit'
   defaults:
-    _entity_form: 'currency_locale_pattern.default'
+    _entity_form: 'currency_locale.default'
   requirements:
-    _entity_access: 'currency_locale_pattern.update'
+    _entity_access: 'currency_locale.update'
 
-currency_locale_pattern_delete:
-  path: '/admin/config/regional/currency_locale_pattern/{currency_locale_pattern}/delete'
+currency_locale_delete:
+  path: '/admin/config/regional/currency_locale/{currency_locale}/delete'
   defaults:
-    _entity_form: 'currency_locale_pattern.delete'
+    _entity_form: 'currency_locale.delete'
   requirements:
-    _entity_access: 'currency_locale_pattern.delete'
+    _entity_access: 'currency_locale.delete'

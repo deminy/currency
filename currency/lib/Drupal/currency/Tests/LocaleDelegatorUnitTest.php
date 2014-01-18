@@ -23,11 +23,11 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   protected $configFactory;
 
   /**
-   * The currency locale pattern storage used for testing
+   * The currency currency locale storage used for testing
    *
    * @var \Drupal\Core\Entity\EntityStorageControllerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
-  protected $currencyLocalePatternStorage;
+  protected $currencyLocaleStorage;
 
   /**
    * The entity manager used for testing.
@@ -69,13 +69,13 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->currencyLocalePatternStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageControllerInterface');
+    $this->currencyLocaleStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageControllerInterface');
 
     $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
     $this->entityManager->expects($this->any())
       ->method('getStorageController')
-      ->with('currency_locale_pattern')
-      ->will($this->returnValue($this->currencyLocalePatternStorage));
+      ->with('currency_locale')
+      ->will($this->returnValue($this->currencyLocaleStorage));
 
     $this->languageManager = $this->getMockBuilder('\Drupal\Core\Language\LanguageManager')
       ->disableOriginalConstructor()
@@ -99,31 +99,31 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests getLocalePattern().
+   * Tests getCurrencyLocale().
    *
    * @depends testGetCountryCode
    */
-  function testGetLocalePatternWithRequestCountry() {
+  function testGetCurrencyLocaleWithRequestCountry() {
     $this->prepareLanguageManager();
 
     $request_country_code = 'IN';
     $this->localeDelegator->setCountryCode($request_country_code);
 
-    $locale_pattern = $this->getMock('\Drupal\currency\Entity\CurrencyLocalePatternInterface');
+    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
 
-    $this->currencyLocalePatternStorage->expects($this->any())
+    $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
       ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id . '_' . $request_country_code)
-      ->will($this->returnValue($locale_pattern));
+      ->will($this->returnValue($currency_locale));
 
     // Test loading the fallback locale.
-    $this->assertSame(spl_object_hash($locale_pattern), spl_object_hash($this->localeDelegator->getLocalePattern()));
+    $this->assertSame(spl_object_hash($currency_locale), spl_object_hash($this->localeDelegator->getCurrencyLocale()));
   }
 
   /**
-   * Tests getLocalePattern().
+   * Tests getCurrencyLocale().
    */
-  function testGetLocalePatternWithSiteDefaultCountry() {
+  function testGetCurrencyLocaleWithSiteDefaultCountry() {
     $this->prepareLanguageManager();
 
     $site_default_country = 'IN';
@@ -141,21 +141,21 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
       ->with('system.data')
       ->will($this->returnValue($config));
 
-    $locale_pattern = $this->getMock('\Drupal\currency\Entity\CurrencyLocalePatternInterface');
+    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
 
-    $this->currencyLocalePatternStorage->expects($this->any())
+    $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
       ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id . '_' . $site_default_country)
-      ->will($this->returnValue($locale_pattern));
+      ->will($this->returnValue($currency_locale));
 
     // Test loading the fallback locale.
-    $this->assertSame(spl_object_hash($locale_pattern), spl_object_hash($this->localeDelegator->getLocalePattern()));
+    $this->assertSame(spl_object_hash($currency_locale), spl_object_hash($this->localeDelegator->getCurrencyLocale()));
   }
 
   /**
-   * Tests getLocalePattern().
+   * Tests getCurrencyLocale().
    */
-  function testGetLocalePatternFallback() {
+  function testGetCurrencyLocaleFallback() {
     $this->prepareLanguageManager();
 
     $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
@@ -171,16 +171,16 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
       ->with('system.data')
       ->will($this->returnValue($config));
 
-    $locale_pattern = $this->getMock('\Drupal\currency\Entity\CurrencyLocalePatternInterface');
+    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
 
     $delegator = $this->localeDelegator;
-    $this->currencyLocalePatternStorage->expects($this->any())
+    $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
       ->with($delegator::DEFAULT_LOCALE)
-      ->will($this->returnValue($locale_pattern));
+      ->will($this->returnValue($currency_locale));
 
     // Test loading the fallback locale.
-    $this->assertSame(spl_object_hash($locale_pattern), spl_object_hash($this->localeDelegator->getLocalePattern()));
+    $this->assertSame(spl_object_hash($currency_locale), spl_object_hash($this->localeDelegator->getCurrencyLocale()));
   }
 
   /**

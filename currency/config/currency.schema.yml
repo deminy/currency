@@ -34,8 +34,8 @@ currency.currency.*:
       type: string
   type: mapping
 
-currency.currency_locale_pattern.*:
-  label: 'Currency locale apttern'
+currency.currency_locale.*:
+  label: 'Currency locale'
   mapping:
     decimalSeparator:
       type: string

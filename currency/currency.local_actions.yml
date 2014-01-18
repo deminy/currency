@@ -3,11 +3,11 @@ currency_currency_add:
   title: 'Add a currency'
   appears_on:
     - currency_currency_list
-currency_locale_pattern_add:
-  route_name: currency_locale_pattern_add
-  title: 'Add a locale pattern'
+currency_locale_add:
+  route_name: currency_locale_add
+  title: 'Add a currency locale'
   appears_on:
-    - currency_locale_pattern_list
+    - currency_locale_list
 currency_currency_exchanger_fixed_rates_add:
   route_name: currency_exchanger_fixed_rates_add
   title: 'Add an exchange rate'

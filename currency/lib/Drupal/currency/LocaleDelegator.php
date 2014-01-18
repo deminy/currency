@@ -11,7 +11,7 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageManager;
-use Drupal\currency\Entity\CurrencyLocalePatternInterface;
+use Drupal\currency\Entity\CurrencyLocaleInterface;
 
 /**
  * 
@@ -38,11 +38,11 @@ class LocaleDelegator {
   protected $configFactory;
 
   /**
-   * The currency locale pattern storage.
+   * The currency currency locale storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageControllerInterface
    */
-  protected $currencyLocalePatternStorage;
+  protected $currencyLocaleStorage;
 
   /**
    * The language manager.
@@ -52,11 +52,11 @@ class LocaleDelegator {
   protected $languageManager;
 
   /**
-   * The locale pattern to use.
+   * The currency locale to use.
    *
-   * @var \Drupal\currency\Entity\CurrencyLocalePattern
+   * @var \Drupal\currency\Entity\CurrencyLocale
    */
-  protected $localePattern;
+  protected $currencyLocale;
 
   /**
    * Constructs a new class instance.
@@ -67,80 +67,80 @@ class LocaleDelegator {
    */
   function __construct(EntityManagerInterface $entity_manager, LanguageManager $language_manager, ConfigFactory $config_factory) {
     $this->configFactory = $config_factory;
-    $this->currencyLocalePatternStorage = $entity_manager->getStorageController('currency_locale_pattern');
+    $this->currencyLocaleStorage = $entity_manager->getStorageController('currency_locale');
     $this->languageManager = $language_manager;
   }
 
   /**
-   * Sets the locale pattern to use.
+   * Sets the currency locale to use.
    *
-   * @param \Drupal\currency\Entity\CurrencyLocalePatternInterface $locale_pattern
+   * @param \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale
    *
    * @return $this
    */
-  function setLocalePattern(CurrencyLocalePatternInterface $locale_pattern) {
-    $this->localePattern = $locale_pattern;
+  function setCurrencyLocale(CurrencyLocaleInterface $currency_locale) {
+    $this->currencyLocale = $currency_locale;
 
     return $this;
   }
 
   /**
-   * Loads the locale pattern to use.
+   * Loads the currency locale to use.
    *
-   * If no locale pattern was explicitly set, it will load one based on the
+   * If no currency locale was explicitly set, it will load one based on the
    * environment. If no country code is set using self::setCountryCode(), the
    * "site_default_country" system variable will be used instead. If a
-   * CurrencyLocalePattern could not be loaded using these country sources and
-   * $language->language, the locale pattern for en_US will be loaded. This is
+   * CurrencyLocale could not be loaded using these country sources and
+   * $language->language, the currency locale for en_US will be loaded. This is
    * consistent with Drupal's default language, which is US English.
    *
    * @throws \RuntimeException
    *
-   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocaleInterface
    */
-  function getLocalePattern() {
-    if (is_null($this->localePattern)) {
-      $locale_pattern = NULL;
+  function getCurrencyLocale() {
+    if (is_null($this->currencyLocale)) {
+      $currency_locale = NULL;
       $language_code = $this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id;
 
       // Try this request's country code.
       if ($this->getCountryCode()) {
-        $locale_pattern = $this->currencyLocalePatternStorage->load($language_code . '_' . $this->countryCode);
+        $currency_locale = $this->currencyLocaleStorage->load($language_code . '_' . $this->countryCode);
       }
 
       // Try the site's default country code.
-      if (!$locale_pattern) {
+      if (!$currency_locale) {
         $country_code = $this->configFactory->get('system.data')->get('country.default');
         if ($country_code) {
-          $locale_pattern = $this->currencyLocalePatternStorage->load($language_code . '_' . $country_code);
+          $currency_locale = $this->currencyLocaleStorage->load($language_code . '_' . $country_code);
         }
 
       }
 
       // Try the Currency default.
-      if (!$locale_pattern) {
-        $locale_pattern = $this->currencyLocalePatternStorage->load($this::DEFAULT_LOCALE);
+      if (!$currency_locale) {
+        $currency_locale = $this->currencyLocaleStorage->load($this::DEFAULT_LOCALE);
       }
 
-      if ($locale_pattern) {
-        $this->setLocalePattern($locale_pattern);
+      if ($currency_locale) {
+        $this->setCurrencyLocale($currency_locale);
       }
       else {
-        throw new \RuntimeException('The locale pattern for ' . $this::DEFAULT_LOCALE . ' could not be loaded.');
+        throw new \RuntimeException('The currency locale for ' . $this::DEFAULT_LOCALE . ' could not be loaded.');
       }
     }
 
-    return $this->localePattern;
+    return $this->currencyLocale;
   }
 
   /**
-   * Resets the CurrencyLocalePattern that was loaded based on environment
+   * Resets the CurrencyLocale that was loaded based on environment
    * variables.
    *
    * @return $this
    */
-  function resetLocalePattern() {
-    $this->localePattern = NULL;
+  function resetCurrencyLocale() {
+    $this->currencyLocale = NULL;
 
     return $this;
   }
@@ -156,7 +156,7 @@ class LocaleDelegator {
   function setCountryCode($country_code) {
     if ($this->countryCode != $country_code) {
       $this->countryCode = $country_code;
-      $this->resetLocalePattern();
+      $this->resetCurrencyLocale();
     }
 
     return $this;

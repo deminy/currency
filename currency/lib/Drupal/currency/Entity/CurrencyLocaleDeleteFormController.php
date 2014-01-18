@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Entity\CurrencyLocalePatternDeleteFormController.
+ * Definition of Drupal\currency\Entity\CurrencyLocaleDeleteFormController.
  */
 
 namespace Drupal\currency\Entity;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Entity;
 use Drupal\Core\Entity\EntityConfirmFormBase;
 
 /**
- * Provides a currency locale pattern delete form.
+ * Provides a currency currency locale delete form.
  */
-class CurrencyLocalePatternDeleteFormController extends EntityConfirmFormBase {
+class CurrencyLocaleDeleteFormController extends EntityConfirmFormBase {
 
   /**
    * {@inheritdoc}
@@ -28,7 +28,7 @@ class CurrencyLocalePatternDeleteFormController extends EntityConfirmFormBase {
    */
   public function getCancelRoute() {
     return array(
-      'route_name' => 'currency_locale_pattern_list',
+      'route_name' => 'currency_locale_list',
     );
   }
 
@@ -43,17 +43,17 @@ class CurrencyLocalePatternDeleteFormController extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'currency_locale_pattern_delete';
+    return 'currency_locale_delete';
   }
 
   /**
    * {@inheritdoc}
    */
   public function submit(array $form, array &$form_state) {
-    $currency_locale_pattern = $this->getEntity();
-    $currency_locale_pattern->delete();
-    drupal_set_message(t('The locale pattern %label has been deleted.', array(
-      '%label' => $currency_locale_pattern->label(),
+    $currency_locale = $this->getEntity();
+    $currency_locale->delete();
+    drupal_set_message(t('The currency locale %label has been deleted.', array(
+      '%label' => $currency_locale->label(),
     )));
     $form_state['redirect'] = $this->getCancelPath();
   }

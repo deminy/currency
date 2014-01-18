@@ -179,7 +179,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
   public static function options();
 
   /**
-   * Format an amount using this currency and the environment's default locale
+   * Format an amount using this currency and the environment's default currency locale.
    * pattern.
    *
    * @param string $amount

@@ -110,7 +110,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
             '#type' => 'item',
           );
           $row['rate'] = array(
-            '#markup' => $this->localeDelegator->getLocalePattern()->formatAmount($currency_to, $rate),
+            '#markup' => $this->localeDelegator->getCurrencyLocale()->formatAmount($currency_to, $rate),
             '#title' => $this->t('Exchange rate'),
             '#title_display' => 'invisible',
             '#type' => 'item',

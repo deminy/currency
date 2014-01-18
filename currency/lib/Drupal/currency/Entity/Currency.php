@@ -332,7 +332,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
       }
     }
 
-    return $this->getLocaleDelegator()->getLocalePattern()->formatAmount($this, $amount);
+    return $this->getLocaleDelegator()->getCurrencyLocale()->formatAmount($this, $amount);
   }
 
   /**

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Entity\CurrencyLocalePatternFormController.
+ * Definition of Drupal\currency\Entity\CurrencyLocaleFormController.
  */
 
 namespace Drupal\currency\Entity;
@@ -11,9 +11,9 @@ use Drupal\Core\Entity\EntityFormController;
 use Drupal\Core\Language\LanguageManager;
 
 /**
- * Provides a currency_locale_pattern add/edit form.
+ * Provides a currency_locale add/edit form.
  */
-class CurrencyLocalePatternFormController extends EntityFormController {
+class CurrencyLocaleFormController extends EntityFormController {
 
   /**
    * {@inheritdoc}
@@ -24,20 +24,22 @@ class CurrencyLocalePatternFormController extends EntityFormController {
     // include internal FAPI values and copying those pollutes the entity,
     // which is why we build the entity manually.
     $values = $form_state['values'];
-    $currency = clone $this->getEntity($form_state);
-    $currency->setLocale($values['language_code'], $values['country_code']);
-    $currency->setPattern($values['pattern']);
-    $currency->setDecimalSeparator($values['decimal_separator']);
-    $currency->setGroupingSeparator($values['grouping_separator']);
+    /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
+    $currency_locale = clone $this->getEntity($form_state);
+    $currency_locale->setLocale($values['language_code'], $values['country_code']);
+    $currency_locale->setPattern($values['pattern']);
+    $currency_locale->setDecimalSeparator($values['decimal_separator']);
+    $currency_locale->setGroupingSeparator($values['grouping_separator']);
 
-    return $currency;
+    return $currency_locale;
   }
 
   /**
    * {@inheritdoc}
    */
   public function form(array $form, array &$form_state) {
-    $currency_locale_pattern = $this->getEntity();
+    /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
+    $currency_locale = $this->getEntity();
 
     $form['locale'] = array(
       '#title' => t('Locale'),
@@ -49,7 +51,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
     }
     natcasesort($options);
     $form['locale']['language_code'] = array(
-      '#default_value' => $currency_locale_pattern->getLanguageCode(),
+      '#default_value' => $currency_locale->getLanguageCode(),
       '#empty_value' => '',
       '#options' => $options,
       '#required' => TRUE,
@@ -57,7 +59,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       '#type' => 'select',
     );
     $form['locale']['country_code'] = array(
-      '#default_value' => $currency_locale_pattern->getCountryCode(),
+      '#default_value' => $currency_locale->getCountryCode(),
       '#empty_value' => '',
       '#options' => \Drupal::service('country_manager')->getList(),
       '#required' => TRUE,
@@ -69,7 +71,7 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       '#type' => 'details',
     );
     $form['cldr']['pattern'] = array(
-      '#default_value' => $currency_locale_pattern->getPattern(),
+      '#default_value' => $currency_locale->getPattern(),
       '#description' => t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>. Non-standard characters are allowed. <code>[XXX]</code> and <code>[999]</code> will be replaced by the ISO 4217 currency code and number.'),
       '#maxlength' => 255,
       '#required' => TRUE,
@@ -77,19 +79,19 @@ class CurrencyLocalePatternFormController extends EntityFormController {
       '#type' => 'textfield',
     );
     $form['cldr']['decimal_separator'] = array(
-      '#default_value' => $currency_locale_pattern->getDecimalSeparator(),
+      '#default_value' => $currency_locale->getDecimalSeparator(),
       '#maxlength' => 255,
       '#title' => t('Decimal separator'),
       '#type' => 'textfield',
     );
     $form['cldr']['grouping_separator'] = array(
-      '#default_value' => $currency_locale_pattern->getGroupingSeparator(),
+      '#default_value' => $currency_locale->getGroupingSeparator(),
       '#maxlength' => 255,
       '#title' => t('Group separator'),
       '#type' => 'textfield',
     );
 
-    return parent::form($form, $form_state, $currency_locale_pattern);
+    return parent::form($form, $form_state, $currency_locale);
   }
 
   /**
@@ -98,10 +100,10 @@ class CurrencyLocalePatternFormController extends EntityFormController {
   function validate(array $form, array &$form_state) {
     parent::validate($form, $form_state);
     // If this entity is new, its locale/ID has to be unique.
-    $currency_locale_pattern = $this->buildEntity($form, $form_state);
-    if ($currency_locale_pattern->isNew()) {
-      $currency_locale_pattern_loaded = entity_load('currency_locale_pattern', $currency_locale_pattern->id());
-      if ($currency_locale_pattern_loaded) {
+    $currency_locale = $this->buildEntity($form, $form_state);
+    if ($currency_locale->isNew()) {
+      $currency_locale_loaded = entity_load('currency_locale', $currency_locale->id());
+      if ($currency_locale_loaded) {
         form_set_error('locale', t(' A pattern for this locale already exists.'));
       }
     }
@@ -113,10 +115,10 @@ class CurrencyLocalePatternFormController extends EntityFormController {
   public function save(array $form, array &$form_state) {
     $currency = $this->getEntity($form_state);
     $currency->save();
-    drupal_set_message(t('The locale pattern %label has been saved.', array(
+    drupal_set_message(t('The currency locale %label has been saved.', array(
       '%label' => $currency->label(),
     )));
-    $form_state['redirect'] = 'admin/config/regional/currency_locale_pattern';
+    $form_state['redirect'] = 'admin/config/regional/currency_locale';
   }
 
   /**

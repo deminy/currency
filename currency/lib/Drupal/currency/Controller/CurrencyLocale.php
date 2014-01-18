@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Controller\CurrencyLocalePattern.
+ * Contains \Drupal\currency\Controller\CurrencyLocale.
  */
 
 namespace Drupal\currency\Controller;
@@ -12,9 +12,9 @@ use Drupal\Core\Entity\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for currency_locale_pattern entity UI routes.
+ * Returns responses for currency_locale entity UI routes.
  */
-class CurrencyLocalePattern implements ContainerInjectionInterface {
+class CurrencyLocale implements ContainerInjectionInterface {
 
   /**
    * Stores the Entity manager.
@@ -49,8 +49,8 @@ class CurrencyLocalePattern implements ContainerInjectionInterface {
    *   A renderable array.
    */
   public function add() {
-    $locale_pattern = $this->entityManager->getStorageController('currency_locale_pattern')->create(array());
+    $currency_locale = $this->entityManager->getStorageController('currency_locale')->create(array());
 
-    return $this->entityManager->getForm($locale_pattern);
+    return $this->entityManager->getForm($currency_locale);
   }
 }

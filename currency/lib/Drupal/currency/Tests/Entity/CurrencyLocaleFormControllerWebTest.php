@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Entity\CurrencyLocalePatternFormControllerWebTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyLocaleFormControllerWebTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -10,9 +10,9 @@ namespace Drupal\currency\Tests\Entity;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests the Drupal\currency\CurrencyLocalePatternFormController.
+ * Tests the Drupal\currency\CurrencyLocaleFormController.
  */
-class CurrencyLocalePatternFormControllerWebTest extends WebTestBase {
+class CurrencyLocaleFormControllerWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyLocalePatternFormControllerWebTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\CurrencyLocalePatternFormController web test',
+      'name' => '\Drupal\currency\CurrencyLocaleFormController web test',
       'group' => 'Currency',
     );
   }
@@ -31,9 +31,9 @@ class CurrencyLocalePatternFormControllerWebTest extends WebTestBase {
    * Test Currency's UI.
    */
   function testUI() {
-    $user = $this->drupalCreateUser(array('currency.currency_locale_pattern.view', 'currency.currency_locale_pattern.create', 'currency.currency_locale_pattern.update', 'currency.currency_locale_pattern.delete'));
+    $user = $this->drupalCreateUser(array('currency.currency_locale.view', 'currency.currency_locale.create', 'currency.currency_locale.update', 'currency.currency_locale.delete'));
     $this->drupalLogin($user);
-    $path = 'admin/config/regional/currency_locale_pattern/add';
+    $path = 'admin/config/regional/currency_locale/add';
 
     // Test valid values.
     $valid_values = array(
@@ -44,12 +44,12 @@ class CurrencyLocalePatternFormControllerWebTest extends WebTestBase {
       'grouping_separator' => 'foobar',
     );
     $this->drupalPostForm($path, $valid_values, t('Save'));
-    $currency = entity_load('currency_locale_pattern', 'nl_UA');
+    $currency = entity_load('currency_locale', 'nl_UA');
     $this->assertTrue($currency);
 
     // Edit and save an existing currency.
-    $path = 'admin/config/regional/currency_locale_pattern/nl_UA/edit';
+    $path = 'admin/config/regional/currency_locale/nl_UA/edit';
     $this->drupalPostForm($path, array(), t('Save'));
-    $this->assertUrl('admin/config/regional/currency_locale_pattern');
+    $this->assertUrl('admin/config/regional/currency_locale');
   }
 }

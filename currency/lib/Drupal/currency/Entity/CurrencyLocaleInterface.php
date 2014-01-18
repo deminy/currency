@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file Contains \Drupal\currency\Entity\CurrencyLocalePatternInterface.
+ * @file Contains \Drupal\currency\Entity\CurrencyLocaleInterface.
  */
 
 namespace Drupal\currency\Entity;
@@ -9,16 +9,16 @@ namespace Drupal\currency\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 
 /**
- * Defines a currency locale pattern.
+ * Defines a currency currency locale.
  */
-interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
+interface CurrencyLocaleInterface extends ConfigEntityInterface {
 
   /**
    * Sets the decimal separator.
    *
    * @param string $separator
    *
-   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocaleInterface
    */
   public function setDecimalSeparator($separator);
 
@@ -34,7 +34,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    *
    * @param string $separator
    *
-   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocaleInterface
    */
   public function setGroupingSeparator($separator);
 
@@ -63,7 +63,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    * @param string $language_code
    * @param string $country_code
    *
-   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocaleInterface
    */
   public function setLocale($language_code, $country_code);
 
@@ -95,7 +95,7 @@ interface CurrencyLocalePatternInterface extends ConfigEntityInterface {
    *
    * @param string $pattern
    *
-   * @return \Drupal\currency\Entity\CurrencyLocalePatternInterface
+   * @return \Drupal\currency\Entity\CurrencyLocaleInterface
    */
   public function setPattern($pattern);
 

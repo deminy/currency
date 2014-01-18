@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Entity\CurrencyLocalePatternListController.
+ * Definition of Drupal\currency\Entity\CurrencyLocaleListController.
  */
 
 namespace Drupal\currency\Entity;
@@ -13,7 +13,7 @@ use Drupal\Core\Config\Entity\ConfigEntityListController;
 /**
  * Defines the default list controller for ConfigEntity objects.
  */
-class CurrencyLocalePatternListController extends ConfigEntityListController {
+class CurrencyLocaleListController extends ConfigEntityListController {
 
   /**
    * {@inheritdoc}

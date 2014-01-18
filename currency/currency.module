@@ -34,19 +34,19 @@ function currency_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  // Currency locale patterns.
-  $items['admin/config/regional/currency_locale_pattern'] = array(
-    'route_name' => 'currency_locale_pattern_list',
+  // Currency currency locales.
+  $items['admin/config/regional/currency_locale'] = array(
+    'route_name' => 'currency_locale_list',
     'title' => 'Currency formatting',
   );
-  $items['admin/config/regional/currency_locale_pattern/%/edit'] = array(
-    'route_name' => 'currency_locale_pattern_edit',
-    'title' => 'Edit a locale pattern',
+  $items['admin/config/regional/currency_locale/%/edit'] = array(
+    'route_name' => 'currency_locale_edit',
+    'title' => 'Edit a currency locale',
     'type' => MENU_CALLBACK,
   );
-  $items['admin/config/regional/currency_locale_pattern/%/delete'] = array(
-    'route_name' => 'currency_locale_pattern_delete',
-    'title' => 'Delete a locale pattern',
+  $items['admin/config/regional/currency_locale/%/delete'] = array(
+    'route_name' => 'currency_locale_delete',
+    'title' => 'Delete a currency locale',
     'type' => MENU_CALLBACK,
   );
 
@@ -130,19 +130,19 @@ function currency_permission() {
   $permissions['currency.currency.delete'] = array(
     'title' => t('Delete currencies'),
   );
-  $permissions['currency.currency_locale_pattern.view'] = array(
-    'title' => t('View locale patterns'),
+  $permissions['currency.currency_locale.view'] = array(
+    'title' => t('View currency locales'),
   );
-  $permissions['currency.currency_locale_pattern.create'] = array(
+  $permissions['currency.currency_locale.create'] = array(
     'restrict access' => TRUE,
-    'title' => t('Add new locale patterns'),
+    'title' => t('Add new currency locales'),
   );
-  $permissions['currency.currency_locale_pattern.update'] = array(
+  $permissions['currency.currency_locale.update'] = array(
     'restrict access' => TRUE,
-    'title' => t('Edit locale patterns'),
+    'title' => t('Edit currency locales'),
   );
-  $permissions['currency.currency_locale_pattern.delete'] = array(
-    'title' => t('Delete locale patterns'),
+  $permissions['currency.currency_locale.delete'] = array(
+    'title' => t('Delete currency locales'),
   );
 
   return $permissions;

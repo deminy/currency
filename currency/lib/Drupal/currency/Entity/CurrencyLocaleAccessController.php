@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Entity\CurrencyLocalePatternAccessController.
+ * Contains \Drupal\currency\Entity\CurrencyLocaleAccessController.
  */
 
 namespace Drupal\currency\Entity;
@@ -16,9 +16,9 @@ use Drupal\currency\LocaleDelegator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Checks access for currency_locale_pattern entities.
+ * Checks access for currency_locale entities.
  */
-class CurrencyLocalePatternAccessController extends EntityAccessController implements EntityControllerInterface {
+class CurrencyLocaleAccessController extends EntityAccessController implements EntityControllerInterface {
 
   /**
    * The currency locale delegator.
@@ -50,18 +50,18 @@ class CurrencyLocalePatternAccessController extends EntityAccessController imple
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, $langcode, AccountInterface $account) {
-    /** @var \Drupal\currency\Entity\CurrencyLocalePatternInterface $entity */
+    /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $entity */
     $delegator = $this->localeDelegator;
     if ($entity->getLocale() == $delegator::DEFAULT_LOCALE && $operation == 'delete') {
       return FALSE;
     }
-    return $account->hasPermission('currency.currency_locale_pattern.' . $operation);
+    return $account->hasPermission('currency.currency_locale.' . $operation);
   }
 
   /**
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return $account->hasPermission('currency.currency_locale_pattern.create');
+    return $account->hasPermission('currency.currency_locale.create');
   }
 }
