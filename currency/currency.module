@@ -26,12 +26,10 @@ function currency_menu() {
   $items['admin/config/regional/currency/%/edit'] = array(
     'route_name' => 'currency_currency_edit',
     'title' => 'Edit a currency',
-    'type' => MENU_CALLBACK,
   );
   $items['admin/config/regional/currency/%/delete'] = array(
     'route_name' => 'currency_currency_delete',
     'title' => 'Delete a currency',
-    'type' => MENU_CALLBACK,
   );
 
   // Currency currency locales.
@@ -42,15 +40,13 @@ function currency_menu() {
   $items['admin/config/regional/currency_locale/%/edit'] = array(
     'route_name' => 'currency_locale_edit',
     'title' => 'Edit a currency locale',
-    'type' => MENU_CALLBACK,
   );
   $items['admin/config/regional/currency_locale/%/delete'] = array(
     'route_name' => 'currency_locale_delete',
     'title' => 'Delete a currency locale',
-    'type' => MENU_CALLBACK,
   );
 
-  // Currency exchangers.
+  // Currency exchange rate providers.
   $items['admin/config/regional/currency-exchange'] = array(
     'description' => 'Configure how currency exchange rates should be retrieved.',
     'route_name' => 'currency_delegator_config',
@@ -60,15 +56,10 @@ function currency_menu() {
     'description' => 'Administer fixed currency exchange rates.',
     'route_name' => 'currency_exchanger_fixed_rates_overview',
     'title' => 'Fixed rates',
-    'type' => MENU_CALLBACK,
   );
-  $items['admin/config/regional/currency-exchange/fixed/%currency_form_currency_exchanger_fixed_rates/%'] = array(
+  $items['admin/config/regional/currency-exchange/fixed/%/%'] = array(
+    'route_name' => 'currency_exchange_rate_provider_fixed_rates_edit',
     'title' => 'Configure an exchange rate',
-    'access arguments' => array('currency.currency_exchanger.administer'),
-    'load arguments' => array(6),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('currency_form_currency_exchanger_fixed_rates', 5, 6),
-    'type' => MENU_CALLBACK,
   );
 
   return $items;
@@ -357,22 +348,4 @@ function currency_form_element_validate_iso_4217_number(array $element, array &$
       '@title' => $element['#title'],
     )));
   }
-}
-
-/**
- * Implements menu load callback: checks if CurrencyExchangerFixedRates has a
- * exchange rate.
- *
- * @param string $currency_code_from
- * @param string $currency_code_to
- *
- * @return string|false
- *   The source currency code if the rate could be found, FALSE if it couldn't.
- */
-function currency_form_currency_exchanger_fixed_rates_load($currency_code_from, $currency_code_to) {
-  /** @var \Drupal\currency\Exchanger\ExchangerInterface $plugin */
-  $plugin = \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_fixed_rates');
-  $rate = $plugin->load($currency_code_from, $currency_code_to);
-
-  return $rate !== FALSE ? $currency_code_from : FALSE;
 }

@@ -8,8 +8,8 @@ currency_locale_add:
   title: 'Add a currency locale'
   appears_on:
     - currency_locale_list
-currency_currency_exchanger_fixed_rates_add:
-  route_name: currency_exchanger_fixed_rates_add
+currency_exchange_rates_provider_fixed_rates_add:
+  route_name: currency_exchange_rates_provider_fixed_rates_add
   title: 'Add an exchange rate'
   appears_on:
     - currency_exchanger_fixed_rates_overview
