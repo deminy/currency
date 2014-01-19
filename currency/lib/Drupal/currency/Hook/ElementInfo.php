@@ -21,12 +21,12 @@ class ElementInfo {
     // An element to collect an amount of money and convert it to a numeric string.
     $elements['currency_amount'] = array(
       '#input' => TRUE,
-      '#process' => array('currency_form_currency_amount_process'),
+      '#process' => array('\Drupal\currency\Element\CurrencyAmount::process'),
       '#default_value' => array(
         'amount' => NULL,
         'currency_code' => NULL,
       ),
-      '#element_validate' => array('currency_form_currency_amount_validate'),
+      '#element_validate' => array('\Drupal\currency\Element\CurrencyAmount::elementValidate'),
       // The minimum amount as a numeric string, or FALSE to omit.
       '#minimum_amount' => FALSE,
       // The maximum amount as a numeric string, or FALSE to omit.
@@ -35,11 +35,22 @@ class ElementInfo {
       // array to allow any currency.
       '#limit_currency_codes' => array(),
     );
+
     // An element to set a currency sign.
     $elements['currency_sign'] = array(
       '#input' => TRUE,
-      '#process' => array('currency_form_currency_sign_process'),
-      '#element_validate' => array('currency_form_currency_sign_validate'),
+      '#process' => array('\Drupal\currency\Element\CurrencySign::process'),
+      '#element_validate' => array('\Drupal\currency\Element\CurrencySign::elementValidate'),
+      // The ISO 4217 code of the currency which signs to suggest to the user.
+      // Optional.
+      '#currency_code' => FALSE,
+    );
+
+    // An element to set a currency code.
+    $elements['currency_code'] = array(
+      '#input' => TRUE,
+      '#process' => array('\Drupal\currency\Element\CurrencySign::process'),
+      '#element_validate' => array('\Drupal\currency\Element\CurrencySign::elementValidate'),
       // The ISO 4217 code of the currency which signs to suggest to the user.
       // Optional.
       '#currency_code' => FALSE,

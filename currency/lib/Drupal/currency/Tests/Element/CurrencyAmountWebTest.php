@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\CurrencyAmountFormElement.
+ * Contains \Drupal\currency\Tests\Element\CurrencyAmountWebTest.
  */
 
-namespace Drupal\currency\Tests;
+namespace Drupal\currency\Tests\Element;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests the currency_amount form element.
  */
-class CurrencyAmountFormElement extends WebTestBase {
+class CurrencyAmountWebTest extends WebTestBase {
 
   public static $modules = array('currency_test');
 
@@ -22,7 +22,7 @@ class CurrencyAmountFormElement extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'currency_amount form element',
+      'name' => '\Drupal\currency\Element\CurrencyAmount web test',
       'group' => 'Currency',
     );
   }

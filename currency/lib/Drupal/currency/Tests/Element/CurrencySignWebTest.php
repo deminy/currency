@@ -2,17 +2,18 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\CurrencySignFormElement.
+ * Contains \Drupal\currency\Tests\Element\CurrencySignWebTest.
  */
 
-namespace Drupal\currency\Tests;
+namespace Drupal\currency\Tests\Element;
 
+use Drupal\currency\Element\CurrencySign;
 use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests the currency_sign form element.
  */
-class CurrencySignFormElement extends WebTestBase {
+class CurrencySignWebTest extends WebTestBase {
 
   public static $modules = array('currency_test');
 
@@ -22,7 +23,7 @@ class CurrencySignFormElement extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'currency_sign form element',
+      'name' => '\Drupal\currency\Element\CurrencySign web test',
       'group' => 'Currency',
     );
   }
@@ -52,16 +53,16 @@ class CurrencySignFormElement extends WebTestBase {
 
     // Test a custom sign.
     $values =  array(
-      'container[sign][sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
+      'container[sign][sign]' => CurrencySign::CUSTOM_VALUE,
       'container[sign][sign_custom]' => 'foobar',
     );
     $this->drupalPostForm($path, $values, t('Submit'));
     $sign = $state->get('currency_test_currency_sign_element');
     $this->assertEqual('foobar', $sign);
     $this->drupalGet($path . '/EUR/foobar');
-    $this->assertRaw('<option value="' . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . '" selected="selected">');
+    $this->assertRaw('<option value="' . CurrencySign::CUSTOM_VALUE . '" selected="selected">');
     // Check if the sign element is set to a custom value.
-    $this->assertFieldByXPath("//select[@name='container[sign][sign]']/option[@value='" . CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE . "' and @selected='selected']");
+    $this->assertFieldByXPath("//select[@name='container[sign][sign]']/option[@value='" . CurrencySign::CUSTOM_VALUE . "' and @selected='selected']");
     // Check if the custom sign input element has the custom sign as its value.
     $this->assertFieldByXPath("//input[@name='container[sign][sign_custom]' and @value='foobar']");
 

@@ -47,7 +47,6 @@ class CurrencyFormController extends EntityFormController {
     $form['currency_code'] = array(
       '#default_value' => $currency->id(),
       '#disabled' => (bool) $currency->id(),
-      '#element_validate' => array('currency_form_element_validate_iso_4217_code'),
       '#maxlength' => 3,
       '#pattern' => '[a-zA-Z]{3}',
       '#placeholder' => 'XXX',
@@ -57,13 +56,10 @@ class CurrencyFormController extends EntityFormController {
       '#type' => 'textfield',
     );
 
-    // @todo Make sure that no other currency with this number already exists
-    // when adding a new currency.
     $form['currency_number'] = array(
       '#default_value' => $currency->getCurrencyNumber(),
-      '#element_validate' => array('currency_form_element_validate_iso_4217_number'),
       '#maxlength' => 3,
-//      '#pattern' => '[\d]{3}',
+      '#pattern' => '[\d]{3}',
       '#placeholder' => '999',
       '#size' => 3,
       '#title' => t('ISO 4217 number'),
@@ -128,5 +124,43 @@ class CurrencyFormController extends EntityFormController {
   public function delete(array $form, array &$form_state) {
     $currency = $this->getEntity($form_state);
     $form_state['redirect'] = 'admin/config/regional/currency/' . $currency->id() . '/delete';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, array &$form_state) {
+    $currency_storage = \Drupal::entityManager()->getStorageController('currency');
+
+    // Validate the currency code.
+    $currency_code = $form['currency_code']['#value'];
+    if (!preg_match('/[a-z]{3}/i', $currency_code)) {
+      \Drupal::formBuilder()->setError($form['currency_code'], $form_state, $this->t('The currency code must be three letters.'));
+    }
+    elseif ($form['currency_code']['#default_value'] !== $currency_code) {
+      $currency = $currency_storage->load($currency_code);
+      if ($currency) {
+        \Drupal::formBuilder()->setError($form['currency_code'], $form_state, $this->t('The currency code is already in use by !link.', array(
+          '!link' => l($currency->label(), 'admin/config/regional/currency/' . $currency->id() . '/edit'),
+        )));
+      }
+    }
+
+    // Validate the currency number.
+    $currency_number = $form['currency_number']['#value'];
+    if ($currency_number && !preg_match('/\d{3}/i', $currency_number)) {
+      \Drupal::formBuilder()->setError($form['currency_number'], $form_state, $this->t('The currency number must be three digits.'));
+    }
+    elseif ($form['currency_number']['#default_value'] !== $currency_number) {
+      $currencies = $currency_storage->loadByProperties(array(
+        'currencyNumber' => $currency_number,
+      ));
+      if ($currencies) {
+        $currency = reset($currencies);
+        \Drupal::formBuilder()->setError($form['currency_number'], $form_state, $this->t('The currency number is already in use by !link.', array(
+          '!link' => l($currency->label(), 'admin/config/regional/currency/' . $currency->id() . '/edit'),
+        )));
+      }
+    }
   }
 }

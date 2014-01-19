@@ -7,6 +7,7 @@
 
 namespace Drupal\currency\Tests\Entity;
 
+use Drupal\currency\Element\CurrencySign;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -41,7 +42,7 @@ class CurrencyFormControllerWebTest extends WebTestBase {
       'currency_number' => '123',
       'label' => 'foo',
       'rounding_step' => '1',
-      'sign[sign]' => CURRENCY_SIGN_FORM_ELEMENT_CUSTOM_VALUE,
+      'sign[sign]' => CurrencySign::CUSTOM_VALUE,
       'sign[sign_custom]' => 'foobar',
       'subunits' => 2,
       'status' => FALSE,
@@ -55,20 +56,23 @@ class CurrencyFormControllerWebTest extends WebTestBase {
 
     // Test invalid values.
     $valid_values['currency_code'] = 'XYZ';
-    $invalid_values =  array(
-      'currency_code' => 'EUR',
-      'currency_number' => 'abc',
-      'rounding_step' => 'x',
-      'subunits' => 'x',
+    $valid_values['currency_number'] = '000';
+    $invalid_values = array(
+      'currency_code' => array('ABC', 'EUR'),
+      'currency_number' => array('abc', '978'),
+      'rounding_step' => array('x'),
+      'subunits' => array('x'),
     );
-    foreach ($invalid_values as $name => $invalid_value) {
-      $values = array(
-        $name => $invalid_value,
-      ) + $valid_values;
-      $this->drupalPostForm($path, $values, t('Save'));
-      // Test that the invalid element is the only element to be flagged.
-      $this->assertFieldByXPath("//input[@name='$name' and contains(@class, 'error')]");
-      $this->assertNoFieldByXPath("//input[not(@name='$name') and contains(@class, 'error')]");
+    foreach ($invalid_values as $name => $field_invalid_values) {
+      foreach ($field_invalid_values as $invalid_value) {
+        $values = array(
+          $name => $invalid_value,
+        ) + $valid_values;
+        $this->drupalPostForm($path, $values, t('Save'));
+        // Test that the invalid element is the only element to be flagged.
+        $this->assertFieldByXPath("//input[@name='$name' and contains(@class, 'error')]");
+        $this->assertNoFieldByXPath("//input[not(@name='$name') and contains(@class, 'error')]");
+      }
     }
 
     // Edit and save an existing currency.
