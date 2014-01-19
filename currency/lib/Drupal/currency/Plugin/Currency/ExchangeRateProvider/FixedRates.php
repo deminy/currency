@@ -9,6 +9,7 @@ namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\currency\ExchangeRate;
 use Drupal\currency\MathInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -60,17 +61,23 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    * {@inheritdoc}
    */
   public function load($currency_code_from, $currency_code_to) {
-    $rates = $this->loadAll();
+    $rate = NULL;
+
+    $rates = $this->loadConfiguration();
     if (isset($rates[$currency_code_from]) && isset($rates[$currency_code_from][$currency_code_to])) {
-      return $rates[$currency_code_from][$currency_code_to];
+      $rate = $rates[$currency_code_from][$currency_code_to];
     }
     // Calculate the reverse on the fly, because adding it to the statically
     // cached data would require additional checks when deleting rates, to see
     // if the they are reversed from other rates or are originals.
-    elseif (isset($rates[$currency_code_to]) && isset($rates[$currency_code_to][$currency_code_from])) {
-      return $this->math->divide(1, $rates[$currency_code_to][$currency_code_from]);
+    elseif(isset($rates[$currency_code_to]) && isset($rates[$currency_code_to][$currency_code_from])) {
+      $rate = $this->math->divide(1, $rates[$currency_code_to][$currency_code_from]);
     }
-    return FALSE;
+
+    if ($rate) {
+      return new ExchangeRate($this->getPluginId(), NULL, $currency_code_from, $currency_code_to, $rate);
+    }
+    return NULL;
   }
 
   /**
@@ -88,13 +95,13 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
   }
 
   /**
-   * Loads all available exchange rates.
+   * Loads all stored exchange rates.
    *
-   * @return array
-   *   The array structure is identical to the return value of
-   *   self::loadMultiple().
+   * @return array[]
+   *   Keys are source currency codes. Values are arrays of which the keys are
+   *   destination currency codes and values are exchange rates.
    */
-  public function loadAll() {
+  public function loadConfiguration() {
     $config = \Drupal::config('currency.exchanger.fixed_rates');
 
     return $config->get('rates');

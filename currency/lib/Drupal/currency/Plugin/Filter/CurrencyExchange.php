@@ -83,10 +83,11 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
       $amount = 1;
     }
 
+    /** @var \Drupal\currency\ExchangeRateProviderInterface $exchanger */
     $exchanger = \Drupal::service('currency.exchange_rate_provider');
-    $rate = $exchanger->load($currency_code_from, $currency_code_to);
-    if ($rate) {
-      return $this->math->multiply($amount, $rate);
+    $exchange_rate = $exchanger->load($currency_code_from, $currency_code_to);
+    if ($exchange_rate) {
+      return $this->math->multiply($amount, $exchange_rate->getRate());
     }
     // The filter failed, so return the token.
     return $matches[0];

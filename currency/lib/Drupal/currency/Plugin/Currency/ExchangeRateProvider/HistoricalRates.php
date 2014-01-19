@@ -9,6 +9,7 @@ namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\currency\ExchangeRate;
 use Drupal\currency\MathInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -56,34 +57,44 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
   /**
    * {@inheritdoc}
    */
-  function load($currency_code_from, $currency_code_to) {
+  public function load($currency_code_from, $currency_code_to) {
+    $rate = NULL;
+
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency_from */
     $currency_from = entity_load('currency', $currency_code_from);
-    $rates_from = $currency_from->getExchangeRates();
-    if ($currency_from && isset($rates_from[$currency_code_to])) {
-      return $rates_from[$currency_code_to];
+    if ($currency_from) {
+      $rates_from = $currency_from->getExchangeRates();
+      if ($currency_from && isset($rates_from[$currency_code_to])) {
+        $rate = $rates_from[$currency_code_to];
+      }
     }
 
     // Conversion rates are two-way. If a reverse rate is unavailable, set it.
-    /** @var \Drupal\currency\Entity\CurrencyInterface $currency_to */
-    $currency_to = entity_load('currency', $currency_code_to);
-    $rates_to = $currency_to->getExchangeRates();
-    if ($currency_to && isset($rates_to[$currency_code_from])) {
-      $this->math->divide(1, $rates_to[$currency_code_from]);
+    if (!$rate) {
+      /** @var \Drupal\currency\Entity\CurrencyInterface $currency_to */
+      $currency_to = entity_load('currency', $currency_code_to);
+      if ($currency_to) {
+        $rates_to = $currency_to->getExchangeRates();
+        if(isset($rates_to[$currency_code_from])) {
+          $rate = $this->math->divide(1, $rates_to[$currency_code_from]);
+        }
+      }
     }
 
-    // There is no available exchange rate.
-    return FALSE;
+    if ($rate) {
+      return new ExchangeRate($this->getPluginId(), NULL, $currency_code_from, $currency_code_to, $rate);
+    }
+    return NULL;
   }
 
   /**
    * {@inheritdoc}
    */
-  function loadMultiple(array $currency_codes) {
+  public function loadMultiple(array $currency_codes) {
     $rates = array();
     foreach ($currency_codes as $currency_code_from => $currency_codes_to) {
       foreach ($currency_codes_to as $currency_code_to) {
-        $rates[$currency_code_from][$currency_code_to] = self::load($currency_code_from, $currency_code_to);
+        $rates[$currency_code_from][$currency_code_to] = $this->load($currency_code_from, $currency_code_to);
       }
     }
 

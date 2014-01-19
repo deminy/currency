@@ -6,6 +6,7 @@
 
 namespace Drupal\currency\Tests;
 
+use Drupal\currency\ExchangeRate;
 use Drupal\currency\ExchangeRateProvider;
 use Drupal\Tests\UnitTestCase;
 
@@ -191,7 +192,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
     $plugin_a = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
     $returned_rates_a = array(
       $currency_code_from_a => array(
-        $currency_code_to_a => $rate_a,
+        $currency_code_to_a => new ExchangeRate(NULL, NULL, $currency_code_from_a, $currency_code_to_a, $rate_a),
       ),
       $currency_code_from_b => array(
         $currency_code_to_b => NULL,
@@ -208,7 +209,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
         $currency_code_to_a => NULL,
       ),
       $currency_code_from_b => array(
-        $currency_code_to_b => $rate_b,
+        $currency_code_to_b => new ExchangeRate(NULL, NULL, $currency_code_from_a, $currency_code_to_a, $rate_b),
       ),
     );
     $plugin_b->expects($this->once())
@@ -225,17 +226,10 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
       ->method('getPlugins')
       ->will($this->returnValue(array($plugin_a, $plugin_b)));
 
-
-    $expected_rates = array(
-      $currency_code_from_a => array(
-        $currency_code_to_a => $rate_a,
-        $currency_code_from_a => 1,
-      ),
-      $currency_code_from_b => array(
-        $currency_code_to_b => $rate_b,
-        $currency_code_from_b => 1,
-      ),
-    );
-    $this->assertSame($expected_rates, $exchange_rate_provider->loadMultiple($requested_rates_provider));
+    $returned_rates = $exchange_rate_provider->loadMultiple($requested_rates_provider);
+    $this->assertSame($returned_rates_a[$currency_code_from_a][$currency_code_to_a], $returned_rates[$currency_code_from_a][$currency_code_to_a]);
+    $this->assertSame(1, $returned_rates[$currency_code_from_a][$currency_code_from_a]->getRate());
+    $this->assertSame($returned_rates_b[$currency_code_from_b][$currency_code_to_b], $returned_rates[$currency_code_from_b][$currency_code_to_b]);
+    $this->assertSame(1, $returned_rates[$currency_code_from_b][$currency_code_from_b]->getRate());
   }
 }

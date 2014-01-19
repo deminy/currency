@@ -89,14 +89,13 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
    */
   public function load($currency_code_from, $currency_code_to) {
     if ($currency_code_from == $currency_code_to) {
-      return 1;
+      return new ExchangeRate(NULL, time(), $currency_code_from, $currency_code_to, 1);
     }
     foreach ($this->getPlugins() as $plugin) {
       if ($rate = $plugin->load($currency_code_from, $currency_code_to)) {
         return $rate;
       }
     }
-    return FALSE;
   }
 
   /**
@@ -113,7 +112,7 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
       // Set rates for identical source and destination currencies.
       foreach ($currency_codes_to as $index => $currency_code_to) {
         if ($currency_code_from == $currency_code_to) {
-          $rates[$currency_code_from][$currency_code_to] = 1;
+          $rates[$currency_code_from][$currency_code_to] = new ExchangeRate(NULL, NULL, $currency_code_from, $currency_code_to, 1);
           // Prevent the rate from being loaded by any plugins.
           unset($currency_codes[$currency_code_from][$index]);
         }

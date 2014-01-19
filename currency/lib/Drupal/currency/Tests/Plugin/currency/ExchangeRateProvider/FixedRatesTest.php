@@ -7,6 +7,7 @@
 
 namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
 
+use Drupal\currency\ExchangeRateInterface;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -37,14 +38,14 @@ class FixedRatesTest extends WebTestBase {
   }
 
   /**
-   * Tests save() and loadAll().
+   * Tests save() and loadConfiguration().
    */
   public function testLoadAll() {
     $plugin = $this->getPlugin();
     $rate = '2.20371';
     $plugin->save('EUR', 'NLG', $rate);
     $plugin->save('UAH', 'USD', $rate);
-    $rates = $plugin->loadAll();
+    $rates = $plugin->loadConfiguration();
 
     // Test the saved rates.
     $this->assertEqual($rates['EUR']['NLG'], $rate);
@@ -58,13 +59,13 @@ class FixedRatesTest extends WebTestBase {
     $plugin = $this->getPlugin();
     $rate = '2.20371';
     $plugin->save('EUR', 'NLG', $rate);
-    $this->assertEqual($plugin->load('EUR', 'NLG'), $rate);
+    $this->assertEqual($plugin->load('EUR', 'NLG')->getRate(), $rate);
 
     // Test a reverse exchange rate.
-    $this->assertEqual($plugin->load('NLG', 'EUR'), '0.453780216');
+    $this->assertEqual($plugin->load('NLG', 'EUR')->getRate(), '0.453780216');
 
     // Test an unavailable exchange rate.
-    $this->assertFalse($plugin->load('NLG', 'UAH'));
+    $this->assertNull($plugin->load('NLG', 'UAH'));
   }
 
   /**
@@ -77,13 +78,13 @@ class FixedRatesTest extends WebTestBase {
     $plugin->delete('EUR', 'NLG');
 
     // Test the deleted exchange rate.
-    $this->assertFalse($plugin->load('EUR', 'NLG'));
+    $this->assertNull($plugin->load('EUR', 'NLG'));
 
     // Test the reverse of the deleted exchange rate.
-    $this->assertFalse($plugin->load('NLG', 'EUR'));
+    $this->assertNull($plugin->load('NLG', 'EUR'));
 
     // The an available exchange rate.
-    $this->assertTrue($plugin->load('EUR', 'UAH'));
+    $this->assertTrue($plugin->load('EUR', 'UAH') instanceof ExchangeRateInterface);
   }
 
   /**
@@ -100,8 +101,8 @@ class FixedRatesTest extends WebTestBase {
     ));
 
     // Test loaded rates.
-    $this->assertEqual($rates['EUR']['NLG'], $rate);
-    $this->assertEqual($rates['USD']['UAH'], '0.453780216');
+    $this->assertEqual($rates['EUR']['NLG']->getRate(), $rate);
+    $this->assertEqual($rates['USD']['UAH']->getRate(), '0.453780216');
 
     // Test a rate that was saved, but not loaded.
     $this->assertFalse(isset($rates['UAH']));
