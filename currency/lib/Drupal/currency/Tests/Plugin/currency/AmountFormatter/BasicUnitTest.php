@@ -43,7 +43,7 @@ class BasicUnitTest extends UnitTestCase {
     return array(
       'description' => '',
       'name' => '\Drupal\currency\Plugin\Currency\AmountFormatter\Basic unit test',
-      'group' => 'Payment',
+      'group' => 'Currency',
     );
   }
 
