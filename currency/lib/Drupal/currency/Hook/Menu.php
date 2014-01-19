@@ -20,36 +20,36 @@ class Menu {
   public function invoke() {
     // Currency entities.
     $items['admin/config/regional/currency'] = array(
-      'route_name' => 'currency_currency_list',
+      'route_name' => 'currency.currency.list',
       'title' => 'Currencies',
     );
     $items['admin/config/regional/currency/%/edit'] = array(
-      'route_name' => 'currency_currency_edit',
+      'route_name' => 'currency.currency.edit',
       'title' => 'Edit a currency',
     );
     $items['admin/config/regional/currency/%/delete'] = array(
-      'route_name' => 'currency_currency_delete',
+      'route_name' => 'currency.currency.delete',
       'title' => 'Delete a currency',
     );
 
     // Currency locales.
     $items['admin/config/regional/currency-localization/locale'] = array(
-      'route_name' => 'currency_locale_list',
+      'route_name' => 'currency.currency_locale.list',
       'title' => 'Currency formatting',
     );
     $items['admin/config/regional/currency-localization/locale/%/edit'] = array(
-      'route_name' => 'currency_locale_edit',
+      'route_name' => 'currency.currency_locale.edit',
       'title' => 'Edit a currency locale',
     );
     $items['admin/config/regional/currency-localization/locale/%/delete'] = array(
-      'route_name' => 'currency_locale_delete',
+      'route_name' => 'currency.currency_locale.delete',
       'title' => 'Delete a currency locale',
     );
 
     // Currency exchange rate providers.
     $items['admin/config/regional/currency-exchange'] = array(
       'description' => 'Configure how currency exchange rates should be retrieved.',
-      'route_name' => 'currency_delegator_config',
+      'route_name' => 'currency.exchange_rate_provider.config',
       'title' => 'Currency exchange',
     );
     $items['admin/config/regional/currency-exchange/fixed'] = array(
@@ -58,7 +58,7 @@ class Menu {
       'title' => 'Fixed rates',
     );
     $items['admin/config/regional/currency-exchange/fixed/%/%'] = array(
-      'route_name' => 'currency_exchange_rate_provider_fixed_rates_edit',
+      'route_name' => 'currency.exchange_rate_provider.fixed_rates.edit',
       'title' => 'Configure an exchange rate',
     );
 

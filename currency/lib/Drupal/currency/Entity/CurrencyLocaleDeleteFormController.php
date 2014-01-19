@@ -28,7 +28,7 @@ class CurrencyLocaleDeleteFormController extends EntityConfirmFormBase {
    */
   public function getCancelRoute() {
     return array(
-      'route_name' => 'currency_locale_list',
+      'route_name' => 'currency.currency_locale.list',
     );
   }
 
@@ -43,7 +43,7 @@ class CurrencyLocaleDeleteFormController extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'currency_locale_delete';
+    return 'currency.currency_locale.delete';
   }
 
   /**

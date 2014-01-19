@@ -93,7 +93,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
 
     $form['rates'] = array(
       '#empty' => $this->t('There are no exchange rates yet. <a href="@path">Add an exchange rate</a>.', array(
-        '@path' => $this->urlGenerator->generateFromRoute('currency_exchange_rates_provider_fixed_rates_add'),
+        '@path' => $this->urlGenerator->generateFromRoute('currency.exchange_rate_provider.fixed_rates.add'),
       )),
       '#header' => array($this->t('From'), $this->t('To'), $this->t('Exchange rate'), $this->t('Operations')),
       '#type' => 'table',
@@ -118,7 +118,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
           $row['operations'] = array(
             '#links' => array(array(
               'title' => $this->t('edit'),
-              'route_name' => 'currency_exchange_rate_provider_fixed_rates_edit',
+              'route_name' => 'currency.exchange_rate_provider.fixed_rates.edit',
               'route_parameters' => array(
                 'currency_code_from' => $currency_code_from,
                 'currency_code_to' => $currency_code_to,

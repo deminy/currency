@@ -34,9 +34,9 @@ use Drupal\Core\Language\LanguageManager;
  *   id = "currency_locale",
  *   label = @Translation("Currency currency locale"),
  *   links = {
- *     "canonical" = "currency_locale_edit",
- *     "create-form" = "currency_locale_add",
- *     "edit-form" = "currency_locale_edit"
+ *     "canonical" = "currency.currency_locale.edit",
+ *     "create-form" = "currency.currency_locale.add",
+ *     "edit-form" = "currency.currency_locale.edit"
  *   }
  * )
  */

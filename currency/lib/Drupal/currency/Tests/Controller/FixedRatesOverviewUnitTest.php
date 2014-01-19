@@ -128,7 +128,7 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
 
     $this->urlGenerator->expects($this->once())
       ->method('generateFromRoute')
-      ->with('currency_exchange_rates_provider_fixed_rates_add');
+      ->with('currency.exchange_rate_provider.fixed_rates.add');
 
     $amount_formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
     $amount_formatter->expects($this->once())

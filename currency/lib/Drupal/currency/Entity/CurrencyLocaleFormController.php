@@ -119,7 +119,7 @@ class CurrencyLocaleFormController extends EntityFormController {
       '%label' => $currency_locale->label(),
     )));
     $form_state['redirect_route'] = array(
-      'route_name' => 'currency_locale_list',
+      'route_name' => 'currency.currency_locale.list',
     );
   }
 
@@ -129,7 +129,7 @@ class CurrencyLocaleFormController extends EntityFormController {
   public function delete(array $form, array &$form_state) {
     $currency_locale = $this->getEntity($form_state);
     $form_state['redirect_route'] = array(
-      'route_name' => 'currency_locale_delete',
+      'route_name' => 'currency.currency_locale.delete',
       'route_parameters' => array(
         'currency_locale' => $currency_locale,
       ),

@@ -1,15 +1,15 @@
-currency_currency_add:
-  route_name: currency_currency_add
+currency.currency.add:
+  route_name: currency.currency.add
   title: 'Add a currency'
   appears_on:
-    - currency_currency_list
-currency_locale_add:
-  route_name: currency_locale_add
+    - currency.currency.list
+currency.currency_locale.add:
+  route_name: currency.currency_locale.add
   title: 'Add a currency locale'
   appears_on:
-    - currency_locale_list
-currency_exchange_rates_provider_fixed_rates_add:
-  route_name: currency_exchange_rates_provider_fixed_rates_add
+    - currency.currency_locale.list
+currency.exchange_rate_provider.fixed_rates.add:
+  route_name: currency.exchange_rate_provider.fixed_rates.add
   title: 'Add an exchange rate'
   appears_on:
-    - currency_exchanger_fixed_rates_overview
+    - currency.exchange_rate_provider.fixed_rates.overview

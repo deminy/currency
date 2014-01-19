@@ -37,7 +37,7 @@ class CurrencyDeleteFormController extends EntityConfirmFormBase {
    */
   public function getCancelRoute() {
     return array(
-      'route_name' => 'currency_currency_list',
+      'route_name' => 'currency.currency.list',
     );
   }
 

@@ -76,7 +76,7 @@ class Currency implements ContainerInjectionInterface {
     $currency->enable();
     $currency->save();
 
-    return new RedirectResponse($this->urlGenerator->generateFromRoute('currency_currency_list', array(
+    return new RedirectResponse($this->urlGenerator->generateFromRoute('currency.currency.list', array(
       'absolute' => TRUE,
     )));
   }
@@ -92,7 +92,7 @@ class Currency implements ContainerInjectionInterface {
     $currency->disable();
     $currency->save();
 
-    return new RedirectResponse($this->urlGenerator->generateFromRoute('currency_currency_list', array(
+    return new RedirectResponse($this->urlGenerator->generateFromRoute('currency.currency.list', array(
       'absolute' => TRUE,
     )));
   }

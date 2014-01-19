@@ -5,5 +5,5 @@ currency.amount_formatting:
 
 currency.currency_locale.list:
   base_route: currency.amount_formatting
-  route_name: currency_locale_list
+  route_name: currency.currency_locale.list
   title: Locales
