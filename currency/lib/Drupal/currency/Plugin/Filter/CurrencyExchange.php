@@ -8,6 +8,8 @@
 namespace Drupal\currency\Plugin\Filter;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\currency\ExchangeRateProviderInterface;
+use Drupal\currency\Input;
 use Drupal\currency\MathInterface;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -25,6 +27,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The exchange rate provider.
+   *
+   * @var \Drupal\currency\ExchangeRateProviderInterface
+   */
+  protected $exchangeRateProvider;
+
+  /**
+   * The input parser.
+   *
+   * @var \Drupal\currency\Input
+   */
+  protected $input;
+
+  /**
    * The math service.
    *
    * @var \Drupal\currency\MathInterface
@@ -40,11 +56,17 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\currency\ExchangeRateProviderInterface $exchange_rate_provider
+   *   The exchange rate provider.
    * @param \Drupal\currency\MathInterface
    *   The Currency math service.
+   * @param \Drupal\currency\Input $input
+   *   The input parser.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MathInterface $math) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, ExchangeRateProviderInterface $exchange_rate_provider, MathInterface $math, Input $input) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->exchangeRateProvider = $exchange_rate_provider;
+    $this->input = $input;
     $this->math = $math;
   }
 
@@ -52,7 +74,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.math'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.exchange_rate_provider'), $container->get('currency.math'), $container->get('currency.input'));
   }
 
   /**
@@ -72,7 +94,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
     $currency_code_to = $matches[2];
     $amount = str_replace(':', '', $matches[3]);
     if (strlen($amount) !== 0) {
-      $amount = \Drupal::service('currency.input')->parseAmount($amount);
+      $amount = $this->input->parseAmount($amount);
       // The amount is invalid, so return the token.
       if (!$amount) {
         return $matches[0];
@@ -83,13 +105,11 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
       $amount = 1;
     }
 
-    /** @var \Drupal\currency\ExchangeRateProviderInterface $exchanger */
-    $exchanger = \Drupal::service('currency.exchange_rate_provider');
-    $exchange_rate = $exchanger->load($currency_code_from, $currency_code_to);
+    $exchange_rate = $this->exchangeRateProvider->load($currency_code_from, $currency_code_to);
     if ($exchange_rate) {
       return $this->math->multiply($amount, $exchange_rate->getRate());
     }
-    // The filter failed, so return the token.
+    // No exchange rate could be loaded, so return the token.
     return $matches[0];
   }
 
@@ -97,7 +117,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function tips($long = FALSE) {
-    return t('Use <code>[currency:from:to:amount]</code> to convert an amount of money from one currency to another. The <code>amount</code> parameter is optional and defaults to <code>1</code>. Example: <code>[currency:EUR:USD:100]</code>.');
+    return $this->t('Use <code>[currency:from:to:amount]</code> to convert an amount of money from one currency to another. The <code>amount</code> parameter is optional and defaults to <code>1</code>. Example: <code>[currency:EUR:USD:100]</code>.');
   }
 
 }

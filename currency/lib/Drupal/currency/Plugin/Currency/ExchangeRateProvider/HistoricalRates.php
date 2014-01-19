@@ -8,6 +8,7 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
+use Drupal\Core\Entity\EntityStorageControllerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRate;
 use Drupal\currency\MathInterface;
@@ -22,6 +23,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class HistoricalRates extends PluginBase implements ExchangeRateProviderInterface, ContainerFactoryPluginInterface {
+
+  /**
+   * The currency storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   */
+  protected $currencyStorage;
 
   /**
    * The math service.
@@ -39,11 +47,14 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityStorageControllerInterface $currency_storage
+   *   The currency entity storage.
    * @param \Drupal\currency\MathInterface
    *   The Currency math service.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MathInterface $math) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageControllerInterface $currency_storage, MathInterface $math) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->currencyStorage = $currency_storage;
     $this->math = $math;
   }
 
@@ -51,7 +62,9 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.math'));
+    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
+    $entity_manager = $container->get('entity.manager');
+    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorageController('currency'), $container->get('currency.math'));
   }
 
   /**
@@ -61,10 +74,10 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
     $rate = NULL;
 
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency_from */
-    $currency_from = entity_load('currency', $currency_code_from);
+    $currency_from = $this->currencyStorage->load($currency_code_from);
     if ($currency_from) {
       $rates_from = $currency_from->getExchangeRates();
-      if ($currency_from && isset($rates_from[$currency_code_to])) {
+      if (isset($rates_from[$currency_code_to])) {
         $rate = $rates_from[$currency_code_to];
       }
     }
@@ -72,10 +85,10 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
     // Conversion rates are two-way. If a reverse rate is unavailable, set it.
     if (!$rate) {
       /** @var \Drupal\currency\Entity\CurrencyInterface $currency_to */
-      $currency_to = entity_load('currency', $currency_code_to);
+      $currency_to = $this->currencyStorage->load($currency_code_to);
       if ($currency_to) {
         $rates_to = $currency_to->getExchangeRates();
-        if(isset($rates_to[$currency_code_from])) {
+        if (isset($rates_to[$currency_code_from])) {
           $rate = $this->math->divide(1, $rates_to[$currency_code_from]);
         }
       }

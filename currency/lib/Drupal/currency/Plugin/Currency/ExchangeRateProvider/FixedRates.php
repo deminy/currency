@@ -8,6 +8,7 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRate;
 use Drupal\currency\MathInterface;
@@ -27,6 +28,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FixedRates extends PluginBase implements ExchangeRateProviderInterface, ContainerFactoryPluginInterface {
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactory
+   */
+  protected $configFactory;
+
+  /**
    * The math service.
    *
    * @var \Drupal\currency\MathInterface
@@ -42,11 +50,14 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   *   The configuration factory service.
    * @param \Drupal\currency\MathInterface
    *   The Currency math service.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MathInterface $math) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactory $config_factory, MathInterface $math) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->configFactory = $config_factory;
     $this->math = $math;
   }
 
@@ -54,7 +65,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.math'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('config.factory'), $container->get('currency.math'));
   }
 
   /**
@@ -102,13 +113,13 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    *   destination currency codes and values are exchange rates.
    */
   public function loadConfiguration() {
-    $config = \Drupal::config('currency.exchanger.fixed_rates');
+    $config = $this->configFactory->get('currency.exchanger.fixed_rates');
 
     return $config->get('rates');
   }
 
   /**
-   * Saves a nexchange rate.
+   * Saves an exchange rate.
    *
    * @param string $currency_code_from
    * @param string $currency_code_to
@@ -117,7 +128,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    * @return NULL
    */
   public function save($currency_code_from, $currency_code_to, $rate) {
-    $config = \Drupal::config('currency.exchanger.fixed_rates');
+    $config = $this->configFactory->get('currency.exchanger.fixed_rates');
     $rates = $config->get('rates');
     $rates[$currency_code_from][$currency_code_to] = $rate;
     $config->set('rates', $rates);
@@ -133,7 +144,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    * @return NULL
    */
   public function delete($currency_code_from, $currency_code_to) {
-    $config = \Drupal::config('currency.exchanger.fixed_rates');
+    $config = $this->configFactory->get('currency.exchanger.fixed_rates');
     $rates = $config->get('rates');
     unset($rates[$currency_code_from][$currency_code_to]);
     $config->set('rates', $rates);

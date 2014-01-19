@@ -7,8 +7,11 @@
 
 namespace Drupal\currency\Plugin\views\field;
 
+use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * A Views field handler for currency amounts.
@@ -17,20 +20,37 @@ use Drupal\views\ResultRow;
  * - currency_code
  * - currency_code_field
  * - currency_code_table
- * See $self::defaultDefinition() for a detailed explanation.
+ * See self::defaultDefinition() for a detailed explanation.
  *
  * @ingroup views_field_handlers
  *
  * @PluginID("currency_amount")
  */
-class Amount extends FieldPluginBase {
+class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The currency storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   */
+  protected $currencyStorage;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageControllerInterface $currency_storage) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->definition += $this->defaultDefinition();
+    $this->currencyStorage = $currency_storage;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
+    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
+    $entity_manager = $container->get('entity.manager');
+    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorageController('currency'));
   }
 
   /**
@@ -56,10 +76,12 @@ class Amount extends FieldPluginBase {
   function query() {
     $this->ensureMyTable();
     if ($this->definition['currency_code_field']) {
-      $this->additional_fields['currency_code_field'] = array(
-        'field' => $this->definition['currency_code_field'],
-        'table' => $this->definition['currency_code_table'] ? $this->definition['currency_code_table'] : $this->tableAlias,
-      );
+      $this->addAdditionalFields(array(
+        'currency_code_field' => array(
+          'field' => $this->definition['currency_code_field'],
+          'table' => $this->definition['currency_code_table'] ? $this->definition['currency_code_table'] : $this->tableAlias,
+        ),
+      ));
     }
     parent::query();
   }
@@ -88,7 +110,7 @@ class Amount extends FieldPluginBase {
 
     $form['currency_round'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Round amounts based on their currencies'),
+      '#title' => $this->t('Round amounts based on their currencies'),
       '#default_value' => $this->options['currency_round'],
     );
   }
@@ -97,7 +119,6 @@ class Amount extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
-    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = $this->getCurrency($values);
     $amount = $this->getAmount($values);
 
@@ -112,7 +133,7 @@ class Amount extends FieldPluginBase {
    * @param \Drupal\views\ResultRow $values
    *   A values object as received by $this->render().
    *
-   * @return Currency
+   * @return \Drupal\currency\Entity\CurrencyInterface
    */
   function getCurrency(ResultRow $values) {
     $currency = NULL;
@@ -120,17 +141,17 @@ class Amount extends FieldPluginBase {
     if ($this->definition['currency_code_field']) {
       $currency_code = $this->getValue($values, 'currency_code_field');
       if ($currency_code) {
-        $currency = entity_load('currency', $currency_code);
+        $currency = $this->currencyStorage->load($currency_code);
       }
     }
     if (!$currency) {
-      $currency = entity_load('currency', $this->definition['currency_code']);
+      $currency = $this->currencyStorage->load($this->definition['currency_code']);
     }
     if (!$currency) {
-      $currency = entity_load('currency', 'XXX');
+      $currency = $this->currencyStorage->load('XXX');
     }
     if (!$currency) {
-      throw new \RuntimeException(t('Could not load currency with ISO 4217 code XXX.'));
+      throw new \RuntimeException('Could not load currency XXX.');
     }
 
     return $currency;
