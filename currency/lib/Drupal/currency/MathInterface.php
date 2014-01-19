@@ -67,4 +67,16 @@ interface MathInterface {
    * @return int|float|string
    */
   public function round($number, $rounding_step);
+
+  /**
+   * Compares two numbers to each other.
+   *
+   * @param int|float|string $number_a
+   * @param int|float|string $number_b
+   *
+   * @return int
+   *   0 if both numbers are identical, 1 if $number_a is larger than $number_b
+   *   and -1 if $number_b is larger than $number_a.
+   */
+  public function compare($number_a, $number_b);
 }

@@ -149,6 +149,44 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
+   * Tests compare().
+   */
+  public function testCompareNative() {
+    $this->prepareNative();
+
+    // Test two equal numbers.
+    $this->assertSame(0, $this->math->compare(0.123456789, 0.123456789));
+    $this->assertSame(0, $this->math->compare('0.123456789', '0.123456789'));
+
+    // Test with the first operand larger than the second.
+    $this->assertSame(1, $this->math->compare(1.000000001, 1));
+    $this->assertSame(1, $this->math->compare('1.000000001', '1'));
+
+    // Test with the first operand smaller than the second.
+    $this->assertSame(-1, $this->math->compare(1, 1.000000001));
+    $this->assertSame(-1, $this->math->compare('1', '1.000000001'));
+  }
+
+  /**
+   * Tests compare().
+   */
+  public function testCompareBCMath() {
+    $this->prepareBCMath();
+
+    // Test two equal numbers.
+    $this->assertSame(0, $this->math->compare(0.123456789, 0.123456789));
+    $this->assertSame(0, $this->math->compare('0.123456789', '0.123456789'));
+
+    // Test with the first operand larger than the second.
+    $this->assertSame(1, $this->math->compare(1.000000001, 1));
+    $this->assertSame(1, $this->math->compare('1.000000001', '1'));
+
+    // Test with the first operand smaller than the second.
+    $this->assertSame(-1, $this->math->compare(1, 1.000000001));
+    $this->assertSame(-1, $this->math->compare('1', '1.000000001'));
+  }
+
+  /**
    * Prepares a test method for testing native math support.
    */
   protected function prepareNative() {

@@ -96,6 +96,8 @@ class CurrencyAmount {
   public static function elementValidate($element, &$form_state, $form) {
     /** @var \Drupal\currency\Input $input */
     $input = \Drupal::service('currency.input');
+    /** @var \Drupal\currency\MathInterface $math */
+    $math = \Drupal::service('currency.math');
 
     $value = NestedArray::getValue($form_state['values'], $element['#parents']);
     $amount = $value['amount'];
@@ -112,12 +114,12 @@ class CurrencyAmount {
     // Confirm the amount lies within the allowed range.
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = entity_load('currency', $currency_code);
-    if ($element['#minimum_amount'] !== FALSE && bccomp($element['#minimum_amount'], $amount) == 1) {
+    if ($element['#minimum_amount'] !== FALSE && $math->compare($element['#minimum_amount'], $amount) == 1) {
       \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The minimum amount is !amount.', array(
         '!amount' => $currency->formatAmount($element['#minimum_amount']),
       )));
     }
-    elseif ($element['#maximum_amount'] !== FALSE && bccomp($amount, $element['#maximum_amount']) == 1) {
+    elseif ($element['#maximum_amount'] !== FALSE && $math->compare($amount, $element['#maximum_amount']) == 1) {
       \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The maximum amount is !amount.', array(
         '!amount' => $currency->formatAmount($element['#maximum_amount']),
       )));

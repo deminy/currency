@@ -101,6 +101,26 @@ class Math implements MathInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function compare($number_a, $number_b) {
+    if ($this->isExtensionLoaded('bcmath')) {
+      return bccomp($number_a, $number_b, $this->getBcmathPrecision());
+    }
+    else {
+      if ($number_a == $number_b) {
+        return 0;
+      }
+      elseif ($number_a > $number_b) {
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    }
+  }
+
+  /**
    * Wraps extension_loaded().
    *
    * @param string $name
