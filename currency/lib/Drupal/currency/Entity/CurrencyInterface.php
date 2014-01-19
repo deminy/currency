@@ -71,22 +71,22 @@ interface CurrencyInterface extends ConfigEntityInterface {
   public function getCurrencyNumber();
 
   /**
-   * Sets exchange rates.
+   * Sets historical exchange rates for this currency.
    *
    * @param array $rates
    *   Keys are ISO 4217 codes, values are numeric strings.
    *
    * @return \Drupal\currency\Entity\CurrencyInterface
    */
-  public function setExchangeRates(array $rates);
+  public function setHistoricalExchangeRates(array $rates);
 
   /**
-   * Gets exchange rates.
+   * Gets historical exchange rates for this currency.
    *
    * @return array
    *   Keys are ISO 4217 codes, values are numeric strings.
    */
-  public function getExchangeRates();
+  public function getHistoricalExchangeRates();
 
   /**
    * Sets the label.

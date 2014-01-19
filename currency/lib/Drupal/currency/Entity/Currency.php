@@ -59,12 +59,12 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   protected $currencyNumber = NULL;
 
   /**
-   * Exchange rates to other currencies.
+   * Historical exchange rates to other currencies.
    *
    * @var array
    *   Keys are ISO 4217 codes, values are numeric strings.
    */
-  protected $exchangeRates = array();
+  protected $historicalExchangeRates = array();
 
   /**
    * The human-readable name.
@@ -168,8 +168,8 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * {@inheritdoc}
    */
-  public function setExchangeRates(array $rates) {
-    $this->exchangeRates = $rates;
+  public function setHistoricalExchangeRates(array $rates) {
+    $this->historicalExchangeRates = $rates;
 
     return $this;
   }
@@ -177,8 +177,8 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * {@inheritdoc}
    */
-  public function getExchangeRates() {
-    return $this->exchangeRates;
+  public function getHistoricalExchangeRates() {
+    return $this->historicalExchangeRates;
   }
 
   /**
@@ -400,7 +400,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     $properties['alternativeSigns'] = $this->getAlternativeSigns();
     $properties['currencyCode'] = $this->id();
     $properties['currencyNumber'] = $this->getCurrencyNumber();
-    $properties['exchangeRates'] = $this->getExchangeRates();
+    $properties['exchangeRates'] = $this->getHistoricalExchangeRates();
     $properties['label'] = $this->label();
     $properties['roundingStep'] = $this->roundingStep;
     $properties['sign'] = $this->getSign();

@@ -136,11 +136,11 @@ class HistoricalRatesUnitTest extends UnitTestCase {
 
     $currency_eur = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
     $currency_eur->expects($this->any())
-      ->method('getExchangeRates')
+      ->method('getHistoricalExchangeRates')
       ->will($this->returnValue($rates['EUR']));
     $currency_nlg = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
     $currency_nlg->expects($this->any())
-      ->method('getExchangeRates')
+      ->method('getHistoricalExchangeRates')
       ->will($this->returnValue($rates['NLG']));
 
     $map = array(

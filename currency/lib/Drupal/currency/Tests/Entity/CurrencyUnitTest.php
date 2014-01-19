@@ -134,14 +134,14 @@ class CurrencyUnitTest extends DrupalUnitTestBase {
   }
 
   /**
-   * Test getExchangeRates() and setExchangeRates().
+   * Test getHistoricalExchangeRates() and setHistoricalExchangeRates().
    */
   function testGetExchangeRates() {
     $rates = array(
       'ABC' => '0.003',
     );
-    $this->assertTrue($this->currency->setExchangeRates($rates) instanceof CurrencyInterface);
-    $this->assertIdentical($this->currency->getExchangeRates(), $rates);
+    $this->assertTrue($this->currency->setHistoricalExchangeRates($rates) instanceof CurrencyInterface);
+    $this->assertIdentical($this->currency->getHistoricalExchangeRates(), $rates);
   }
 
   /**

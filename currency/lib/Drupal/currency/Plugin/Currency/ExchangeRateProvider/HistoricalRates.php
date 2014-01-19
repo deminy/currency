@@ -76,7 +76,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency_from */
     $currency_from = $this->currencyStorage->load($currency_code_from);
     if ($currency_from) {
-      $rates_from = $currency_from->getExchangeRates();
+      $rates_from = $currency_from->getHistoricalExchangeRates();
       if (isset($rates_from[$currency_code_to])) {
         $rate = $rates_from[$currency_code_to];
       }
@@ -87,7 +87,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
       /** @var \Drupal\currency\Entity\CurrencyInterface $currency_to */
       $currency_to = $this->currencyStorage->load($currency_code_to);
       if ($currency_to) {
-        $rates_to = $currency_to->getExchangeRates();
+        $rates_to = $currency_to->getHistoricalExchangeRates();
         if (isset($rates_to[$currency_code_from])) {
           $rate = $this->math->divide(1, $rates_to[$currency_code_from]);
         }
