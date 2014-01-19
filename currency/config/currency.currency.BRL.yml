@@ -7,4 +7,4 @@ sign: R$
 subunits: 100
 label: 'Brazilian real'
 usage:
-    - { usageFrom: '1994-07-01', usageTo: '', countryCode: BR }
+    - { start: '1994-07-01', end: '', countryCode: BR }

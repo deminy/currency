@@ -7,4 +7,4 @@ sign: ₳
 subunits: 100
 label: 'Argentine austral'
 usage:
-    - { usageFrom: '1985-06-14', usageTo: '1992-01-01', countryCode: AR }
+    - { start: '1985-06-14', end: '1992-01-01', countryCode: AR }

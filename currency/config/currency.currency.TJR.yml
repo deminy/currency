@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Tajikistani ruble'
 usage:
-    - { usageFrom: '1995-05-10', usageTo: '2000-10-25', countryCode: TJ }
+    - { start: '1995-05-10', end: '2000-10-25', countryCode: TJ }

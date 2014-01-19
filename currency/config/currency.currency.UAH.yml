@@ -7,4 +7,4 @@ sign: ₴
 subunits: 100
 label: 'Ukrainian hryvnia'
 usage:
-    - { usageFrom: '1996-09-02', usageTo: '', countryCode: UA }
+    - { start: '1996-09-02', end: '', countryCode: UA }

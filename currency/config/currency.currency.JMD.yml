@@ -6,5 +6,5 @@ sign: $
 subunits: 100
 label: 'Jamaican dollar'
 usage:
-    - { usageFrom: '1969-09-08', usageTo: '', countryCode: JM }
-    - { usageFrom: '1969-09-08', usageTo: '1971-01-01', countryCode: KY }
+    - { start: '1969-09-08', end: '', countryCode: JM }
+    - { start: '1969-09-08', end: '1971-01-01', countryCode: KY }

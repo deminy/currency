@@ -6,4 +6,4 @@ sign: ₣
 subunits: 100
 label: 'Rwandan franc'
 usage:
-    - { usageFrom: '1964-05-19', usageTo: '', countryCode: RW }
+    - { start: '1964-05-19', end: '', countryCode: RW }

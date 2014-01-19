@@ -6,4 +6,4 @@ sign: ₭
 subunits: 100
 label: 'Lao kip'
 usage:
-    - { usageFrom: '1979-12-10', usageTo: '', countryCode: LA }
+    - { start: '1979-12-10', end: '', countryCode: LA }

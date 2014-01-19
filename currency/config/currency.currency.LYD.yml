@@ -6,4 +6,4 @@ sign: ل.د
 subunits: 1000
 label: 'Libyan dinar'
 usage:
-    - { usageFrom: '1971-09-01', usageTo: '', countryCode: LY }
+    - { start: '1971-09-01', end: '', countryCode: LY }

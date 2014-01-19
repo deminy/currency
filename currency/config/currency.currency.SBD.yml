@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Solomon Island dollar'
 usage:
-    - { usageFrom: '1977-10-24', usageTo: '', countryCode: SB }
+    - { start: '1977-10-24', end: '', countryCode: SB }

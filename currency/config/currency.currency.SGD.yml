@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Singapore dollar'
 usage:
-    - { usageFrom: '1967-06-12', usageTo: '', countryCode: SG }
+    - { start: '1967-06-12', end: '', countryCode: SG }

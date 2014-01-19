@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'WIR franc'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: CH }
+    - { start: '', end: '', countryCode: CH }

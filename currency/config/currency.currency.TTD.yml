@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Trinidadian dollar'
 usage:
-    - { usageFrom: '1964-01-01', usageTo: '', countryCode: TT }
+    - { start: '1964-01-01', end: '', countryCode: TT }

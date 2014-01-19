@@ -6,4 +6,4 @@ sign: Ft
 subunits: 100
 label: 'Hungarian forint'
 usage:
-    - { usageFrom: '1946-07-23', usageTo: '', countryCode: HU }
+    - { start: '1946-07-23', end: '', countryCode: HU }

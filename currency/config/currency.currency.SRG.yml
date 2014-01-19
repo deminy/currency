@@ -6,4 +6,4 @@ sign: ƒ
 subunits: 100
 label: 'Surinamese guilder'
 usage:
-    - { usageFrom: '1940-05-10', usageTo: '2003-12-31', countryCode: SR }
+    - { start: '1940-05-10', end: '2003-12-31', countryCode: SR }

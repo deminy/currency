@@ -6,4 +6,4 @@ sign: fr.
 subunits: 10
 label: 'Monegasque franc'
 usage:
-    - { usageFrom: '1960-01-01', usageTo: '2002-02-17', countryCode: MC }
+    - { start: '1960-01-01', end: '2002-02-17', countryCode: MC }

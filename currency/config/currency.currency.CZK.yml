@@ -6,4 +6,4 @@ sign: Kč
 subunits: 100
 label: 'Czech koruna'
 usage:
-    - { usageFrom: '1993-01-01', usageTo: '', countryCode: CZ }
+    - { start: '1993-01-01', end: '', countryCode: CZ }

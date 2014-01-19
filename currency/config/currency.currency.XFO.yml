@@ -6,4 +6,4 @@ sign: ¤
 subunits: null
 label: 'Gold franc'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: ZZ }
+    - { start: '', end: '', countryCode: ZZ }

@@ -6,6 +6,6 @@ sign: kr
 subunits: 100
 label: 'Norwegian krone'
 usage:
-    - { usageFrom: '1905-06-07', usageTo: '', countryCode: BV }
-    - { usageFrom: '1905-06-07', usageTo: '', countryCode: NO }
-    - { usageFrom: '1905-06-07', usageTo: '', countryCode: SJ }
+    - { start: '1905-06-07', end: '', countryCode: BV }
+    - { start: '1905-06-07', end: '', countryCode: NO }
+    - { start: '1905-06-07', end: '', countryCode: SJ }

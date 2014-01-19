@@ -6,4 +6,4 @@ sign: £
 subunits: 100
 label: 'Saint Helena pound'
 usage:
-    - { usageFrom: '1917-02-15', usageTo: '', countryCode: SH }
+    - { start: '1917-02-15', end: '', countryCode: SH }

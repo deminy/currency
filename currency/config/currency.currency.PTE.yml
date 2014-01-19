@@ -6,5 +6,5 @@ sign: 
 subunits: 100
 label: 'Portuguese escudo'
 usage:
-    - { usageFrom: '1911-05-22', usageTo: '1975-07-05', countryCode: CV }
-    - { usageFrom: '1911-05-22', usageTo: '2002-02-28', countryCode: PT }
+    - { start: '1911-05-22', end: '1975-07-05', countryCode: CV }
+    - { start: '1911-05-22', end: '2002-02-28', countryCode: PT }

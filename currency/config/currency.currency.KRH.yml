@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'South Korean hwan'
 usage:
-    - { usageFrom: '1953-02-15', usageTo: '1962-06-10', countryCode: KR }
+    - { start: '1953-02-15', end: '1962-06-10', countryCode: KR }

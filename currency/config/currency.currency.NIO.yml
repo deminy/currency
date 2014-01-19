@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Nicaraguan córdoba oro'
 usage:
-    - { usageFrom: '1991-04-30', usageTo: '', countryCode: NI }
+    - { start: '1991-04-30', end: '', countryCode: NI }

@@ -6,4 +6,4 @@ sign: Sh.So.
 subunits: 100
 label: 'Somali shilling'
 usage:
-    - { usageFrom: '1960-07-01', usageTo: '', countryCode: SO }
+    - { start: '1960-07-01', end: '', countryCode: SO }

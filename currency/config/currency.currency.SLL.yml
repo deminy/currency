@@ -6,4 +6,4 @@ sign: Le
 subunits: 100
 label: 'Sierran Leonean leone'
 usage:
-    - { usageFrom: '1964-08-04', usageTo: '', countryCode: SL }
+    - { start: '1964-08-04', end: '', countryCode: SL }

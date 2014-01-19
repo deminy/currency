@@ -6,4 +6,4 @@ sign: Eº
 subunits: 100
 label: 'Chilean escudo'
 usage:
-    - { usageFrom: '1960-01-01', usageTo: '1975-09-29', countryCode: CL }
+    - { start: '1960-01-01', end: '1975-09-29', countryCode: CL }

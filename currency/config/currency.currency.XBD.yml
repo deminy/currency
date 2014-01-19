@@ -6,4 +6,4 @@ sign: ¤
 subunits: 0
 label: 'Bond Markets Unit European Unit of Account 17 (E.U.A.-17)'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: ZZ }
+    - { start: '', end: '', countryCode: ZZ }

@@ -6,4 +6,4 @@ sign: m
 subunits: 100
 label: 'Turkmenistani manat'
 usage:
-    - { usageFrom: '2009-01-01', usageTo: '', countryCode: TM }
+    - { start: '2009-01-01', end: '', countryCode: TM }

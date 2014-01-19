@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Belizean dollar'
 usage:
-    - { usageFrom: '1974-01-01', usageTo: '', countryCode: BZ }
+    - { start: '1974-01-01', end: '', countryCode: BZ }

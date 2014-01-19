@@ -7,4 +7,4 @@ sign: дин
 subunits: 100
 label: 'Yugoslav dinar'
 usage:
-    - { usageFrom: '1994-01-01', usageTo: '1994-01-23', countryCode: YU }
+    - { start: '1994-01-01', end: '1994-01-23', countryCode: YU }

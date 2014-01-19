@@ -6,4 +6,4 @@ sign: ₣
 subunits: 100
 label: 'Congolese franc'
 usage:
-    - { usageFrom: '1998-07-01', usageTo: '', countryCode: CD }
+    - { start: '1998-07-01', end: '', countryCode: CD }

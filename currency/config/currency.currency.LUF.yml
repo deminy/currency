@@ -6,4 +6,4 @@ sign: fr.
 subunits: 10
 label: 'Luxembourg franc'
 usage:
-    - { usageFrom: '1944-09-4', usageTo: '2002-02-28', countryCode: LU }
+    - { start: '1944-09-4', end: '2002-02-28', countryCode: LU }

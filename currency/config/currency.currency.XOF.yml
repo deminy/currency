@@ -6,13 +6,13 @@ sign: ₣
 subunits: 100
 label: 'West African franc'
 usage:
-    - { usageFrom: '1984-08-04', usageTo: '', countryCode: BF }
-    - { usageFrom: '1975-11-30', usageTo: '', countryCode: BJ }
-    - { usageFrom: '1958-12-04', usageTo: '', countryCode: CI }
-    - { usageFrom: '1997-03-31', usageTo: '', countryCode: GW }
-    - { usageFrom: '1984-06-01', usageTo: '', countryCode: ML }
-    - { usageFrom: '1958-11-24', usageTo: '1962-07-02', countryCode: ML }
-    - { usageFrom: '1958-11-28', usageTo: '1973-06-29', countryCode: MR }
-    - { usageFrom: '1958-12-19', usageTo: '', countryCode: NE }
-    - { usageFrom: '1959-04-04', usageTo: '', countryCode: SN }
-    - { usageFrom: '1958-11-28', usageTo: '', countryCode: TG }
+    - { start: '1984-08-04', end: '', countryCode: BF }
+    - { start: '1975-11-30', end: '', countryCode: BJ }
+    - { start: '1958-12-04', end: '', countryCode: CI }
+    - { start: '1997-03-31', end: '', countryCode: GW }
+    - { start: '1984-06-01', end: '', countryCode: ML }
+    - { start: '1958-11-24', end: '1962-07-02', countryCode: ML }
+    - { start: '1958-11-28', end: '1973-06-29', countryCode: MR }
+    - { start: '1958-12-19', end: '', countryCode: NE }
+    - { start: '1959-04-04', end: '', countryCode: SN }
+    - { start: '1958-11-28', end: '', countryCode: TG }

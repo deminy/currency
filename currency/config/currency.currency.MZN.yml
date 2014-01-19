@@ -7,4 +7,4 @@ sign: MT
 subunits: 100
 label: 'Mozambican metical'
 usage:
-    - { usageFrom: '2006-07-01', usageTo: '', countryCode: MZ }
+    - { start: '2006-07-01', end: '', countryCode: MZ }

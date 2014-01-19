@@ -7,4 +7,4 @@ sign: ₤Sd
 subunits: 0
 label: 'Sudanese dinar'
 usage:
-    - { usageFrom: '1992-06-08', usageTo: '2007-06-30', countryCode: SD }
+    - { start: '1992-06-08', end: '2007-06-30', countryCode: SD }

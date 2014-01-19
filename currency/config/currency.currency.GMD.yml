@@ -6,4 +6,4 @@ sign: D
 subunits: 100
 label: 'Gambian dalasi'
 usage:
-    - { usageFrom: '1971-07-01', usageTo: '', countryCode: GM }
+    - { start: '1971-07-01', end: '', countryCode: GM }

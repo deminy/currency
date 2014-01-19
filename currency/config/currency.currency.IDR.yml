@@ -6,6 +6,6 @@ sign: Rp
 subunits: 100
 label: 'Indonesian rupiah'
 usage:
-    - { usageFrom: '1965-12-13', usageTo: '', countryCode: ID }
-    - { usageFrom: '1975-12-07', usageTo: '2002-05-20', countryCode: TL }
-    - { usageFrom: '1975-12-07', usageTo: '2002-05-20', countryCode: TP }
+    - { start: '1965-12-13', end: '', countryCode: ID }
+    - { start: '1975-12-07', end: '2002-05-20', countryCode: TL }
+    - { start: '1975-12-07', end: '2002-05-20', countryCode: TP }

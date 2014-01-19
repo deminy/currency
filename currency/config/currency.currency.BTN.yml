@@ -6,4 +6,4 @@ sign: Nu.
 subunits: 100
 label: 'Buthanese ngultrum'
 usage:
-    - { usageFrom: '1974-04-16', usageTo: '', countryCode: BT }
+    - { start: '1974-04-16', end: '', countryCode: BT }

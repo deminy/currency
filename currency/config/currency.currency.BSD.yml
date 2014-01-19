@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Bahamian dollar'
 usage:
-    - { usageFrom: '1966-05-25', usageTo: '', countryCode: BS }
+    - { start: '1966-05-25', end: '', countryCode: BS }

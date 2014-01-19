@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Ukrainian karbovanets'
 usage:
-    - { usageFrom: '1992-11-13', usageTo: '1993-10-17', countryCode: UA }
+    - { start: '1992-11-13', end: '1993-10-17', countryCode: UA }

@@ -6,5 +6,5 @@ sign: DM
 subunits: 100
 label: 'German mark'
 usage:
-    - { usageFrom: '1948-06-20', usageTo: '2002-02-28', countryCode: DE }
-    - { usageFrom: '1999-10-02', usageTo: '2002-05-15', countryCode: ME }
+    - { start: '1948-06-20', end: '2002-02-28', countryCode: DE }
+    - { start: '1999-10-02', end: '2002-05-15', countryCode: ME }

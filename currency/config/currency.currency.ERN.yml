@@ -6,4 +6,4 @@ sign: Nfk
 subunits: 100
 label: 'Eritrean nakfa'
 usage:
-    - { usageFrom: '1997-11-08', usageTo: '', countryCode: ER }
+    - { start: '1997-11-08', end: '', countryCode: ER }

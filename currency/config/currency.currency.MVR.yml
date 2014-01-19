@@ -6,4 +6,4 @@ sign: ރ
 subunits: 100
 label: 'Maldivian rufiyaa'
 usage:
-    - { usageFrom: '1981-07-01', usageTo: '', countryCode: MV }
+    - { start: '1981-07-01', end: '', countryCode: MV }

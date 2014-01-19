@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Caymanian dollar'
 usage:
-    - { usageFrom: '1971-01-01', usageTo: '', countryCode: KY }
+    - { start: '1971-01-01', end: '', countryCode: KY }

@@ -6,4 +6,4 @@ sign: KSh
 subunits: 100
 label: 'Kenyan shilling'
 usage:
-    - { usageFrom: '1966-09-14', usageTo: '', countryCode: KE }
+    - { start: '1966-09-14', end: '', countryCode: KE }

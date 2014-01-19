@@ -83,17 +83,17 @@ class CurrencyUnitTest extends DrupalUnitTestBase {
     $this->assertFalse($this->currency->isObsolete());
 
     // A currency that is no longer being used.
-    $this->currency->setUsage(array(new Usage(array(
-      'usageFrom' => '1813-01-01',
-      'usageTo' => '2002-02-28',
-    ))));
+    $usage = new Usage();
+    $usage->setStart('1813-01-01')
+      ->setEnd('2002-02-28');
+    $this->currency->setUsages(array($usage));
     $this->assertTrue($this->currency->isObsolete());
 
     // A currency that will become obsolete next year.
-    $this->currency->setUsage(array(new Usage(array(
-      'usageFrom' => '1813-01-01',
-      'usageTo' => date('o') + 1 . '-02-28',
-    ))));
+    $usage = new Usage();
+    $usage->setStart('1813-01-01')
+      ->setEnd(date('o') + 1 . '-02-28');
+    $this->currency->setUsages(array($usage));
     $this->assertFalse($this->currency->isObsolete());
   }
 
@@ -183,15 +183,14 @@ class CurrencyUnitTest extends DrupalUnitTestBase {
   }
 
   /**
-   * Test setUsage() and getUsage().
+   * Test setUsages() and getUsages().
    */
   function testGetUsage() {
-    $usage = new Usage(array(
-      'usageFrom' => '1813-01-01',
-      'usageTo' => date('o') + 1 . '-02-28',
-    ));
-    $this->assertTrue($this->currency->setUsage(array($usage)) instanceof CurrencyInterface);
-    $this->assertIdentical($this->currency->getUsage(), array($usage));
+    $usage = new Usage();
+    $usage->setStart('1813-01-01')
+    ->setEnd(date('o') + 1 . '-02-28');
+    $this->assertEqual(spl_object_hash($this->currency->setUsages(array($usage))), spl_object_hash($this->currency));
+    $this->assertIdentical($this->currency->getUsages(), array($usage));
   }
 
   /**

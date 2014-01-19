@@ -6,4 +6,4 @@ sign: ¤
 subunits: 0
 label: 'Uruguayan Peso en Unidades Indexadas'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: UY }
+    - { start: '', end: '', countryCode: UY }

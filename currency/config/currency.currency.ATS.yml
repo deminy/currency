@@ -6,4 +6,4 @@ sign: S
 subunits: 100
 label: 'Austrian schilling'
 usage:
-    - { usageFrom: '1947-12-04', usageTo: '2002-02-28', countryCode: AT }
+    - { start: '1947-12-04', end: '2002-02-28', countryCode: AT }

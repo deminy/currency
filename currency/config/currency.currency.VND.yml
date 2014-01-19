@@ -6,4 +6,4 @@ sign: ₫
 subunits: 100
 label: 'Vietnamese dong'
 usage:
-    - { usageFrom: '1985-09-14', usageTo: '', countryCode: VN }
+    - { start: '1985-09-14', end: '', countryCode: VN }

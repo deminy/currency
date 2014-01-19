@@ -6,4 +6,4 @@ sign: ден
 subunits: 100
 label: 'Macedonian denar'
 usage:
-    - { usageFrom: '1993-05-20', usageTo: '', countryCode: MK }
+    - { start: '1993-05-20', end: '', countryCode: MK }

@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Israeli shekel'
 usage:
-    - { usageFrom: '1980-02-22', usageTo: '1985-09-04', countryCode: IL }
+    - { start: '1980-02-22', end: '1985-09-04', countryCode: IL }

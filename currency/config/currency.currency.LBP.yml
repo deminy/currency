@@ -6,4 +6,4 @@ sign: £
 subunits: 100
 label: 'Lebanese pound'
 usage:
-    - { usageFrom: '1948-02-02', usageTo: '', countryCode: LB }
+    - { start: '1948-02-02', end: '', countryCode: LB }

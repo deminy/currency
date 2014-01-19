@@ -7,4 +7,4 @@ sign: I/.
 subunits: 100
 label: 'Peruvian inti'
 usage:
-    - { usageFrom: '1985-02-01', usageTo: '1991-07-01', countryCode: PE }
+    - { start: '1985-02-01', end: '1991-07-01', countryCode: PE }

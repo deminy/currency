@@ -6,4 +6,4 @@ sign: WS$
 subunits: 100
 label: 'Samoan tala'
 usage:
-    - { usageFrom: '1967-07-10', usageTo: '', countryCode: WS }
+    - { start: '1967-07-10', end: '', countryCode: WS }

@@ -6,5 +6,5 @@ sign: 'د.م.'
 subunits: 100
 label: 'Moroccan dirham'
 usage:
-    - { usageFrom: '1976-02-26', usageTo: '', countryCode: EH }
-    - { usageFrom: '1959-10-17', usageTo: '', countryCode: MA }
+    - { start: '1976-02-26', end: '', countryCode: EH }
+    - { start: '1959-10-17', end: '', countryCode: MA }

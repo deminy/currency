@@ -6,4 +6,4 @@ sign: kr
 subunits: 100
 label: 'Icelandic krona'
 usage:
-    - { usageFrom: '1918-12-01', usageTo: '1981-01-01', countryCode: IS }
+    - { start: '1918-12-01', end: '1981-01-01', countryCode: IS }

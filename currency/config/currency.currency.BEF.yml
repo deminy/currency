@@ -6,4 +6,4 @@ sign: fr.
 subunits: 10
 label: 'Belgian franc'
 usage:
-    - { usageFrom: '1831-02-07', usageTo: '2002-02-28', countryCode: BE }
+    - { start: '1831-02-07', end: '2002-02-28', countryCode: BE }

@@ -97,12 +97,11 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   protected $subunits = NULL;
 
   /**
-   * This currency's usage.
+   * This currency's usages.
    *
-   * @var array
-   *   An array of \Drupal\currency\Usage objects.
+   * @var \Drupal\currency\UsageInterface[]
    */
-  protected $usage = array();
+  protected $usages = array();
 
   /**
    * The UUID for this entity.
@@ -235,8 +234,8 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * {@inheritdoc}
    */
-  public function setUsage(array $usage) {
-    $this->usage = $usage;
+  public function setUsages(array $usages) {
+    $this->usages = $usages;
 
     return $this;
   }
@@ -244,8 +243,8 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * {@inheritdoc}
    */
-  public function getUsage() {
-    return $this->usage;
+  public function getUsages() {
+    return $this->usages;
   }
 
   /**
@@ -371,7 +370,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    */
   function isObsolete($reference = NULL) {
     // Without usage information, we cannot know if the currency is obsolete.
-    if (!$this->usage) {
+    if (!$this->getUsages()) {
       return FALSE;
     }
 
@@ -380,18 +379,18 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
       $reference = time();
     }
 
-    // Mark the currency obsolete if all usages have an end date before that
-    // comes before $reference.
+    // Mark the currency obsolete if all usages have an end date that comes
+    // before $reference.
     $obsolete = 0;
-    foreach ($this->usage as $usage) {
-      if ($usage->usageTo) {
-        $to = strtotime($usage->usageTo);
+    foreach ($this->getUsages() as $usage) {
+      if ($usage->getEnd()) {
+        $to = strtotime($usage->getEnd());
         if ($to !== FALSE && $to < $reference) {
           $obsolete++;
         }
       }
     }
-    return $obsolete == count($this->usage);
+    return $obsolete == count($this->getUsages());
   }
 
   /**
@@ -408,8 +407,12 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     $properties['subunits'] = $this->getSubunits();
     $properties['status'] = $this->status();
     $properties['usage'] = array();
-    foreach ($this->getUsage() as $usage) {
-      $properties['usage'][] = (array) $usage;
+    foreach ($this->getUsages() as $usage) {
+      $properties['usage'][] = array(
+        'start' => $usage->getStart(),
+        'end' => $usage->getEnd(),
+        'countryCode' => $usage->getCountryCode(),
+      );
     }
     $properties['uuid'] = $this->uuid();
 

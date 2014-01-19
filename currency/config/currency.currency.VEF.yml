@@ -7,4 +7,4 @@ sign: Bs
 subunits: 100
 label: 'Venezuelan bolívar'
 usage:
-    - { usageFrom: '2008-01-01', usageTo: '', countryCode: VE }
+    - { start: '2008-01-01', end: '', countryCode: VE }

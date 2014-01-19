@@ -6,4 +6,4 @@ sign: ₤
 subunits: 100
 label: 'Vatican lira'
 usage:
-    - { usageFrom: '1929', usageTo: '2002', countryCode: VA }
+    - { start: '1929', end: '2002', countryCode: VA }

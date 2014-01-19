@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'U.S. dollar (same day)'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: US }
+    - { start: '', end: '', countryCode: US }

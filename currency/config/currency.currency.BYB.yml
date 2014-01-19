@@ -6,4 +6,4 @@ sign: ¤
 subunits: null
 label: 'Belarusian ruble'
 usage:
-    - { usageFrom: '1994-08-01', usageTo: '2000-12-31', countryCode: BY }
+    - { start: '1994-08-01', end: '2000-12-31', countryCode: BY }

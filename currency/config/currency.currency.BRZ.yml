@@ -6,4 +6,4 @@ sign: ₢
 subunits: 100
 label: 'Brazilian cruzeiro'
 usage:
-    - { usageFrom: '1942-11-01', usageTo: '1967-02-13', countryCode: BR }
+    - { start: '1942-11-01', end: '1967-02-13', countryCode: BR }

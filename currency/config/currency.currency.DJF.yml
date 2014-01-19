@@ -6,4 +6,4 @@ sign: ₣
 subunits: 100
 label: 'Djiboutian franc'
 usage:
-    - { usageFrom: '1977-06-27', usageTo: '', countryCode: DJ }
+    - { start: '1977-06-27', end: '', countryCode: DJ }

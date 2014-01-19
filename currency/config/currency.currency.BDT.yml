@@ -6,4 +6,4 @@ sign: ৳
 subunits: 100
 label: 'Bangladeshi taka'
 usage:
-    - { usageFrom: '1972-01-01', usageTo: '', countryCode: BD }
+    - { start: '1972-01-01', end: '', countryCode: BD }

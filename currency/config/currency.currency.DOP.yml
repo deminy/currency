@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Dominican peso'
 usage:
-    - { usageFrom: '1947-10-01', usageTo: '', countryCode: DO }
+    - { start: '1947-10-01', end: '', countryCode: DO }

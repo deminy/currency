@@ -6,4 +6,4 @@ sign: L
 subunits: 100
 label: 'Swazi lilangeni'
 usage:
-    - { usageFrom: '1974-09-06', usageTo: '', countryCode: SZ }
+    - { start: '1974-09-06', end: '', countryCode: SZ }

@@ -6,4 +6,4 @@ sign: ₩
 subunits: 100
 label: 'North Korean won'
 usage:
-    - { usageFrom: '1959-04-17', usageTo: '', countryCode: KP }
+    - { start: '1959-04-17', end: '', countryCode: KP }

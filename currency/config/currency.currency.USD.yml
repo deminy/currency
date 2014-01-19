@@ -7,24 +7,24 @@ sign: $
 subunits: 100
 label: 'U.S. dollar'
 usage:
-    - { usageFrom: '1904-07-16', usageTo: '', countryCode: AS }
-    - { usageFrom: '1899-01-01', usageTo: '1959-01-01', countryCode: CU }
-    - { usageFrom: '1905-06-21', usageTo: '1947-10-01', countryCode: DO }
-    - { usageFrom: '2000-10-02', usageTo: '', countryCode: EC }
-    - { usageFrom: '1944-01-01', usageTo: '', countryCode: FM }
-    - { usageFrom: '1944-08-21', usageTo: '', countryCode: GU }
-    - { usageFrom: '1915', usageTo: '', countryCode: HT }
-    - { usageFrom: '1965-11-08', usageTo: '', countryCode: IO }
-    - { usageFrom: '1944-01-01', usageTo: '', countryCode: MH }
-    - { usageFrom: '1944-01-01', usageTo: '', countryCode: MP }
-    - { usageFrom: '1903-11-18', usageTo: '', countryCode: PA }
-    - { usageFrom: '1898-12-10', usageTo: '', countryCode: PR }
-    - { usageFrom: '1944-01-01', usageTo: '', countryCode: PW }
-    - { usageFrom: '2001-01-01', usageTo: '', countryCode: SV }
-    - { usageFrom: '1969-09-08', usageTo: '', countryCode: TC }
-    - { usageFrom: '1999-10-20', usageTo: '', countryCode: TL }
-    - { usageFrom: '1944-01-01', usageTo: '', countryCode: UM }
-    - { usageFrom: '1792-01-01', usageTo: '', countryCode: US }
-    - { usageFrom: '1833-01-01', usageTo: '', countryCode: VG }
-    - { usageFrom: '1837-01-01', usageTo: '', countryCode: VI }
-    - { usageFrom: '2009-04-12', usageTo: '', countryCode: ZW }
+    - { start: '1904-07-16', end: '', countryCode: AS }
+    - { start: '1899-01-01', end: '1959-01-01', countryCode: CU }
+    - { start: '1905-06-21', end: '1947-10-01', countryCode: DO }
+    - { start: '2000-10-02', end: '', countryCode: EC }
+    - { start: '1944-01-01', end: '', countryCode: FM }
+    - { start: '1944-08-21', end: '', countryCode: GU }
+    - { start: '1915', end: '', countryCode: HT }
+    - { start: '1965-11-08', end: '', countryCode: IO }
+    - { start: '1944-01-01', end: '', countryCode: MH }
+    - { start: '1944-01-01', end: '', countryCode: MP }
+    - { start: '1903-11-18', end: '', countryCode: PA }
+    - { start: '1898-12-10', end: '', countryCode: PR }
+    - { start: '1944-01-01', end: '', countryCode: PW }
+    - { start: '2001-01-01', end: '', countryCode: SV }
+    - { start: '1969-09-08', end: '', countryCode: TC }
+    - { start: '1999-10-20', end: '', countryCode: TL }
+    - { start: '1944-01-01', end: '', countryCode: UM }
+    - { start: '1792-01-01', end: '', countryCode: US }
+    - { start: '1833-01-01', end: '', countryCode: VG }
+    - { start: '1837-01-01', end: '', countryCode: VI }
+    - { start: '2009-04-12', end: '', countryCode: ZW }

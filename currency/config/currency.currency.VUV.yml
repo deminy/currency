@@ -6,4 +6,4 @@ sign: VT
 subunits: 0
 label: 'Vanuatu vatu'
 usage:
-    - { usageFrom: '1981-01-01', usageTo: '', countryCode: VU }
+    - { start: '1981-01-01', end: '', countryCode: VU }

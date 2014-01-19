@@ -6,4 +6,4 @@ sign: £
 subunits: 100
 label: 'Falkland Islands Pound'
 usage:
-    - { usageFrom: '1901-01-01', usageTo: '', countryCode: FK }
+    - { start: '1901-01-01', end: '', countryCode: FK }

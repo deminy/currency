@@ -6,4 +6,4 @@ sign: ₲
 subunits: 100
 label: 'Paraguayan guaraní'
 usage:
-    - { usageFrom: '1943-11-01', usageTo: '', countryCode: PY }
+    - { start: '1943-11-01', end: '', countryCode: PY }

@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Dominion of Newfoundland dollar'
 usage:
-    - { usageFrom: '1865', usageTo: '', countryCode: '' }
+    - { start: '1865', end: '', countryCode: '' }

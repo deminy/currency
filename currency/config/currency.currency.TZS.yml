@@ -6,4 +6,4 @@ sign: ''
 subunits: 100
 label: 'Tanzanian Shilling'
 usage:
-    - { usageFrom: '1966-06-14', usageTo: '', countryCode: TZ }
+    - { start: '1966-06-14', end: '', countryCode: TZ }

@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Mexican peso'
 usage:
-    - { usageFrom: '1822-01-01', usageTo: '1992-12-31', countryCode: MX }
+    - { start: '1822-01-01', end: '1992-12-31', countryCode: MX }

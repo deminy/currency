@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Mozambican escudo'
 usage:
-    - { usageFrom: '1975-06-25', usageTo: '1980-06-16', countryCode: MZ }
+    - { start: '1975-06-25', end: '1980-06-16', countryCode: MZ }

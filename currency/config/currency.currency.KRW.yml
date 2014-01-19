@@ -7,4 +7,4 @@ sign: ₩
 subunits: 100
 label: 'South Korean won'
 usage:
-    - { usageFrom: '1962-06-10', usageTo: '', countryCode: KR }
+    - { start: '1962-06-10', end: '', countryCode: KR }

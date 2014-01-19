@@ -6,4 +6,4 @@ sign: ﷼
 subunits: 100
 label: 'Yemeni rial'
 usage:
-    - { usageFrom: '1990-05-22', usageTo: '', countryCode: YE }
+    - { start: '1990-05-22', end: '', countryCode: YE }

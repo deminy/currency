@@ -6,7 +6,7 @@ sign: kr.
 subunits: 100
 label: 'Danish krone'
 usage:
-    - { usageFrom: '1873-05-27', usageTo: '', countryCode: DK }
-    - { usageFrom: '1948-01-01', usageTo: '', countryCode: FO }
-    - { usageFrom: '1873-05-27', usageTo: '', countryCode: GL }
-    - { usageFrom: '1873-05-27', usageTo: '1918-12-01', countryCode: IS }
+    - { start: '1873-05-27', end: '', countryCode: DK }
+    - { start: '1948-01-01', end: '', countryCode: FO }
+    - { start: '1873-05-27', end: '', countryCode: GL }
+    - { start: '1873-05-27', end: '1918-12-01', countryCode: IS }

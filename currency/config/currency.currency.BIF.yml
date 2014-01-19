@@ -6,4 +6,4 @@ sign: FBu
 subunits: 100
 label: 'Burundian franc'
 usage:
-    - { usageFrom: '1964-05-19', usageTo: '', countryCode: BI }
+    - { start: '1964-05-19', end: '', countryCode: BI }

@@ -6,4 +6,4 @@ sign: ؋
 subunits: 100
 label: 'Afghan afghani'
 usage:
-    - { usageFrom: '2002-10-07', usageTo: '', countryCode: AF }
+    - { start: '2002-10-07', end: '', countryCode: AF }

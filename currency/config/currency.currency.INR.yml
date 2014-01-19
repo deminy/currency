@@ -7,9 +7,9 @@ sign: ₹
 subunits: 100
 label: 'Indian rupee'
 usage:
-    - { usageFrom: '1835-08-17', usageTo: '1948-04-01', countryCode: BD }
-    - { usageFrom: '1907-01-01', usageTo: '', countryCode: BT }
-    - { usageFrom: '1835-08-17', usageTo: '', countryCode: IN }
-    - { usageFrom: '1920-11-11', usageTo: '1931-04-19', countryCode: IQ }
-    - { usageFrom: '1870-01-01', usageTo: '1966-10-17', countryCode: NP }
-    - { usageFrom: '1835-08-17', usageTo: '1947-08-15', countryCode: PK }
+    - { start: '1835-08-17', end: '1948-04-01', countryCode: BD }
+    - { start: '1907-01-01', end: '', countryCode: BT }
+    - { start: '1835-08-17', end: '', countryCode: IN }
+    - { start: '1920-11-11', end: '1931-04-19', countryCode: IQ }
+    - { start: '1870-01-01', end: '1966-10-17', countryCode: NP }
+    - { start: '1835-08-17', end: '1947-08-15', countryCode: PK }

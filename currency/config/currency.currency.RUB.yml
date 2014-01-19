@@ -9,4 +9,4 @@ sign: ''
 subunits: 100
 label: 'Russian ruble'
 usage:
-    - { usageFrom: '1999-01-01', usageTo: '', countryCode: RU }
+    - { start: '1999-01-01', end: '', countryCode: RU }

@@ -6,4 +6,4 @@ sign: £
 subunits: 100
 label: 'Irish pound'
 usage:
-    - { usageFrom: '1922-01-01', usageTo: '2002-02-09', countryCode: IE }
+    - { start: '1922-01-01', end: '2002-02-09', countryCode: IE }

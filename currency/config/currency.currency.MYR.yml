@@ -6,6 +6,6 @@ sign: RM
 subunits: 100
 label: 'Malaysian ringgit'
 usage:
-    - { usageFrom: '1963-09-16', usageTo: '1967-06-12', countryCode: BN }
-    - { usageFrom: '1963-09-16', usageTo: '', countryCode: MY }
-    - { usageFrom: '1963-09-16', usageTo: '1967-06-12', countryCode: SG }
+    - { start: '1963-09-16', end: '1967-06-12', countryCode: BN }
+    - { start: '1963-09-16', end: '', countryCode: MY }
+    - { start: '1963-09-16', end: '1967-06-12', countryCode: SG }

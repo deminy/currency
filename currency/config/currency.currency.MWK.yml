@@ -6,4 +6,4 @@ sign: MK
 subunits: 100
 label: 'Malawian kwacha'
 usage:
-    - { usageFrom: '1971-02-15', usageTo: '', countryCode: MW }
+    - { start: '1971-02-15', end: '', countryCode: MW }

@@ -7,4 +7,4 @@ sign: $a
 subunits: 100
 label: 'Argentine peso argentino'
 usage:
-    - { usageFrom: '1983-06-01', usageTo: '1985-06-14', countryCode: AR }
+    - { start: '1983-06-01', end: '1985-06-14', countryCode: AR }

@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Guyanese dollar'
 usage:
-    - { usageFrom: '1966-05-26', usageTo: '', countryCode: GY }
+    - { start: '1966-05-26', end: '', countryCode: GY }

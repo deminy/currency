@@ -6,4 +6,4 @@ sign: ¤
 subunits: 0
 label: 'Azerbaijani manat'
 usage:
-    - { usageFrom: '1993-11-22', usageTo: '2006-12-31', countryCode: AZ }
+    - { start: '1993-11-22', end: '2006-12-31', countryCode: AZ }

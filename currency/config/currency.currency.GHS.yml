@@ -6,4 +6,4 @@ sign: GH¢
 subunits: 100
 label: 'Ghanaian cedi'
 usage:
-    - { usageFrom: '2007-07-03', usageTo: '', countryCode: GH }
+    - { start: '2007-07-03', end: '', countryCode: GH }

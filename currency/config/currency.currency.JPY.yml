@@ -6,5 +6,5 @@ sign: ¥
 subunits: 1000
 label: 'Japanese yen'
 usage:
-    - { usageFrom: '1914-10-03', usageTo: '1944-01-01', countryCode: FM }
-    - { usageFrom: '1871-06-01', usageTo: '', countryCode: JP }
+    - { start: '1914-10-03', end: '1944-01-01', countryCode: FM }
+    - { start: '1871-06-01', end: '', countryCode: JP }

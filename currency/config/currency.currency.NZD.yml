@@ -6,8 +6,8 @@ sign: $
 subunits: 100
 label: 'New Zealand dollar'
 usage:
-    - { usageFrom: '1967-07-10', usageTo: '', countryCode: CK }
-    - { usageFrom: '1967-07-10', usageTo: '', countryCode: NU }
-    - { usageFrom: '1967-07-10', usageTo: '', countryCode: NZ }
-    - { usageFrom: '1969-01-13', usageTo: '', countryCode: PN }
-    - { usageFrom: '1967-07-10', usageTo: '', countryCode: TK }
+    - { start: '1967-07-10', end: '', countryCode: CK }
+    - { start: '1967-07-10', end: '', countryCode: NU }
+    - { start: '1967-07-10', end: '', countryCode: NZ }
+    - { start: '1969-01-13', end: '', countryCode: PN }
+    - { start: '1967-07-10', end: '', countryCode: TK }

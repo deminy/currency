@@ -7,4 +7,4 @@ sign: $
 subunits: 100
 label: 'Zimbabwean dollar'
 usage:
-    - { usageFrom: '2008-08-01', usageTo: '2009-02-02', countryCode: ZW }
+    - { start: '2008-08-01', end: '2009-02-02', countryCode: ZW }

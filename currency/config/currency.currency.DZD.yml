@@ -6,4 +6,4 @@ sign: دج
 subunits: 100
 label: 'Algerian dinar'
 usage:
-    - { usageFrom: '1964-04-01', usageTo: '', countryCode: DZ }
+    - { start: '1964-04-01', end: '', countryCode: DZ }

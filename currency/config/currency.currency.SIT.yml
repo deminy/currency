@@ -6,4 +6,4 @@ sign: ¤
 subunits: 10
 label: 'Slovenian tolar'
 usage:
-    - { usageFrom: '1992-10-07', usageTo: '2007-01-14', countryCode: SI }
+    - { start: '1992-10-07', end: '2007-01-14', countryCode: SI }

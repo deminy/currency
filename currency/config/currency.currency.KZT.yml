@@ -6,4 +6,4 @@ sign: ₸
 subunits: 100
 label: 'Kazakhstani tenge'
 usage:
-    - { usageFrom: '1993-11-05', usageTo: '', countryCode: KZ }
+    - { start: '1993-11-05', end: '', countryCode: KZ }

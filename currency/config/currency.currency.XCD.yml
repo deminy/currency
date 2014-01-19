@@ -6,12 +6,12 @@ sign: $
 subunits: 100
 label: 'East Caribbean dollar'
 usage:
-    - { usageFrom: '1965-10-06', usageTo: '', countryCode: AG }
-    - { usageFrom: '1965-10-06', usageTo: '', countryCode: AI }
-    - { usageFrom: '1965-10-06', usageTo: '1973-12-03', countryCode: BB }
-    - { usageFrom: '1965-10-06', usageTo: '', countryCode: DM }
-    - { usageFrom: '1967-02-27', usageTo: '', countryCode: GD }
-    - { usageFrom: '1965-10-06', usageTo: '', countryCode: KN }
-    - { usageFrom: '1965-10-06', usageTo: '', countryCode: LC }
-    - { usageFrom: '1967-02-27', usageTo: '', countryCode: MS }
-    - { usageFrom: '1965-10-06', usageTo: '', countryCode: VC }
+    - { start: '1965-10-06', end: '', countryCode: AG }
+    - { start: '1965-10-06', end: '', countryCode: AI }
+    - { start: '1965-10-06', end: '1973-12-03', countryCode: BB }
+    - { start: '1965-10-06', end: '', countryCode: DM }
+    - { start: '1967-02-27', end: '', countryCode: GD }
+    - { start: '1965-10-06', end: '', countryCode: KN }
+    - { start: '1965-10-06', end: '', countryCode: LC }
+    - { start: '1967-02-27', end: '', countryCode: MS }
+    - { start: '1965-10-06', end: '', countryCode: VC }

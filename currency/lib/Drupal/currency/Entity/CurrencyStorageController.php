@@ -9,7 +9,6 @@ namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigStorageController;
 use Drupal\currency\Usage;
-use Drupal\Core\Config\Config;
 
 /**
  * Defines the storage controller class for Currency entities.
@@ -23,12 +22,16 @@ class CurrencyStorageController extends ConfigStorageController {
     /** @var \Drupal\currency\Entity\CurrencyInterface[] $currencies */
     $currencies = parent::buildQuery($ids, $revision_id);
     foreach ($currencies as $currency) {
-      $usages_data = $currency->getUsage();
-      $usage = array();
+      $usages_data = $currency->getUsages();
+      $usages = array();
       foreach ($usages_data as $usage_data) {
-        $usage[] = new Usage($usage_data);
+        $usage = new Usage();
+        $usage->setStart($usage_data['start'])
+          ->setEnd($usage_data['end'])
+          ->setCountryCode($usage_data['countryCode']);
+        $usages[] = $usage;
       }
-      $currency->setUsage($usage);
+      $currency->setUsages($usages);
     }
 
     return $currencies;

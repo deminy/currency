@@ -7,4 +7,4 @@ sign: .د.ب
 subunits: 1000
 label: 'Bahraini dinar'
 usage:
-    - { usageFrom: '1965-10-16', usageTo: '', countryCode: BH }
+    - { start: '1965-10-16', end: '', countryCode: BH }

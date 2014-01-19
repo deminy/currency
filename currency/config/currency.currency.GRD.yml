@@ -6,4 +6,4 @@ sign: ₯
 subunits: 100
 label: 'Greek drachma'
 usage:
-    - { usageFrom: '1954-05-01', usageTo: '2002-02-28', countryCode: GR }
+    - { start: '1954-05-01', end: '2002-02-28', countryCode: GR }

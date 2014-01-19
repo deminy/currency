@@ -7,4 +7,4 @@ sign: S/.
 subunits: 100
 label: 'Peruvian nuevo sol'
 usage:
-    - { usageFrom: '1991-07-01', usageTo: '', countryCode: PE }
+    - { start: '1991-07-01', end: '', countryCode: PE }

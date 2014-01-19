@@ -6,4 +6,4 @@ sign: ZK
 subunits: 100
 label: 'Zambian kwacha'
 usage:
-    - { usageFrom: '1968-01-16', usageTo: '2013-06-30', countryCode: ZM }
+    - { start: '1968-01-16', end: '2013-06-30', countryCode: ZM }

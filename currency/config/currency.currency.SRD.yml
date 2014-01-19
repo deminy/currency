@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Surinamese dollar'
 usage:
-    - { usageFrom: '2004-01-01', usageTo: '', countryCode: SR }
+    - { start: '2004-01-01', end: '', countryCode: SR }

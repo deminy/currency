@@ -6,4 +6,4 @@ sign: ₱
 subunits: 100
 label: 'Philippine peso'
 usage:
-    - { usageFrom: '1946-07-04', usageTo: '', countryCode: PH }
+    - { start: '1946-07-04', end: '', countryCode: PH }

@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Colombian Unidad de Valor Real'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: CO }
+    - { start: '', end: '', countryCode: CO }

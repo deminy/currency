@@ -6,4 +6,4 @@ sign: ریال
 subunits: 100
 label: 'Iranian rial'
 usage:
-    - { usageFrom: '1932-05-13', usageTo: '', countryCode: IR }
+    - { start: '1932-05-13', end: '', countryCode: IR }

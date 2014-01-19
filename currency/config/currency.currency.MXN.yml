@@ -8,4 +8,4 @@ sign: $
 subunits: 100
 label: 'Mexican peso'
 usage:
-    - { usageFrom: '1993-01-01', usageTo: '', countryCode: MX }
+    - { start: '1993-01-01', end: '', countryCode: MX }

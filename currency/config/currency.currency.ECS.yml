@@ -6,4 +6,4 @@ sign: S/.
 subunits: 100
 label: 'Ecuadorian sucre'
 usage:
-    - { usageFrom: '1884-04-01', usageTo: '2000-10-02', countryCode: EC }
+    - { start: '1884-04-01', end: '2000-10-02', countryCode: EC }

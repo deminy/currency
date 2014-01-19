@@ -6,4 +6,4 @@ sign: S/.
 subunits: 100
 label: 'Peruvian sol'
 usage:
-    - { usageFrom: '1863-02-14', usageTo: '1985-02-01', countryCode: PE }
+    - { start: '1863-02-14', end: '1985-02-01', countryCode: PE }

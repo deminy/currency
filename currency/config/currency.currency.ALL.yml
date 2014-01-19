@@ -6,4 +6,4 @@ sign: Lek
 subunits: 100
 label: 'Albanian lek'
 usage:
-    - { usageFrom: '1965-08-16', usageTo: '', countryCode: AL }
+    - { start: '1965-08-16', end: '', countryCode: AL }

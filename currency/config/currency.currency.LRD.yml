@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Liberian dollar'
 usage:
-    - { usageFrom: '1944-01-01', usageTo: '', countryCode: LR }
+    - { start: '1944-01-01', end: '', countryCode: LR }

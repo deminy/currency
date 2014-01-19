@@ -6,4 +6,4 @@ sign: Db
 subunits: 100
 label: 'São Toméan dobra'
 usage:
-    - { usageFrom: '1977-09-08', usageTo: '', countryCode: ST }
+    - { start: '1977-09-08', end: '', countryCode: ST }

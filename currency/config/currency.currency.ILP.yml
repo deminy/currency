@@ -6,5 +6,5 @@ sign: 'ל"י'
 subunits: 1000
 label: 'Israeli lira'
 usage:
-    - { usageFrom: '1948-08-16', usageTo: '1980-02-22', countryCode: IL }
-    - { usageFrom: 1967-06, usageTo: '1980-02-22', countryCode: PS }
+    - { start: '1948-08-16', end: '1980-02-22', countryCode: IL }
+    - { start: 1967-06, end: '1980-02-22', countryCode: PS }

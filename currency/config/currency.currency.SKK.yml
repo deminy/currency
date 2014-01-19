@@ -6,4 +6,4 @@ sign: Sk
 subunits: 10
 label: 'Slovak koruna'
 usage:
-    - { usageFrom: '1992-12-31', usageTo: '2009-01-01', countryCode: SK }
+    - { start: '1992-12-31', end: '2009-01-01', countryCode: SK }

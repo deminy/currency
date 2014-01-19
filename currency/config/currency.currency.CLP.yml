@@ -7,4 +7,4 @@ sign: $
 subunits: 100
 label: 'Chilean peso'
 usage:
-    - { usageFrom: '1975-09-29', usageTo: '', countryCode: CL }
+    - { start: '1975-09-29', end: '', countryCode: CL }

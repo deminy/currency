@@ -6,4 +6,4 @@ sign: ₡
 subunits: 100
 label: 'Costa Rican colon'
 usage:
-    - { usageFrom: '1896-10-26', usageTo: '', countryCode: CR }
+    - { start: '1896-10-26', end: '', countryCode: CR }

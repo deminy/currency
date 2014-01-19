@@ -6,4 +6,4 @@ sign: zł
 subunits: 100
 label: 'Polish złoty'
 usage:
-    - { usageFrom: '1950-10-28', usageTo: '1994-12-31', countryCode: PL }
+    - { start: '1950-10-28', end: '1994-12-31', countryCode: PL }

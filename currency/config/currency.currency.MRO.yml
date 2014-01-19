@@ -6,4 +6,4 @@ sign: UM
 subunits: 5
 label: 'Mauritanian ouguiya'
 usage:
-    - { usageFrom: '1973-06-29', usageTo: '', countryCode: MR }
+    - { start: '1973-06-29', end: '', countryCode: MR }

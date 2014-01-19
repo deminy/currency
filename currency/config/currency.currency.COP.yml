@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Colombian peso'
 usage:
-    - { usageFrom: '1905-01-01', usageTo: '', countryCode: CO }
+    - { start: '1905-01-01', end: '', countryCode: CO }

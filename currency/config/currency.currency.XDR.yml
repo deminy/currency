@@ -6,4 +6,4 @@ sign: SDR
 subunits: 0
 label: 'Special Drawing Right'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: ZZ }
+    - { start: '', end: '', countryCode: ZZ }

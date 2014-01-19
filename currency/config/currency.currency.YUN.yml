@@ -6,6 +6,6 @@ sign: дин
 subunits: 100
 label: 'Yugoslav dinar'
 usage:
-    - { usageFrom: '1990-01-01', usageTo: '1992-07-01', countryCode: BA }
-    - { usageFrom: '1990-01-01', usageTo: '1991-12-23', countryCode: HR }
-    - { usageFrom: '1990-01-01', usageTo: '1992-07-24', countryCode: YU }
+    - { start: '1990-01-01', end: '1992-07-01', countryCode: BA }
+    - { start: '1990-01-01', end: '1991-12-23', countryCode: HR }
+    - { start: '1990-01-01', end: '1992-07-24', countryCode: YU }

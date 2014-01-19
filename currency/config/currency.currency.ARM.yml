@@ -7,4 +7,4 @@ sign: m$n
 subunits: 100
 label: 'Argentine peso moneda nacional'
 usage:
-    - { usageFrom: '1881-11-05', usageTo: '1970-01-01', countryCode: AR }
+    - { start: '1881-11-05', end: '1970-01-01', countryCode: AR }

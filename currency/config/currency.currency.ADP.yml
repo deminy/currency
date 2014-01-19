@@ -6,4 +6,4 @@ sign: ₧
 subunits: 100
 label: 'Andorran peseta'
 usage:
-    - { usageFrom: '1936-01-01', usageTo: '2001-12-31', countryCode: AD }
+    - { start: '1936-01-01', end: '2001-12-31', countryCode: AD }

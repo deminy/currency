@@ -6,4 +6,4 @@ sign: £S
 subunits: 100
 label: 'Syrian pound'
 usage:
-    - { usageFrom: '1948-01-01', usageTo: '', countryCode: SY }
+    - { start: '1948-01-01', end: '', countryCode: SY }

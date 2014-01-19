@@ -7,4 +7,4 @@ sign: лв
 subunits: 100
 label: 'Bulgarian lev'
 usage:
-    - { usageFrom: '1999-07-05', usageTo: '', countryCode: BG }
+    - { start: '1999-07-05', end: '', countryCode: BG }

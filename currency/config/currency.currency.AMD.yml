@@ -6,4 +6,4 @@ sign: ֏
 subunits: 100
 label: 'Armenian dram'
 usage:
-    - { usageFrom: '1993-11-22', usageTo: '', countryCode: AM }
+    - { start: '1993-11-22', end: '', countryCode: AM }

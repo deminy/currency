@@ -6,7 +6,7 @@ sign: дин
 subunits: 100
 label: 'Yugoslav dinar'
 usage:
-    - { usageFrom: '1994-01-24', usageTo: '2002-05-15', countryCode: CS }
-    - { usageFrom: '1994-01-24', usageTo: '2002-05-15', countryCode: ME }
-    - { usageFrom: '1994-01-24', usageTo: '2002-05-15', countryCode: RS }
-    - { usageFrom: '1994-01-24', usageTo: '2002-05-15', countryCode: YU }
+    - { start: '1994-01-24', end: '2002-05-15', countryCode: CS }
+    - { start: '1994-01-24', end: '2002-05-15', countryCode: ME }
+    - { start: '1994-01-24', end: '2002-05-15', countryCode: RS }
+    - { start: '1994-01-24', end: '2002-05-15', countryCode: YU }

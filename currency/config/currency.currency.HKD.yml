@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Hong Kong dollar'
 usage:
-    - { usageFrom: '1895-02-02', usageTo: '', countryCode: HK }
+    - { start: '1895-02-02', end: '', countryCode: HK }

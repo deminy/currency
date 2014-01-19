@@ -24,9 +24,9 @@ currency.currency.*:
         mapping:
           countryCode:
             type: string
-          usageFrom:
+          start:
             type: string
-          usageTo:
+          end:
             type: string
         type: mapping
       type: sequence

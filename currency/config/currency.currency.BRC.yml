@@ -7,4 +7,4 @@ sign: Cz$
 subunits: 100
 label: 'Brazilian cruzado'
 usage:
-    - { usageFrom: '1986-02-28', usageTo: '1989-01-15', countryCode: BR }
+    - { start: '1986-02-28', end: '1989-01-15', countryCode: BR }

@@ -6,4 +6,4 @@ sign: ¥
 subunits: 100
 label: 'Chinese renminbi'
 usage:
-    - { usageFrom: '1953-03-01', usageTo: '', countryCode: CN }
+    - { start: '1953-03-01', end: '', countryCode: CN }

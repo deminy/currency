@@ -6,4 +6,4 @@ sign: ₨
 subunits: 100
 label: 'Mauritian rupee'
 usage:
-    - { usageFrom: '1934-04-01', usageTo: '', countryCode: MU }
+    - { start: '1934-04-01', end: '', countryCode: MU }

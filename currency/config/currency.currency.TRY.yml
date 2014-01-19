@@ -7,4 +7,4 @@ sign: TL
 subunits: 100
 label: 'Turkish lira'
 usage:
-    - { usageFrom: '2005-01-01', usageTo: '', countryCode: TR }
+    - { start: '2005-01-01', end: '', countryCode: TR }

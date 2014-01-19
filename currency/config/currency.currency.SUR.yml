@@ -6,14 +6,14 @@ sign: руб
 subunits: 100
 label: 'Soviet ruble'
 usage:
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: AM }
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: AZ }
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: BY }
-    - { usageFrom: '1961-01-01', usageTo: '1992-06-20', countryCode: EE }
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: GE }
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: KG }
-    - { usageFrom: '1961-01-01', usageTo: '1992-10-01', countryCode: LT }
-    - { usageFrom: '1961-01-01', usageTo: '1992-07-20', countryCode: LV }
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: SU }
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: TM }
-    - { usageFrom: '1961-01-01', usageTo: '1991-12-25', countryCode: UA }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: AM }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: AZ }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: BY }
+    - { start: '1961-01-01', end: '1992-06-20', countryCode: EE }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: GE }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: KG }
+    - { start: '1961-01-01', end: '1992-10-01', countryCode: LT }
+    - { start: '1961-01-01', end: '1992-07-20', countryCode: LV }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: SU }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: TM }
+    - { start: '1961-01-01', end: '1991-12-25', countryCode: UA }

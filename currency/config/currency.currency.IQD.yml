@@ -6,4 +6,4 @@ sign: ع.د
 subunits: 1000
 label: 'Iraqi dinar'
 usage:
-    - { usageFrom: '1931-04-19', usageTo: '', countryCode: IQ }
+    - { start: '1931-04-19', end: '', countryCode: IQ }

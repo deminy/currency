@@ -6,4 +6,4 @@ sign: ﷼
 subunits: 100
 label: 'Saudi riyal'
 usage:
-    - { usageFrom: '1952-10-22', usageTo: '', countryCode: SA }
+    - { start: '1952-10-22', end: '', countryCode: SA }

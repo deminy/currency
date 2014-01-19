@@ -6,13 +6,13 @@ sign: $
 subunits: 100
 label: 'Australian dollar'
 usage:
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: AU }
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: CC }
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: CX }
-    - { usageFrom: '1967-02-16', usageTo: '', countryCode: HM }
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: KI }
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: NF }
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: NR }
-    - { usageFrom: '1966-02-14', usageTo: '1975-09-16', countryCode: PG }
-    - { usageFrom: '1966-02-14', usageTo: '1978-06-30', countryCode: SB }
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: TV }
+    - { start: '1966-02-14', end: '', countryCode: AU }
+    - { start: '1966-02-14', end: '', countryCode: CC }
+    - { start: '1966-02-14', end: '', countryCode: CX }
+    - { start: '1967-02-16', end: '', countryCode: HM }
+    - { start: '1966-02-14', end: '', countryCode: KI }
+    - { start: '1966-02-14', end: '', countryCode: NF }
+    - { start: '1966-02-14', end: '', countryCode: NR }
+    - { start: '1966-02-14', end: '1975-09-16', countryCode: PG }
+    - { start: '1966-02-14', end: '1978-06-30', countryCode: SB }
+    - { start: '1966-02-14', end: '', countryCode: TV }

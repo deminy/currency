@@ -6,4 +6,4 @@ sign: ¤
 subunits: null
 label: 'Spanish peseta'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: ES }
+    - { start: '', end: '', countryCode: ES }

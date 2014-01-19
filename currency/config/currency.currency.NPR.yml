@@ -6,4 +6,4 @@ sign: ₨
 subunits: 100
 label: 'Nepalese rupee'
 usage:
-    - { usageFrom: '1933-01-01', usageTo: '', countryCode: NP }
+    - { start: '1933-01-01', end: '', countryCode: NP }

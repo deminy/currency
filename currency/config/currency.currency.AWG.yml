@@ -6,4 +6,4 @@ sign: Afl.
 subunits: 100
 label: 'Aruban florin'
 usage:
-    - { usageFrom: '1986-01-01', usageTo: '', countryCode: AW }
+    - { start: '1986-01-01', end: '', countryCode: AW }

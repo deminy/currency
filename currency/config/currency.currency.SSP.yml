@@ -7,4 +7,4 @@ sign: ₤
 subunits: 100
 label: 'South Sudanese pound'
 usage:
-    - { usageFrom: '2011-07-18', usageTo: '', countryCode: SS }
+    - { start: '2011-07-18', end: '', countryCode: SS }

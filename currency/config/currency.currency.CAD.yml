@@ -7,4 +7,4 @@ sign: $
 subunits: 100
 label: 'Canadian dollar'
 usage:
-    - { usageFrom: '1858-01-01', usageTo: '', countryCode: CA }
+    - { start: '1858-01-01', end: '', countryCode: CA }

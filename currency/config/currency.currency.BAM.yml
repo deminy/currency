@@ -6,4 +6,4 @@ sign: KM
 subunits: 100
 label: 'Bosnian Herzegovinian convertible mark'
 usage:
-    - { usageFrom: '1995-01-01', usageTo: '', countryCode: BA }
+    - { start: '1995-01-01', end: '', countryCode: BA }

@@ -6,4 +6,4 @@ sign: ₮
 subunits: 100
 label: 'Mongolian tugrik'
 usage:
-    - { usageFrom: '1915-03-01', usageTo: '', countryCode: MN }
+    - { start: '1915-03-01', end: '', countryCode: MN }

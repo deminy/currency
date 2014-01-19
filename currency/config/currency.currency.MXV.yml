@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Mexican Unidad de Inversion'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: MX }
+    - { start: '', end: '', countryCode: MX }

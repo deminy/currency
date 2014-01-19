@@ -6,7 +6,7 @@ sign: R
 subunits: 100
 label: 'South African rand'
 usage:
-    - { usageFrom: '1961-02-14', usageTo: '1976-08-23', countryCode: BW }
-    - { usageFrom: '1961-02-14', usageTo: '', countryCode: LS }
-    - { usageFrom: '1961-02-14', usageTo: '1993-01-01', countryCode: NA }
-    - { usageFrom: '1961-02-14', usageTo: '', countryCode: ZA }
+    - { start: '1961-02-14', end: '1976-08-23', countryCode: BW }
+    - { start: '1961-02-14', end: '', countryCode: LS }
+    - { start: '1961-02-14', end: '1993-01-01', countryCode: NA }
+    - { start: '1961-02-14', end: '', countryCode: ZA }

@@ -6,4 +6,4 @@ sign: MOP$
 subunits: 100
 label: 'Macanese pataca'
 usage:
-    - { usageFrom: '1901-01-01', usageTo: '', countryCode: MO }
+    - { start: '1901-01-01', end: '', countryCode: MO }

@@ -7,6 +7,6 @@ sign: ₤
 subunits: 100
 label: 'Italian lira'
 usage:
-    - { usageFrom: '1862-08-24', usageTo: '2002-02-28', countryCode: IT }
-    - { usageFrom: '1865-12-23', usageTo: '2001-02-28', countryCode: SM }
-    - { usageFrom: '1870-10-19', usageTo: '2002-02-28', countryCode: VA }
+    - { start: '1862-08-24', end: '2002-02-28', countryCode: IT }
+    - { start: '1865-12-23', end: '2001-02-28', countryCode: SM }
+    - { start: '1870-10-19', end: '2002-02-28', countryCode: VA }

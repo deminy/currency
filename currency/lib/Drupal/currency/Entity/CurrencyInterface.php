@@ -146,22 +146,20 @@ interface CurrencyInterface extends ConfigEntityInterface {
   public function getSubunits();
 
   /**
-   * Sets the currency usage.
+   * Sets the currency usages.
    *
-   * @param array
-   *   An array of \Drupal\currency\Usage objects.
+   * @param \Drupal\currency\UsageInterface[]
    *
    * @return \Drupal\currency\Entity\CurrencyInterface
    */
-  public function setUsage(array $usage);
+  public function setUsages(array $usages);
 
   /**
-   * Gets the currency usage.
+   * Gets the currency usages.
    *
-   * @return array
-   *   An array of \Drupal\currency\Usage objects.
+   * @return \Drupal\currency\UsageInterface[]
    */
-  public function getUsage();
+  public function getUsages();
 
   /**
    * Returns the number of decimals.

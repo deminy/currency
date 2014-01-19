@@ -6,4 +6,4 @@ sign: 'РСД'
 subunits: 100
 label: 'Serbian dinar'
 usage:
-    - { usageFrom: '2006-10-25', usageTo: '', countryCode: RS }
+    - { start: '2006-10-25', end: '', countryCode: RS }

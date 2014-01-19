@@ -6,5 +6,5 @@ sign: Ƶ
 subunits: 1000
 label: 'Zaïrean zaïre'
 usage:
-    - { usageFrom: '1971-10-27', usageTo: '1993-11-01', countryCode: CD }
-    - { usageFrom: '1971-10-27', usageTo: '1993-11-01', countryCode: ZR }
+    - { start: '1971-10-27', end: '1993-11-01', countryCode: CD }
+    - { start: '1971-10-27', end: '1993-11-01', countryCode: ZR }

@@ -6,4 +6,4 @@ sign: P
 subunits: 100
 label: 'Botswanan pula'
 usage:
-    - { usageFrom: '1976-08-23', usageTo: '', countryCode: BW }
+    - { start: '1976-08-23', end: '', countryCode: BW }

@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Tongan pa’anga'
 usage:
-    - { usageFrom: '1966-02-14', usageTo: '', countryCode: TO }
+    - { start: '1966-02-14', end: '', countryCode: TO }

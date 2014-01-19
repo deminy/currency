@@ -6,4 +6,4 @@ sign: ر.ق
 subunits: 100
 label: 'Qatari rial'
 usage:
-    - { usageFrom: '1973-05-19', usageTo: '', countryCode: QA }
+    - { start: '1973-05-19', end: '', countryCode: QA }

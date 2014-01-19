@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Malagasy franc'
 usage:
-    - { usageFrom: '1963-07-01', usageTo: '2004-12-31', countryCode: MG }
+    - { start: '1963-07-01', end: '2004-12-31', countryCode: MG }

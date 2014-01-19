@@ -6,4 +6,4 @@ sign: M
 subunits: 100
 label: 'German Democratic Republican mark'
 usage:
-    - { usageFrom: '1948-07-20', usageTo: '1990-10-02', countryCode: DD }
+    - { start: '1948-07-20', end: '1990-10-02', countryCode: DD }

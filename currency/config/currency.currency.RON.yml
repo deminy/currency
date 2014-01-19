@@ -7,4 +7,4 @@ sign: ¤
 subunits: 100
 label: 'Romanian leu'
 usage:
-    - { usageFrom: '2005-07-01', usageTo: '', countryCode: RO }
+    - { start: '2005-07-01', end: '', countryCode: RO }

@@ -6,4 +6,4 @@ sign: Bs
 subunits: 100
 label: 'Bolivian boliviano'
 usage:
-    - { usageFrom: '1987-01-01', usageTo: '', countryCode: BO }
+    - { start: '1987-01-01', end: '', countryCode: BO }

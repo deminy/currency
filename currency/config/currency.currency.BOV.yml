@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Bolivian mvdol'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: BO }
+    - { start: '', end: '', countryCode: BO }

@@ -7,4 +7,4 @@ sign: kn
 subunits: 100
 label: 'Croatian kuna'
 usage:
-    - { usageFrom: '1994-05-30', usageTo: '', countryCode: HR }
+    - { start: '1994-05-30', end: '', countryCode: HR }

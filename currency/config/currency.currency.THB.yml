@@ -6,4 +6,4 @@ sign: ฿
 subunits: 100
 label: 'Thai baht'
 usage:
-    - { usageFrom: '1928-04-15', usageTo: '', countryCode: TH }
+    - { start: '1928-04-15', end: '', countryCode: TH }

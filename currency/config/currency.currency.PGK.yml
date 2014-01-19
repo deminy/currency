@@ -6,4 +6,4 @@ sign: K
 subunits: 100
 label: 'Papua New Guinean kina'
 usage:
-    - { usageFrom: '1975-09-16', usageTo: '', countryCode: PG }
+    - { start: '1975-09-16', end: '', countryCode: PG }

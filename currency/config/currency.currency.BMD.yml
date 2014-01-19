@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Bermudian dollar'
 usage:
-    - { usageFrom: '1970-02-06', usageTo: '', countryCode: BM }
+    - { start: '1970-02-06', end: '', countryCode: BM }

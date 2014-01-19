@@ -7,4 +7,4 @@ sign: USh
 subunits: 100
 label: 'Ugandan shilling'
 usage:
-    - { usageFrom: '1987-05-15', usageTo: '', countryCode: UG }
+    - { start: '1987-05-15', end: '', countryCode: UG }

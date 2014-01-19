@@ -7,4 +7,4 @@ sign: ¤
 subunits: 0
 label: 'Moldovan cupon'
 usage:
-    - { usageFrom: '1992-06-01', usageTo: '1993-11-29', countryCode: MD }
+    - { start: '1992-06-01', end: '1993-11-29', countryCode: MD }

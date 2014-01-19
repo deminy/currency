@@ -6,4 +6,4 @@ sign: G
 subunits: 100
 label: 'Haitian gourde'
 usage:
-    - { usageFrom: '1872-08-26', usageTo: '', countryCode: HT }
+    - { start: '1872-08-26', end: '', countryCode: HT }

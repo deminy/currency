@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Cape Verdean escudo'
 usage:
-    - { usageFrom: '1914-01-01', usageTo: '', countryCode: CV }
+    - { start: '1914-01-01', end: '', countryCode: CV }

@@ -7,4 +7,4 @@ sign: Ar
 subunits: 5
 label: 'Malagasy ariary'
 usage:
-    - { usageFrom: '1983-11-01', usageTo: '', countryCode: MG }
+    - { start: '1983-11-01', end: '', countryCode: MG }

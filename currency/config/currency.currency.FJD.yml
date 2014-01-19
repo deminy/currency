@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Fiji dollar'
 usage:
-    - { usageFrom: '1969-01-13', usageTo: '', countryCode: FJ }
+    - { start: '1969-01-13', end: '', countryCode: FJ }

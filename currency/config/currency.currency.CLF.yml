@@ -6,4 +6,4 @@ sign: ¤
 subunits: 0
 label: 'Chilean Unidad de Fomento'
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: CL }
+    - { start: '', end: '', countryCode: CL }

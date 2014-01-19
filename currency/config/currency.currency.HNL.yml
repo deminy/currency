@@ -6,4 +6,4 @@ sign: L
 subunits: 100
 label: 'Honduran lempira'
 usage:
-    - { usageFrom: '1926-04-03', usageTo: '', countryCode: HN }
+    - { start: '1926-04-03', end: '', countryCode: HN }

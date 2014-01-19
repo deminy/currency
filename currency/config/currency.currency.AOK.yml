@@ -6,4 +6,4 @@ sign: ¤
 subunits: 100
 label: 'Angolan kwanza'
 usage:
-    - { usageFrom: '1977-01-08', usageTo: '1991-03-01', countryCode: AO }
+    - { start: '1977-01-08', end: '1991-03-01', countryCode: AO }

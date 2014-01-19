@@ -6,4 +6,4 @@ sign: $
 subunits: 100
 label: 'Cuban peso'
 usage:
-    - { usageFrom: '1859-01-01', usageTo: '', countryCode: CU }
+    - { start: '1859-01-01', end: '', countryCode: CU }

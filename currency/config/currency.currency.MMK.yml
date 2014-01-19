@@ -6,4 +6,4 @@ sign: K
 subunits: 100
 label: 'Burmese kyat'
 usage:
-    - { usageFrom: '1989-06-18', usageTo: '', countryCode: MM }
+    - { start: '1989-06-18', end: '', countryCode: MM }

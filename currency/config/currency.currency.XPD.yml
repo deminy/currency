@@ -6,4 +6,4 @@ sign: ¤
 subunits: 0
 label: Palladium
 usage:
-    - { usageFrom: '', usageTo: '', countryCode: ZZ }
+    - { start: '', end: '', countryCode: ZZ }

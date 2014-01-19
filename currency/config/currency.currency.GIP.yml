@@ -6,4 +6,4 @@ sign: £
 subunits: 100
 label: 'Gibraltar pound'
 usage:
-    - { usageFrom: '1713-01-01', usageTo: '', countryCode: GI }
+    - { start: '1713-01-01', end: '', countryCode: GI }

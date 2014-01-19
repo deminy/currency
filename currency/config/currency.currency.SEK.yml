@@ -6,5 +6,5 @@ sign: kr
 subunits: 100
 label: 'Swedish krona'
 usage:
-    - { usageFrom: '1873-05-27', usageTo: '1905-06-07', countryCode: NO }
-    - { usageFrom: '1873-05-27', usageTo: '', countryCode: SE }
+    - { start: '1873-05-27', end: '1905-06-07', countryCode: NO }
+    - { start: '1873-05-27', end: '', countryCode: SE }
