@@ -14,14 +14,9 @@ use Drupal\Core\Language\LanguageManager;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 
 /**
- * 
+ * Gets the right locale for the environment.
  */
-class LocaleDelegator {
-
-  /**
-   * The default locale.
-   */
-  const DEFAULT_LOCALE = 'en_US';
+class LocaleDelegator implements LocaleDelegatorInterface {
 
   /**
    * The ISO 3166 code of the country to use for locale loading.
@@ -72,11 +67,7 @@ class LocaleDelegator {
   }
 
   /**
-   * Sets the currency locale to use.
-   *
-   * @param \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale
-   *
-   * @return $this
+   * {@inheritdoc}
    */
   function setCurrencyLocale(CurrencyLocaleInterface $currency_locale) {
     $this->currencyLocale = $currency_locale;
@@ -85,18 +76,7 @@ class LocaleDelegator {
   }
 
   /**
-   * Loads the currency locale to use.
-   *
-   * If no currency locale was explicitly set, it will load one based on the
-   * environment. If no country code is set using self::setCountryCode(), the
-   * "site_default_country" system variable will be used instead. If a
-   * CurrencyLocale could not be loaded using these country sources and
-   * $language->language, the currency locale for en_US will be loaded. This is
-   * consistent with Drupal's default language, which is US English.
-   *
-   * @throws \RuntimeException
-   *
-   * @return \Drupal\currency\Entity\CurrencyLocaleInterface
+   * {@inheritdoc}
    */
   function getCurrencyLocale() {
     if (is_null($this->currencyLocale)) {
@@ -134,10 +114,7 @@ class LocaleDelegator {
   }
 
   /**
-   * Resets the CurrencyLocale that was loaded based on environment
-   * variables.
-   *
-   * @return $this
+   * {@inheritdoc}
    */
   function resetCurrencyLocale() {
     $this->currencyLocale = NULL;
@@ -146,12 +123,7 @@ class LocaleDelegator {
   }
 
   /**
-   * Sets the currency locale's country for this request.
-   *
-   * @param string $country_code
-   *   Any code that is also returned by country_get_list().
-   *
-   * @return $this
+   * {@inheritdoc}
    */
   function setCountryCode($country_code) {
     if ($this->countryCode != $country_code) {
@@ -163,9 +135,7 @@ class LocaleDelegator {
   }
 
   /**
-   * Gets the currency locale's country for this request.
-   *
-   * @return null|string
+   * {@inheritdoc}
    */
   function getCountryCode() {
     return $this->countryCode;

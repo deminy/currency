@@ -12,7 +12,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityAccessController;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\currency\LocaleDelegator;
+use Drupal\currency\LocaleDelegatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,7 +23,7 @@ class CurrencyLocaleAccessController extends EntityAccessController implements E
   /**
    * The currency locale delegator.
    *
-   * @var \Drupal\currency\LocaleDelegator
+   * @var \Drupal\currency\LocaleDelegatorInterface
    */
   protected $localeDelegator;
 
@@ -32,9 +32,9 @@ class CurrencyLocaleAccessController extends EntityAccessController implements E
    *
    * @param \Drupal\Core\Entity\EntityTypeInterface $entity_info
    *   The entity info for the entity type.
-   * @param \Drupal\currency\LocaleDelegator $locale_delegator
+   * @param \Drupal\currency\LocaleDelegatorInterface $locale_delegator
    */
-  public function __construct(EntityTypeInterface $entity_info, LocaleDelegator $locale_delegator) {
+  public function __construct(EntityTypeInterface $entity_info, LocaleDelegatorInterface $locale_delegator) {
     parent::__construct($entity_info);
     $this->localeDelegator = $locale_delegator;
   }

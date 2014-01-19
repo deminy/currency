@@ -10,7 +10,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Entity\CurrencyInterface;
-use Drupal\currency\LocaleDelegator;
+use Drupal\currency\LocaleDelegatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -42,10 +42,10 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
    *   The plugin implementation definition.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
    *   The translation manager.
-   * @param \Drupal\currency\LocaleDelegator $locale_delegator
+   * @param \Drupal\currency\LocaleDelegatorInterface $locale_delegator
    *   The locale delegator.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $translation_manager, LocaleDelegator $locale_delegator) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $translation_manager, LocaleDelegatorInterface $locale_delegator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->localeDelegator = $locale_delegator;
     $this->translationManager = $translation_manager;

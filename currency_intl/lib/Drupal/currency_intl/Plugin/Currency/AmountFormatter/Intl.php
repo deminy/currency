@@ -9,7 +9,7 @@ namespace Drupal\currency_intl\Plugin\Currency\AmountFormatter;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\currency\Entity\CurrencyInterface;
-use Drupal\currency\LocaleDelegator;
+use Drupal\currency\LocaleDelegatorInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -40,10 +40,10 @@ class Intl extends PluginBase implements AmountFormatterInterface, ContainerFact
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\currency\LocaleDelegator $locale_delegator
+   * @param \Drupal\currency\LocaleDelegatorInterface $locale_delegator
    *   The locale delegator.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, LocaleDelegator $locale_delegator) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, LocaleDelegatorInterface $locale_delegator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->localeDelegator = $locale_delegator;
   }

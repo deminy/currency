@@ -25,7 +25,7 @@ class IntlUnitTest extends UnitTestCase {
   /**
    * The locale delegator used for testing.
    *
-   * @var \Drupal\currency\LocaleDelegator|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\LocaleDelegatorInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $localeDelegator;
 
@@ -48,9 +48,7 @@ class IntlUnitTest extends UnitTestCase {
     $plugin_id = $this->randomName();
     $plugin_definition = array();
 
-    $this->localeDelegator = $this->getMockBuilder('\Drupal\currency\LocaleDelegator')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->localeDelegator = $this->getMock('\Drupal\currency\LocaleDelegatorInterface');
 
     $this->formatter = new \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl($configuration, $plugin_id, $plugin_definition, $this->localeDelegator);
   }

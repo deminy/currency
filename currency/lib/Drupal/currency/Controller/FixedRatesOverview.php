@@ -11,7 +11,7 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
-use Drupal\currency\LocaleDelegator;
+use Drupal\currency\LocaleDelegatorInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -30,7 +30,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
   /**
    * The locale delegator.
    *
-   * @var \Drupal\currency\LocaleDelegator
+   * @var \Drupal\currency\LocaleDelegatorInterface
    */
   protected $localeDelegator;
 
@@ -55,12 +55,12 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
    *   The config factory.
    * @param \Drupal\Core\Routing\UrlGeneratorInterface $url_generator
    *   The URL generator.
-   * @param \Drupal\currency\LocaleDelegator $locale_delegator
+   * @param \Drupal\currency\LocaleDelegatorInterface $locale_delegator
    *   The currency locale delegator.
    * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager
    *   The currency exchanger plugin manager.
    */
-  public function __construct(ConfigFactory $config_factory, UrlGeneratorInterface $url_generator, LocaleDelegator $locale_delegator, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
+  public function __construct(ConfigFactory $config_factory, UrlGeneratorInterface $url_generator, LocaleDelegatorInterface $locale_delegator, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
     $this->configFactory = $config_factory;
     $this->localeDelegator = $locale_delegator;
     $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;

@@ -37,7 +37,7 @@ class CurrencyLocaleWebTest extends WebTestBase {
     $this->assertText('Dutch (Netherlands)');
     $this->assertLinkByHref('admin/config/regional/currency-localization/locale/nl_NL');
     $this->assertLinkByHref('admin/config/regional/currency-localization/locale/nl_NL/delete');
-    /** @var \Drupal\currency\LocaleDelegator $locale_delegator */
+    /** @var \Drupal\currency\LocaleDelegatorInterface $locale_delegator */
     $locale_delegator = \Drupal::service('currency.locale_delegator');
     // Make sure that there is an edit link, but no delete link for the default
     // currency locale.
