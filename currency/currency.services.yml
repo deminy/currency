@@ -15,3 +15,10 @@ services:
     class: Drupal\currency\Input
   currency.math:
     class: Drupal\currency\Math
+  currency.hook.element_info:
+    class: Drupal\currency\Hook\ElementInfo
+  currency.hook.menu:
+    class: Drupal\currency\Hook\Menu
+  currency.hook.permission:
+    class: Drupal\currency\Hook\Permission
+    arguments: ['@string_translation']
