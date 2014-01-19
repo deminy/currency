@@ -8,9 +8,6 @@
 namespace Drupal\currency_test;
 
 use Drupal\Core\Form\FormInterface;
-use Drupal\payment\Element\PaymentLineItemsInput;
-use Drupal\payment\Generate;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a form to test the currency_sign element.
@@ -56,6 +53,6 @@ class CurrencySignElement implements FormInterface {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
-    $value = \Drupal::state()->set('currency_test_currency_sign_element', $form_state['values']['container']['sign']);
+    \Drupal::state()->set('currency_test_currency_sign_element', $form_state['values']['container']['sign']);
   }
 }

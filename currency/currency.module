@@ -5,7 +5,6 @@
  * Provides currency information and allows users to add custom currencies.
  */
 
-use Drupal\currency\Input;
 use Drupal\currency\Entity\Currency;
 use Drupal\Component\Utility\NestedArray;
 
