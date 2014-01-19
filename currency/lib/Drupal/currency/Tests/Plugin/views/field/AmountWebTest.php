@@ -48,24 +48,24 @@ class AmountWebTest extends WebTestBase {
     $values = array(
       array(
         // The amount_currency_code_definition field is rounded.
-        'amount_currency_code_definition' => '€123.46',
-        'amount_currency_code_field_definition' => '€123.456',
-        'amount_currency_code_field_table_definition' => '€123.456',
-        'amount_currency_undefined' => '¤123.456',
+        'amount_currency_code_definition' => 'EUR 123.46',
+        'amount_currency_code_field_definition' => 'EUR 123.456',
+        'amount_currency_code_field_table_definition' => 'EUR 123.456',
+        'amount_currency_undefined' => 'XXX 123.456',
       ),
       array(
         // The amount_currency_code_definition field is rounded.
-        'amount_currency_code_definition' => '€123.46',
-        'amount_currency_code_field_definition' => '$123.456',
-        'amount_currency_code_field_table_definition' => '$123.456',
-        'amount_currency_undefined' => '¤123.456',
+        'amount_currency_code_definition' => 'EUR 123.46',
+        'amount_currency_code_field_definition' => 'USD 123.456',
+        'amount_currency_code_field_table_definition' => 'USD 123.456',
+        'amount_currency_undefined' => 'XXX 123.456',
       ),
       array(
         // The amount_currency_code_definition field is rounded.
-        'amount_currency_code_definition' => '€123.46',
-        'amount_currency_code_field_definition' => '₴123.456',
-        'amount_currency_code_field_table_definition' => '₴123.456',
-        'amount_currency_undefined' => '¤123.456',
+        'amount_currency_code_definition' => 'EUR 123.46',
+        'amount_currency_code_field_definition' => 'UAH 123.456',
+        'amount_currency_code_field_table_definition' => 'UAH 123.456',
+        'amount_currency_undefined' => 'XXX 123.456',
       ),
     );
     foreach ($values as $row => $row_values) {

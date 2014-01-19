@@ -113,20 +113,26 @@ class CurrencyLocaleFormController extends EntityFormController {
    * {@inheritdoc}.
    */
   public function save(array $form, array &$form_state) {
-    $currency = $this->getEntity($form_state);
-    $currency->save();
+    $currency_locale = $this->getEntity($form_state);
+    $currency_locale->save();
     drupal_set_message(t('The currency locale %label has been saved.', array(
-      '%label' => $currency->label(),
+      '%label' => $currency_locale->label(),
     )));
-    $form_state['redirect'] = 'admin/config/regional/currency_locale';
+    $form_state['redirect_route'] = array(
+      'route_name' => 'currency_locale_list',
+    );
   }
 
   /**
    * {@inheritdoc}.
    */
   public function delete(array $form, array &$form_state) {
-    $currency = $this->getEntity($form_state);
-    $uri = $currency->uri();
-    $form_state['redirect'] = $uri['path'] .= '/delete';
+    $currency_locale = $this->getEntity($form_state);
+    $form_state['redirect_route'] = array(
+      'route_name' => 'currency_locale_delete',
+      'route_parameters' => array(
+        'currency_locale' => $currency_locale,
+      ),
+    );
   }
 }

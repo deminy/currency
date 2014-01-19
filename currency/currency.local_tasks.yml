@@ -1,0 +1,9 @@
+currency.amount_formatting:
+  base_route: currency.amount_formatting
+  route_name: currency.amount_formatting
+  title: Formatting
+
+currency.currency_locale.list:
+  base_route: currency.amount_formatting
+  route_name: currency_locale_list
+  title: Locales

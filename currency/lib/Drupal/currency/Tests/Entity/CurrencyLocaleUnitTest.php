@@ -15,6 +15,13 @@ use Drupal\simpletest\DrupalUnitTestBase;
  */
 class CurrencyLocaleUnitTest extends DrupalUnitTestBase {
 
+  /**
+   * The currency locale under test.
+   *
+   * @var \Drupal\currency\Entity\CurrencyLocaleInterface
+   */
+  protected $currencyLocale;
+
   public static $modules = array('currency');
 
   /**
@@ -33,41 +40,11 @@ class CurrencyLocaleUnitTest extends DrupalUnitTestBase {
    */
   function setUp() {
     parent::setUp();
-    $this->currency_locale = entity_create('currency_locale', array())
-      ->setLocale('nl', 'NL')
+    $this->currencyLocale = entity_create('currency_locale', array());
+    $this->currencyLocale->setLocale('nl', 'NL')
       ->setPattern('¤-#,##0.00¤¤')
       ->setDecimalSeparator('@')
       ->setGroupingSeparator('%');
-  }
-
-  /**
-   * Test format().
-   */
-  function testFormat() {
-    // ICU, the C library that PHP's Intl extension uses for formatting, is
-    // known to have trouble formatting combinations of currencies and locales
-    // that it does not know. In order to make sure this works, test such a
-    // combination, such as the Ukrainian Hryvnia (UAH) with Dutch, Netherlands
-    // (nl_NL).
-    $currency = entity_create('currency', array())
-      ->setSign('₴')
-      ->setCurrencyCode('UAH')
-      ->setCurrencyNumber('980');
-    $results = array(
-      // An amount with no decimals should be formatted without decimals and
-      // decimal separator.
-      '123' => '₴-123UAH',
-      // An amount with three groupings should have two grouping separators. All
-      // of its three decimals should be formatted, even if the currency only
-      // has two.
-      '1234567.890' => '₴-1%234%567@890UAH',
-      // An amount with only one decimal should be formatted with only one.
-      '.3' => '₴-0@3UAH',
-    );
-    foreach ($results as $amount=> $expected) {
-      $formatted = $this->currency_locale->formatAmount($currency, $amount);
-      $this->assertEqual($formatted, $expected);
-    }
   }
 
   /**
@@ -75,8 +52,8 @@ class CurrencyLocaleUnitTest extends DrupalUnitTestBase {
    */
   function testGetDecimalSeparator() {
     $separator = $this->randomName();
-    $this->assertTrue($this->currency_locale->setDecimalSeparator($separator) instanceof CurrencyLocaleInterface);
-    $this->assertIdentical($this->currency_locale->getDecimalSeparator(), $separator);
+    $this->assertTrue($this->currencyLocale->setDecimalSeparator($separator) instanceof CurrencyLocaleInterface);
+    $this->assertIdentical($this->currencyLocale->getDecimalSeparator(), $separator);
   }
 
   /**
@@ -84,18 +61,18 @@ class CurrencyLocaleUnitTest extends DrupalUnitTestBase {
    */
   function testGetGroupingSeparator() {
     $separator = $this->randomName();
-    $this->assertTrue($this->currency_locale->setGroupingSeparator($separator) instanceof CurrencyLocaleInterface);
-    $this->assertIdentical($this->currency_locale->getGroupingSeparator(), $separator);
+    $this->assertTrue($this->currencyLocale->setGroupingSeparator($separator) instanceof CurrencyLocaleInterface);
+    $this->assertIdentical($this->currencyLocale->getGroupingSeparator(), $separator);
   }
 
   /**
    * Test setLocale(), id(), getLanguageCode(), and getCountryCode().
    */
   function testId() {
-    $this->assertTrue($this->currency_locale->setLocale('nL', 'Nl') instanceof CurrencyLocaleInterface);
-    $this->assertIdentical($this->currency_locale->id(), 'nl_NL');
-    $this->assertIdentical($this->currency_locale->getLanguageCode(), 'nl');
-    $this->assertIdentical($this->currency_locale->getCountryCode(), 'NL');
+    $this->assertTrue($this->currencyLocale->setLocale('nL', 'Nl') instanceof CurrencyLocaleInterface);
+    $this->assertIdentical($this->currencyLocale->id(), 'nl_NL');
+    $this->assertIdentical($this->currencyLocale->getLanguageCode(), 'nl');
+    $this->assertIdentical($this->currencyLocale->getCountryCode(), 'NL');
   }
 
   /**
@@ -103,7 +80,7 @@ class CurrencyLocaleUnitTest extends DrupalUnitTestBase {
    */
   function testGetPattern() {
     $pattern = $this->randomName();
-    $this->assertTrue($this->currency_locale->setPattern($pattern) instanceof CurrencyLocaleInterface);
-    $this->assertIdentical($this->currency_locale->getPattern(), $pattern);
+    $this->assertTrue($this->currencyLocale->setPattern($pattern) instanceof CurrencyLocaleInterface);
+    $this->assertIdentical($this->currencyLocale->getPattern(), $pattern);
   }
 }

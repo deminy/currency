@@ -32,10 +32,10 @@ class FilterCurrencyLocalize extends WebTestBase {
    */
   function testCurrencyLocalze() {
     $tokens_valid = array(
-      '[currency-localize:EUR:100]' => '€100.00',
-      '[currency-localize:EUR:100,7654]' => '€100.77',
-      '[currency-localize:EUR:1.99]' => '€1.99',
-      '[currency-localize:EUR:2,99]' => '€2.99',
+      '[currency-localize:EUR:100]' => 'EUR 100.00',
+      '[currency-localize:EUR:100,7654]' => 'EUR 100.77',
+      '[currency-localize:EUR:1.99]' => 'EUR 1.99',
+      '[currency-localize:EUR:2,99]' => 'EUR 2.99',
     );
     $tokens_invalid = array(
       // Missing arguments.

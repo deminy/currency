@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Entity\CurrencyLocaleDeleteFormWebTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyLocaleDeleteFormControllerWebTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests Drupal\currency\CurrencyLocaleDeleteForm
  */
-class CurrencyLocaleDeleteFormWebTest extends WebTestBase {
+class CurrencyLocaleDeleteFormControllerWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -37,7 +37,7 @@ class CurrencyLocaleDeleteFormWebTest extends WebTestBase {
       'locale' => 'zz_ZZ',
     ));
     $currency_locale->save();
-    $this->drupalPostForm('admin/config/regional/currency_locale/' . $currency_locale->id() . '/delete', array(), t('Delete'));
+    $this->drupalPostForm('admin/config/regional/currency-localization/locale/' . $currency_locale->id() . '/delete', array(), t('Delete'));
     $this->assertFalse(entity_load_unchanged('currency_locale', $currency_locale->id()));
   }
 }

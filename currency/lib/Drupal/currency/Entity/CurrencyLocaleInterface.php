@@ -105,14 +105,4 @@ interface CurrencyLocaleInterface extends ConfigEntityInterface {
    * @return string
    */
   public function getPattern();
-
-  /**
-   * Formats an amount.
-   *
-   * @param \Drupal\currency\Entity\CurrencyInterface $currency
-   *   The currency the amount is in.
-   * @param string $amount
-   *   A numeric string.
-   */
-  public function formatAmount(CurrencyInterface $currency, $amount);
 }

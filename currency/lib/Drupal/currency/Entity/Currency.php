@@ -31,8 +31,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   },
  *   fieldable = FALSE,
  *   id = "currency",
- *   label = @Translation("Currency"),
- *   module = "currency"
+ *   label = @Translation("Currency")
  * )
  */
 class Currency extends ConfigEntityBase implements CurrencyInterface {
@@ -332,16 +331,16 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
       }
     }
 
-    return $this->getLocaleDelegator()->getCurrencyLocale()->formatAmount($this, $amount);
+    return $this->getCurrencyAmountFormatterManager()->getDefaultPlugin()->formatAmount($this, $amount);
   }
 
   /**
-   * Gets the locale delegator.
+   * Gets the currency amount formatter manager.
    *
-   * @return \Drupal\currency\LocaleDelegator
+   * @return \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface
    */
-  protected function getLocaleDelegator() {
-    return \Drupal::service('currency.locale_delegator');
+  protected function getCurrencyAmountFormatterManager() {
+    return \Drupal::service('plugin.manager.currency.amount_formatter');
   }
 
   /**

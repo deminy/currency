@@ -32,16 +32,16 @@ function currency_menu() {
     'title' => 'Delete a currency',
   );
 
-  // Currency currency locales.
-  $items['admin/config/regional/currency_locale'] = array(
+  // Currency locales.
+  $items['admin/config/regional/currency-localization/locale'] = array(
     'route_name' => 'currency_locale_list',
     'title' => 'Currency formatting',
   );
-  $items['admin/config/regional/currency_locale/%/edit'] = array(
+  $items['admin/config/regional/currency-localization/locale/%/edit'] = array(
     'route_name' => 'currency_locale_edit',
     'title' => 'Edit a currency locale',
   );
-  $items['admin/config/regional/currency_locale/%/delete'] = array(
+  $items['admin/config/regional/currency-localization/locale/%/delete'] = array(
     'route_name' => 'currency_locale_delete',
     'title' => 'Delete a currency locale',
   );
@@ -60,6 +60,13 @@ function currency_menu() {
   $items['admin/config/regional/currency-exchange/fixed/%/%'] = array(
     'route_name' => 'currency_exchange_rate_provider_fixed_rates_edit',
     'title' => 'Configure an exchange rate',
+  );
+
+  // Amount formatting.
+  $items['admin/config/regional/currency-localization'] = array(
+    'description' => 'Configure amount formatting for different locales.',
+    'title' => 'Currency amount formatting',
+    'route_name' => 'currency.amount_formatting',
   );
 
   return $items;
@@ -103,6 +110,9 @@ function currency_element_info() {
  * Implements hook_permission().
  */
 function currency_permission() {
+  $permissions['currency.amount_formatting.administer'] = array(
+    'title' => t('Administer amount formatting'),
+  );
   $permissions['currency.exchanger_delegator.administer'] = array(
     'title' => t('Administer currency exchangers'),
   );

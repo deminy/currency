@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file Contains
+ * \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface.
+ */
+
+namespace Drupal\currency\Plugin\Currency\AmountFormatter;
+
+use Drupal\Component\Plugin\PluginManagerInterface;
+
+/**
+ * Defines an amount formatter plugin manager.
+ */
+interface AmountFormatterManagerInterface extends PluginManagerInterface {
+
+  const FALLBACK_PLUGIN_ID = 'currency_basic';
+
+  const PREFERRED_PLUGIN_ID = 'currency_intl';
+
+  /**
+   * Gets the default plugin ID.
+   *
+   * @return string
+   */
+  public function getDefaultPluginId();
+
+  /**
+   * Sets the default plugin ID.
+   *
+   * @param string $plugin_id
+   *
+   * @return $this
+   */
+  public function setDefaultPluginId($plugin_id);
+
+  /**
+   * Gets the default formatter.
+   *
+   * @return \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface
+   */
+  public function getDefaultPlugin();
+
+  /**
+   * Creates an amount formatter.
+   *
+   * @param string $plugin_id
+   *   The id of the plugin being instantiated.
+   * @param array $configuration
+   *   An array of configuration relevant to the plugin instance.
+   *
+   * @return \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface
+   */
+  public function createInstance($plugin_id, array $configuration = array());
+
+}

@@ -73,29 +73,37 @@ currency_currency_disable:
 
 # Currency currency locale entities.
 currency_locale_list:
-  path: '/admin/config/regional/currency_locale'
+  path: '/admin/config/regional/currency-localization/locale'
   defaults:
     _entity_list: 'currency_locale'
   requirements:
     _permission: 'currency.currency_locale.view'
 
 currency_locale_add:
-  path: '/admin/config/regional/currency_locale/add'
+  path: '/admin/config/regional/currency-localization/locale/add'
   defaults:
     _content: '\Drupal\currency\Controller\CurrencyLocale::add'
   requirements:
     _entity_create_access: 'currency_locale'
 
 currency_locale_edit:
-  path: '/admin/config/regional/currency_locale/{currency_locale}/edit'
+  path: '/admin/config/regional/currency-localization/locale/{currency_locale}'
   defaults:
     _entity_form: 'currency_locale.default'
   requirements:
     _entity_access: 'currency_locale.update'
 
 currency_locale_delete:
-  path: '/admin/config/regional/currency_locale/{currency_locale}/delete'
+  path: '/admin/config/regional/currency-localization/locale/{currency_locale}/delete'
   defaults:
     _entity_form: 'currency_locale.delete'
   requirements:
     _entity_access: 'currency_locale.delete'
+
+# Currency amount formatting.
+currency.amount_formatting:
+  path: '/admin/config/regional/currency-localization'
+  defaults:
+    _form: '\Drupal\currency\Controller\AmountFormattingForm'
+  requirements:
+    _permission: 'currency.amount_formatting.administer'

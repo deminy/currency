@@ -33,7 +33,11 @@ use Drupal\Core\Language\LanguageManager;
  *   fieldable = FALSE,
  *   id = "currency_locale",
  *   label = @Translation("Currency currency locale"),
- *   module = "currency"
+ *   links = {
+ *     "canonical" = "currency_locale_edit",
+ *     "create-form" = "currency_locale_add",
+ *     "edit-form" = "currency_locale_edit"
+ *   }
  * )
  */
 class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface {
@@ -161,39 +165,6 @@ class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface
     ), array(
       'langcode' => $langcode,
     ));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function uri() {
-    $uri = array(
-      'options' => array(
-        'entity' => $this,
-        'entity_type' => $this->entityType,
-      ),
-      'path' => 'admin/config/regional/currency_locale/' . $this->id(),
-    );
-
-    return $uri;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function formatAmount(CurrencyInterface $currency, $amount) {
-    $decimal_position = strpos($amount, '.');
-    $number_of_decimals = $decimal_position !== FALSE ? strlen(substr($amount, $decimal_position + 1)) : 0;
-    $formatter = new \NumberFormatter($this->id(), \NumberFormatter::PATTERN_DECIMAL, $this->getPattern());
-    $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $number_of_decimals);
-    $formatter->setSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL, $this->getDecimalSeparator());
-    $formatter->setSymbol(\NumberFormatter::MONETARY_SEPARATOR_SYMBOL, $this->getDecimalSeparator());
-    $formatter->setSymbol(\NumberFormatter::GROUPING_SEPARATOR_SYMBOL, $this->getGroupingSeparator());
-    $formatter->setSymbol(\NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL, $this->getGroupingSeparator());
-    $formatter->setSymbol(\NumberFormatter::CURRENCY_SYMBOL, $currency->getSign());
-    $formatter->setSymbol(\NumberFormatter::INTL_CURRENCY_SYMBOL, $currency->id());
-
-    return $formatted = $formatter->format($amount);
   }
 
   /**

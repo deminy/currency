@@ -1,4 +1,7 @@
 services:
+  plugin.manager.currency.amount_formatter:
+    class: Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager
+    arguments: ['@container.namespaces', '@cache.cache', '@language_manager', '@module_handler', '@config.factory']
   plugin.manager.currency.exchange_rate_provider:
     class: Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManager
     arguments: ['@container.namespaces', '@cache.cache', '@language_manager', '@module_handler']

@@ -1,0 +1,6 @@
+name: Currency Intl
+description: "Formats amounts according the locales of users using the PHP Intl extension."
+core: 8.x
+type: module
+dependencies:
+  - currency

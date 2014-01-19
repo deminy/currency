@@ -54,14 +54,14 @@ class CurrencyUnitTest extends DrupalUnitTestBase {
     // Do not install configuration in during setUp(), as not to decrease the
     // performance of the other test methods.
     $this->installConfig(array('currency'));
-    $this->currency->setSign('€');
+    $this->currency->setCurrencyCode('BLA');
     $this->currency->setSubunits(100);
     $amount = 12345.6789;
     $formatted = $this->currency->formatAmount($amount, TRUE);
-    $formatted_expected = '€12,345.68';
+    $formatted_expected = 'BLA 12,345.68';
     $this->assertEqual($formatted, $formatted_expected);
     $formatted = $this->currency->formatAmount($amount, FALSE);
-    $formatted_expected = '€12,345.6789';
+    $formatted_expected = 'BLA 12,345.6789';
     $this->assertEqual($formatted, $formatted_expected);
   }
 

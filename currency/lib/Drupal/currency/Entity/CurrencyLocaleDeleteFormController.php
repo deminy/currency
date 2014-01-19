@@ -55,6 +55,6 @@ class CurrencyLocaleDeleteFormController extends EntityConfirmFormBase {
     drupal_set_message(t('The currency locale %label has been deleted.', array(
       '%label' => $currency_locale->label(),
     )));
-    $form_state['redirect'] = $this->getCancelPath();
+    $form_state['redirect_route'] = $this->getCancelRoute();
   }
 }
