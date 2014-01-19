@@ -33,7 +33,7 @@ class FixedRatesUI extends WebTestBase {
   function testUI() {
     $plugin = \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_fixed_rates');
 
-    $user = $this->drupalCreateUser(array('currency.exchanger_fixed_rates.administer'));
+    $user = $this->drupalCreateUser(array('currency.exchange_rate_provider.fixed_rates.administer'));
     $this->drupalLogin($user);
     $path = 'admin/config/regional/currency-exchange/fixed';
 
