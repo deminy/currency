@@ -54,7 +54,7 @@ class Menu {
     );
     $items['admin/config/regional/currency-exchange/fixed'] = array(
       'description' => 'Administer fixed currency exchange rates.',
-      'route_name' => 'currency_exchanger_fixed_rates_overview',
+      'route_name' => 'currency.exchange_rate_provider.fixed_rates.overview',
       'title' => 'Fixed rates',
     );
     $items['admin/config/regional/currency-exchange/fixed/%/%'] = array(
