@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Controller\FixedRatesForm.
  */
 
-namespace Drupal\currency\Controller\Exchanger;
+namespace Drupal\currency\Controller;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
