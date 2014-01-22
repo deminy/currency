@@ -443,7 +443,7 @@ function currency_form_currency_locale_process(array $element, array &$form_stat
  * Implements form validate callback for a currency_locale element.
  */
 function currency_form_currency_locale_validate(array $element, array &$form_state) {
-  $locale = $element['#value']['locale']['language_code'] . '_' . $locale = $element['#value']['locale']['country_code'];
+  $locale = $element['locale']['language_code']['#value'] . '_' . $element['locale']['country_code']['#value'];
   form_set_value($element, $locale, $form_state);
 }
 
