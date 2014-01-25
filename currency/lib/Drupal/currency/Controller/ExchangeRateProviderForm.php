@@ -144,7 +144,7 @@ class ExchangeRateProviderForm extends FormBase implements ContainerInjectionInt
    * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
-    uasort($form_state['values']['exchangers'], 'drupal_sort_weight');
+    uasort($form_state['values']['exchangers'], '\Drupal\Component\Utility\SortArray::sortByWeightElement');
     $configuration = array();
     foreach ($form_state['values']['exchangers'] as $plugin_name => $exchanger_configuration) {
       $configuration[$plugin_name] = (bool) $exchanger_configuration['enabled'];
