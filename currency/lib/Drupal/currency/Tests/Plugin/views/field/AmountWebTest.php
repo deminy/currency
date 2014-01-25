@@ -14,12 +14,15 @@ use Drupal\simpletest\WebTestBase;
  */
 class AmountWebTest extends WebTestBase {
 
+  /**
+   * {@inheritdoc}
+   */
   public static $modules = array('currency_test', 'views_ui');
 
   /**
    * {@inheritdoc}
    */
-  static function getInfo() {
+  public static function getInfo() {
     return array(
       'description' => '',
       'name' => '\Drupal\currency\Plugin\views\field\Amount web test',
@@ -36,7 +39,7 @@ class AmountWebTest extends WebTestBase {
     // Test view creation/editing.
     $account = $this->drupalCreateUser(array('administer views'));
     $this->drupalLogin($account);
-    $this->drupalPostForm('admin/structure/views/nojs/config-item/' . $view_id . '/default/field/amount_currency_code_definition', array(
+    $this->drupalPostForm('admin/structure/views/nojs/handler/' . $view_id . '/default/field/amount_currency_code_definition', array(
       'options[currency_round]' => TRUE,
     ), t('Apply'));
     $this->drupalPostForm('admin/structure/views/view/' . $view_id, array(), t('Save'));

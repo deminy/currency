@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\currency\Tests\Plugin\views\filter\CurrencyTest.
+ * Contains Drupal\currency\Tests\Plugin\views\filter\CurrencyWebTest.
  */
 
 namespace Drupal\currency\Tests\Plugin\views\filter;
@@ -13,19 +13,21 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests Drupal\currency\Plugin\views\filter\Currency.
  */
-class CurrencyTest extends WebTestBase {
+class CurrencyWebTest extends WebTestBase {
 
+  /**
+   * {@inheritdoc}
+   */
   public static $modules = array('currency_test', 'views_ui');
 
   /**
    * {@inheritdoc}
    */
-  static function getInfo() {
+  public static function getInfo() {
     return array(
       'description' => '',
-      'name' => 'Drupal\currency\Plugin\views\filter\Currency',
+      'name' => '\Drupal\currency\Plugin\views\filter\Currency web test',
       'group' => 'Currency',
-      'dependencies' => array('views'),
     );
   }
 
@@ -41,7 +43,7 @@ class CurrencyTest extends WebTestBase {
 
     $account = $this->drupalCreateUser(array('administer views'));
     $this->drupalLogin($account);
-    $this->drupalGet('admin/structure/views/nojs/config-item/' . $view_id . '/default/filter/currency');
+    $this->drupalGet('admin/structure/views/nojs/handler/' . $view_id . '/default/filter/currency');
     foreach (Currency::options() as $option) {
       $this->assertText($option);
     }
