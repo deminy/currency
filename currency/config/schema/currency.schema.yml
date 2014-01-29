@@ -1,0 +1,73 @@
+currency.currency.*:
+  label: Currency
+  type: mapping
+  mapping:
+    alternativeSigns:
+      type: sequence
+      label: Alternative signs
+      sequence:
+        - type: string
+          label: Alternative sign
+    exchangeRates:
+      type: sequence
+      label: Historical exchange reates
+      sequence:
+        - type: string
+          label: Historical exchange rates
+    currencyCode:
+      label: Currency code
+      type: string
+    currencyNumber:
+      label: Currency number
+      type: string
+    label:
+      label: Label
+      type: label
+    sign:
+      label: Currency sign
+      type: string
+    subunits:
+      label: Number of subunits
+      type: integer
+    status:
+      label: Status
+      type: boolean
+    usage:
+      type: sequence
+      label: Usages
+      sequence:
+        - type: mapping
+          label: Usage
+          mapping:
+            countryCode:
+              label: Country code
+              type: string
+            start:
+              label: Start date
+              type: string
+            end:
+              label: End date
+              type: string
+    uuid:
+      label: Universally Unique ID
+      type: string
+
+currency.currency_locale.*:
+  label: Currency locale
+  type: mapping
+  mapping:
+    decimalSeparator:
+      label: Decimal separator
+      type: string
+    groupingSeparator:
+      label: Grouping separator
+      type: string
+    locale:
+      label: Locale
+      type: string
+    pattern:
+      label: Unicode CLDR number pattern
+      type: string
+    uuid:
+      label: Universally Unique ID
+      type: string

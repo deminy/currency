@@ -31,7 +31,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   },
  *   fieldable = FALSE,
  *   id = "currency",
- *   label = @Translation("Currency")
+ *   label = @Translation("Currency"),
+ *   links = {
+ *     "canonical" = "currency.currency.edit",
+ *     "create-form" = "currency.currency.add",
+ *     "edit-form" = "currency.currency.edit"
+ *   }
  * )
  */
 class Currency extends ConfigEntityBase implements CurrencyInterface {
@@ -252,21 +257,6 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    */
   public function id() {
     return $this->currencyCode;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function uri() {
-    $uri = array(
-      'options' => array(
-        'entity' => $this,
-        'entity_type' => $this->entityType,
-      ),
-      'path' => 'admin/config/regional/currency/' . $this->id(),
-    );
-
-    return $uri;
   }
 
   /**
