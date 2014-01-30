@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency_exchange_rate_db_table\Tests\ModuleInstallUninstall.
+ * Contains \Drupal\currency_exchange_rate_db_table\Tests\ModuleInstallUninstallWebTest.
  */
 
 namespace Drupal\currency_exchange_rate_db_table\Tests;
@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests module installation and uninstallation.
  */
-class ModuleInstallUninstall extends WebTestBase {
+class ModuleInstallUninstallWebTest extends WebTestBase {
 
   /**
    * The module handler.

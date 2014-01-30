@@ -7,9 +7,11 @@
 
 namespace Drupal\currency\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityManager;
 use Drupal\Core\Routing\UrlGeneratorInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Entity\CurrencyInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 /**
  * Returns responses for Currency entity UI routes.
  */
-class Currency implements ContainerInjectionInterface {
+class Currency extends ControllerBase implements ContainerInjectionInterface {
 
   /**
    * The entity manager.
@@ -38,11 +40,14 @@ class Currency implements ContainerInjectionInterface {
    *
    * @param \Drupal\Core\Entity\EntityManager $entity_manager
    *   The entity manager.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
+   *   The translation manager.
    * @param \Drupal\Core\Routing\UrlGeneratorInterface $url_generator
    *   The URL generator.
    */
-  public function __construct(EntityManager $entity_manager, UrlGeneratorInterface $url_generator) {
+  public function __construct(EntityManager $entity_manager, TranslationInterface $translation_manager, UrlGeneratorInterface $url_generator) {
     $this->entityManager = $entity_manager;
+    $this->translationManager = $translation_manager;
     $this->urlGenerator = $url_generator;
   }
 
@@ -50,7 +55,7 @@ class Currency implements ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity.manager'), $container->get('url_generator'));
+    return new static($container->get('entity.manager'), $container->get('string_translation'), $container->get('url_generator'));
   }
 
   /**
@@ -95,5 +100,18 @@ class Currency implements ContainerInjectionInterface {
     return new RedirectResponse($this->urlGenerator->generateFromRoute('currency.currency.list', array(
       'absolute' => TRUE,
     )));
+  }
+
+  /**
+   * Returns the title for a currency edit page.
+   *
+   * @param \Drupal\currency\Entity\CurrencyInterface $currency
+   *
+   * @return string
+   */
+  public function editTitle(CurrencyInterface $currency) {
+    return $this->t('Edit @label', array(
+      '@label' => $currency->label(),
+    ));
   }
 }

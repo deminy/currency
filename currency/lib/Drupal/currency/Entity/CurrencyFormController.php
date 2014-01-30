@@ -123,7 +123,12 @@ class CurrencyFormController extends EntityFormController {
    */
   public function delete(array $form, array &$form_state) {
     $currency = $this->getEntity($form_state);
-    $form_state['redirect'] = 'admin/config/regional/currency/' . $currency->id() . '/delete';
+    $form_state['redirect_route'] = array(
+      'route_name' => 'currency.currency.delete',
+      'route_parameters' => array(
+        'currency' => $currency->id(),
+      ),
+    );
   }
 
   /**

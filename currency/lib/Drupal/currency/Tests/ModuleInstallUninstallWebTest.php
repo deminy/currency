@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\ModuleInstallUninstall.
+ * Contains \Drupal\currency\Tests\ModuleInstallUninstallWebTest.
  */
 
 namespace Drupal\currency\Tests;
@@ -12,8 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests module installation and uninstallation.
  */
-class
-ModuleInstallUninstall extends WebTestBase {
+class ModuleInstallUninstallWebTest extends WebTestBase {
 
   /**
    * The module handler.

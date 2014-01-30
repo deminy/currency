@@ -2,23 +2,23 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Test\Hook\MenuUnitTest.
+ * Contains \Drupal\currency\Test\Hook\MenuLinkDefaultsUnitTest.
  */
 
 namespace Drupal\currency\Tests\Hook;
 
-use Drupal\currency\Hook\Menu;
+use Drupal\currency\Hook\MenuLinkDefaults;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Hook\Menu.
+ * @coversDefaultClass \Drupal\currency\Hook\MenuLinkDefaults.
  */
-class MenuUnitTest extends UnitTestCase {
+class MenuLinkDefaultsUnitTest extends UnitTestCase {
 
   /**
    * The service under test.
    *
-   * @var \Drupal\currency\Hook\Menu.
+   * @var \Drupal\currency\Hook\MenuLinkDefaults.
    */
   protected $service;
 
@@ -28,7 +28,7 @@ class MenuUnitTest extends UnitTestCase {
   public static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\Hook\Menu unit test',
+      'name' => '\Drupal\currency\Hook\MenuLinkDefaults unit test',
       'group' => 'Currency',
     );
   }
@@ -37,11 +37,11 @@ class MenuUnitTest extends UnitTestCase {
    * {@inheritdoc
    */
   public function setUp() {
-    $this->service = new Menu();
+    $this->service = new MenuLinkDefaults();
   }
 
   /**
-   * @covers \Drupal\currency\Hook\Menu::invoke()
+   * @covers ::invoke
    */
   public function testInvoke() {
     $items = $this->service->invoke();
@@ -49,7 +49,7 @@ class MenuUnitTest extends UnitTestCase {
     foreach ($items as $item) {
       $this->assertInternalType('array', $item);
       $this->assertArrayHasKey('route_name', $item);
-      $this->assertArrayHasKey('title', $item);
+      $this->assertArrayHasKey('link_title', $item);
     }
   }
 }

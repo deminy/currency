@@ -76,7 +76,7 @@ class CurrencyFormControllerWebTest extends WebTestBase {
     }
 
     // Edit and save an existing currency.
-    $path = 'admin/config/regional/currency/ABC/edit';
+    $path = 'admin/config/regional/currency/ABC';
     $this->drupalPostForm($path, array(), t('Save'));
     $this->assertUrl('admin/config/regional/currency');
   }

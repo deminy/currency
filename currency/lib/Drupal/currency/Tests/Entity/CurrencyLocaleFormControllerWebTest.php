@@ -33,7 +33,7 @@ class CurrencyLocaleFormControllerWebTest extends WebTestBase {
   function testUI() {
     $user = $this->drupalCreateUser(array('currency.currency_locale.view', 'currency.currency_locale.create', 'currency.currency_locale.update', 'currency.currency_locale.delete'));
     $this->drupalLogin($user);
-    $path = 'admin/config/regional/currency-localization/locale/add';
+    $path = 'admin/config/regional/currency-formatting/locale/add';
 
     // Test valid values.
     $valid_values = array(
@@ -48,8 +48,8 @@ class CurrencyLocaleFormControllerWebTest extends WebTestBase {
     $this->assertTrue($currency);
 
     // Edit and save an existing currency.
-    $path = 'admin/config/regional/currency-localization/locale/nl_UA';
+    $path = 'admin/config/regional/currency-formatting/locale/nl_UA';
     $this->drupalPostForm($path, array(), t('Save'));
-    $this->assertUrl('admin/config/regional/currency-localization/locale');
+    $this->assertUrl('admin/config/regional/currency-formatting/locale');
   }
 }
