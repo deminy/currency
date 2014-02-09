@@ -5,5 +5,5 @@ currencyNumber: '948'
 sign: ¤
 subunits: 100
 label: 'WIR franc'
-usage:
+usages:
     - { start: '', end: '', countryCode: CH }

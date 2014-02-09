@@ -5,7 +5,7 @@ currencyNumber: '036'
 sign: $
 subunits: 100
 label: 'Australian dollar'
-usage:
+usages:
     - { start: '1966-02-14', end: '', countryCode: AU }
     - { start: '1966-02-14', end: '', countryCode: CC }
     - { start: '1966-02-14', end: '', countryCode: CX }

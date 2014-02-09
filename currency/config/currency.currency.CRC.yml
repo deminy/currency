@@ -5,5 +5,5 @@ currencyNumber: '188'
 sign: ₡
 subunits: 100
 label: 'Costa Rican colon'
-usage:
+usages:
     - { start: '1896-10-26', end: '', countryCode: CR }

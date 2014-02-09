@@ -6,5 +6,5 @@ currencyNumber: '974'
 sign: Br
 subunits: 100
 label: 'Belarussian ruble'
-usage:
+usages:
     - { start: '2000-01-01', end: '', countryCode: BY }

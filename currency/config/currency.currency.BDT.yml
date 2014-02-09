@@ -5,5 +5,5 @@ currencyNumber: '050'
 sign: ৳
 subunits: 100
 label: 'Bangladeshi taka'
-usage:
+usages:
     - { start: '1972-01-01', end: '', countryCode: BD }

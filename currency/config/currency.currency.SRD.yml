@@ -5,5 +5,5 @@ currencyNumber: '968'
 sign: $
 subunits: 100
 label: 'Surinamese dollar'
-usage:
+usages:
     - { start: '2004-01-01', end: '', countryCode: SR }

@@ -5,5 +5,5 @@ currencyNumber: '292'
 sign: £
 subunits: 100
 label: 'Gibraltar pound'
-usage:
+usages:
     - { start: '1713-01-01', end: '', countryCode: GI }

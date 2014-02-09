@@ -5,5 +5,5 @@ currencyNumber: '894'
 sign: ZK
 subunits: 100
 label: 'Zambian kwacha'
-usage:
+usages:
     - { start: '1968-01-16', end: '2013-06-30', countryCode: ZM }

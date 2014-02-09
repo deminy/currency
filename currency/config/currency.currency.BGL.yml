@@ -5,5 +5,5 @@ currencyNumber: '100'
 sign: лв
 subunits: 100
 label: 'Bulgarian lev'
-usage:
+usages:
     - { start: '1962-01-01', end: '1999-07-05', countryCode: BG }

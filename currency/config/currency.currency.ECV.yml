@@ -5,5 +5,5 @@ currencyNumber: '983'
 sign: ¤
 subunits: 0
 label: 'Ecuadorian Unidad de Valor Constante'
-usage:
+usages:
     - { start: '', end: '', countryCode: EC }

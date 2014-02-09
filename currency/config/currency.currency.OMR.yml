@@ -5,5 +5,5 @@ currencyNumber: '512'
 sign: ر.ع.
 subunits: 1000
 label: 'Omani rial'
-usage:
+usages:
     - { start: '1972-11-11', end: '', countryCode: OM }

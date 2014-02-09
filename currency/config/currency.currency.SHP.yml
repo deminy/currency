@@ -5,5 +5,5 @@ currencyNumber: '654'
 sign: £
 subunits: 100
 label: 'Saint Helena pound'
-usage:
+usages:
     - { start: '1917-02-15', end: '', countryCode: SH }

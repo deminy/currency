@@ -5,5 +5,5 @@ currencyNumber: '748'
 sign: L
 subunits: 100
 label: 'Swazi lilangeni'
-usage:
+usages:
     - { start: '1974-09-06', end: '', countryCode: SZ }

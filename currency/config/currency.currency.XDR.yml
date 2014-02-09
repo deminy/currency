@@ -5,5 +5,5 @@ currencyNumber: '960'
 sign: SDR
 subunits: 0
 label: 'Special Drawing Right'
-usage:
+usages:
     - { start: '', end: '', countryCode: ZZ }

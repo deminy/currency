@@ -5,5 +5,5 @@ currencyNumber: '404'
 sign: KSh
 subunits: 100
 label: 'Kenyan shilling'
-usage:
+usages:
     - { start: '1966-09-14', end: '', countryCode: KE }

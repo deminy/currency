@@ -5,5 +5,5 @@ currencyNumber: '242'
 sign: $
 subunits: 100
 label: 'Fiji dollar'
-usage:
+usages:
     - { start: '1969-01-13', end: '', countryCode: FJ }

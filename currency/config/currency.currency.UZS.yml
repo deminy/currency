@@ -5,5 +5,5 @@ currencyNumber: '860'
 sign: ¤
 subunits: 100
 label: 'Uzbekistani sum'
-usage:
+usages:
     - { start: '1994-07-01', end: '', countryCode: UZ }

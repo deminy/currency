@@ -5,5 +5,5 @@ currencyNumber: null
 sign: $
 subunits: 100
 label: 'Rhodesian dollar'
-usage:
+usages:
     - { start: '1970-02-17', end: '1980-04-18', countryCode: ZW }

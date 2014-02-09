@@ -5,5 +5,5 @@ currencyNumber: '762'
 sign: ¤
 subunits: 100
 label: 'Tajikistani ruble'
-usage:
+usages:
     - { start: '1995-05-10', end: '2000-10-25', countryCode: TJ }

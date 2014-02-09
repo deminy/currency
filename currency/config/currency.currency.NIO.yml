@@ -5,5 +5,5 @@ currencyNumber: '558'
 sign: $
 subunits: 100
 label: 'Nicaraguan córdoba oro'
-usage:
+usages:
     - { start: '1991-04-30', end: '', countryCode: NI }

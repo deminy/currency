@@ -5,5 +5,5 @@ currencyNumber: '040'
 sign: S
 subunits: 100
 label: 'Austrian schilling'
-usage:
+usages:
     - { start: '1947-12-04', end: '2002-02-28', countryCode: AT }

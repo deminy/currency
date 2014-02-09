@@ -6,5 +6,5 @@ currencyNumber: null
 sign: m$n
 subunits: 100
 label: 'Argentine peso moneda nacional'
-usage:
+usages:
     - { start: '1881-11-05', end: '1970-01-01', countryCode: AR }

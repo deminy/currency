@@ -28,7 +28,7 @@ currencyNumber: '978'
 sign: €
 subunits: 100
 label: euro
-usage:
+usages:
     - { start: '1999-01-01', end: '', countryCode: AD }
     - { start: '1999-01-01', end: '', countryCode: AT }
     - { start: '1999-01-01', end: '', countryCode: AX }

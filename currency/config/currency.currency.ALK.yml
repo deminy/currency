@@ -5,5 +5,5 @@ currencyNumber: null
 sign: ¤
 subunits: 100
 label: 'Albanian lek'
-usage:
+usages:
     - { start: '1946-11-01', end: '1965-08-16', countryCode: AL }

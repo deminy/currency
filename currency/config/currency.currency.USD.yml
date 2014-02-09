@@ -6,7 +6,7 @@ currencyNumber: '840'
 sign: $
 subunits: 100
 label: 'U.S. dollar'
-usage:
+usages:
     - { start: '1904-07-16', end: '', countryCode: AS }
     - { start: '1899-01-01', end: '1959-01-01', countryCode: CU }
     - { start: '1905-06-21', end: '1947-10-01', countryCode: DO }

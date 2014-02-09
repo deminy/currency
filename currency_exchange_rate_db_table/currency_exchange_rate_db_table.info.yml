@@ -1,6 +1,0 @@
-name: Currency exchange rate database table
-description: Provides a database table in which currency exchange rates are cached and exposed to Views.
-core: 8.x
-dependencies:
-  - currency
-type: module

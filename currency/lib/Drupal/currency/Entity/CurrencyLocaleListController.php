@@ -36,15 +36,4 @@ class CurrencyLocaleListController extends ConfigEntityListController {
 
     return $row;
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOperations(EntityInterface $entity) {
-    $operations = parent::getOperations($entity);
-    unset($operations['enable']);
-    unset($operations['disable']);
-
-    return $operations;
-  }
 }

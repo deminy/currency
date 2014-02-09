@@ -5,5 +5,5 @@ currencyNumber: '936'
 sign: GH¢
 subunits: 100
 label: 'Ghanaian cedi'
-usage:
+usages:
     - { start: '2007-07-03', end: '', countryCode: GH }

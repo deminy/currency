@@ -5,5 +5,5 @@ currencyNumber: '764'
 sign: ฿
 subunits: 100
 label: 'Thai baht'
-usage:
+usages:
     - { start: '1928-04-15', end: '', countryCode: TH }

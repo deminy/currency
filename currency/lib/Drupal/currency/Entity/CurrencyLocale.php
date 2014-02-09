@@ -36,7 +36,8 @@ use Drupal\Core\Language\LanguageManager;
  *   links = {
  *     "canonical" = "currency.currency_locale.edit",
  *     "create-form" = "currency.currency_locale.add",
- *     "edit-form" = "currency.currency_locale.edit"
+ *     "edit-form" = "currency.currency_locale.edit",
+ *     "delete-form" = "currency.currency_locale.delete"
  *   }
  * )
  */

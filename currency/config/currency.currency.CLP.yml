@@ -6,5 +6,5 @@ currencyNumber: '152'
 sign: $
 subunits: 100
 label: 'Chilean peso'
-usage:
+usages:
     - { start: '1975-09-29', end: '', countryCode: CL }

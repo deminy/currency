@@ -6,5 +6,5 @@ currencyNumber: '986'
 sign: R$
 subunits: 100
 label: 'Brazilian real'
-usage:
+usages:
     - { start: '1994-07-01', end: '', countryCode: BR }

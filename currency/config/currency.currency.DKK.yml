@@ -5,7 +5,7 @@ currencyNumber: '208'
 sign: kr.
 subunits: 100
 label: 'Danish krone'
-usage:
+usages:
     - { start: '1873-05-27', end: '', countryCode: DK }
     - { start: '1948-01-01', end: '', countryCode: FO }
     - { start: '1873-05-27', end: '', countryCode: GL }

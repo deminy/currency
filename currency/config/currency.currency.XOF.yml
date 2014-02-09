@@ -5,7 +5,7 @@ currencyNumber: '952'
 sign: ₣
 subunits: 100
 label: 'West African franc'
-usage:
+usages:
     - { start: '1984-08-04', end: '', countryCode: BF }
     - { start: '1975-11-30', end: '', countryCode: BJ }
     - { start: '1958-12-04', end: '', countryCode: CI }

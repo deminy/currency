@@ -5,7 +5,7 @@ currencyNumber: '250'
 sign: ₣
 subunits: 100
 label: 'French franc'
-usage:
+usages:
     - { start: '1960-01-01', end: '2002-02-17', countryCode: AD }
     - { start: '1960-01-01', end: '2002-02-17', countryCode: BL }
     - { start: '1960-01-01', end: '2002-02-17', countryCode: FR }

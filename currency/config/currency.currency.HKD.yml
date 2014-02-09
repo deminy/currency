@@ -5,5 +5,5 @@ currencyNumber: '344'
 sign: $
 subunits: 100
 label: 'Hong Kong dollar'
-usage:
+usages:
     - { start: '1895-02-02', end: '', countryCode: HK }

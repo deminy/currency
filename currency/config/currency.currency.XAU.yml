@@ -5,5 +5,5 @@ currencyNumber: '959'
 sign: ¤
 subunits: 0
 label: Gold
-usage:
+usages:
     - { start: '', end: '', countryCode: ZZ }

@@ -5,7 +5,7 @@ currencyNumber: '724'
 sign: ₧
 subunits: 100
 label: 'Spanish peseta'
-usage:
+usages:
     - { start: '1873-01-01', end: '2002-02-28', countryCode: AD }
     - { start: '1868-10-19', end: '2002-02-28', countryCode: ES }
     - { start: '1800-01-01', end: '1898-12-10', countryCode: PR }

@@ -5,5 +5,5 @@ currencyNumber: '600'
 sign: ₲
 subunits: 100
 label: 'Paraguayan guaraní'
-usage:
+usages:
     - { start: '1943-11-01', end: '', countryCode: PY }

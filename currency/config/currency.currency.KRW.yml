@@ -6,5 +6,5 @@ currencyNumber: '410'
 sign: ₩
 subunits: 100
 label: 'South Korean won'
-usage:
+usages:
     - { start: '1962-06-10', end: '', countryCode: KR }

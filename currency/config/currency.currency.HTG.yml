@@ -5,5 +5,5 @@ currencyNumber: '332'
 sign: G
 subunits: 100
 label: 'Haitian gourde'
-usage:
+usages:
     - { start: '1872-08-26', end: '', countryCode: HT }

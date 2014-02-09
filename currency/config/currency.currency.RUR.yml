@@ -6,7 +6,7 @@ currencyNumber: '810'
 sign: ''
 subunits: 100
 label: 'Russian ruble'
-usage:
+usages:
     - { start: '1991-12-25', end: '1993-11-22', countryCode: AM }
     - { start: '1991-12-25', end: '1994-01-01', countryCode: AZ }
     - { start: '1991-12-25', end: '1994-11-08', countryCode: BY }

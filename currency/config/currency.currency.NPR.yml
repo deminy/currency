@@ -5,5 +5,5 @@ currencyNumber: '524'
 sign: ₨
 subunits: 100
 label: 'Nepalese rupee'
-usage:
+usages:
     - { start: '1933-01-01', end: '', countryCode: NP }

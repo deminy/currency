@@ -5,5 +5,5 @@ currencyNumber: '934'
 sign: m
 subunits: 100
 label: 'Turkmenistani manat'
-usage:
+usages:
     - { start: '2009-01-01', end: '', countryCode: TM }

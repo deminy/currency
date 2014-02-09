@@ -5,5 +5,5 @@ currencyNumber: '238'
 sign: £
 subunits: 100
 label: 'Falkland Islands Pound'
-usage:
+usages:
     - { start: '1901-01-01', end: '', countryCode: FK }

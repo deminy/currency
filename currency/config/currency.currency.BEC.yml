@@ -5,5 +5,5 @@ currencyNumber: '993'
 sign: ¤
 subunits: null
 label: 'Belgian convertible franc'
-usage:
+usages:
     - { start: '', end: '2001-12-31', countryCode: BE }

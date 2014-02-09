@@ -5,5 +5,5 @@ currencyNumber: '270'
 sign: D
 subunits: 100
 label: 'Gambian dalasi'
-usage:
+usages:
     - { start: '1971-07-01', end: '', countryCode: GM }

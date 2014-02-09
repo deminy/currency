@@ -32,7 +32,7 @@ currency.currency.*:
     status:
       label: Status
       type: boolean
-    usage:
+    usages:
       type: sequence
       label: Usages
       sequence:

@@ -5,5 +5,5 @@ currencyNumber: '340'
 sign: L
 subunits: 100
 label: 'Honduran lempira'
-usage:
+usages:
     - { start: '1926-04-03', end: '', countryCode: HN }

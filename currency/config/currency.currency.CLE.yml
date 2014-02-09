@@ -5,5 +5,5 @@ currencyNumber: null
 sign: Eº
 subunits: 100
 label: 'Chilean escudo'
-usage:
+usages:
     - { start: '1960-01-01', end: '1975-09-29', countryCode: CL }

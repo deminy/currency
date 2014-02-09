@@ -49,7 +49,11 @@ class MenuLinkDefaultsUnitTest extends UnitTestCase {
     foreach ($items as $item) {
       $this->assertInternalType('array', $item);
       $this->assertArrayHasKey('route_name', $item);
+      $this->assertInternalType('string', $item['route_name']);
       $this->assertArrayHasKey('link_title', $item);
+      $this->assertInternalType('string', $item['link_title']);
+      $this->assertArrayHasKey('parent', $item);
+      $this->assertInternalType('string', $item['parent']);
     }
   }
 }

@@ -5,5 +5,5 @@ currencyNumber: '736'
 sign: ₤
 subunits: 1000
 label: 'Sudanese pound'
-usage:
+usages:
     - { start: '1957-04-08', end: '1998-06-01', countryCode: SD }

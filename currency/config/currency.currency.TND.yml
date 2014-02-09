@@ -5,5 +5,5 @@ currencyNumber: '788'
 sign: د.ت
 subunits: 1000
 label: 'Tunisian dinar'
-usage:
+usages:
     - { start: '1958-11-01', end: '', countryCode: TN }

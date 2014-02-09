@@ -8,6 +8,7 @@
 namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\currency\Usage;
 
 /**
  * Defines a currency entity class.
@@ -21,7 +22,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *       "delete" = "Drupal\currency\Entity\CurrencyDeleteFormController"
  *     },
  *     "list" = "Drupal\currency\Entity\CurrencyListController",
- *     "storage" = "Drupal\currency\Entity\CurrencyStorageController",
+ *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
  *   },
  *   entity_keys = {
  *     "id" = "currencyCode",
@@ -35,7 +36,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   links = {
  *     "canonical" = "currency.currency.edit",
  *     "create-form" = "currency.currency.add",
- *     "edit-form" = "currency.currency.edit"
+ *     "edit-form" = "currency.currency.edit",
+ *     "delete-form" = "currency.currency.delete"
  *   }
  * )
  */
@@ -119,6 +121,17 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    * {@inheritdoc}
    */
   public function __construct(array $values, $entity_type) {
+    if (isset($values['usages'])) {
+      $usages_data = $values['usages'];
+      $values['usages'] = array();
+      foreach ($usages_data as $usage_data) {
+        $usage = new Usage();
+        $usage->setStart($usage_data['start'])
+          ->setEnd($usage_data['end'])
+          ->setCountryCode($usage_data['countryCode']);
+        $values['usages'][] = $usage;
+      }
+    }
     parent::__construct($values, $entity_type);
   }
 
@@ -396,9 +409,9 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     $properties['sign'] = $this->getSign();
     $properties['subunits'] = $this->getSubunits();
     $properties['status'] = $this->status();
-    $properties['usage'] = array();
+    $properties['usages'] = array();
     foreach ($this->getUsages() as $usage) {
-      $properties['usage'][] = array(
+      $properties['usages'][] = array(
         'start' => $usage->getStart(),
         'end' => $usage->getEnd(),
         'countryCode' => $usage->getCountryCode(),

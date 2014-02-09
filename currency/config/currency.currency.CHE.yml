@@ -5,5 +5,5 @@ currencyNumber: '947'
 sign: ¤
 subunits: 100
 label: 'WIR euro'
-usage:
+usages:
     - { start: '', end: '', countryCode: CH }

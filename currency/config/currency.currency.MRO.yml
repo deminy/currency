@@ -5,5 +5,5 @@ currencyNumber: '478'
 sign: UM
 subunits: 5
 label: 'Mauritanian ouguiya'
-usage:
+usages:
     - { start: '1973-06-29', end: '', countryCode: MR }

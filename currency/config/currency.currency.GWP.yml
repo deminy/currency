@@ -5,5 +5,5 @@ currencyNumber: '624'
 sign: ¤
 subunits: 100
 label: 'Guinean peso'
-usage:
+usages:
     - { start: '1976-02-28', end: '1997-03-31', countryCode: GW }

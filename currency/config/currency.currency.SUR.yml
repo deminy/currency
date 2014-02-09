@@ -5,7 +5,7 @@ currencyNumber: null
 sign: руб
 subunits: 100
 label: 'Soviet ruble'
-usage:
+usages:
     - { start: '1961-01-01', end: '1991-12-25', countryCode: AM }
     - { start: '1961-01-01', end: '1991-12-25', countryCode: AZ }
     - { start: '1961-01-01', end: '1991-12-25', countryCode: BY }

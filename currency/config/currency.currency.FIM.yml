@@ -5,5 +5,5 @@ currencyNumber: '246'
 sign: mk
 subunits: 100
 label: 'Finnish markka'
-usage:
+usages:
     - { start: '1963-01-01', end: '2002-02-28', countryCode: FI }

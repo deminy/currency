@@ -6,5 +6,5 @@ currencyNumber: '980'
 sign: ₴
 subunits: 100
 label: 'Ukrainian hryvnia'
-usage:
+usages:
     - { start: '1996-09-02', end: '', countryCode: UA }

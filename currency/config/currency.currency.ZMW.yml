@@ -5,5 +5,5 @@ currencyNumber: '967'
 sign: ZK
 subunits: 100
 label: 'Zambian kwacha'
-usage:
+usages:
     - { start: '2013-01-01', end: '', countryCode: ZM }

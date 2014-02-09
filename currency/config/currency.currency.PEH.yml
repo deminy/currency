@@ -5,5 +5,5 @@ currencyNumber: null
 sign: S/.
 subunits: 100
 label: 'Peruvian sol'
-usage:
+usages:
     - { start: '1863-02-14', end: '1985-02-01', countryCode: PE }

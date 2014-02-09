@@ -5,5 +5,5 @@ currencyNumber: '834'
 sign: ''
 subunits: 100
 label: 'Tanzanian Shilling'
-usage:
+usages:
     - { start: '1966-06-14', end: '', countryCode: TZ }

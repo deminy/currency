@@ -6,5 +6,5 @@ currencyNumber: '943'
 sign: MT
 subunits: 100
 label: 'Mozambican metical'
-usage:
+usages:
     - { start: '2006-07-01', end: '', countryCode: MZ }

@@ -5,5 +5,5 @@ currencyNumber: '704'
 sign: ₫
 subunits: 100
 label: 'Vietnamese dong'
-usage:
+usages:
     - { start: '1985-09-14', end: '', countryCode: VN }

@@ -5,7 +5,7 @@ currencyNumber: null
 sign: дин
 subunits: 100
 label: 'Yugoslav dinar'
-usage:
+usages:
     - { start: '1990-01-01', end: '1992-07-01', countryCode: BA }
     - { start: '1990-01-01', end: '1991-12-23', countryCode: HR }
     - { start: '1990-01-01', end: '1992-07-24', countryCode: YU }

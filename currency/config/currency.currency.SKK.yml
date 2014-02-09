@@ -5,5 +5,5 @@ currencyNumber: '703'
 sign: Sk
 subunits: 10
 label: 'Slovak koruna'
-usage:
+usages:
     - { start: '1992-12-31', end: '2009-01-01', countryCode: SK }

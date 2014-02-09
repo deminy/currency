@@ -5,5 +5,5 @@ currencyNumber: '944'
 sign: m
 subunits: 100
 label: 'Azerbaijani manat'
-usage:
+usages:
     - { start: '2006-01-01', end: '', countryCode: AZ }

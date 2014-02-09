@@ -5,5 +5,5 @@ currencyNumber: '882'
 sign: WS$
 subunits: 100
 label: 'Samoan tala'
-usage:
+usages:
     - { start: '1967-07-10', end: '', countryCode: WS }

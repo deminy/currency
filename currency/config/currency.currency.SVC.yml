@@ -5,5 +5,5 @@ currencyNumber: '222'
 sign: ₡
 subunits: 100
 label: 'Salvadoran colon'
-usage:
+usages:
     - { start: '1919-11-11', end: '2001-01-01', countryCode: SV }

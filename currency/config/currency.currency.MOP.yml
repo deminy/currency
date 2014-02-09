@@ -5,5 +5,5 @@ currencyNumber: '446'
 sign: MOP$
 subunits: 100
 label: 'Macanese pataca'
-usage:
+usages:
     - { start: '1901-01-01', end: '', countryCode: MO }

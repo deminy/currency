@@ -5,5 +5,5 @@ currencyNumber: '566'
 sign: ₦
 subunits: 100
 label: 'Nigerian naira'
-usage:
+usages:
     - { start: '1973-01-01', end: '', countryCode: NG }

@@ -5,5 +5,5 @@ currencyNumber: '998'
 sign: ¤
 subunits: 100
 label: 'U.S. dollar (same day)'
-usage:
+usages:
     - { start: '', end: '', countryCode: US }

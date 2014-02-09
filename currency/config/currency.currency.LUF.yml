@@ -5,5 +5,5 @@ currencyNumber: '442'
 sign: fr.
 subunits: 10
 label: 'Luxembourg franc'
-usage:
+usages:
     - { start: '1944-09-4', end: '2002-02-28', countryCode: LU }

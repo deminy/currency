@@ -5,5 +5,5 @@ currencyNumber: '192'
 sign: $
 subunits: 100
 label: 'Cuban peso'
-usage:
+usages:
     - { start: '1859-01-01', end: '', countryCode: CU }

@@ -5,5 +5,5 @@ currencyNumber: '963'
 sign: ¤
 subunits: 0
 label: 'Testing currency'
-usage:
+usages:
     - { start: '', end: '', countryCode: ZZ }

@@ -5,5 +5,5 @@ currencyNumber: '368'
 sign: ع.د
 subunits: 1000
 label: 'Iraqi dinar'
-usage:
+usages:
     - { start: '1931-04-19', end: '', countryCode: IQ }

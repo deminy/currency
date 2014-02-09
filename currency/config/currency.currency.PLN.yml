@@ -6,5 +6,5 @@ currencyNumber: '985'
 sign: zł
 subunits: 100
 label: 'Polish złoty'
-usage:
+usages:
     - { start: '1995-01-01', end: '', countryCode: PL }

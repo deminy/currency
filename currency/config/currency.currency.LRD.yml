@@ -5,5 +5,5 @@ currencyNumber: '430'
 sign: $
 subunits: 100
 label: 'Liberian dollar'
-usage:
+usages:
     - { start: '1944-01-01', end: '', countryCode: LR }

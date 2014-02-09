@@ -5,5 +5,5 @@ currencyNumber: '984'
 sign: ¤
 subunits: 100
 label: 'Bolivian mvdol'
-usage:
+usages:
     - { start: '', end: '', countryCode: BO }

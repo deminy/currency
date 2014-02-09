@@ -5,5 +5,5 @@ currencyNumber: '064'
 sign: Nu.
 subunits: 100
 label: 'Buthanese ngultrum'
-usage:
+usages:
     - { start: '1974-04-16', end: '', countryCode: BT }

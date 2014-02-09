@@ -5,5 +5,5 @@ currencyNumber: '364'
 sign: ریال
 subunits: 100
 label: 'Iranian rial'
-usage:
+usages:
     - { start: '1932-05-13', end: '', countryCode: IR }

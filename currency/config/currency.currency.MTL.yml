@@ -5,5 +5,5 @@ currencyNumber: '470'
 sign: ₤
 subunits: 100
 label: 'Maltese lira'
-usage:
+usages:
     - { start: '1968-06-07', end: '2008-01-31', countryCode: MT }

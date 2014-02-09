@@ -5,5 +5,5 @@ currencyNumber: '678'
 sign: Db
 subunits: 100
 label: 'São Toméan dobra'
-usage:
+usages:
     - { start: '1977-09-08', end: '', countryCode: ST }

@@ -19,7 +19,7 @@ class ElementInfoUnitTest extends UnitTestCase {
   /**
    * The service under test.
    *
-   * @var \Drupal\currency\Hook\ElementInfo.
+   * @var \Drupal\currency\Hook\ElementInfo
    */
   protected $service;
 

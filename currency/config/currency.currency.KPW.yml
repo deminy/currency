@@ -5,5 +5,5 @@ currencyNumber: '408'
 sign: ₩
 subunits: 100
 label: 'North Korean won'
-usage:
+usages:
     - { start: '1959-04-17', end: '', countryCode: KP }

@@ -5,5 +5,5 @@ currencyNumber: '548'
 sign: VT
 subunits: 0
 label: 'Vanuatu vatu'
-usage:
+usages:
     - { start: '1981-01-01', end: '', countryCode: VU }

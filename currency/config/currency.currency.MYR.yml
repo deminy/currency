@@ -5,7 +5,7 @@ currencyNumber: '458'
 sign: RM
 subunits: 100
 label: 'Malaysian ringgit'
-usage:
+usages:
     - { start: '1963-09-16', end: '1967-06-12', countryCode: BN }
     - { start: '1963-09-16', end: '', countryCode: MY }
     - { start: '1963-09-16', end: '1967-06-12', countryCode: SG }

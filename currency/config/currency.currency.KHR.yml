@@ -5,5 +5,5 @@ currencyNumber: '116'
 sign: ៛
 subunits: 100
 label: 'Cambodian riel'
-usage:
+usages:
     - { start: '1980-03-20', end: '', countryCode: KH }

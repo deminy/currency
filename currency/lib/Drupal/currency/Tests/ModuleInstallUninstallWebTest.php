@@ -15,13 +15,6 @@ use Drupal\simpletest\WebTestBase;
 class ModuleInstallUninstallWebTest extends WebTestBase {
 
   /**
-   * The module handler.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
    * {@inheritdoc}
    */
   public static $modules = array('currency');
@@ -38,20 +31,12 @@ class ModuleInstallUninstallWebTest extends WebTestBase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-    $this->moduleHandler = $this->container->get('module_handler');
-  }
-
-  /**
    * Test uninstall.
    */
   function testUninstallation() {
-    $this->assertTrue($this->moduleHandler->moduleExists('currency'));
-    $this->moduleHandler->uninstall(array('currency'));
-    $this->assertFalse($this->moduleHandler->moduleExists('currency'));
+    $this->assertTrue(\Drupal::moduleHandler()->moduleExists('currency'));
+    \Drupal::moduleHandler()->uninstall(array('currency'));
+    $this->assertFalse(\Drupal::moduleHandler()->moduleExists('currency'));
   }
 
   /**
@@ -61,11 +46,13 @@ class ModuleInstallUninstallWebTest extends WebTestBase {
     // The Dutch guilder was replaced by the Belgian franc, the euro, and the
     // Surinamese guilder. This means it is obsolete and should be disabled by
     // default.
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = entity_load('currency', 'NLG');
     $this->assertFalse($currency->status());
 
     // The euro is still in use in most countries and should be enabled by
     // default.
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = entity_load('currency', 'EUR');
     $this->assertTrue($currency->status());
   }

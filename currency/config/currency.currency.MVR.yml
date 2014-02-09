@@ -5,5 +5,5 @@ currencyNumber: '462'
 sign: ރ
 subunits: 100
 label: 'Maldivian rufiyaa'
-usage:
+usages:
     - { start: '1981-07-01', end: '', countryCode: MV }

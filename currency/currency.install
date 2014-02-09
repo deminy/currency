@@ -25,11 +25,12 @@ function currency_requirements($phase) {
  */
 function currency_install() {
   // Disable obsolete currencies by default.
+  /** @var \Drupal\currency\Entity\CurrencyInterface[] $currencies */
   $currencies = entity_load_multiple('currency');
   foreach ($currencies as $currency) {
     if ($currency->isObsolete()) {
-      $currency->disable();
-      $currency->save();
+      $currency->disable()
+        ->save();
     }
   }
 }

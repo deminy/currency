@@ -5,5 +5,5 @@ currencyNumber: '104'
 sign: K
 subunits: 100
 label: 'Burmese kyat'
-usage:
+usages:
     - { start: '1989-06-18', end: '', countryCode: MM }

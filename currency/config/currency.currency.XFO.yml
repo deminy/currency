@@ -5,5 +5,5 @@ currencyNumber: null
 sign: ¤
 subunits: null
 label: 'Gold franc'
-usage:
+usages:
     - { start: '', end: '', countryCode: ZZ }

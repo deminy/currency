@@ -5,5 +5,5 @@ currencyNumber: '144'
 sign: ₨
 subunits: 100
 label: 'Sri Lankan rupee'
-usage:
+usages:
     - { start: '1978-05-22', end: '', countryCode: LK }

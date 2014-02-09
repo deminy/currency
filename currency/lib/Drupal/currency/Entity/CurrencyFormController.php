@@ -97,10 +97,9 @@ class CurrencyFormController extends EntityFormController {
 
     $form['rounding_step'] = array(
       '#default_value' => $currency->getRoundingStep(),
-      '#min' => 0,
       '#required' => TRUE,
       '#title' => t('Rounding step'),
-      '#type' => 'number',
+      '#type' => 'textfield',
     );
 
     return parent::form($form, $form_state, $currency);
@@ -167,5 +166,14 @@ class CurrencyFormController extends EntityFormController {
         )));
       }
     }
+
+    // Validate the rounding step.
+    /** @var \Drupal\currency\Input $input */
+    $input = \Drupal::service('currency.input');
+    $rounding_step = $input->parseAmount($form_state['values']['rounding_step']);
+    if ($rounding_step === FALSE) {
+      \Drupal::formBuilder()->setError($form['rounding_step'], $form_state, $this->t('The rounding step is not numeric.'));
+    }
+    \Drupal::formBuilder()->setValue($form['rounding_step'], $rounding_step, $form_state);
   }
 }

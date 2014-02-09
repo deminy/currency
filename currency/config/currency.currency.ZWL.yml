@@ -6,5 +6,5 @@ currencyNumber: '932'
 sign: $
 subunits: 100
 label: 'Zimbabwean dollar'
-usage:
+usages:
     - { start: '2009-02-02', end: '2009-04-12', countryCode: ZW }

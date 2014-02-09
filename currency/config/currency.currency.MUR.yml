@@ -5,5 +5,5 @@ currencyNumber: '480'
 sign: ₨
 subunits: 100
 label: 'Mauritian rupee'
-usage:
+usages:
     - { start: '1934-04-01', end: '', countryCode: MU }

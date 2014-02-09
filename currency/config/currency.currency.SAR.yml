@@ -5,5 +5,5 @@ currencyNumber: '682'
 sign: ﷼
 subunits: 100
 label: 'Saudi riyal'
-usage:
+usages:
     - { start: '1952-10-22', end: '', countryCode: SA }

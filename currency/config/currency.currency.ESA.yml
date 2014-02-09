@@ -5,5 +5,5 @@ currencyNumber: '996'
 sign: ¤
 subunits: null
 label: 'Spanish peseta'
-usage:
+usages:
     - { start: '', end: '', countryCode: ES }

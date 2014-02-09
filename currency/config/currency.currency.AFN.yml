@@ -5,5 +5,5 @@ currencyNumber: '971'
 sign: ؋
 subunits: 100
 label: 'Afghan afghani'
-usage:
+usages:
     - { start: '2002-10-07', end: '', countryCode: AF }

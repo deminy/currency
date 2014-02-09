@@ -6,7 +6,7 @@ currencyNumber: '356'
 sign: ₹
 subunits: 100
 label: 'Indian rupee'
-usage:
+usages:
     - { start: '1835-08-17', end: '1948-04-01', countryCode: BD }
     - { start: '1907-01-01', end: '', countryCode: BT }
     - { start: '1835-08-17', end: '', countryCode: IN }

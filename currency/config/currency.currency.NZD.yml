@@ -5,7 +5,7 @@ currencyNumber: '554'
 sign: $
 subunits: 100
 label: 'New Zealand dollar'
-usage:
+usages:
     - { start: '1967-07-10', end: '', countryCode: CK }
     - { start: '1967-07-10', end: '', countryCode: NU }
     - { start: '1967-07-10', end: '', countryCode: NZ }

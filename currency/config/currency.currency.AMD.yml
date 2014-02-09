@@ -5,5 +5,5 @@ currencyNumber: '051'
 sign: ֏
 subunits: 100
 label: 'Armenian dram'
-usage:
+usages:
     - { start: '1993-11-22', end: '', countryCode: AM }

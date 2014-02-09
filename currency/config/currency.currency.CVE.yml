@@ -5,5 +5,5 @@ currencyNumber: '132'
 sign: $
 subunits: 100
 label: 'Cape Verdean escudo'
-usage:
+usages:
     - { start: '1914-01-01', end: '', countryCode: CV }

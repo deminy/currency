@@ -5,5 +5,5 @@ currencyNumber: '598'
 sign: K
 subunits: 100
 label: 'Papua New Guinean kina'
-usage:
+usages:
     - { start: '1975-09-16', end: '', countryCode: PG }

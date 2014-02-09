@@ -5,5 +5,5 @@ currencyNumber: '705'
 sign: ¤
 subunits: 10
 label: 'Slovenian tolar'
-usage:
+usages:
     - { start: '1992-10-07', end: '2007-01-14', countryCode: SI }

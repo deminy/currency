@@ -5,5 +5,5 @@ currencyNumber: '962'
 sign: ¤
 subunits: 0
 label: Platinum
-usage:
+usages:
     - { start: '', end: '', countryCode: ZZ }

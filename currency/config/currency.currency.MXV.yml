@@ -5,5 +5,5 @@ currencyNumber: '979'
 sign: ¤
 subunits: 100
 label: 'Mexican Unidad de Inversion'
-usage:
+usages:
     - { start: '', end: '', countryCode: MX }

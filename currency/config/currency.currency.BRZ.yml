@@ -5,5 +5,5 @@ currencyNumber: null
 sign: ₢
 subunits: 100
 label: 'Brazilian cruzeiro'
-usage:
+usages:
     - { start: '1942-11-01', end: '1967-02-13', countryCode: BR }

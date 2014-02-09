@@ -9,7 +9,8 @@ namespace Drupal\currency\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityManager;
+use Drupal\Core\Entity\EntityFormBuilderInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,22 +21,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CurrencyLocale extends ControllerBase implements ContainerInjectionInterface {
 
   /**
-   * Stores the Entity manager.
-   *
-   * @var \Drupal\Core\Entity\EntityManager
-   */
-  protected $entityManager;
-
-  /**
    * Constructs a new class instance.
    *
-   * @param \Drupal\Core\Entity\EntityManager $entity_manager
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   *   The entity manager.
+   * @param \Drupal\Core\Entity\EntityFormBuilderInterface $entity_form_builder
    *   The entity manager.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
    *   The translation manager.
    */
-  public function __construct(EntityManager $entity_manager, TranslationInterface $translation_manager) {
+  public function __construct(EntityManagerInterface $entity_manager, EntityFormBuilderInterface $entity_form_builder, TranslationInterface $translation_manager) {
     $this->entityManager = $entity_manager;
+    $this->entityFormBuilder = $entity_form_builder;
     $this->translationManager = $translation_manager;
   }
 
@@ -43,7 +40,7 @@ class CurrencyLocale extends ControllerBase implements ContainerInjectionInterfa
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity.manager'), $container->get('string_translation'));
+    return new static($container->get('entity.manager'), $container->get('entity.form_builder'), $container->get('string_translation'));
   }
 
   /**
@@ -55,7 +52,7 @@ class CurrencyLocale extends ControllerBase implements ContainerInjectionInterfa
   public function add() {
     $currency_locale = $this->entityManager->getStorageController('currency_locale')->create(array());
 
-    return $this->entityManager->getForm($currency_locale);
+    return $this->entityFormBuilder->getForm($currency_locale);
   }
 
   /**

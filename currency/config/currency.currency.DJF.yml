@@ -5,5 +5,5 @@ currencyNumber: '262'
 sign: ₣
 subunits: 100
 label: 'Djiboutian franc'
-usage:
+usages:
     - { start: '1977-06-27', end: '', countryCode: DJ }

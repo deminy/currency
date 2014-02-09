@@ -5,5 +5,5 @@ currencyNumber: '694'
 sign: Le
 subunits: 100
 label: 'Sierran Leonean leone'
-usage:
+usages:
     - { start: '1964-08-04', end: '', countryCode: SL }

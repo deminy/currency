@@ -5,5 +5,5 @@ currencyNumber: '990'
 sign: ¤
 subunits: 0
 label: 'Chilean Unidad de Fomento'
-usage:
+usages:
     - { start: '', end: '', countryCode: CL }

@@ -5,5 +5,5 @@ currencyNumber: '720'
 sign: ﷼
 subunits: 1000
 label: 'South Yemeni dinar'
-usage:
+usages:
     - { start: '1965-04-01', end: '1996-01-01', countryCode: YD }

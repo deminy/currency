@@ -5,7 +5,7 @@ currencyNumber: '891'
 sign: дин
 subunits: 100
 label: 'Yugoslav dinar'
-usage:
+usages:
     - { start: '1994-01-24', end: '2002-05-15', countryCode: CS }
     - { start: '1994-01-24', end: '2002-05-15', countryCode: ME }
     - { start: '1994-01-24', end: '2002-05-15', countryCode: RS }

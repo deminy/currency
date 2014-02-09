@@ -6,5 +6,5 @@ currencyNumber: '975'
 sign: лв
 subunits: 100
 label: 'Bulgarian lev'
-usage:
+usages:
     - { start: '1999-07-05', end: '', countryCode: BG }

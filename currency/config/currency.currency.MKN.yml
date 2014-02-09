@@ -5,5 +5,5 @@ currencyNumber: null
 sign: ден
 subunits: 100
 label: 'Macedonian denar'
-usage:
+usages:
     - { start: '1992-04-26', end: '1993-05-20', countryCode: MK }

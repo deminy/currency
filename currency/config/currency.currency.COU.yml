@@ -5,5 +5,5 @@ currencyNumber: '970'
 sign: ¤
 subunits: 100
 label: 'Colombian Unidad de Valor Real'
-usage:
+usages:
     - { start: '', end: '', countryCode: CO }

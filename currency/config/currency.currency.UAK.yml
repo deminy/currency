@@ -5,5 +5,5 @@ currencyNumber: '804'
 sign: ¤
 subunits: 100
 label: 'Ukrainian karbovanets'
-usage:
+usages:
     - { start: '1992-11-13', end: '1993-10-17', countryCode: UA }

@@ -5,5 +5,5 @@ currencyNumber: '418'
 sign: ₭
 subunits: 100
 label: 'Lao kip'
-usage:
+usages:
     - { start: '1979-12-10', end: '', countryCode: LA }

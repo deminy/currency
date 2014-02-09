@@ -5,5 +5,5 @@ currencyNumber: Nil
 sign: ¤
 subunits: 0
 label: 'UIC franc'
-usage:
+usages:
     - { start: '', end: '', countryCode: ZZ }

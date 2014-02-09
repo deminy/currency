@@ -5,5 +5,5 @@ currencyNumber: '214'
 sign: $
 subunits: 100
 label: 'Dominican peso'
-usage:
+usages:
     - { start: '1947-10-01', end: '', countryCode: DO }

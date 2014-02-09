@@ -5,5 +5,5 @@ currencyNumber: '170'
 sign: $
 subunits: 100
 label: 'Colombian peso'
-usage:
+usages:
     - { start: '1905-01-01', end: '', countryCode: CO }

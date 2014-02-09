@@ -5,5 +5,5 @@ currencyNumber: '012'
 sign: دج
 subunits: 100
 label: 'Algerian dinar'
-usage:
+usages:
     - { start: '1964-04-01', end: '', countryCode: DZ }
