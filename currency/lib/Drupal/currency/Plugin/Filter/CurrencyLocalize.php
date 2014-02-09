@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "currency_localize",
  *   module = "currency",
  *   title = @Translation("Currency amount formatting"),
- *   type = FILTER_TYPE_MARKUP_LANGUAGE
+ *   type = \Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE
  * )
  */
 class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInterface {

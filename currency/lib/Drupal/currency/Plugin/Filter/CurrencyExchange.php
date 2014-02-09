@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "currency_exchange",
  *   module = "currency",
  *   title = @Translation("Currency exchange"),
- *   type = FILTER_TYPE_MARKUP_LANGUAGE
+ *   type = \Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE
  * )
  */
 class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInterface {
