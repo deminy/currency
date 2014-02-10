@@ -620,7 +620,7 @@ function _currency_filter_currency_exchange_process(array $matches) {
   }
 
   if ($rate = CurrencyExchanger::load($currency_code_from, $currency_code_to)) {
-    return bcmul($amount, $rate, CURRENCY_BCMATH_SCALE);
+    return currency_multiply($amount, $rate);
   }
   // The filter failed, so return the token.
   return $matches[0];
@@ -988,4 +988,123 @@ function currency_webform_select_options_info() {
   );
 
   return $options;
+}
+
+/**
+ * Adds two numbers.
+ *
+ * @param int|float|string $number_a
+ * @param int|float|string $number_b
+ *
+ * @return int|float|string
+ */
+function currency_add($number_a, $number_b) {
+  if (extension_loaded('bcmath')) {
+    return bcadd($number_a, $number_b, CURRENCY_BCMATH_SCALE);
+  }
+  else {
+    return $number_a + $number_b;
+  }
+}
+
+/**
+ * Subtracts one number from another.
+ *
+ * @param int|float|string $number_a
+ *   The number to subtract from.
+ * @param int|float|string $number_b
+ *   The number to subtract.
+ *
+ * @return int|float|string
+ */
+function currency_subtract($number_a, $number_b) {
+  if (extension_loaded('bcmath')) {
+    return bcsub($number_a, $number_b, CURRENCY_BCMATH_SCALE);
+  }
+  else {
+    return $number_a - $number_b;
+  }
+}
+
+/**
+ * Multiplies two numbers.
+ *
+ * @param int|float|string $number_a
+ * @param int|float|string $number_b
+ *
+ * @return int|float|string
+ */
+function currency_multiply($number_a, $number_b) {
+  if (extension_loaded('bcmath')) {
+    return bcmul($number_a, $number_b, CURRENCY_BCMATH_SCALE);
+  }
+  else {
+    return $number_a * $number_b;
+  }
+}
+
+/**
+ * Divdes one number by another.
+ *
+ * @param int|float|string $number_a
+ *   The number to divide.
+ * @param int|float|string $number_b
+ *   The number to divide by.
+ *
+ * @return int|float|string
+ */
+function currency_divide($number_a, $number_b) {
+  if (extension_loaded('bcmath')) {
+    return bcdiv($number_a, $number_b, CURRENCY_BCMATH_SCALE);
+  }
+  else {
+    return $number_a / $number_b;
+  }
+}
+
+/**
+ * Divides one number by another.
+ *
+ * @param int|float|string $number
+ *   The number to round.
+ * @param int|float|string $rounding_step
+ *   The step to round by. Example: when the step is 0.25, values will be
+ *   rounded to the nearest quarter.
+ *
+ * @return int|float|string
+ */
+function currency_round($number, $rounding_step) {
+  if (extension_loaded('bcmath')) {
+    return bcmul(round(bcdiv($number, $rounding_step, CURRENCY_BCMATH_SCALE)), $rounding_step, CURRENCY_BCMATH_SCALE);
+  }
+  else {
+    return round($number / $rounding_step) * $rounding_step;
+  }
+}
+
+/**
+ * Compares two numbers to each other.
+ *
+ * @param int|float|string $number_a
+ * @param int|float|string $number_b
+ *
+ * @return int
+ *   0 if both numbers are identical, 1 if $number_a is larger than $number_b
+ *   and -1 if $number_b is larger than $number_a.
+ */
+function currency_compare($number_a, $number_b) {
+  if (extension_loaded('bcmath')) {
+    return bccomp($number_a, $number_b, CURRENCY_BCMATH_SCALE);
+  }
+  else {
+    if ($number_a == $number_b) {
+      return 0;
+    }
+    elseif ($number_a > $number_b) {
+      return 1;
+    }
+    else {
+      return -1;
+    }
+  }
 }

@@ -22,7 +22,7 @@ class CurrencyExchangerFixedRates implements CurrencyExchangerInterface {
     // cached data would require additional checks when deleting rates, to see
     // if the they are reversed from other rates or are originals.
     elseif (isset($rates[$currency_code_to]) && isset($rates[$currency_code_to][$currency_code_from])) {
-      return bcdiv(1, $rates[$currency_code_to][$currency_code_from], CURRENCY_BCMATH_SCALE);
+      return currency_divide(1, $rates[$currency_code_to][$currency_code_from]);
     }
     return FALSE;
   }

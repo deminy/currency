@@ -26,7 +26,7 @@ class CurrencyExchangerBartFeenstraCurrency implements CurrencyExchangerInterfac
       $currency_to = new Currency();
       $currency_to->resourceLoad($currency_code_to);
       if ($currency_to && isset($currency_to->exchangeRates[$currency_code_from])) {
-        return bcdiv(1, $currency_to->exchangeRates[$currency_code_from], CURRENCY_BCMATH_SCALE);
+        return currency_divide(1, $currency_to->exchangeRates[$currency_code_from]);
       }
     }
 

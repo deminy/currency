@@ -85,7 +85,7 @@ class Currency extends BartFeenstra\Currency\Currency {
     // If a rounding step was not set explicitely, the rounding step is equal
     // to one subunit.
     elseif (is_numeric($this->subunits)) {
-      return $this->subunits > 0 ? bcdiv(1, $this->subunits, CURRENCY_BCMATH_SCALE) : 1;
+      return $this->subunits > 0 ? currency_divide(1, $this->subunits) : 1;
     }
     else {
       return FALSE;
@@ -102,10 +102,7 @@ class Currency extends BartFeenstra\Currency\Currency {
    *   A numeric string.
    */
   function roundAmount($amount) {
-    $rounding_step = $this->getRoundingStep();
-    $decimals = $this->getDecimals();
-
-    return bcmul(round(bcdiv($amount, $rounding_step, CURRENCY_BCMATH_SCALE)), $rounding_step, $decimals);
+    return currency_round($amount, $this->getRoundingStep());
   }
 
   /**
