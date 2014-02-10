@@ -92,6 +92,7 @@ class CurrencyLocaleWebTest extends WebTestBase {
     // @todo Do not submit values once https://drupal.org/node/216064 has been
     //   fixed.
     $values = array(
+      'decimal_separator' => $this->randomName(1),
       'language_code' => 'nl',
     );
     $this->drupalPostForm(NULL, $values, t('Delete'));

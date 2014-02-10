@@ -66,28 +66,30 @@ class CurrencyLocaleFormController extends EntityFormController {
       '#title' => t('Country'),
       '#type' => 'select',
     );
-    $form['cldr'] = array(
+    $form['formatting'] = array(
       '#title' => t('Formatting'),
       '#type' => 'details',
     );
-    $form['cldr']['pattern'] = array(
-      '#default_value' => $currency_locale->getPattern(),
-      '#description' => t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>. Non-standard characters are allowed. <code>[XXX]</code> and <code>[999]</code> will be replaced by the ISO 4217 currency code and number.'),
-      '#maxlength' => 255,
-      '#required' => TRUE,
-      '#title' => t('Pattern'),
-      '#type' => 'textfield',
-    );
-    $form['cldr']['decimal_separator'] = array(
+    $form['formatting']['decimal_separator'] = array(
       '#default_value' => $currency_locale->getDecimalSeparator(),
       '#maxlength' => 255,
+      '#required' => TRUE,
+      '#size' => 3,
       '#title' => t('Decimal separator'),
       '#type' => 'textfield',
     );
-    $form['cldr']['grouping_separator'] = array(
+    $form['formatting']['grouping_separator'] = array(
       '#default_value' => $currency_locale->getGroupingSeparator(),
       '#maxlength' => 255,
+      '#size' => 3,
       '#title' => t('Group separator'),
+      '#type' => 'textfield',
+    );
+    $form['formatting']['pattern'] = array(
+      '#default_value' => $currency_locale->getPattern(),
+      '#description' => t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>'),
+      '#maxlength' => 255,
+      '#title' => t('Pattern'),
       '#type' => 'textfield',
     );
 
