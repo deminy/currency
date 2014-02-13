@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains class \Drupal\currency_intl\Tests\ModuleInstallUninstallWebTest.
+ * Contains \Drupal\currency_intl\Tests\ModuleInstallUninstallWebTest.
  */
 
 namespace Drupal\currency_intl\Tests;

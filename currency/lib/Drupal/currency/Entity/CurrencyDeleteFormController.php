@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\currency\Entity\CurrencyDeleteFormController.
+ * Contains \Drupal\currency\Entity\CurrencyDeleteFormController.
  */
 
 namespace Drupal\currency\Entity;

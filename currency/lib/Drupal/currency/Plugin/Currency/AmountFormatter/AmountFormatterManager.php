@@ -26,7 +26,7 @@ class AmountFormatterManager extends DefaultPluginManager implements AmountForma
   protected $configFactory;
 
   /**
-   * Constructor.
+   * Constructs a new class instance.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths

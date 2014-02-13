@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\currency\Tests\Plugin\views\field\AmountWebTest.
+ * Contains \Drupal\currency\Tests\Plugin\views\field\AmountWebTest.
  */
 
 namespace Drupal\currency\Tests\Plugin\views\field;

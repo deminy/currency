@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\currency\Tests\Plugin\views\filter\CurrencyWebTest.
+ * Contains \Drupal\currency\Tests\Plugin\views\filter\CurrencyWebTest.
  */
 
 namespace Drupal\currency\Tests\Plugin\views\filter;
