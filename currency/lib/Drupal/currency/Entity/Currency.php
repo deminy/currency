@@ -13,7 +13,7 @@ use Drupal\currency\Usage;
 /**
  * Defines a currency entity class.
  *
- * @EntityType(
+ * @ConfigEntityType(
  *   config_prefix = "currency.currency",
  *   controllers = {
  *     "access" = "Drupal\currency\Entity\CurrencyAccessController",
