@@ -57,6 +57,6 @@ class CurrencyDeleteFormController extends EntityConfirmFormBase {
     drupal_set_message(t('The %label has been deleted.', array(
       '%label' => $currency->label(),
     )));
-    $form_state['redirect'] = $this->getCancelPath();
+    $form_state['redirect_route'] = $this->getCancelRoute();
   }
 }
