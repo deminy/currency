@@ -14,7 +14,6 @@ use Drupal\Core\Language\LanguageManager;
  * Defines a currency locale entity.
  *
  * @ConfigEntityType(
- *   config_prefix = "currency.currency_locale",
  *   controllers = {
  *     "access" = "Drupal\currency\Entity\CurrencyLocaleAccessController",
  *     "form" = {
