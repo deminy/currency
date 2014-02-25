@@ -49,9 +49,13 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
    */
   public function loadConfiguration() {
     $definitions = $this->currencyExchangeRateProviderManager->getDefinitions();
-    $configuration = $this->configFactory->get('currency.exchange_rate_provider')->get('plugins') + array_fill_keys(array_keys($definitions), TRUE);
+    $configuration_data = $this->configFactory->get('currency.exchange_rate_provider')->get('plugins');
+    $configuration = array();
+    foreach ($configuration_data as $data) {
+      $configuration[$data['plugin_id']] = $data['status'];
+    }
 
-    return $configuration;
+    return $configuration + array_fill_keys(array_keys($definitions), FALSE);
   }
 
   /**
@@ -61,12 +65,23 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
    *   Keys are currency_exchanger plugin names. Values are booleans that
    *   describe whether the plugins are enabled. Items are ordered by weight.
    *
-   * @return NULL
+   * @return $this
    */
   public function saveConfiguration(array $configuration) {
     $config = $this->configFactory->get('currency.exchange_rate_provider');
-    $config->set('plugins', $configuration);
+    // Massage the configuration into a format that can be stored, as
+    // associative arrays are not supported by the config system
+    $configuration_data = array();
+    foreach ($configuration as $plugin_id => $status) {
+      $configuration_data[] = array(
+        'plugin_id' => $plugin_id,
+        'status' => $status,
+      );
+    }
+    $config->set('plugins', $configuration_data);
     $config->save();
+
+    return $this;
   }
 
   /**
@@ -92,7 +107,8 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
       return new ExchangeRate(NULL, time(), $currency_code_from, $currency_code_to, 1);
     }
     foreach ($this->getPlugins() as $plugin) {
-      if ($rate = $plugin->load($currency_code_from, $currency_code_to)) {
+      $rate = $plugin->load($currency_code_from, $currency_code_to);
+      if ($rate) {
         return $rate;
       }
     }

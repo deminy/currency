@@ -113,9 +113,13 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    *   destination currency codes and values are exchange rates.
    */
   public function loadConfiguration() {
-    $config = $this->configFactory->get('currency.exchanger.fixed_rates');
+    $rates_data = $this->configFactory->get('currency.exchanger.fixed_rates')->get('rates');
+    $rates = array();
+    foreach ($rates_data as $rate_data) {
+      $rates[$rate_data['currency_code_from']][$rate_data['currency_code_to']] = $rate_data['rate'];
+    }
 
-    return $config->get('rates');
+    return $rates;
   }
 
   /**
@@ -125,14 +129,29 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    * @param string $currency_code_to
    * @param string $rate
    *
-   * @return NULL
+   * @return $this
    */
   public function save($currency_code_from, $currency_code_to, $rate) {
     $config = $this->configFactory->get('currency.exchanger.fixed_rates');
-    $rates = $config->get('rates');
+    $rates = $this->loadConfiguration();
     $rates[$currency_code_from][$currency_code_to] = $rate;
-    $config->set('rates', $rates);
+    // Massage the rates into a format that can be stored, as associative
+    // arrays are not supported by the config system
+    $rates_data = array();
+    foreach ($rates as $currency_code_from => $currency_code_from_rates) {
+      foreach ($currency_code_from_rates as $currency_code_to => $rate) {
+        $rates_data[] = array(
+          'currency_code_from' => $currency_code_from,
+          'currency_code_to' => $currency_code_to,
+          'rate' => $rate,
+        );
+      }
+    }
+
+    $config->set('rates', $rates_data);
     $config->save();
+
+    return $this;
   }
 
   /**

@@ -71,3 +71,48 @@ currency.currency_locale.*:
     uuid:
       label: Universally Unique ID
       type: string
+
+currency.amount_formatting:
+  label: Currency amount formatting
+  type: mapping
+  mapping:
+    plugin_id:
+      label: Plugin ID
+      type: string
+
+currency.exchange_rate_provider:
+  label: Currency exchange rate provider
+  type: mapping
+  mapping:
+    plugins:
+      type: sequence
+      sequence:
+        - type: mapping
+          label: Plugin
+          mapping:
+            plugin_id:
+              label: Plugin ID
+              type: string
+            status:
+              label: Status
+              type: boolean
+
+currency.exchanger.fixed_rates:
+  label: Fixed currency exchange rates
+  type: mapping
+  mapping:
+    rates:
+      type: sequence
+      sequence:
+        - type: mapping
+          label: Plugin
+          mapping:
+            currency_code_from:
+              label: Source currency code
+              type: string
+            currency_code_to:
+              label: Destination currency code
+              type: string
+            rate:
+              label: Exchange rate
+              type: string

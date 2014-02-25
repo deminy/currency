@@ -1,0 +1,7 @@
+views.field.currency_amount:
+  type: views_field
+  label: 'Currency amount'
+  mapping:
+    currency_round:
+      label: Round amounts
+      type: bool

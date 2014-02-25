@@ -1,1 +1,5 @@
-plugins: []
+plugins:
+  - plugin_id: currency_fixed_rates
+    status: true
+  - plugin_id: currency_historical_rates
+    status: true

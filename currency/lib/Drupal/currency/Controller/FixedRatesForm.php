@@ -102,7 +102,7 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
     $form['rate'] = array(
       '#limit_currency_codes' => array($currency_code_to),
       '#default_value' => array(
-        'amount' => $rate,
+        'amount' => $rate->getRate(),
         'currency_code' => $currency_code_to,
       ),
       '#required' => TRUE,

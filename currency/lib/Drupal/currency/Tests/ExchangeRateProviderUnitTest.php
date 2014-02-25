@@ -73,7 +73,10 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
     );
 
     $config_value = array(
-      $plugin_id_b => FALSE,
+      array(
+        'plugin_id' => $plugin_id_b,
+        'status' => TRUE,
+      ),
     );
 
     $this->currencyExchangeRateProviderManager->expects($this->once())
@@ -95,8 +98,8 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
 
     $configuration = $this->exchangeRateProvider->loadConfiguration();
     $expected = array(
-      $plugin_id_b => FALSE,
-      $plugin_id_a => TRUE,
+      $plugin_id_b => TRUE,
+      $plugin_id_a => FALSE,
     );
     $this->assertSame($expected, $configuration);
   }
@@ -110,13 +113,27 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
       'currency_fixed_rates' => TRUE,
       'foo' => FALSE,
     );
+    $configuration_data = array(
+      array(
+        'plugin_id' => 'currency_historical_rates',
+        'status' => TRUE,
+      ),
+      array(
+        'plugin_id' => 'currency_fixed_rates',
+        'status' => TRUE,
+      ),
+      array(
+        'plugin_id' => 'foo',
+        'status' => FALSE,
+      ),
+    );
 
     $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
       ->disableOriginalConstructor()
       ->getMock();
     $config->expects($this->once())
       ->method('set')
-      ->with('plugins', $configuration);
+      ->with('plugins', $configuration_data);
     $config->expects($this->once())
       ->method('save');
 

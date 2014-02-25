@@ -75,7 +75,7 @@ class FixedRatesUnitTest extends UnitTestCase {
    * Tests loadConfiguration().
    */
   public function testLoadConfiguration() {
-    $rates = $this->prepareExchangeRates();
+    list($rates) = $this->prepareExchangeRates();
     $this->assertSame($rates, $this->plugin->loadConfiguration());
   }
 
@@ -83,7 +83,7 @@ class FixedRatesUnitTest extends UnitTestCase {
    * Tests save() and load().
    */
   public function testLoad() {
-    $rates = $this->prepareExchangeRates();
+    list($rates) = $this->prepareExchangeRates();
     $reverse_rate = '0.453780216';
 
     $this->math->expects($this->any())
@@ -105,7 +105,7 @@ class FixedRatesUnitTest extends UnitTestCase {
    * Tests loadMultiple().
    */
   public function testLoadMultiple() {
-    $rates = $this->prepareExchangeRates();
+    list($rates) = $this->prepareExchangeRates();
 
     $this->math->expects($this->any())
       ->method('divide')
@@ -144,12 +144,17 @@ class FixedRatesUnitTest extends UnitTestCase {
     $currency_code_from = $this->randomName(3);
     $currency_code_to = $this->randomName(3);
     $rate = mt_rand();
-    $rates = $this->prepareExchangeRates();
+    list($rates, $rates_data) = $this->prepareExchangeRates();
     $rates[$currency_code_from][$currency_code_to] = $rate;
+    $rates_data[] = array(
+      'currency_code_from' => $currency_code_from,
+      'currency_code_to' => $currency_code_to,
+      'rate' => $rate,
+    );
 
     $this->config->expects($this->once())
       ->method('set')
-      ->with('rates', $rates);
+      ->with('rates', $rates_data);
     $this->config->expects($this->once())
       ->method('save');
 
@@ -160,12 +165,12 @@ class FixedRatesUnitTest extends UnitTestCase {
    * Tests delete().
    */
   function testDelete() {
-    $rates = $this->prepareExchangeRates();
+    list($rates, $rates_data) = $this->prepareExchangeRates();
     unset($rates['EUR']['NLG']);
 
     $this->config->expects($this->once())
       ->method('set')
-      ->with('rates', $rates);
+      ->with('rates', $rates_data);
     $this->config->expects($this->once())
       ->method('save');
 
@@ -188,6 +193,16 @@ class FixedRatesUnitTest extends UnitTestCase {
         'EUR' => '0.453780216',
       ),
     );
+    $rates_data = array();
+    foreach ($rates as $currency_code_from => $currency_code_from_rates) {
+      foreach ($currency_code_from_rates as $currency_code_to => $rate) {
+        $rates_data[] = array(
+          'currency_code_from' => $currency_code_from,
+          'currency_code_to' => $currency_code_to,
+          'rate' => $rate,
+        );
+      }
+    }
 
     $this->config = $this->getMockBuilder('\Drupal\Core\Config\Config')
       ->disableOriginalConstructor()
@@ -195,14 +210,14 @@ class FixedRatesUnitTest extends UnitTestCase {
     $this->config->expects($this->any())
       ->method('get')
       ->with('rates')
-      ->will($this->returnValue($rates));
+      ->will($this->returnValue($rates_data));
 
     $this->configFactory->expects($this->any())
       ->method('get')
       ->with('currency.exchanger.fixed_rates')
       ->will($this->returnValue($this->config));
 
-    return $rates;
+    return array($rates, $rates_data);
   }
 
 }

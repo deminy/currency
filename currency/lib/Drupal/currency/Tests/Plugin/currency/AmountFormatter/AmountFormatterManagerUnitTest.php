@@ -170,7 +170,6 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
 
     $this->discovery->expects($this->at(0))
       ->method('getDefinitions')
-      ->with()
       ->will($this->returnValue(array(
         $existing_plugin_id => array(),
       )));
