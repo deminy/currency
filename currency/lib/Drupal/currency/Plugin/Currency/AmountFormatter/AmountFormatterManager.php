@@ -41,8 +41,8 @@ class AmountFormatterManager extends DefaultPluginManager implements AmountForma
    *   The config factory.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, LanguageManager $language_manager, ModuleHandlerInterface $module_handler, ConfigFactory $config_factory) {
-    parent::__construct('Plugin/Currency/AmountFormatter', $namespaces, '\Drupal\currency\Annotation\CurrencyAmountFormatter');
-    $this->alterInfo($module_handler, 'currency_amount_formatter');
+    parent::__construct('Plugin/Currency/AmountFormatter', $namespaces, $module_handler, '\Drupal\currency\Annotation\CurrencyAmountFormatter');
+    $this->alterInfo('currency_amount_formatter');
     $this->setCacheBackend($cache_backend, $language_manager, 'currency_amount_formatter');
     $this->configFactory = $config_factory;
   }

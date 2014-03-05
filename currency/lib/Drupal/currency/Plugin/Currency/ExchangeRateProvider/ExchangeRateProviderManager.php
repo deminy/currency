@@ -33,8 +33,8 @@ class ExchangeRateProviderManager extends DefaultPluginManager implements Exchan
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, LanguageManager $language_manager, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/Currency/ExchangeRateProvider', $namespaces, '\Drupal\currency\Annotation\CurrencyExchangeRateProvider');
-    $this->alterInfo($module_handler, 'currency_exchange_rate_provider');
+    parent::__construct('Plugin/Currency/ExchangeRateProvider', $namespaces, $module_handler, '\Drupal\currency\Annotation\CurrencyExchangeRateProvider');
+    $this->alterInfo('currency_exchange_rate_provider');
     $this->setCacheBackend($cache_backend, $language_manager, 'currency_exchange_rate_provider');
   }
 }
