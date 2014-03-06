@@ -1,0 +1,21 @@
+language: php
+php:
+  - 5.4
+  - 5.5
+
+install:
+  # Go to the root.
+  - cd ../..
+  # Clone Drupal core shallowly, as we only need the most recent code.
+  - git clone --branch 8.x --depth 1 http://git.drupal.org/project/drupal.git
+  # Put the contributed modules in the correct directory.
+  - cd drupal/modules
+  - mv ../../bartfeenstra/currency currency
+  # Clone Currency shallowly, as we only need the most recent code.
+  - git clone --branch 8.x-3.x --depth 1 http://git.drupal.org/project/currency.git
+  # Go back to the Drupal root.
+  - cd ..
+
+script:
+  # Run Payment's PHPUnit test using Drupal core's configuration and bootstrap.
+  - phpunit -c core/phpunit.xml.dist --bootstrap core/tests/bootstrap.php --filter 'Drupal\\currency'
