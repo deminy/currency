@@ -2,29 +2,28 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Entity\CurrencyListController.
+ * Definition of Drupal\currency\Entity\CurrencyLocaleListController.
  */
 
 namespace Drupal\currency\Entity;
 
+use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Config\Entity\ConfigEntityListController;
 
 /**
  * Defines the default list controller for ConfigEntity objects.
  */
-class CurrencyListController extends ConfigEntityListController {
+class CurrencyLocaleListController extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header = array(
-      'id' => t('Currency code'),
-      'label' => t('Name'),
+    $row = array(
+      'label' => t('Locale'),
     ) + parent::buildHeader();
 
-    return $header;
+    return $row;
   }
 
   /**
@@ -32,7 +31,6 @@ class CurrencyListController extends ConfigEntityListController {
    */
   public function buildRow(EntityInterface $entity) {
     $row = array(
-      'id' => $entity->id(),
       'label' => $entity->label(),
     ) + parent::buildRow($entity);
 

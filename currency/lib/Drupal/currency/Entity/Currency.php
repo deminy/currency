@@ -20,7 +20,7 @@ use Drupal\currency\Usage;
  *       "default" = "Drupal\currency\Entity\CurrencyFormController",
  *       "delete" = "Drupal\currency\Entity\CurrencyDeleteFormController"
  *     },
- *     "list" = "Drupal\currency\Entity\CurrencyListController",
+ *     "list_builder" = "Drupal\currency\Entity\CurrencyListBuilder",
  *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
  *   },
  *   entity_keys = {

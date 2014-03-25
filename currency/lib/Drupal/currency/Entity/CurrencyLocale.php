@@ -20,7 +20,7 @@ use Drupal\Core\Language\LanguageManager;
  *       "default" = "Drupal\currency\Entity\CurrencyLocaleFormController",
  *       "delete" = "Drupal\currency\Entity\CurrencyLocaleDeleteFormController"
  *     },
- *     "list" = "Drupal\currency\Entity\CurrencyLocaleListController",
+ *     "list_builder" = "Drupal\currency\Entity\CurrencyLocaleListBuilder",
  *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
  *   },
  *   entity_keys = {

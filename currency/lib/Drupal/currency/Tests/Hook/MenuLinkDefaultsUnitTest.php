@@ -11,7 +11,7 @@ use Drupal\currency\Hook\MenuLinkDefaults;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass \Drupal\currency\Hook\MenuLinkDefaults.
+ * @coversDefaultClass \Drupal\currency\Hook\MenuLinkDefaults
  */
 class MenuLinkDefaultsUnitTest extends UnitTestCase {
 
