@@ -21,7 +21,7 @@ use Drupal\Core\Language\LanguageManager;
  *       "delete" = "Drupal\currency\Entity\CurrencyLocaleDeleteFormController"
  *     },
  *     "list_builder" = "Drupal\currency\Entity\CurrencyLocaleListBuilder",
- *     "storage" = "Drupal\Core\Config\Entity\ConfigStorage",
+ *     "storage" = "Drupal\Core\Config\Entity\ConfigEntityStorage",
  *   },
  *   entity_keys = {
  *     "id" = "locale",
