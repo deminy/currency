@@ -21,7 +21,7 @@ use Drupal\currency\Usage;
  *       "delete" = "Drupal\currency\Entity\CurrencyDeleteFormController"
  *     },
  *     "list_builder" = "Drupal\currency\Entity\CurrencyListBuilder",
- *     "storage" = "Drupal\Core\Config\Entity\ConfigStorageController",
+ *     "storage" = "Drupal\Core\Config\Entity\ConfigStorage",
  *   },
  *   entity_keys = {
  *     "id" = "currencyCode",

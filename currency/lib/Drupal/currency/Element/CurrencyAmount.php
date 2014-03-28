@@ -19,7 +19,7 @@ class CurrencyAmount {
    * Implements form #process callback.
    */
   public static function process(array $element, array &$form_state, array $form) {
-    $currency_storage = \Drupal::entityManager()->getStorageController('currency');
+    $currency_storage = \Drupal::entityManager()->getStorage('currency');
 
     // Validate element configuration.
     if ($element['#minimum_amount'] !== FALSE && !is_numeric($element['#minimum_amount'])) {

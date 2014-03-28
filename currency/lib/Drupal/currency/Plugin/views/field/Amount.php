@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Plugin\views\field;
 
-use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
@@ -31,14 +31,14 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   /**
    * The currency storage.
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $currencyStorage;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageControllerInterface $currency_storage) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageInterface $currency_storage) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->definition += $this->defaultDefinition();
     $this->currencyStorage = $currency_storage;
@@ -50,7 +50,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
-    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorageController('currency'));
+    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorage('currency'));
   }
 
   /**

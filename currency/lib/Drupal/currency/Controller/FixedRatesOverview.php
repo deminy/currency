@@ -9,7 +9,7 @@ namespace Drupal\currency\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
@@ -38,7 +38,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
   /**
    * The currency storage.
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $currencyStorage;
 
@@ -56,14 +56,14 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
    *   The translation manager.
    * @param \Drupal\Core\Routing\UrlGeneratorInterface $url_generator
    *   The URL generator.
-   * @param \Drupal\Core\Entity\EntityStorageControllerInterface $currency_storage
+   * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency storage.
    * @param \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface $currency_amount_formatter_manager
    *   The currency locale delegator.
    * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager
    *   The currency exchanger plugin manager.
    */
-  public function __construct(TranslationInterface $translation_manager, UrlGeneratorInterface $url_generator, EntityStorageControllerInterface $currency_storage, AmountFormatterManagerInterface $currency_amount_formatter_manager, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
+  public function __construct(TranslationInterface $translation_manager, UrlGeneratorInterface $url_generator, EntityStorageInterface $currency_storage, AmountFormatterManagerInterface $currency_amount_formatter_manager, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
     $this->currencyStorage = $currency_storage;
     $this->currencyAmountFormatterManager = $currency_amount_formatter_manager;
     $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
@@ -77,7 +77,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
   public static function create(ContainerInterface $container) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
-    return new static($container->get('string_translation'), $container->get('url_generator'), $entity_manager->getStorageController('currency'), $container->get('plugin.manager.currency.amount_formatter'), $container->get('plugin.manager.currency.exchange_rate_provider'));
+    return new static($container->get('string_translation'), $container->get('url_generator'), $entity_manager->getStorage('currency'), $container->get('plugin.manager.currency.amount_formatter'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**

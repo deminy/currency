@@ -134,7 +134,7 @@ class CurrencyFormController extends EntityFormController {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, array &$form_state) {
-    $currency_storage = \Drupal::entityManager()->getStorageController('currency');
+    $currency_storage = \Drupal::entityManager()->getStorage('currency');
 
     // Validate the currency code.
     $currency_code = $form['currency_code']['#value'];

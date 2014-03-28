@@ -17,7 +17,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
   /**
    * The currency storage used for testing.
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\Core\Entity\EntityStorageInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyStorage;
 
@@ -57,7 +57,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
       'provider' => $this->randomName(),
     );
 
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageControllerInterface');
+    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
     $this->input = $this->getMock('\Drupal\currency\Input');
 

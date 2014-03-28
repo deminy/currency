@@ -21,7 +21,7 @@ class CurrencySign {
    * Implements form #process callback.
    */
   public static function process(array $element, array &$form_state, array $form) {
-    $currency_storage = \Drupal::entityManager()->getStorageController('currency');
+    $currency_storage = \Drupal::entityManager()->getStorage('currency');
 
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = NULL;

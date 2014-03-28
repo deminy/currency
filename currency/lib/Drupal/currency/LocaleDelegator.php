@@ -35,7 +35,7 @@ class LocaleDelegator implements LocaleDelegatorInterface {
   /**
    * The currency currency locale storage.
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $currencyLocaleStorage;
 
@@ -62,7 +62,7 @@ class LocaleDelegator implements LocaleDelegatorInterface {
    */
   function __construct(EntityManagerInterface $entity_manager, LanguageManager $language_manager, ConfigFactory $config_factory) {
     $this->configFactory = $config_factory;
-    $this->currencyLocaleStorage = $entity_manager->getStorageController('currency_locale');
+    $this->currencyLocaleStorage = $entity_manager->getStorage('currency_locale');
     $this->languageManager = $language_manager;
   }
 

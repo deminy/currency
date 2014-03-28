@@ -50,7 +50,7 @@ class CurrencyLocale extends ControllerBase implements ContainerInjectionInterfa
    *   A renderable array.
    */
   public function add() {
-    $currency_locale = $this->entityManager->getStorageController('currency_locale')->create(array());
+    $currency_locale = $this->entityManager->getStorage('currency_locale')->create(array());
 
     return $this->entityFormBuilder->getForm($currency_locale);
   }

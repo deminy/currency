@@ -8,7 +8,7 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRate;
 use Drupal\currency\MathInterface;
@@ -27,7 +27,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
   /**
    * The currency storage.
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $currencyStorage;
 
@@ -47,12 +47,12 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityStorageControllerInterface $currency_storage
+   * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency entity storage.
    * @param \Drupal\currency\MathInterface
    *   The Currency math service.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageControllerInterface $currency_storage, MathInterface $math) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageInterface $currency_storage, MathInterface $math) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->currencyStorage = $currency_storage;
     $this->math = $math;
@@ -64,7 +64,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
-    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorageController('currency'), $container->get('currency.math'));
+    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorage('currency'), $container->get('currency.math'));
   }
 
   /**

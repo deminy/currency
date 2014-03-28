@@ -25,7 +25,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   /**
    * The currency currency locale storage used for testing
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\Core\Entity\EntityStorageInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyLocaleStorage;
 
@@ -69,11 +69,11 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->currencyLocaleStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageControllerInterface');
+    $this->currencyLocaleStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
     $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
     $this->entityManager->expects($this->any())
-      ->method('getStorageController')
+      ->method('getStorage')
       ->with('currency_locale')
       ->will($this->returnValue($this->currencyLocaleStorage));
 

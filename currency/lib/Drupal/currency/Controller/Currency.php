@@ -55,7 +55,7 @@ class Currency extends ControllerBase implements ContainerInjectionInterface {
    *   A renderable array.
    */
   public function add() {
-    $currency = $this->entityManager->getStorageController('currency')->create(array());
+    $currency = $this->entityManager->getStorage('currency')->create(array());
 
     return $this->entityFormBuilder->getForm($currency);
   }

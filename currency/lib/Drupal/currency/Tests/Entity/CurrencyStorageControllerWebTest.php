@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Entity\CurrencyStorageControllerWebTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyStorageWebTest.
  */
 
 namespace Drupal\currency\Tests\Entity;
@@ -12,9 +12,9 @@ use Drupal\currency\UsageInterface;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Entity\CurrencyStorageController.
+ * Tests \Drupal\currency\Entity\CurrencyStorage.
  */
-class CurrencyStorageControllerWebTest extends WebTestBase {
+class CurrencyStorageWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -24,7 +24,7 @@ class CurrencyStorageControllerWebTest extends WebTestBase {
   public static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyStorageController web test',
+      'name' => '\Drupal\currency\Entity\CurrencyStorage web test',
       'group' => 'Currency',
     );
   }

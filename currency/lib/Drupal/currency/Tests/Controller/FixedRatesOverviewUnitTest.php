@@ -39,7 +39,7 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
   /**
    * The currency storage used for testing.
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\Core\Entity\EntityStorageInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyStorage;
 
@@ -72,7 +72,7 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
    * {@inheritdoc
    */
   public function setUp() {
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageControllerInterface');
+    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
     $this->currencyAmountFormatterManager = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface');
 

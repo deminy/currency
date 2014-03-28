@@ -9,7 +9,7 @@ namespace Drupal\currency\Controller;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\currency\Entity\Currency;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
@@ -30,7 +30,7 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
   /**
    * The currency storage.
    *
-   * @var \Drupal\Core\Entity\EntityStorageControllerInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $currencyStorage;
 
@@ -46,12 +46,12 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
    *
    * @param \Drupal\Core\Config\ConfigFactory $configFactory
    *   The config factory.
-   * @param \Drupal\Core\Entity\EntityStorageControllerInterface $currency_storage
+   * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency storage.
    * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager
    *   The currency exchange rate provider plugin manager.
    */
-  public function __construct(ConfigFactory $configFactory, EntityStorageControllerInterface $currency_storage, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
+  public function __construct(ConfigFactory $configFactory, EntityStorageInterface $currency_storage, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
     $this->configFactory = $configFactory;
     $this->currencyStorage = $currency_storage;
     $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
@@ -63,7 +63,7 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
   public static function create(ContainerInterface $container) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
-    return new static($container->get('config.factory'), $entity_manager->getStorageController('currency'), $container->get('plugin.manager.currency.exchange_rate_provider'));
+    return new static($container->get('config.factory'), $entity_manager->getStorage('currency'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**
