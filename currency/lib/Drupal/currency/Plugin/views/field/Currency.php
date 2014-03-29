@@ -19,7 +19,7 @@ use Drupal\views\ResultRow;
  *
  * @ingroup views_field_handlers
  *
- * @PluginID("currency")
+ * @ViewsField("currency")
  */
 class Currency extends FieldPluginBase {
 

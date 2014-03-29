@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup views_field_handlers
  *
- * @PluginID("currency_amount")
+ * @ViewsField("currency_amount")
  */
 class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface {
 

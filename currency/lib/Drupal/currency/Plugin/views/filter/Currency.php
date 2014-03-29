@@ -15,7 +15,7 @@ use Drupal\views\Plugin\views\filter\InOperator;
  *
  * @ingroup views_filter_handlers
  *
- * @PluginID("currency")
+ * @ViewsFilter("currency")
  */
 class Currency extends InOperator {
 

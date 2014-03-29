@@ -194,7 +194,7 @@ class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface
   /**
    * {@inheritdoc}
    */
-  public function getExportProperties() {
+  public function toArray() {
     $properties['decimalSeparator'] = $this->getDecimalSeparator();
     $properties['groupingSeparator'] = $this->getGroupingSeparator();
     $properties['locale'] = $this->id();

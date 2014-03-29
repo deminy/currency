@@ -398,7 +398,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * {@inheritdoc}
    */
-  public function getExportProperties() {
+  public function toArray() {
     $properties['alternativeSigns'] = $this->getAlternativeSigns();
     $properties['currencyCode'] = $this->id();
     $properties['currencyNumber'] = $this->getCurrencyNumber();
