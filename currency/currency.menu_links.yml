@@ -1,0 +1,14 @@
+currency.currency.list:
+  title: Currencies
+  parent: system.admin_config_regional
+  route_name: currency.currency.list
+currency.amount_formatting:
+  title: Currency amount formatting
+  description: Configure amount formatting for different locales.
+  parent: system.admin_config_regional
+  route_name: currency.amount_formatting
+currency.exchange_rate_provider.config:
+  title: Currency exchange
+  description: Configure how currency exchange rates should be retrieved.
+  parent: system.admin_config_regional
+  route_name: currency.exchange_rate_provider.config

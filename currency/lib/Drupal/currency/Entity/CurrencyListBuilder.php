@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Definition of Drupal\currency\Entity\CurrencyListController.
+ * Definition of Drupal\currency\Entity\CurrencyListBuilder.
  */
 
 namespace Drupal\currency\Entity;

@@ -6,13 +6,6 @@
  */
 
 /**
- * Implements hook_menu_link_defaults().
- */
-function currency_menu_link_defaults() {
-  return \Drupal::service('currency.hook.menu_link_defaults')->invoke();
-}
-
-/**
  * Implements hook_element_info().
  */
 function currency_element_info() {
