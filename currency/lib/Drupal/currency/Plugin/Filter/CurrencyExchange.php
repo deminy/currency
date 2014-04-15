@@ -73,7 +73,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.exchange_rate_provider'), $container->get('currency.math'), $container->get('currency.input'));
   }
 

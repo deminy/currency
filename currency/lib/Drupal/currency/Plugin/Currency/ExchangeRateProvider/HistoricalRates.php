@@ -61,7 +61,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, array $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
     return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorage('currency'), $container->get('currency.math'));
