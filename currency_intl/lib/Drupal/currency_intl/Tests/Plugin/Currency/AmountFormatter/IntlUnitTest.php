@@ -7,7 +7,7 @@
 
 namespace Drupal\currency_intl\Tests\Plugin\Currency\AmountFormatter;
 
-use Drupal\currency\Plugin\Currency\AmountFormatter\Intl;
+use Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -18,7 +18,7 @@ class IntlUnitTest extends UnitTestCase {
   /**
    * The formatter under test.
    *
-   * @var \Drupal\currency\Plugin\Currency\AmountFormatter\Intl
+   * @var \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl
    */
   protected $formatter;
 
@@ -41,7 +41,7 @@ class IntlUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
    */
   public function setUp() {
     $configuration = array();
@@ -50,7 +50,7 @@ class IntlUnitTest extends UnitTestCase {
 
     $this->localeDelegator = $this->getMock('\Drupal\currency\LocaleDelegatorInterface');
 
-    $this->formatter = new \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl($configuration, $plugin_id, $plugin_definition, $this->localeDelegator);
+    $this->formatter = new Intl($configuration, $plugin_id, $plugin_definition, $this->localeDelegator);
   }
 
   /**
