@@ -90,7 +90,7 @@ function currency_schema() {
       'locale' => array(
         'not null' => TRUE,
         'type' => 'varchar',
-        'length' => 5,
+        'length' => 255,
       ),
       'pattern' => array(
         'type' => 'varchar',
@@ -162,6 +162,17 @@ function currency_update_7200(array &$sandbox) {
   db_change_field('currency_locale_pattern', 'locale', 'locale', array(
     'not null' => TRUE,
     'length' => 5,
+    'type' => 'varchar',
+  ));
+}
+
+/**
+ * Increases the maximum locale length.
+ */
+function currency_update_7201(array &$sandbox) {
+  db_change_field('currency_locale_pattern', 'locale', 'locale', array(
+    'not null' => TRUE,
+    'length' => 255,
     'type' => 'varchar',
   ));
 }
