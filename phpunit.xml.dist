@@ -9,16 +9,17 @@
   </php>
   <testsuites>
     <testsuite name="Currency Unit Test Suite">
-        <directory>./currency/lib/Drupal/currency/Tests</directory>
-        <directory>./currency_intl/lib/Drupal/currency_intl/Tests</directory>
+        <directory>./currency/tests</directory>
+        <directory>./currency_intl/tests</directory>
     </testsuite>
   </testsuites>
   <!-- Filter for coverage reports. -->
   <filter>
     <blacklist>
-        <directory>./currency/lib/Drupal/currency/Tests</directory>
-        <directory>./currency_intl/lib/Drupal/currency_intl/Tests</directory>
-      <directory>./currency_test</directory>
+        <directory>./currency/tests</directory>
+        <directory>./currency/src/Tests</directory>
+        <directory>./currency_intl/src/Tests</directory>
+        <directory>./currency_test</directory>
     </blacklist>
   </filter>
 </phpunit>
