@@ -95,7 +95,7 @@ class CurrencyLocaleWebTest extends WebTestBase {
       'decimal_separator' => $this->randomName(1),
       'language_code' => 'nl',
     );
-    $this->drupalPostForm(NULL, $values, t('Delete'));
+    $this->clickLink(t('Delete'));
     $this->assertUrl('admin/config/regional/currency-formatting/locale/aa_DJ/delete');
     $this->assertResponse('200');
 

@@ -74,7 +74,7 @@ class CurrencyWebTest extends WebTestBase {
     $this->assertUrl('admin/config/regional/currency/AFN');
     $this->assertResponse('200');
     // Test that the "Delete" form action button works.
-    $this->drupalPostForm(NULL, array(), t('Delete'));
+    $this->clickLink(t('Delete'));
     $this->assertUrl('admin/config/regional/currency/AFN/delete');
     $this->assertResponse('200');
 

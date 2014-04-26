@@ -7,13 +7,13 @@
 
 namespace Drupal\currency\Entity;
 
-use Drupal\Core\Entity\EntityFormController;
+use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Language\LanguageManager;
 
 /**
  * Provides a currency_locale add/edit form.
  */
-class CurrencyLocaleFormController extends EntityFormController {
+class CurrencyLocaleFormController extends EntityForm {
 
   /**
    * {@inheritdoc}

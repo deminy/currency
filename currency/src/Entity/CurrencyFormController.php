@@ -7,13 +7,12 @@
 
 namespace Drupal\currency\Entity;
 
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityFormController;
+use Drupal\Core\Entity\EntityForm;
 
 /**
  * Provides a currency add/edit form.
  */
-class CurrencyFormController extends EntityFormController {
+class CurrencyFormController extends EntityForm {
 
   /**
    * {@inheritdoc}
