@@ -89,12 +89,6 @@ class CurrencyLocaleWebTest extends WebTestBase {
     $this->assertUrl('admin/config/regional/currency-formatting/locale/aa_DJ');
     $this->assertResponse('200');
     // Test that the "Delete" form action button works.
-    // @todo Do not submit values once https://drupal.org/node/216064 has been
-    //   fixed.
-    $values = array(
-      'decimal_separator' => $this->randomName(1),
-      'language_code' => 'nl',
-    );
     $this->clickLink(t('Delete'));
     $this->assertUrl('admin/config/regional/currency-formatting/locale/aa_DJ/delete');
     $this->assertResponse('200');
