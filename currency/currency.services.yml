@@ -1,12 +1,12 @@
 services:
   plugin.manager.currency.amount_formatter:
     class: Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager
-    arguments: ['@container.namespaces', '@cache.default', '@language_manager', '@module_handler', '@config.factory']
+    arguments: ['@container.namespaces', '@cache.discovery', '@language_manager', '@module_handler', '@config.factory']
     tags:
       - { name: plugin_manager_cache_clear}
   plugin.manager.currency.exchange_rate_provider:
     class: Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManager
-    arguments: ['@container.namespaces', '@cache.default', '@language_manager', '@module_handler']
+    arguments: ['@container.namespaces', '@cache.discovery', '@language_manager', '@module_handler']
     tags:
       - { name: plugin_manager_cache_clear}
   currency.exchange_rate_provider:
