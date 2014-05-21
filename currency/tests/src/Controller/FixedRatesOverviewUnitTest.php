@@ -11,7 +11,7 @@ use Drupal\currency\Controller\FixedRatesOverview;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Controller\FixedRatesOverview.
+ * @coversDefaultClass \Drupal\currency\Controller\FixedRatesOverview
  */
 class FixedRatesOverviewUnitTest extends UnitTestCase {
 
@@ -69,7 +69,9 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
@@ -86,7 +88,7 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers \Drupal\currency\Controller\FixedRatesOverview::overview())
+   * @covers ::overview
    */
   public function testOverview() {
     $currency_code_from = 'EUR';

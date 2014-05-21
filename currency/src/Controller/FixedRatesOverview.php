@@ -67,7 +67,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
     $this->currencyStorage = $currency_storage;
     $this->currencyAmountFormatterManager = $currency_amount_formatter_manager;
     $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
-    $this->translationManager = $translation_manager;
+    $this->stringTranslation = $translation_manager;
     $this->urlGenerator = $url_generator;
   }
 

@@ -11,7 +11,7 @@ use Drupal\currency\LocaleDelegator;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\LocaleDelegator.
+ * @coversDefaultClass \Drupal\currency\LocaleDelegator
  */
 class LocaleDelegatorUnitTest extends UnitTestCase {
 
@@ -63,6 +63,8 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
@@ -85,7 +87,8 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests setCountryCode() and getCountryCode().
+   * @covers ::setCountryCode
+   * @covers ::getCountryCode
    */
   function testGetCountryCode() {
     $country_code = $this->randomName(2);
@@ -99,7 +102,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests getCurrencyLocale().
+   * @covers ::getCurrencyLocale
    *
    * @depends testGetCountryCode
    */
@@ -121,7 +124,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests getCurrencyLocale().
+   * @covers ::getCurrencyLocale
    */
   function testGetCurrencyLocaleWithSiteDefaultCountry() {
     $this->prepareLanguageManager();
@@ -153,7 +156,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests getCurrencyLocale().
+   * @covers ::getCurrencyLocale
    */
   function testGetCurrencyLocaleFallback() {
     $this->prepareLanguageManager();
@@ -198,4 +201,5 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
       ->with(Language::TYPE_CONTENT)
       ->will($this->returnValue($language));
   }
+
 }

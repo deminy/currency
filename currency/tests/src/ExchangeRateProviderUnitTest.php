@@ -11,7 +11,7 @@ use Drupal\currency\ExchangeRateProvider;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\ExchangeRateProvider.
+ * @coversDefaultClass \Drupal\currency\ExchangeRateProvider
  */
 class ExchangeRateProviderUnitTest extends UnitTestCase {
 
@@ -49,6 +49,8 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
@@ -61,7 +63,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests loadConfiguration().
+   * @covers ::loadConfiguration
    */
   public function testLoadConfiguration() {
     $plugin_id_a = $this->randomName();
@@ -105,7 +107,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests saveConfiguration().
+   * @covers ::saveConfiguration
    */
   public function testSaveConfiguration() {
     $configuration = array(
@@ -146,7 +148,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests load().
+   * @covers ::load
    */
   public function testLoad() {
     $currency_code_from = 'EUR';
@@ -178,7 +180,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests loadMultiple().
+   * @covers ::loadMultiple
    */
   public function testLoadMultiple() {
     $currency_code_from_a = 'EUR';

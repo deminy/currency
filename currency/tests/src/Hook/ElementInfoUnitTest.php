@@ -12,7 +12,7 @@ use Drupal\currency\Hook\ElementInfo;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Hook\ElementInfo.
+ * @coversDefaultClass \Drupal\currency\Hook\ElementInfo
  */
 class ElementInfoUnitTest extends UnitTestCase {
 
@@ -35,14 +35,14 @@ class ElementInfoUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
    */
   public function setUp() {
     $this->service = new ElementInfo();
   }
 
   /**
-   * @covers \Drupal\currency\Hook\ElementInfo::invoke()
+   * @covers ::invoke
    */
   public function testInvoke() {
     $elements = $this->service->invoke();

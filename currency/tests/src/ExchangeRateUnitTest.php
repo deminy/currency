@@ -11,7 +11,7 @@ use Drupal\currency\ExchangeRate;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\ExchangeRate.
+ * @coversDefaultClass \Drupal\currency\ExchangeRate
  */
 class ExchangeRateUnitTest extends UnitTestCase {
 
@@ -34,7 +34,9 @@ class ExchangeRateUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $exchange_rate_provider_plugin_id = $this->randomName();
@@ -46,8 +48,8 @@ class ExchangeRateUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers \Drupal\currency\ExchangeRate::getDestinationCurrencyCode()
-   * @covers \Drupal\currency\ExchangeRate::setDestinationCurrencyCode()
+   * @covers ::getDestinationCurrencyCode
+   * @covers ::setDestinationCurrencyCode
    */
   public function testGetDestinationCurrencyCode() {
     $currency_code = $this->randomName(3);
@@ -56,8 +58,8 @@ class ExchangeRateUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers \Drupal\currency\ExchangeRate::getSourceCurrencyCode()
-   * @covers \Drupal\currency\ExchangeRate::setSourceCurrencyCode()
+   * @covers ::getSourceCurrencyCode
+   * @covers ::setSourceCurrencyCode
    */
   public function testGetSourceCurrencyCode() {
     $currency_code = $this->randomName(3);
@@ -66,8 +68,8 @@ class ExchangeRateUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers \Drupal\currency\ExchangeRate::getRate()
-   * @covers \Drupal\currency\ExchangeRate::setRate()
+   * @covers ::getRate
+   * @covers ::setRate
    */
   public function testGetRate() {
     $rate = mt_rand();
@@ -76,8 +78,8 @@ class ExchangeRateUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers \Drupal\currency\ExchangeRate::getExchangeRateProviderPluginId()
-   * @covers \Drupal\currency\ExchangeRate::setExchangeRateProviderPluginId()
+   * @covers ::getExchangeRateProviderPluginId
+   * @covers ::setExchangeRateProviderPluginId
    */
   public function testGetExchangeRateProviderPluginId() {
     $plugin_id = $this->randomName();
@@ -86,12 +88,13 @@ class ExchangeRateUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers \Drupal\currency\ExchangeRate::getTimestamp()
-   * @covers \Drupal\currency\ExchangeRate::setTimestamp()
+   * @covers ::getTimestamp
+   * @covers ::setTimestamp
    */
   public function testGetTimestamp() {
     $timestamp = mt_rand();
     $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setTimestamp($timestamp)));
     $this->assertSame($timestamp, $this->exchangeRate->getTimestamp());
   }
+
 }

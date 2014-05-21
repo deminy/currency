@@ -11,7 +11,7 @@ use Drupal\currency\Hook\Permission;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Hook\Permission.
+ * @coversDefaultClass \Drupal\currency\Hook\Permission
  */
 class PermissionUnitTest extends UnitTestCase {
 
@@ -41,7 +41,9 @@ class PermissionUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $this->translationManager = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
@@ -50,7 +52,7 @@ class PermissionUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers \Drupal\currency\Hook\Permission::invoke()
+   * @covers ::invoke
    */
   public function testInvoke() {
     $permissions = $this->service->invoke();

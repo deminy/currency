@@ -11,7 +11,7 @@ use Drupal\currency\Input;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Input
+ * @coversDefaultClass \Drupal\currency\Input
  */
 class InputUnitTest extends UnitTestCase {
 
@@ -41,7 +41,9 @@ class InputUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests parseAmount().
+   * @covers ::parseAmount
+   * @covers ::parseAmountDecimalSeparator
+   * @covers ::parseAmountNegativeFormat
    */
   public function testParseAmount() {
     $amounts_invalid = array(
@@ -80,4 +82,5 @@ class InputUnitTest extends UnitTestCase {
       $this->assertEquals($amount_validated, $amount[1]);
     }
   }
+
 }

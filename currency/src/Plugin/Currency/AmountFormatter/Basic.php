@@ -48,7 +48,7 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $translation_manager, LocaleDelegatorInterface $locale_delegator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->localeDelegator = $locale_delegator;
-    $this->translationManager = $translation_manager;
+    $this->stringTranslation = $translation_manager;
   }
 
   /**

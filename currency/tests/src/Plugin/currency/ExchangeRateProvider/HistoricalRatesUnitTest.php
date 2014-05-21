@@ -11,7 +11,7 @@ use Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates.
+ * @coversDefaultClass \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
  */
 class HistoricalRatesUnitTest extends UnitTestCase {
 
@@ -49,6 +49,8 @@ class HistoricalRatesUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $configuration = array();
@@ -63,7 +65,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests load().
+   * @covers ::load
    */
   public function testLoad() {
     $rates = $this->prepareExchangeRates();
@@ -84,7 +86,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests loadMultiple().
+   * @covers ::loadMultiple
    */
   public function testLoadMultiple() {
     $rates = $this->prepareExchangeRates();

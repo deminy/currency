@@ -77,7 +77,7 @@ class AmountFormatterManager extends DefaultPluginManager implements AmountForma
    * {@inheritdoc}
    */
   public function createInstance($plugin_id, array $configuration = array()) {
-    if (!$this->getDefinition($plugin_id)) {
+    if (!$this->hasDefinition($plugin_id)) {
       $plugin_id = $this::FALLBACK_PLUGIN_ID;
     }
     return parent::createInstance($plugin_id, $configuration);

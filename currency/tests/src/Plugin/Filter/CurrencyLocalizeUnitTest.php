@@ -10,7 +10,7 @@ namespace Drupal\currency\Tests\Plugin\Filter;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Plugin\Filter\CurrencyLocalize.
+ * @coversDefaultClass \Drupal\currency\Plugin\Filter\CurrencyLocalize
  */
 class CurrencyLocalizeUnitTest extends UnitTestCase {
 
@@ -48,6 +48,8 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $configuration = array();
@@ -68,7 +70,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests process().
+   * @covers ::process
    */
   function testProcess() {
     $map = array(
@@ -122,7 +124,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests tips().
+   * @covers ::tips
    */
   public function testTips() {
     $this->filter->expects($this->any())

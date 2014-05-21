@@ -9,7 +9,7 @@ namespace Drupal\currency\Tests;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Math.
+ * @coversDefaultClass \Drupal\currency\Math
  */
 class MathUnitTest extends UnitTestCase {
 
@@ -41,7 +41,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests add().
+   * @covers ::add
    */
   public function testAddNative() {
     $this->prepareNative();
@@ -51,7 +51,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests add().
+   * @covers ::add
    */
   public function testAddBCMath() {
     $this->prepareBCMath();
@@ -61,7 +61,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests subtract().
+   * @covers ::subtract
    */
   public function testSubtractNative() {
     $this->prepareNative();
@@ -71,7 +71,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests subtract().
+   * @covers ::subtract
    */
   public function testSubtractBCMath() {
     $this->prepareBCMath();
@@ -81,7 +81,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests multiply().
+   * @covers ::multiply
    */
   public function testMultiplyNative() {
     $this->prepareNative();
@@ -91,7 +91,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests multiply().
+   * @covers ::multiply
    */
   public function testMultiplyBCMath() {
     $this->prepareBCMath();
@@ -101,7 +101,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests divide().
+   * @covers ::divide
    */
   public function testDivideNative() {
     $this->prepareNative();
@@ -111,7 +111,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests divide().
+   * @covers ::divide
    */
   public function testDivideBCMath() {
     $this->prepareBCMath();
@@ -121,7 +121,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests round().
+   * @covers ::round
    */
   public function testRoundNative() {
     $this->prepareNative();
@@ -135,7 +135,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests round().
+   * @covers ::round
    */
   public function testRoundBCMath() {
     $this->prepareBCMath();
@@ -149,7 +149,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests compare().
+   * @covers ::compare
    */
   public function testCompareNative() {
     $this->prepareNative();
@@ -168,7 +168,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests compare().
+   * @covers ::compare
    */
   public function testCompareBCMath() {
     $this->prepareBCMath();

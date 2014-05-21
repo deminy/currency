@@ -11,7 +11,7 @@ use Drupal\currency\Plugin\Currency\AmountFormatter\Basic;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Plugin\Currency\AmountFormatter\Basic.
+ * @coversDefaultClass \Drupal\currency\Plugin\Currency\AmountFormatter\Basic
  */
 class BasicUnitTest extends UnitTestCase {
 
@@ -48,7 +48,9 @@ class BasicUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $configuration = array();
@@ -63,7 +65,7 @@ class BasicUnitTest extends UnitTestCase {
   }
 
   /**
-   * Test formatAmount().
+   * @covers ::formatAmount
    */
   function testFormatAmount() {
     $decimal_separator = '@';

@@ -11,7 +11,7 @@ use Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates.
+ * @coversDefaultClass \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates
  */
 class FixedRatesUnitTest extends UnitTestCase {
 
@@ -56,6 +56,8 @@ class FixedRatesUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $configuration = array();
@@ -72,7 +74,7 @@ class FixedRatesUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests loadConfiguration().
+   * @covers ::loadConfiguration
    */
   public function testLoadConfiguration() {
     list($rates) = $this->prepareExchangeRates();
@@ -80,7 +82,8 @@ class FixedRatesUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests save() and load().
+   * @covers ::save
+   * @covers ::load
    */
   public function testLoad() {
     list($rates) = $this->prepareExchangeRates();
@@ -102,7 +105,7 @@ class FixedRatesUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests loadMultiple().
+   * @covers ::loadMultiple
    */
   public function testLoadMultiple() {
     list($rates) = $this->prepareExchangeRates();
@@ -138,7 +141,7 @@ class FixedRatesUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests save().
+   * @covers ::save
    */
   public function testSave() {
     $currency_code_from = $this->randomName(3);
@@ -162,7 +165,7 @@ class FixedRatesUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests delete().
+   * @covers ::delete
    */
   function testDelete() {
     list($rates, $rates_data) = $this->prepareExchangeRates();

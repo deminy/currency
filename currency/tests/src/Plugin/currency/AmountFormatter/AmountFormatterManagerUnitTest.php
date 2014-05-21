@@ -6,11 +6,12 @@
  */
 
 namespace Drupal\currency\Plugin\Currency\AmountFormatter;
+
 use Drupal\Tests\UnitTestCase;
 use Zend\Stdlib\ArrayObject;
 
 /**
- * Tests \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager.
+ * @coversDefaultClass \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager
  */
 class AmountFormatterManagerUnitTest extends UnitTestCase {
 
@@ -75,7 +76,9 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $this->discovery = $this->getMock('\Drupal\Component\Plugin\Discovery\DiscoveryInterface');
@@ -114,7 +117,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests getDefaultPluginId().
+   * @covers ::getDefaultPluginId
    */
   public function testGetDefaultPluginId() {
     $plugin_id = $this->randomName();
@@ -136,7 +139,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests setDefaultPluginId().
+   * @covers ::setDefaultPluginId
    */
   public function testSetDefaultPluginId() {
     $plugin_id = $this->randomName();
@@ -160,7 +163,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests createInstance().
+   * @covers ::createInstance
    */
   public function testCreateInstance() {
     $existing_plugin_id = 'currency_basic';
@@ -183,7 +186,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests getDefaultPlugin().
+   * @covers ::getDefaultPlugin
    */
   public function testGetDefaultPlugin() {
     $namespaces = new ArrayObject();

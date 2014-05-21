@@ -11,7 +11,7 @@ use Drupal\currency\ExchangeRate;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency\Plugin\Filter\CurrencyExchange.
+ * @coversDefaultClass \Drupal\currency\Plugin\Filter\CurrencyExchange
  */
 class CurrencyExchangeUnitTest extends UnitTestCase {
 
@@ -56,6 +56,8 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $configuration = array();
@@ -78,7 +80,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests process().
+   * @covers ::process
    */
   public function testProcess() {
     $currency_code_from = 'EUR';
@@ -135,7 +137,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
   }
 
   /**
-   * Tests tips().
+   * @covers ::tips
    */
   public function testTips() {
     $this->filter->expects($this->any())
