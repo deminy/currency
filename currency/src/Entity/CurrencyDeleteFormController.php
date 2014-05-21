@@ -8,6 +8,7 @@
 namespace Drupal\currency\Entity;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
+use Drupal\Core\Url;
 
 /**
  * Provides the payment method deletion form.
@@ -36,9 +37,7 @@ class CurrencyDeleteFormController extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelRoute() {
-    return array(
-      'route_name' => 'currency.currency.list',
-    );
+    return new Url('currency.currency.list');
   }
 
   /**
