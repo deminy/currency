@@ -6,6 +6,7 @@
 
 namespace Drupal\currency\Tests;
 
+use Drupal\currency\Math;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -32,7 +33,7 @@ class MathUnitTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc
+   * {@inheritdoc}
    */
   public function setUp() {
     $this->math = $this->getMockBuilder('\Drupal\currency\Math')
@@ -204,4 +205,31 @@ class MathUnitTest extends UnitTestCase {
       ->with('bcmath')
       ->will($this->returnValue(TRUE));
   }
+
+  /**
+   * @covers ::isExtensionLoaded
+   */
+  public function testIsExtensionLoaded() {
+    $math = new Math();
+
+    $method = new \ReflectionMethod($math, 'isExtensionLoaded');
+    $method->setAccessible(TRUE);
+
+    $extensions = array('bcmath', $this->randomName());
+    foreach ($extensions as $extension) {
+      $this->assertSame(extension_loaded($extension), $method->invoke($math, $extension));
+    }
+  }
+
+  /**
+   * @covers ::setBcmathPrecision
+   * @covers ::getBcmathPrecision
+   */
+  public function testGetBcmathPrecision() {
+    $precision = mt_rand();
+
+    $this->assertSame($this->math, $this->math->setBcmathPrecision($precision));
+    $this->assertSame($precision, $this->math->getBcmathPrecision());
+  }
+
 }

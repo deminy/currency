@@ -10,7 +10,7 @@ namespace Drupal\currency\Controller;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\currency\ExchangeRateProvider;
+use Drupal\currency\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,14 +22,14 @@ class ExchangeRateProviderForm extends FormBase implements ContainerInjectionInt
   /**
    * The currency exchange rate provider.
    *
-   * @var \Drupal\currency\ExchangeRateProvider
+   * @var \Drupal\currency\ExchangeRateProviderInterface
    */
   protected $exchangeRateProvider;
 
   /**
    * The currency exchange rate provider manager.
    *
-   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface
    */
   protected $currencyExchangeRateProviderManager;
 
@@ -38,12 +38,12 @@ class ExchangeRateProviderForm extends FormBase implements ContainerInjectionInt
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
    *   The translation manager.
-   * @param \Drupal\currency\ExchangeRateProvider $exchange_rate_provider
+   * @param \Drupal\currency\ExchangeRateProviderInterface $exchange_rate_provider
    *   The currency exchange rate provider.
    * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager
    *   The currency exchange rate provider manager.
    */
-  public function __construct(TranslationInterface $translation_manager, ExchangeRateProvider $exchange_rate_provider, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
+  public function __construct(TranslationInterface $translation_manager, ExchangeRateProviderInterface $exchange_rate_provider, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
     $this->exchangeRateProvider = $exchange_rate_provider;
     $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
     $this->translationManager = $translation_manager;

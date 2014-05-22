@@ -27,7 +27,7 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
   /**
    * The locale delegator.
    *
-   * @var \Drupal\currency\LocaleDelegator
+   * @var \Drupal\currency\LocaleDelegatorInterface
    */
   protected $localeDelegator;
 

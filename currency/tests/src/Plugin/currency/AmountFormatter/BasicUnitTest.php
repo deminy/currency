@@ -9,6 +9,7 @@ namespace Drupal\currency\Tests\Plugin\Currency\AmountFormatter;
 
 use Drupal\currency\Plugin\Currency\AmountFormatter\Basic;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\AmountFormatter\Basic
@@ -30,11 +31,11 @@ class BasicUnitTest extends UnitTestCase {
   protected $localeDelegator;
 
   /**
-   * The translation manager.
+   * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
    */
-  protected $translationManager;
+  protected $stringTranslation;
 
   /**
    * {@inheritdoc}
@@ -59,9 +60,30 @@ class BasicUnitTest extends UnitTestCase {
 
     $this->localeDelegator = $this->getMock('\Drupal\currency\LocaleDelegatorInterface');
 
-    $this->translationManager = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
 
-    $this->formatter = new Basic($configuration, $plugin_id, $plugin_definition, $this->translationManager, $this->localeDelegator);
+    $this->formatter = new Basic($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->localeDelegator);
+  }
+
+  /**
+   * @covers ::create
+   */
+  function testCreate() {
+    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $map = array(
+      array('currency.locale_delegator', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->localeDelegator),
+      array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
+    );
+    $container->expects($this->any())
+      ->method('get')
+      ->will($this->returnValueMap($map));
+
+    $configuration = array();
+    $plugin_id = $this->randomName();
+    $plugin_definition = array();
+
+    $formatter = Basic::create($container, $configuration, $plugin_id, $plugin_definition);
+    $this->assertInstanceOf('\Drupal\currency\Plugin\Currency\AmountFormatter\Basic', $formatter);
   }
 
   /**
@@ -108,7 +130,7 @@ class BasicUnitTest extends UnitTestCase {
     );
     $translation = $this->randomName();
 
-    $this->translationManager->expects($this->once())
+    $this->stringTranslation->expects($this->once())
       ->method('translate')
       ->with($translatable_string, $translation_arguments)
       ->will($this->returnValue($translation));

@@ -7,6 +7,7 @@
 
 namespace Drupal\currency\Hook;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 
 /**
@@ -16,20 +17,15 @@ use Drupal\Core\StringTranslation\TranslationInterface;
  */
 class Permission {
 
-  /**
-   * The translation manager service.
-   *
-   * @var \Drupal\Core\StringTranslation\TranslationInterface
-   */
-  protected $translationManager;
+  use StringTranslationTrait;
 
   /**
    * Constructs a new class instance.
    *
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    */
-  public function __construct(TranslationInterface $translation_manager) {
-    $this->translationManager = $translation_manager;
+  public function __construct(TranslationInterface $string_translation) {
+    $this->stringTranslation = $string_translation;
   }
 
   /**
@@ -73,15 +69,6 @@ class Permission {
     );
 
     return $permissions;
-  }
-
-  /**
-   * Translates a string to the current language or to a given language.
-   *
-   * See the t() documentation for details.
-   */
-  protected function t($string, array $args = array(), array $options = array()) {
-    return $this->translationManager->translate($string, $args, $options);
   }
 
 }

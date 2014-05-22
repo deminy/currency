@@ -85,15 +85,15 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
   }
 
   /**
-   * Returns enabled currency exchanger plugins, sorted by weight.
+   * Returns enabled currency exchange rate provider plugins, sorted by weight.
    *
    * @return \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface[]
    */
   protected function getPlugins() {
-    $names = array_keys(array_filter($this->loadConfiguration()));
+    $plugin_ids = array_keys(array_filter($this->loadConfiguration()));
     $plugins = array();
-    foreach ($names as $name) {
-      $plugins[$name] = $this->currencyExchangeRateProviderManager->createInstance($name, array());
+    foreach ($plugin_ids as $plugin_id) {
+      $plugins[$plugin_id] = $this->currencyExchangeRateProviderManager->createInstance($plugin_id);
     }
 
     return $plugins;

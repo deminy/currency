@@ -49,7 +49,7 @@ class LocaleDelegator implements LocaleDelegatorInterface {
   /**
    * The currency locale to use.
    *
-   * @var \Drupal\currency\Entity\CurrencyLocale
+   * @var \Drupal\currency\Entity\CurrencyLocaleInterface
    */
   protected $currencyLocale;
 

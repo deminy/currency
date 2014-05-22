@@ -1,0 +1,179 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\currency\Tests\Controller\AmountFormattingFormUnitTest.
+ */
+
+namespace Drupal\currency\Tests\Controller;
+
+use Drupal\currency\Controller\AmountFormattingForm;
+use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * @coversDefaultClass \Drupal\currency\Controller\AmountFormattingForm
+ */
+class AmountFormattingFormUnitTest extends UnitTestCase {
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $configFactory;
+
+  /**
+   * The controller under test.
+   *
+   * @var \Drupal\currency\Controller\AmountFormattingForm
+   */
+  protected $controller;
+
+  /**
+   * The currency amount formatter manager.
+   *
+   * @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $currencyAmountFormatterManager;
+
+  /**
+   * The string translation service.
+   *
+   * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $stringTranslation;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'description' => '',
+      'name' => '\Drupal\currency\Controller\AmountFormattingForm unit test',
+      'group' => 'Currency',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @covers ::__construct
+   */
+  public function setUp() {
+    $this->configFactory = $this->getMock('\Drupal\Core\Config\ConfigFactoryInterface');
+
+    $this->currencyAmountFormatterManager = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface');
+
+    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+
+    $this->controller = new AmountFormattingForm($this->configFactory, $this->stringTranslation, $this->currencyAmountFormatterManager);
+  }
+
+  /**
+   * @covers ::create
+   */
+  function testCreate() {
+    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $map = array(
+      array('config.factory', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configFactory),
+      array('plugin.manager.currency.amount_formatter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyAmountFormatterManager),
+      array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
+    );
+    $container->expects($this->any())
+      ->method('get')
+      ->will($this->returnValueMap($map));
+
+    $form = AmountFormattingForm::create($container);
+    $this->assertInstanceOf('\Drupal\currency\Controller\AmountFormattingForm', $form);
+  }
+
+  /**
+   * @covers ::getFormId
+   */
+  public function testGetFormId() {
+    $this->assertSame('currency_amount_formatting', $this->controller->getFormId());
+  }
+
+  /**
+   * @covers ::buildForm
+   */
+  public function testBuildForm() {
+    $form = array();
+    $form_state = array();
+
+    $definitions = array(
+      'foo' => array(
+        'label' => $this->randomName(),
+      ),
+    );
+
+    $plugin_id = $this->randomName();
+
+    $this->currencyAmountFormatterManager->expects($this->once())
+      ->method('getDefinitions')
+      ->will($this->returnValue($definitions));
+
+    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $config->expects($this->once())
+      ->method('get')
+      ->with('plugin_id')
+      ->will($this->returnValue($plugin_id));
+
+    $this->configFactory->expects($this->once())
+      ->method('get')
+      ->with('currency.amount_formatting')
+      ->will($this->returnValue($config));
+
+    $this->stringTranslation->expects($this->any())
+      ->method('translate')
+      ->will($this->returnArgument(0));
+
+    $expected = array(
+      '#default_value' => $plugin_id,
+      '#options' => array(
+        'foo' => $definitions['foo']['label'],
+      ),
+      '#process' => array('form_process_radios', array($this->controller, 'processPluginOptions')),
+      '#title' => 'Default amount formatter',
+      '#type' => 'radios',
+    );
+    $build = $this->controller->buildForm($form, $form_state);
+    $this->assertSame($expected, $build['default_plugin_id']);
+  }
+
+  /**
+   * @covers ::processPluginOptions
+   */
+  public function testProcessPluginOptions() {
+    $element = array();
+
+    $definitions = array(
+      'foo' => array(
+        'description' => $this->randomName(),
+      ),
+      'bar' => array(
+        'description' => $this->randomName(),
+      ),
+      // This must work without a description.
+      'baz' => array(),
+    );
+
+    $this->currencyAmountFormatterManager->expects($this->once())
+      ->method('getDefinitions')
+      ->will($this->returnValue($definitions));
+
+    $expected = array(
+      'foo' => array(
+        '#description' => $definitions['foo']['description'],
+      ),
+      'bar' => array(
+        '#description' => $definitions['bar']['description'],
+      ),
+    );
+    $this->assertSame($expected, $this->controller->processPluginOptions($element));
+  }
+
+}

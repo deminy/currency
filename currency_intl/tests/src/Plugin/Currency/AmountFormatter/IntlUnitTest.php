@@ -11,7 +11,7 @@ use Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Tests \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl.
+ * @coversDefaultClass \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl
  */
 class IntlUnitTest extends UnitTestCase {
 
@@ -42,6 +42,8 @@ class IntlUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
+   *
+   * @covers ::__construct
    */
   public function setUp() {
     $configuration = array();
@@ -54,7 +56,25 @@ class IntlUnitTest extends UnitTestCase {
   }
 
   /**
-   * Test formatAmount().
+   * @covers ::create
+   */
+  function testCreate() {
+    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container->expects($this->once())
+      ->method('get')
+      ->with('currency.locale_delegator')
+      ->will($this->returnValue($this->localeDelegator));
+
+    $configuration = array();
+    $plugin_id = $this->randomName();
+    $plugin_definition = array();
+
+    $formatter = Intl::create($container, $configuration, $plugin_id, $plugin_definition);
+    $this->assertInstanceOf('\Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl', $formatter);
+  }
+
+  /**
+   * @covers ::formatAmount
    */
   function testFormatAmount() {
     $locale = 'nl_NL';

@@ -27,13 +27,13 @@ class CurrencyLocale extends ControllerBase implements ContainerInjectionInterfa
    *   The entity manager.
    * @param \Drupal\Core\Entity\EntityFormBuilderInterface $entity_form_builder
    *   The entity manager.
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
-   *   The translation manager.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The string translator.
    */
-  public function __construct(EntityManagerInterface $entity_manager, EntityFormBuilderInterface $entity_form_builder, TranslationInterface $translation_manager) {
+  public function __construct(EntityManagerInterface $entity_manager, EntityFormBuilderInterface $entity_form_builder, TranslationInterface $string_translation) {
     $this->entityManager = $entity_manager;
     $this->entityFormBuilder = $entity_form_builder;
-    $this->translationManager = $translation_manager;
+    $this->stringTranslation = $string_translation;
   }
 
   /**

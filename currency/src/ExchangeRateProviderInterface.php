@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file Contains \Drupal\currencu\ExchangeRateProviderInterface.
+ * @file Contains \Drupal\currency\ExchangeRateProviderInterface.
  */
 
 namespace Drupal\currency;

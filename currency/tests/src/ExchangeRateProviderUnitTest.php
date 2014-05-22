@@ -180,6 +180,37 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
   }
 
   /**
+   * @covers ::load
+   */
+  public function testLoadWithIdenticalCurrencies() {
+    $currency_code_from = 'EUR';
+    $currency_code_to = 'EUR';
+
+    $rate = $this->exchangeRateProvider->load($currency_code_from, $currency_code_to);
+    $this->assertInstanceOf('\Drupal\currency\ExchangeRate', $rate);
+    $this->assertSame(1, $rate->getRate());
+  }
+
+  /**
+   * @covers ::load
+   */
+  public function testLoadWithoutPlugins() {
+    $currency_code_from = $this->randomName();
+    $currency_code_to = $this->randomName();
+
+    /** @var \Drupal\currency\ExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
+    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\ExchangeRateProvider')
+      ->setConstructorArgs(array($this->currencyExchangeRateProviderManager, $this->configFactory))
+      ->setMethods(array('getPlugins'))
+      ->getMock();
+    $exchange_rate_provider->expects($this->once())
+      ->method('getPlugins')
+      ->will($this->returnValue(array()));
+
+    $this->assertNull($exchange_rate_provider->load($currency_code_from, $currency_code_to));
+  }
+
+  /**
    * @covers ::loadMultiple
    */
   public function testLoadMultiple() {
@@ -250,5 +281,50 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
     $this->assertSame(1, $returned_rates[$currency_code_from_a][$currency_code_from_a]->getRate());
     $this->assertSame($returned_rates_b[$currency_code_from_b][$currency_code_to_b], $returned_rates[$currency_code_from_b][$currency_code_to_b]);
     $this->assertSame(1, $returned_rates[$currency_code_from_b][$currency_code_from_b]->getRate());
+  }
+
+  /**
+   * @covers ::getPlugins
+   *
+   * @depends testLoadConfiguration
+   */
+  public function testGetPlugins() {
+    $configuration = array(
+      'foo' => TRUE,
+      $this->randomName() => FALSE,
+      'bar' => TRUE,
+      'baz' => FALSE,
+    );
+
+    /** @var \Drupal\currency\ExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
+    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\ExchangeRateProvider')
+      ->setConstructorArgs(array($this->currencyExchangeRateProviderManager, $this->configFactory))
+      ->setMethods(array('loadConfiguration'))
+      ->getMock();
+    $exchange_rate_provider->expects($this->once())
+      ->method('loadConfiguration')
+      ->will($this->returnValue($configuration));
+
+    $plugin_foo = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+    $plugin_bar = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+
+    $map = array(
+      array('foo', array(), $plugin_foo),
+      array('bar', array(), $plugin_bar),
+    );
+
+    $this->currencyExchangeRateProviderManager->expects($this->exactly(2))
+      ->method('createInstance')
+      ->will($this->returnValueMap($map));
+
+    $method = new \ReflectionMethod($exchange_rate_provider, 'getPlugins');
+    $method->setAccessible(TRUE);
+
+    $plugins = $method->invoke($exchange_rate_provider);
+    $expected = array(
+      'foo' => $plugin_foo,
+      'bar' => $plugin_bar,
+    );
+    $this->assertSame($expected, $plugins);
   }
 }

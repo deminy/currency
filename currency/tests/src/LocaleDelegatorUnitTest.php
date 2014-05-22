@@ -103,6 +103,26 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
 
   /**
    * @covers ::getCurrencyLocale
+   * @covers ::setCurrencyLocale
+   * @covers ::resetCurrencyLocale
+   */
+  function testSetCurrencyLocale() {
+    $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $property = new \ReflectionProperty($this->localeDelegator, 'currencyLocale');
+    $property->setAccessible(TRUE);
+
+    $this->assertSame($this->localeDelegator, $this->localeDelegator->setCurrencyLocale($currency_locale));
+    $this->assertSame($currency_locale, $property->getValue($this->localeDelegator));
+    $this->assertSame($currency_locale, $this->localeDelegator->getCurrencyLocale());
+    $this->assertSame($this->localeDelegator, $this->localeDelegator->resetCurrencyLocale());
+    $this->assertNull($property->getValue($this->localeDelegator));
+  }
+
+  /**
+   * @covers ::getCurrencyLocale
    *
    * @depends testGetCountryCode
    */

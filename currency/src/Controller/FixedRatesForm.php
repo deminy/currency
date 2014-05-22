@@ -7,11 +7,12 @@
 
 namespace Drupal\currency\Controller;
 
-use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormBase;
-use Drupal\currency\Entity\Currency;
+use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\currency\Entity\Currency as CurrencyEntity;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -19,13 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides the configuration form for the currency_fixed_rates plugin.
  */
 class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
-
-  /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactory
-   */
-  protected $configFacory;
 
   /**
    * The currency storage.
@@ -37,24 +31,27 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
   /**
    * The currency exchange rate provider manager.
    *
-   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface
    */
   protected $currencyExchangeRateProviderManager;
 
   /**
    * Constructs a new class instance.
    *
-   * @param \Drupal\Core\Config\ConfigFactory $configFactory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The string translator.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency storage.
    * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager
    *   The currency exchange rate provider plugin manager.
    */
-  public function __construct(ConfigFactory $configFactory, EntityStorageInterface $currency_storage, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
-    $this->configFactory = $configFactory;
+  public function __construct(ConfigFactoryInterface $configFactory, TranslationInterface $string_translation, EntityStorageInterface $currency_storage, ExchangeRateProviderManagerInterface $currency_exchange_rate_provider_manager) {
+    $this->setConfigFactory($configFactory);
     $this->currencyStorage = $currency_storage;
     $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
+    $this->stringTranslation = $string_translation;
   }
 
   /**
@@ -63,7 +60,8 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
   public static function create(ContainerInterface $container) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
-    return new static($container->get('config.factory'), $entity_manager->getStorage('currency'), $container->get('plugin.manager.currency.exchange_rate_provider'));
+
+    return new static($container->get('config.factory'), $container->get('string_translation'), $entity_manager->getStorage('currency'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**
@@ -80,7 +78,7 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
     $plugin = $this->currencyExchangeRateProviderManager->createInstance('currency_fixed_rates');
     $rate = $plugin->load($currency_code_from, $currency_code_to);
 
-    $options = Currency::options();
+    $options = CurrencyEntity::options();
     $form['currency_code_from'] = array(
       '#default_value' => $currency_code_from,
       '#disabled' => !is_null($rate) && $currency_code_from != 'XXX',

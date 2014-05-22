@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Tests\Controller\FixedRatesOverviewUnitTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\Currency\AmountFormatter;
+namespace Drupal\currency\Tests\Controller;
 
 use Drupal\currency\Controller\FixedRatesOverview;
 use Drupal\Tests\UnitTestCase;

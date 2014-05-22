@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file Contains Drupal\currency\ExchangeRate;
+ * @file Contains \Drupal\currency\ExchangeRate.
  */
 
 namespace Drupal\currency;
