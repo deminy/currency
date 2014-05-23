@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Entity\CurrencyDeleteFormControllerWebTest.
+ * Contains \Drupal\currency\Tests\Entity\Currency\CurrencyDeleteFormWebTest.
  */
 
-namespace Drupal\currency\Tests\Entity;
+namespace Drupal\currency\Tests\Entity\Currency;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
  * Tests the currency delete form.
  */
-class CurrencyDeleteFormControllerWebTest extends WebTestBase {
+class CurrencyDeleteFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyDeleteFormControllerWebTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyDeleteFormController web test',
+      'name' => '\Drupal\currency\Entity\CurrencyDeleteForm web test',
       'group' => 'Currency',
     );
   }

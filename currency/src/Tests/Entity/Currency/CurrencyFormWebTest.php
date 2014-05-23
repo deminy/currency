@@ -2,18 +2,18 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Entity\CurrencyFormControllerWebTest.
+ * Contains \Drupal\currency\Tests\Entity\Currency\CurrencyFormWebTest.
  */
 
-namespace Drupal\currency\Tests\Entity;
+namespace Drupal\currency\Tests\Entity\Currency;
 
 use Drupal\currency\Element\CurrencySign;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\CurrencyFormController.
+ * Tests \Drupal\currency\Entity\Currency\CurrencyForm.
  */
-class CurrencyFormControllerWebTest extends WebTestBase {
+class CurrencyFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -23,7 +23,7 @@ class CurrencyFormControllerWebTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\CurrencyFormController web test',
+      'name' => '\Drupal\currency\CurrencyForm web test',
       'group' => 'Currency',
     );
   }

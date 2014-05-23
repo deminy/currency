@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Entity\CurrencyLocaleFormControllerWebTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyLocale\CurrencyLocaleFormWebTest.
  */
 
-namespace Drupal\currency\Tests\Entity;
+namespace Drupal\currency\Tests\Entity\CurrencyLocale;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests the Drupal\currency\CurrencyLocaleFormController.
+ * Tests the Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm.
  */
-class CurrencyLocaleFormControllerWebTest extends WebTestBase {
+class CurrencyLocaleFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
@@ -22,7 +22,7 @@ class CurrencyLocaleFormControllerWebTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\CurrencyLocaleFormController web test',
+      'name' => '\Drupal\currency\CurrencyLocaleForm web test',
       'group' => 'Currency',
     );
   }
