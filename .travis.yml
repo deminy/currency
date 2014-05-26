@@ -46,7 +46,7 @@ install:
 
   # Add Coveralls.io integration.
   - cd $TRAVIS_BUILD_DIR/../drupal
-  - composer require satooshi/php-coveralls:0.6.*
+  - composer require satooshi/php-coveralls:0.6.* --prefer-source
 
   # Copy Currency into Drupal core.
   - cp -Rv $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/../drupal/modules/
