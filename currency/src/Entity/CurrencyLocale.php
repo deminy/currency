@@ -15,12 +15,12 @@ use Drupal\Core\Language\LanguageManager;
  *
  * @ConfigEntityType(
  *   controllers = {
- *     "access" = "Drupal\currency\Entity\CurrencyLocaleAccessController",
+ *     "access" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess",
  *     "form" = {
- *       "default" = "Drupal\currency\Entity\CurrencyLocaleFormController",
- *       "delete" = "Drupal\currency\Entity\CurrencyLocaleDeleteFormController"
+ *       "default" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm",
+ *       "delete" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm"
  *     },
- *     "list_builder" = "Drupal\currency\Entity\CurrencyLocaleListBuilder",
+ *     "list_builder" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleListBuilder",
  *     "storage" = "Drupal\Core\Config\Entity\ConfigEntityStorage",
  *   },
  *   entity_keys = {

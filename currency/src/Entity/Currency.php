@@ -15,12 +15,12 @@ use Drupal\currency\Usage;
  *
  * @ConfigEntityType(
  *   controllers = {
- *     "access" = "Drupal\currency\Entity\CurrencyAccessController",
+ *     "access" = "Drupal\currency\Entity\Currency\CurrencyAccess",
  *     "form" = {
- *       "default" = "Drupal\currency\Entity\CurrencyFormController",
- *       "delete" = "Drupal\currency\Entity\CurrencyDeleteFormController"
+ *       "default" = "Drupal\currency\Entity\Currency\CurrencyForm",
+ *       "delete" = "Drupal\currency\Entity\Currency\CurrencyDeleteForm"
  *     },
- *     "list_builder" = "Drupal\currency\Entity\CurrencyListBuilder",
+ *     "list_builder" = "Drupal\currency\Entity\Currency\CurrencyListBuilder",
  *     "storage" = "Drupal\Core\Config\Entity\ConfigEntityStorage",
  *   },
  *   entity_keys = {
