@@ -23,11 +23,11 @@ class PermissionUnitTest extends UnitTestCase {
   protected $service;
 
   /**
-   * The translation manager service.
+   * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface
    */
-  protected $translationManager;
+  protected $stringTranslation;
 
   /**
    * {@inheritdoc}
@@ -46,9 +46,9 @@ class PermissionUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   public function setUp() {
-    $this->translationManager = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
 
-    $this->service = new Permission($this->translationManager);
+    $this->service = new Permission($this->stringTranslation);
   }
 
   /**

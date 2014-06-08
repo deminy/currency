@@ -62,13 +62,6 @@ class CurrencyDeleteForm extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
-    return 'currency_delete';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function submit(array $form, array &$form_state) {
     $currency = $this->getEntity();
     $currency->delete();

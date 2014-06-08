@@ -11,7 +11,7 @@ use Drupal\currency\Entity\Currency\CurrencyForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-  /**
+/**
  * @coversDefaultClass \Drupal\currency\Entity\Currency\CurrencyForm
  */
 class CurrencyFormUnitTest extends UnitTestCase {

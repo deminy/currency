@@ -123,13 +123,6 @@ class CurrencyLocaleDeleteFormUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::getFormid
-   */
-  function testGetFormid() {
-    $this->assertSame('currency.currency_locale.delete', $this->form->getFormId());
-  }
-
-  /**
    * @covers ::submit
    */
   function testSubmit() {

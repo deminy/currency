@@ -86,10 +86,6 @@ class CurrencyListBuilderUnitTest extends UnitTestCase {
    * @covers ::createInstance
    */
   function testCreateInstance() {
-    $this->entityType->expects($this->any())
-      ->method('id')
-      ->will($this->returnValue('currency'));
-
     $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
     $entity_manager->expects($this->once())
       ->method('getStorage')

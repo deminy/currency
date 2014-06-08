@@ -45,7 +45,7 @@ class CurrencyListBuilder extends ConfigEntityListBuilder {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
 
-    return new static($entity_type, $entity_manager->getStorage($entity_type->id()), $container->get('string_translation'), $container->get('module_handler'));
+    return new static($entity_type, $entity_manager->getStorage('currency'), $container->get('string_translation'), $container->get('module_handler'));
   }
 
   /**

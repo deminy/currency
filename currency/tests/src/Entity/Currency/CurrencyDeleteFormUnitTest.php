@@ -123,13 +123,6 @@ class CurrencyDeleteFormUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::getFormid
-   */
-  function testGetFormid() {
-    $this->assertSame('currency_delete', $this->form->getFormId());
-  }
-
-  /**
    * @covers ::submit
    */
   function testSubmit() {
