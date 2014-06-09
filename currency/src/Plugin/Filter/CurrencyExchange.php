@@ -80,7 +80,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
   /**
    * {@inheritdoc}
    */
-  public function process($text, $langcode, $cache, $cache_id) {
+  public function process($text, $langcode) {
     return preg_replace_callback('/\[currency:([a-z]{3}):([a-z]{3})(.*?)\]/i', array($this, 'processCallback'), $text);
   }
 

@@ -72,7 +72,7 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
   /**
    * {@inheritdoc}
    */
-  public function process($text, $langcode, $cache, $cache_id) {
+  public function process($text, $langcode) {
     return preg_replace_callback('/\[currency-localize:([a-z]{3}):(.+?)\]/i', array($this, 'processCallback'), $text);
   }
 
