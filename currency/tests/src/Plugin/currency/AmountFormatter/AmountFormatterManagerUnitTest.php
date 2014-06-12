@@ -44,13 +44,6 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   protected $factory;
 
   /**
-   * The plugin factory used for testing.
-   *
-   * @var \Drupal\Core\Language\LanguageManager|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $languageManager;
-
-  /**
    * The module handler used for testing.
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -87,16 +80,6 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $language = (object) array(
-      'id' => $this->randomName(),
-    );
-    $this->languageManager = $this->getMockBuilder('\Drupal\Core\Language\LanguageManager')
-      ->disableOriginalConstructor()
-      ->getMock();
-    $this->languageManager->expects($this->any())
-      ->method('getCurrentLanguage')
-      ->will($this->returnValue($language));
-
     $this->moduleHandler = $this->getMock('\Drupal\Core\Extension\ModuleHandlerInterface');
 
     $this->cache = $this->getMock('\Drupal\Core\Cache\CacheBackendInterface');
@@ -107,7 +90,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
 
     $namespaces = new ArrayObject();
 
-    $this->currencyAmountFormatterManager = new AmountFormatterManager($namespaces, $this->cache, $this->languageManager, $this->moduleHandler, $this->configFactory);
+    $this->currencyAmountFormatterManager = new AmountFormatterManager($namespaces, $this->cache, $this->moduleHandler, $this->configFactory);
     $discovery_property = new \ReflectionProperty($this->currencyAmountFormatterManager, 'discovery');
     $discovery_property->setAccessible(TRUE);
     $discovery_property->setValue($this->currencyAmountFormatterManager, $this->discovery);
@@ -197,7 +180,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
 
     /** @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager|\PHPUnit_Framework_MockObject_MockObject $currency_amount_formatter_manager */
     $currency_amount_formatter_manager = $this->getMockBuilder('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager')
-    ->setConstructorArgs(array($namespaces, $this->cache, $this->languageManager, $this->moduleHandler, $this->configFactory))
+    ->setConstructorArgs(array($namespaces, $this->cache, $this->moduleHandler, $this->configFactory))
     ->setMethods(array('getDefaultPluginId', 'createInstance'))
     ->getMock();
     $currency_amount_formatter_manager->expects($this->once())
