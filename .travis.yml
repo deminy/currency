@@ -59,7 +59,7 @@ script:
   # Run PHPUnit tests and submit code coverage statistics.
   - cd $TRAVIS_BUILD_DIR/../drupal/core
   - mkdir -p build/logs
-  - vendor/bin/phpunit -c ../modules/currency/phpunit.xml.dist --bootstrap tests/bootstrap.php --verbose --debug --coverage-clover build/logs/clover.xml || exit 1
+  - vendor/bin/phpunit -c ../modules/currency/phpunit.xml.dist --bootstrap ../core/tests/bootstrap.php --verbose --debug --coverage-clover build/logs/clover.xml || exit 1
   - php vendor/bin/coveralls -v -c ../modules/currency/.coveralls.yml
 
   # Install Drupal core.
