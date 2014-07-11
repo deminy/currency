@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Tests\ExchangeRateUnitTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\Currency\AmountFormatter;
+namespace Drupal\currency\Tests;
 
 use Drupal\currency\ExchangeRate;
 use Drupal\Tests\UnitTestCase;
