@@ -5,7 +5,7 @@
  * \Drupal\currency\Tests\Plugin\Currency\AmountFormatter\AmountFormatterManagerUnitTest.
  */
 
-namespace Drupal\currency\Plugin\Currency\AmountFormatter;
+namespace Drupal\currency\Tests\Plugin\Currency\AmountFormatter;
 
 use Drupal\Tests\UnitTestCase;
 use Zend\Stdlib\ArrayObject;
