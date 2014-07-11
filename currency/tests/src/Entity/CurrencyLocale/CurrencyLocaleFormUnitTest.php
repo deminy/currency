@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Tests\Entity\CurrencyLocale\CurrencyLocaleFormUnitTest.
  */
 
-namespace Drupal\currency\Tests\Entity\Currency {
+namespace Drupal\currency\Tests\Entity\CurrencyLocale {
 
 use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm;
 use Drupal\Tests\UnitTestCase;
