@@ -5,12 +5,12 @@
  * Contains \Drupal\currency\Tests\Entity\Currency\CurrencyLocaleDeleteFormWebTest.
  */
 
-namespace Drupal\currency\Tests\Entity\Currency;
+namespace Drupal\currency\Tests\Entity\CurrencyLocale;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests Drupal\currency\Entity\Currency\CurrencyLocaleDeleteForm
+ * Tests Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm
  */
 class CurrencyLocaleDeleteFormWebTest extends WebTestBase {
 
@@ -22,7 +22,7 @@ class CurrencyLocaleDeleteFormWebTest extends WebTestBase {
   static function getInfo() {
     return array(
       'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyLocaleDeleteForm web test',
+      'name' => '\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm web test',
       'group' => 'Currency',
     );
   }
