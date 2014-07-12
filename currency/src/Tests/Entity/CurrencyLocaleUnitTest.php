@@ -8,12 +8,14 @@
 namespace Drupal\currency\Tests\Entity;
 
 use Drupal\currency\Entity\CurrencyLocaleInterface;
-use Drupal\simpletest\DrupalUnitTestBase;
+use Drupal\simpletest\KernelTestBase;
 
 /**
- * Tests \Drupal\currency\Entity\CurrencyLocale.
+ * \Drupal\currency\Entity\CurrencyLocale unit test.
+ *
+ * @group Currency
  */
-class CurrencyLocaleUnitTest extends DrupalUnitTestBase {
+class CurrencyLocaleUnitTest extends KernelTestBase {
 
   /**
    * The currency locale under test.
@@ -23,17 +25,6 @@ class CurrencyLocaleUnitTest extends DrupalUnitTestBase {
   protected $currencyLocale;
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyLocale unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

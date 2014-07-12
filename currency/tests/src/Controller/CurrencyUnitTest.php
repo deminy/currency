@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Controller\Currency
+ *
+ * @group Currency
  */
 class CurrencyUnitTest extends UnitTestCase {
 
@@ -50,17 +52,6 @@ class CurrencyUnitTest extends UnitTestCase {
    * @var \Drupal\Core\Routing\UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $urlGenerator;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Controller\Currency unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

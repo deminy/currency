@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Entity\Currency\CurrencyForm
+ *
+ * @group Currency
  */
 class CurrencyFormUnitTest extends UnitTestCase {
 
@@ -64,17 +66,6 @@ class CurrencyFormUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Entity\Currency\CurrencyForm
    */
   protected $form;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\Currency\CurrencyForm unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

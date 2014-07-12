@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates.
+ * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates web test.
+ *
+ * @group Currency
  */
 class FixedRatesUI extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates UI',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Test CurrencyExchanger's UI.

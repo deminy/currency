@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Controller;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Controller\AmountFormattingForm.
+ * \Drupal\currency\Controller\AmountFormattingForm web test.
+ *
+ * @group Currency
  */
 class AmountFormattingFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Controller\AmountFormattingForm web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Tests listing().

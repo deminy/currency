@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\AmountFormatter\Basic
+ *
+ * @group Currency
  */
 class BasicUnitTest extends UnitTestCase {
 
@@ -36,17 +38,6 @@ class BasicUnitTest extends UnitTestCase {
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $stringTranslation;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\Currency\AmountFormatter\Basic unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

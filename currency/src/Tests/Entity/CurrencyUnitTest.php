@@ -9,12 +9,14 @@ namespace Drupal\currency\Tests\Entity;
 
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\Usage;
-use Drupal\simpletest\DrupalUnitTestBase;
+use Drupal\simpletest\KernelTestBase;
 
 /**
- * Tests \Drupal\currency\Entity\Currency.
+ * \Drupal\currency\Entity\Currency unit test.
+ *
+ * @group Currency
  */
-class CurrencyUnitTest extends DrupalUnitTestBase {
+class CurrencyUnitTest extends KernelTestBase {
 
   /**
    * The currency under test.
@@ -27,17 +29,6 @@ class CurrencyUnitTest extends DrupalUnitTestBase {
    * {@inheritdoc}
    */
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\Currency unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

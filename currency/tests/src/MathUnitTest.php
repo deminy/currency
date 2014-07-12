@@ -11,6 +11,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Math
+ *
+ * @group Currency
  */
 class MathUnitTest extends UnitTestCase {
 
@@ -20,17 +22,6 @@ class MathUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Math|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $math;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Math unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

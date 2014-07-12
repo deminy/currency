@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Controller;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Controller\Currency.
+ * \Drupal\currency\Controller\Currency web test.
+ *
+ * @group Currency
  */
 class CurrencyWebTest extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Controller\Currency web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Tests the user interface.

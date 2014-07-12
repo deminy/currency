@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Element;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests the currency_amount form element.
+ * \Drupal\currency\Element\CurrencyAmount web test.
+ *
+ * @group Currency
  */
 class CurrencyAmountWebTest extends WebTestBase {
 
   public static $modules = array('currency_test');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Element\CurrencyAmount web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Test validation.

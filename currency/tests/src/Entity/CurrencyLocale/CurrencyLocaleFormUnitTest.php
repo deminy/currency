@@ -11,8 +11,10 @@ use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-  /**
+/**
  * @coversDefaultClass \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm
+ *
+ * @group Currency
  */
 class CurrencyLocaleFormUnitTest extends UnitTestCase {
 
@@ -64,17 +66,6 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm
    */
   protected $form;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

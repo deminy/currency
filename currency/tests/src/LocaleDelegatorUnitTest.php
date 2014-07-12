@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\LocaleDelegator
+ *
+ * @group Currency
  */
 class LocaleDelegatorUnitTest extends UnitTestCase {
 
@@ -49,17 +51,6 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
    * @var \Drupal\currency\LocaleDelegator
    */
   protected $localeDelegator;
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\LocaleDelegator unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

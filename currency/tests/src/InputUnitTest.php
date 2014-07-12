@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Input
+ *
+ * @group Currency
  */
 class InputUnitTest extends UnitTestCase {
 
@@ -21,17 +23,6 @@ class InputUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Input
    */
   protected $input;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Input unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

@@ -11,6 +11,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Usage
+ *
+ * @group Currency
  */
 class UsageUnitTest extends UnitTestCase {
 
@@ -20,17 +22,6 @@ class UsageUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Usage
    */
   protected $usage;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Usage unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

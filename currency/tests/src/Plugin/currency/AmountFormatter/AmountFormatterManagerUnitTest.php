@@ -12,6 +12,8 @@ use Zend\Stdlib\ArrayObject;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager
+ *
+ * @group Currency
  */
 class AmountFormatterManagerUnitTest extends UnitTestCase {
 
@@ -56,17 +58,6 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager
    */
   public $currencyAmountFormatterManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

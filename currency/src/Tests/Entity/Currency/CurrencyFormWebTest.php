@@ -11,22 +11,13 @@ use Drupal\currency\Element\CurrencySign;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Entity\Currency\CurrencyForm.
+ * \Drupal\currency\Entity\Currency\CurrencyForm web test.
+ *
+ * @group Currency
  */
 class CurrencyFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\CurrencyForm web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Test Currency's UI.

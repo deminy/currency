@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass Drupal\currency\Entity\Currency\CurrencyAccess
+ *
+ * @group Currency
  */
 class CurrencyAccessUnitTest extends UnitTestCase {
 
@@ -35,17 +37,6 @@ class CurrencyAccessUnitTest extends UnitTestCase {
    * @var \Drupal\Core\Extension\ModuleHandlerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $moduleHandler;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\Currency\CurrencyAccess unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

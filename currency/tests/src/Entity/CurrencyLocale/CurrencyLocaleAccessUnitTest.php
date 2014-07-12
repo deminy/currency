@@ -13,6 +13,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess
+ *
+ * @group Currency
  */
 class CurrencyLocaleAccessUnitTest extends UnitTestCase {
 
@@ -36,17 +38,6 @@ class CurrencyLocaleAccessUnitTest extends UnitTestCase {
    * @var \Drupal\Core\Extension\ModuleHandlerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $moduleHandler;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

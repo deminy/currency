@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Controller\CurrencyLocale
+ *
+ * @group Currency
  */
 class CurrencyLocaleUnitTest extends UnitTestCase {
 
@@ -43,17 +45,6 @@ class CurrencyLocaleUnitTest extends UnitTestCase {
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $stringTranslation;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Controller\CurrencyLocale unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

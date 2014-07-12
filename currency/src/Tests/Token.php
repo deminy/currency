@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests token integration.
+ * Token integration.
+ *
+ * @group Currency
  */
 class Token extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => 'Token integration',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Tests token integration.

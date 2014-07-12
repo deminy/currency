@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Entity\CurrencyLocale;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm
+ * \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm web test.
+ *
+ * @group Currency
  */
 class CurrencyLocaleDeleteFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Tests the form.

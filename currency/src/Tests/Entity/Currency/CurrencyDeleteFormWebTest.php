@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Entity\Currency;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests the currency delete form.
+ * \Drupal\currency\Entity\CurrencyDeleteForm web test.
+ *
+ * @group Currency
  */
 class CurrencyDeleteFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyDeleteForm web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Tests the form.

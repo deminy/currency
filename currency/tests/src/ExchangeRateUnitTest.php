@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\ExchangeRate
+ *
+ * @group Currency
  */
 class ExchangeRateUnitTest extends UnitTestCase {
 
@@ -21,17 +23,6 @@ class ExchangeRateUnitTest extends UnitTestCase {
    * @var \Drupal\currency\ExchangeRate
    */
   protected $exchangeRate;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\ExchangeRate unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

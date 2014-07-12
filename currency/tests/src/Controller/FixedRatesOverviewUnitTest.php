@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Controller\FixedRatesOverview
+ *
+ * @group Currency
  */
 class FixedRatesOverviewUnitTest extends UnitTestCase {
 
@@ -56,17 +58,6 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
    * @var \Drupal\Core\Routing\UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $urlGenerator;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Controller\FixedRatesOverview unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

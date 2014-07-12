@@ -10,7 +10,9 @@ namespace Drupal\currency_intl\Tests;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests module installation and uninstallation.
+ * Module installation and uninstallation.
+ *
+ * @group Currency Intl
  */
 class ModuleInstallUninstallWebTest extends WebTestBase {
 
@@ -18,17 +20,6 @@ class ModuleInstallUninstallWebTest extends WebTestBase {
    * {@inheritdoc}
    */
   public static $modules = array('currency_intl');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => 'Module installation and uninstallation web test',
-      'group' => 'Currency Intl',
-    );
-  }
 
   /**
    * Test uninstall.

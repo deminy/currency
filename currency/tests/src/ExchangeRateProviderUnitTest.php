@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\ExchangeRateProvider
+ *
+ * @group Currency
  */
 class ExchangeRateProviderUnitTest extends UnitTestCase {
 
@@ -35,17 +37,6 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
    * @var \Drupal\Component\Plugin\PluginManagerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyExchangeRateProviderManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\ExchangeRateProvider unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

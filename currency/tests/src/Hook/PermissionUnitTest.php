@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Hook\Permission
+ *
+ * @group Currency
  */
 class PermissionUnitTest extends UnitTestCase {
 
@@ -28,17 +30,6 @@ class PermissionUnitTest extends UnitTestCase {
    * @var \Drupal\Core\StringTranslation\TranslationInterface
    */
   protected $stringTranslation;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Hook\Permission unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Controller;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests \Drupal\currency\Controller\ExchangeRateProviderForm.
+ * \Drupal\currency\Controller\ExchangeRateProviderForm web test.
+ *
+ * @group Currency
  */
 class ExchangeRateProviderFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Controller\ExchangeRateProviderForm web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Test CurrencyExchanger's UI.

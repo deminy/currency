@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
+ *
+ * @group Currency
  */
 class HistoricalRatesUnitTest extends UnitTestCase {
 
@@ -35,17 +37,6 @@ class HistoricalRatesUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
    */
   protected $plugin;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

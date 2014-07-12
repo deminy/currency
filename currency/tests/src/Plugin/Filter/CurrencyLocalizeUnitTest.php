@@ -11,6 +11,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Filter\CurrencyLocalize
+ *
+ * @group Currency
  */
 class CurrencyLocalizeUnitTest extends UnitTestCase {
 
@@ -34,17 +36,6 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Input|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $input;
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\Filter\CurrencyLocalize unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

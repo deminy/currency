@@ -10,22 +10,13 @@ namespace Drupal\currency\Tests\Plugin\views\field;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests Drupal\currency\Plugin\views\field\Currency.
+ * \Drupal\currency\Plugin\views\field\Currency web test.
+ *
+ * @group Currency
  */
 class CurrencyWebTest extends WebTestBase {
 
   public static $modules = array('currency_test', 'views');
-
-  /**
-   * {@inheritdoc}
-   */
-  static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\views\field\Currency web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Tests the handler.

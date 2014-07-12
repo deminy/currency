@@ -11,7 +11,9 @@ use Drupal\currency\Entity\Currency;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests Drupal\currency\Plugin\views\filter\Currency.
+ * \Drupal\currency\Plugin\views\filter\Currency web test.
+ *
+ * @group Currency
  */
 class CurrencyWebTest extends WebTestBase {
 
@@ -19,17 +21,6 @@ class CurrencyWebTest extends WebTestBase {
    * {@inheritdoc}
    */
   public static $modules = array('currency_test', 'views_ui');
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\views\filter\Currency web test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * Tests the handler.

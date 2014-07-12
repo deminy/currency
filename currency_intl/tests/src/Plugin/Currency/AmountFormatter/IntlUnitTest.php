@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl
+ *
+ * @group Currency Intl
  */
 class IntlUnitTest extends UnitTestCase {
 
@@ -28,17 +30,6 @@ class IntlUnitTest extends UnitTestCase {
    * @var \Drupal\currency\LocaleDelegatorInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $localeDelegator;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl unit test',
-      'group' => 'Currency Intl',
-    );
-  }
 
   /**
    * {@inheritdoc}

@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Entity\Currency\CurrencyListBuilder
+ *
+ * @group Currency
  */
 class CurrencyListBuilderUnitTest extends UnitTestCase {
 
@@ -50,17 +52,6 @@ class CurrencyListBuilderUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Entity\Currency\CurrencyListBuilder
    */
   protected $form;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\Currency\CurrencyListBuilder unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

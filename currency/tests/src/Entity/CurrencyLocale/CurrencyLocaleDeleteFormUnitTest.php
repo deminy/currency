@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm
+ *
+ * @group Currency
  */
 class CurrencyLocaleDeleteFormUnitTest extends UnitTestCase {
 
@@ -35,17 +37,6 @@ class CurrencyLocaleDeleteFormUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm
    */
   protected $form;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

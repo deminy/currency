@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Filter\CurrencyExchange
+ *
+ * @group Currency
  */
 class CurrencyExchangeUnitTest extends UnitTestCase {
 
@@ -42,17 +44,6 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
    * @var \Drupal\currency\MathInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $math;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\Filter\CurrencyExchange unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

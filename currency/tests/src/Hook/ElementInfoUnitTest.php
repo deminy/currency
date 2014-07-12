@@ -13,6 +13,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Hook\ElementInfo
+ *
+ * @group Currency
  */
 class ElementInfoUnitTest extends UnitTestCase {
 
@@ -22,17 +24,6 @@ class ElementInfoUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Hook\ElementInfo
    */
   protected $service;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Hook\ElementInfo unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}

@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates
+ *
+ * @group Currency
  */
 class FixedRatesUnitTest extends UnitTestCase {
 
@@ -42,17 +44,6 @@ class FixedRatesUnitTest extends UnitTestCase {
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates
    */
   protected $plugin;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'description' => '',
-      'name' => '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates unit test',
-      'group' => 'Currency',
-    );
-  }
 
   /**
    * {@inheritdoc}
