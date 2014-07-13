@@ -165,7 +165,11 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
   public function delete($currency_code_from, $currency_code_to) {
     $config = $this->configFactory->get('currency.exchanger.fixed_rates');
     $rates = $config->get('rates');
-    unset($rates[$currency_code_from][$currency_code_to]);
+    foreach ($rates as $i => $rate) {
+      if ($rate['currency_code_from'] == $currency_code_from && $rate['currency_code_to'] == $currency_code_to) {
+        unset($rates[$i]);
+      }
+    }
     $config->set('rates', $rates);
     $config->save();
   }

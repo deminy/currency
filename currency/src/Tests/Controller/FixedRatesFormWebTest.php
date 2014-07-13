@@ -1,27 +1,28 @@
 <?php
 
 /**
- * @file Contains
- * \Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider\FixedRatesUI.
+ * @file
+ * Contains \Drupal\currency\Tests\Controller\FixedRatesFormWebTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
+namespace Drupal\currency\Tests\Controller;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates web test.
+ * \Drupal\currency\Controller\FixedRatesForm web test.
  *
  * @group Currency
  */
-class FixedRatesUI extends WebTestBase {
+class FixedRatesFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 
   /**
-   * Test CurrencyExchanger's UI.
+   * Tests the form.
    */
-  function testUI() {
+  function testForm() {
+    /** @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface $plugin */
     $plugin = \Drupal::service('plugin.manager.currency.exchange_rate_provider')->createInstance('currency_fixed_rates');
 
     $user = $this->drupalCreateUser(array('currency.exchange_rate_provider.fixed_rates.administer'));
@@ -43,7 +44,10 @@ class FixedRatesUI extends WebTestBase {
       'rate[amount]' => $rate,
     );
     $this->drupalPostForm($path . '/add', $values, t('Save'));
-    $this->assertIdentical($plugin->load($currency_code_from, $currency_code_to), $rate);
+    $exchange_rate = $plugin->load($currency_code_from, $currency_code_to);
+    $this->assertIdentical($exchange_rate->getRate(), $rate);
+    $this->assertIdentical($exchange_rate->getSourceCurrencyCode(), $currency_code_from);
+    $this->assertIdentical($exchange_rate->getDestinationCurrencyCode(), $currency_code_to);
 
     // Test editing a exchange rate.
     $rate = '6';
@@ -51,7 +55,8 @@ class FixedRatesUI extends WebTestBase {
       'rate[amount]' => $rate,
     );
     $this->drupalPostForm($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Save'));
-    $this->assertIdentical($plugin->load($currency_code_from, $currency_code_to), $rate);
+    $exchange_rate = $plugin->load($currency_code_from, $currency_code_to);
+    $this->assertIdentical($exchange_rate->getRate(), $rate);
 
     // Test deleting a exchange rate.
     $this->drupalPostForm($path . '/' . $currency_code_from . '/' . $currency_code_to, $values, t('Delete'));
