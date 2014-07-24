@@ -161,6 +161,7 @@ class FixedRatesUnitTest extends UnitTestCase {
   function testDelete() {
     list($rates, $rates_data) = $this->prepareExchangeRates();
     unset($rates['EUR']['NLG']);
+    unset($rates_data[0]);
 
     $this->config->expects($this->once())
       ->method('set')
