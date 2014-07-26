@@ -55,7 +55,7 @@ class CurrencyDeleteForm extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getCancelRoute() {
+  public function getCancelUrl() {
     return new Url('currency.currency.list');
   }
 
@@ -68,6 +68,6 @@ class CurrencyDeleteForm extends EntityConfirmFormBase {
     drupal_set_message($this->t('The %label has been deleted.', array(
       '%label' => $currency->label(),
     )));
-    $form_state['redirect_route'] = $this->getCancelRoute();
+    $form_state['redirect_route'] = $this->getCancelUrl();
   }
 }
