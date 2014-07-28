@@ -41,7 +41,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
   /**
    * The math service used for testing.
    *
-   * @var \Drupal\currency\MathInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $math;
 
@@ -62,7 +62,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
 
     $this->input = $this->getMock('\Drupal\currency\Input');
 
-    $this->math = $this->getMock('\Drupal\currency\MathInterface');
+    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
 
     $this->filter = $this->getMockBuilder('\Drupal\currency\Plugin\Filter\CurrencyExchange')
       ->setConstructorArgs(array($configuration, $plugin_id, $plugin_definition, $this->exchangeRateProvider, $this->math, $this->input))

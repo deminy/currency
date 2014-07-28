@@ -96,7 +96,7 @@ class CurrencyAmount {
   public static function elementValidate($element, &$form_state, $form) {
     /** @var \Drupal\currency\Input $input */
     $input = \Drupal::service('currency.input');
-    /** @var \Drupal\currency\MathInterface $math */
+    /** @var \Drupal\currency\Math\MathInterface $math */
     $math = \Drupal::service('currency.math');
 
     $value = NestedArray::getValue($form_state['values'], $element['#parents']);

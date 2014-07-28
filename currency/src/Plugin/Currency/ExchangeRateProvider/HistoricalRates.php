@@ -11,7 +11,7 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRate;
-use Drupal\currency\MathInterface;
+use Drupal\currency\Math\MathInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,7 +34,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
   /**
    * The math service.
    *
-   * @var \Drupal\currency\MathInterface
+   * @var \Drupal\currency\Math\MathInterface
    */
   protected $math;
 
@@ -49,7 +49,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
    *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency entity storage.
-   * @param \Drupal\currency\MathInterface
+   * @param \Drupal\currency\Math\MathInterface
    *   The Currency math service.
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageInterface $currency_storage, MathInterface $math) {

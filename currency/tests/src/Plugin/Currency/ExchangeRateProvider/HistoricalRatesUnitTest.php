@@ -27,7 +27,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
   /**
    * The math service.
    *
-   * @var \Drupal\currency\MathInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $math;
 
@@ -50,7 +50,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
 
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
-    $this->math = $this->getMock('\Drupal\currency\MathInterface');
+    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
 
     $this->plugin = new HistoricalRates($configuration, $plugin_id, $plugin_definition, $this->currencyStorage, $this->math);
   }

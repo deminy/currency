@@ -34,7 +34,7 @@ class FixedRatesUnitTest extends UnitTestCase {
   /**
    * The math service.
    *
-   * @var \Drupal\currency\MathInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $math;
 
@@ -59,7 +59,7 @@ class FixedRatesUnitTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->math = $this->getMock('\Drupal\currency\MathInterface');
+    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
 
     $this->plugin = new FixedRates($configuration, $plugin_id, $plugin_definition, $this->configFactory, $this->math);
   }

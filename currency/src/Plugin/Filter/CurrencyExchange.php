@@ -10,7 +10,7 @@ namespace Drupal\currency\Plugin\Filter;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRateProviderInterface;
 use Drupal\currency\Input;
-use Drupal\currency\MathInterface;
+use Drupal\currency\Math\MathInterface;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -43,7 +43,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
   /**
    * The math service.
    *
-   * @var \Drupal\currency\MathInterface
+   * @var \Drupal\currency\Math\MathInterface
    */
   protected $math;
 
@@ -58,7 +58,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    *   The plugin implementation definition.
    * @param \Drupal\currency\ExchangeRateProviderInterface $exchange_rate_provider
    *   The exchange rate provider.
-   * @param \Drupal\currency\MathInterface
+   * @param \Drupal\currency\Math\MathInterface
    *   The Currency math service.
    * @param \Drupal\currency\Input $input
    *   The input parser.

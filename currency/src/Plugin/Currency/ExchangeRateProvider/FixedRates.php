@@ -11,7 +11,7 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRate;
-use Drupal\currency\MathInterface;
+use Drupal\currency\Math\MathInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -37,7 +37,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
   /**
    * The math service.
    *
-   * @var \Drupal\currency\MathInterface
+   * @var \Drupal\currency\Math\MathInterface
    */
   protected $math;
 
@@ -52,7 +52,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    *   The plugin implementation definition.
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   The configuration factory service.
-   * @param \Drupal\currency\MathInterface
+   * @param \Drupal\currency\Math\MathInterface
    *   The Currency math service.
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactory $config_factory, MathInterface $math) {

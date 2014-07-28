@@ -347,7 +347,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * Gets the math service.
    *
-   * @return \Drupal\currency\MathInterface
+   * @return \Drupal\currency\Math\MathInterface
    */
   protected function getMath() {
     return \Drupal::service('currency.math');

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @file Contains \Drupal\currency\MathInterface.
+ * @file Contains \Drupal\currency\Math\MathInterface.
  */
 
-namespace Drupal\currency;
+namespace Drupal\currency\Math;
 
 /**
  * Defines mathematical functions.
@@ -79,4 +79,5 @@ interface MathInterface {
    *   and -1 if $number_b is larger than $number_a.
    */
   public function compare($number_a, $number_b);
+
 }
