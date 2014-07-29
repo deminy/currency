@@ -169,14 +169,6 @@ interface CurrencyInterface extends ConfigEntityInterface {
   public function getDecimals();
 
   /**
-   * Returns an options list of all currencies.
-   *
-   * @return array
-   *   Keys are currency codes. Values are human-readable currency labels.
-   */
-  public static function options();
-
-  /**
    * Format an amount using this currency and the environment's default currency locale.
    * pattern.
    *

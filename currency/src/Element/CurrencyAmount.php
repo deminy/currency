@@ -52,6 +52,8 @@ class CurrencyAmount {
     );
 
     // Add the currency element.
+    /** @var \Drupal\currency\FormHelperInterface $form_helper */
+    $form_helper = \Drupal::service('currency.form_helper');
     if (count($element['#limit_currency_codes']) == 1) {
       $element['currency_code'] = array(
         '#value' => reset($element['#limit_currency_codes']),
@@ -64,7 +66,7 @@ class CurrencyAmount {
         '#type' => 'select',
         '#title' => t('Currency'),
         '#title_display' => 'invisible',
-        '#options' => $element['#limit_currency_codes'] ? array_intersect_key(Currency::options(), $element['#limit_currency_codes']) : Currency::options(),
+        '#options' => $element['#limit_currency_codes'] ? array_intersect_key($form_helper->getCurrencyOptions(), $element['#limit_currency_codes']) : $form_helper->getCurrencyOptions(),
         '#required' => $element['#required'],
       );
     }

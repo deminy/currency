@@ -17,6 +17,9 @@ services:
     arguments: ['@entity.manager', '@language_manager', '@config.factory']
   currency.input:
     class: Drupal\currency\Input
+  currency.form_helper:
+    class: Drupal\currency\FormHelper
+    arguments: ['@string_translation', '@entity.manager']
   currency.math:
     class: Drupal\currency\Math\MathDelegator
     arguments: ['@service_container']

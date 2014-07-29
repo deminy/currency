@@ -184,14 +184,4 @@ class CurrencyUnitTest extends KernelTestBase {
     $this->assertIdentical($this->currency->getUsages(), array($usage));
   }
 
-  /**
-   * Test options().
-   */
-  function testOptions() {
-    $this->installConfig(array('currency'));
-    $options = $this->currency->options();
-    $this->assertTrue(is_array($options));
-    $this->assertTrue(count($options));
-    $this->assertTrue(is_string(reset($options)));
-  }
 }

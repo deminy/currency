@@ -288,30 +288,6 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
 
   /**
    * {@inheritdoc}
-   *
-   * @todo Inject the entity manager service when
-   * http://drupal.org/node/1863816 is fixed.
-   */
-  public static function options() {
-    $options = array();
-    /** @var \Drupal\currency\Entity\CurrencyInterface[] $currencies */
-    $currencies = entity_load_multiple('currency');
-    foreach ($currencies as $currency) {
-      // Do not show disabled currencies.
-      if ($currency->status()) {
-        $options[$currency->id()] = t('@currency_title (@currency_code)', array(
-          '@currency_title' => $currency->label(),
-          '@currency_code' => $currency->id(),
-        ));
-      }
-    }
-    natcasesort($options);
-
-    return $options;
-  }
-
-  /**
-   * {@inheritdoc}
    */
   function formatAmount($amount, $use_currency_precision = TRUE) {
     if ($use_currency_precision && $this->getSubunits()) {

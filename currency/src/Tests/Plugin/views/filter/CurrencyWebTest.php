@@ -35,7 +35,9 @@ class CurrencyWebTest extends WebTestBase {
     $account = $this->drupalCreateUser(array('administer views'));
     $this->drupalLogin($account);
     $this->drupalGet('admin/structure/views/nojs/handler/' . $view_id . '/default/filter/currency');
-    foreach (Currency::options() as $option) {
+    /** @var \Drupal\currency\FormHelperInterface $form_helper */
+    $form_helper = \Drupal::service('currency.form_helper');
+    foreach ($form_helper->getCurrencyOptions() as $option) {
       $this->assertText($option);
     }
   }

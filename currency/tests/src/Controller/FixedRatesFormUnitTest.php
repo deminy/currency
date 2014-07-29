@@ -23,7 +23,7 @@ class FixedRatesFormUnitTest extends UnitTestCase {
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
    */
-  protected  $configFactory;
+  protected $configFactory;
 
   /**
    * The controller under test.
@@ -47,6 +47,13 @@ class FixedRatesFormUnitTest extends UnitTestCase {
   protected $currencyStorage;
 
   /**
+   * The form helper
+   *
+   * @var \Drupal\currency\FormHelperInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $formHelper;
+
+  /**
    * The string translation service.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -65,9 +72,11 @@ class FixedRatesFormUnitTest extends UnitTestCase {
 
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->formHelper = $this->getMock('\Drupal\currency\FormHelperInterface');
 
-    $this->controller = new FixedRatesForm($this->configFactory, $this->stringTranslation, $this->currencyStorage, $this->currencyExchangeRateProviderManager);
+    $this->stringTranslation = $this->getStringTranslationStub();
+
+    $this->controller = new FixedRatesForm($this->configFactory, $this->stringTranslation, $this->currencyStorage, $this->currencyExchangeRateProviderManager, $this->formHelper);
   }
 
   /**
@@ -83,6 +92,7 @@ class FixedRatesFormUnitTest extends UnitTestCase {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
     $map = array(
       array('config.factory', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configFactory),
+      array('currency.form_helper', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->formHelper),
       array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
       array('plugin.manager.currency.exchange_rate_provider', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyExchangeRateProviderManager),
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
@@ -100,6 +110,116 @@ class FixedRatesFormUnitTest extends UnitTestCase {
    */
   public function testGetFormId() {
     $this->assertSame('currency_exchange_rate_provider_fixed_rates', $this->controller->getFormId());
+  }
+
+  /**
+   * @covers ::buildForm
+   *
+   * @dataProvider providerTestBuildForm
+   */
+  public function testBuildForm($rate_rate) {
+    $currency_code_from = $this->randomName();
+    $currency_code_to = $this->randomName();
+
+    $rate = NULL;
+    if (!is_null($rate_rate)) {
+      $rate = $this->getMock('\Drupal\currency\ExchangeRateInterface');
+      $rate->expects($this->once())
+        ->method('getRate')
+        ->willReturn($rate_rate);
+    }
+
+    $plugin = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+    $plugin->expects($this->once())
+      ->method('load')
+      ->with($currency_code_from, $currency_code_to)
+      ->willReturn($rate);
+
+    $this->currencyExchangeRateProviderManager->expects($this->once())
+      ->method('createInstance')
+      ->with('currency_fixed_rates')
+      ->willReturn($plugin);
+
+    $currency_options = array(
+      'XXX' => $this->randomName(),
+      $this->randomName() => $this->randomName(),
+    );
+
+    $this->formHelper->expects($this->once())
+      ->method('getCurrencyOptions')
+      ->willReturn($currency_options);
+
+    unset($currency_options['XXX']);
+    $expected_build['currency_code_from'] = array(
+      '#default_value' => $currency_code_from,
+      '#disabled' => !is_null($rate_rate),
+      '#empty_value' => '',
+      '#options' => $currency_options,
+      '#required' => TRUE,
+      '#title' => 'Source currency',
+      '#type' => 'select',
+    );
+    $expected_build['currency_code_to'] = array(
+      '#default_value' => $currency_code_to,
+      '#disabled' => !is_null($rate_rate),
+      '#empty_value' => '',
+      '#options' => $currency_options,
+      '#required' => TRUE,
+      '#title' => 'Destination currency',
+      '#type' => 'select',
+    );
+    $expected_build['rate'] = array(
+      '#limit_currency_codes' => array($currency_code_to),
+      '#default_value' => array(
+        'amount' => $rate_rate,
+        'currency_code' => $currency_code_to,
+      ),
+      '#required' => TRUE,
+      '#title' => 'Exchange rate',
+      '#type' => 'currency_amount',
+    );
+    $expected_build['actions'] = array(
+      '#type' => 'actions',
+    );
+    $expected_build['actions']['save'] = array(
+      '#button_type' => 'primary',
+      '#name' => 'save',
+      '#type' => 'submit',
+      '#value' => 'Save',
+    );
+    if (!is_null($rate_rate)) {
+      $expected_build['actions']['delete'] = array(
+        '#button_type' => 'danger',
+        '#limit_validation_errors' => array(array('currency_code_from'), array('currency_code_to')),
+        '#name' => 'delete',
+        '#type' => 'submit',
+        '#value' => 'Delete',
+      );
+    }
+
+    $form = array();
+    $form_state = array();
+    $build = $this->controller->buildForm($form, $form_state, $currency_code_from, $currency_code_to);
+    $this->assertSame($expected_build, $build);
+  }
+
+  /**
+   * Provides data to self::testBuildForm().
+   */
+  public function providerTestBuildForm() {
+    return array(
+      array(NULL),
+      array(mt_rand()),
+    );
+  }
+
+  /**
+   * @covers ::validateForm
+   */
+  public function testValidateForm() {
+    $form = array();
+    $form_state = array();
+    $this->controller->validateForm($form, $form_state);
   }
 
 }

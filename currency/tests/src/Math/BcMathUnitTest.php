@@ -92,8 +92,8 @@ class BcMathUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::setBcmathPrecision
-   * @covers ::getBcmathPrecision
+   * @covers ::setPrecision
+   * @covers ::getPrecision
    */
   public function testGetBcmathPrecision() {
     $precision = mt_rand();
