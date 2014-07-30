@@ -17,6 +17,10 @@ mysql:
   encoding: utf8
 
 install:
+  # Update package managers.
+  - sudo apt-get update
+  - sudo composer self-update
+
   # Install Apache.
   - sudo apt-get install apache2 libapache2-mod-fastcgi
 
