@@ -102,7 +102,8 @@ class CurrencyAmount {
     /** @var \Drupal\currency\Math\MathInterface $math */
     $math = \Drupal::service('currency.math');
 
-    $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
+    $values = $form_state->getValues();
+    $value = NestedArray::getValue($values, $element['#parents']);
     $amount = $value['amount'];
     $currency_code = $value['currency_code'];
 
