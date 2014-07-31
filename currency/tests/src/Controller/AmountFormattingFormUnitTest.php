@@ -91,7 +91,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
    */
   public function testBuildForm() {
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
 
     $definitions = array(
       'foo' => array(

@@ -9,6 +9,7 @@ namespace Drupal\currency\Controller;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -58,7 +59,7 @@ class AmountFormattingForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->configFactory()->get('currency.amount_formatting');
 
     $options = array();
@@ -92,9 +93,10 @@ class AmountFormattingForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
     $this->configFactory()->get('currency.amount_formatting')
-      ->set('plugin_id', $form_state['values']['default_plugin_id'])
+      ->set('plugin_id', $values['default_plugin_id'])
       ->save();
 
     parent::submitForm($form, $form_state);

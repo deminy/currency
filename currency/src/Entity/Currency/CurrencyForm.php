@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormBuilderInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Utility\LinkGeneratorInterface;
@@ -85,10 +86,10 @@ class CurrencyForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  protected function copyFormValuesToEntity(EntityInterface $entity, array $form, array &$form_state) {
+  protected function copyFormValuesToEntity(EntityInterface $entity, array $form, FormStateInterface $form_state) {
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = $entity;
-    $values = $form_state['values'];
+    $values = $form_state->getValues();
     $currency->setCurrencyCode($values['currency_code']);
     $currency->setCurrencyNumber($values['currency_number']);
     $currency->setLabel($values['label']);
@@ -101,7 +102,7 @@ class CurrencyForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, array &$form_state) {
+  public function form(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = $this->getEntity();
 
@@ -172,19 +173,19 @@ class CurrencyForm extends EntityForm {
   /**
    * {@inheritdoc}.
    */
-  public function save(array $form, array &$form_state) {
+  public function save(array $form, FormStateInterface $form_state) {
     $currency = $this->getEntity($form_state);
     $currency->save();
     drupal_set_message($this->t('The currency %label has been saved.', array(
       '%label' => $currency->label(),
     )));
-    $form_state['redirect_route'] = new Url('currency.currency.list');
+    $form_state->setRedirect(new Url('currency.currency.list'));
   }
 
   /**
    * Implements #element_validate for the currency code element.
    */
-  public function validateCurrencyCode(array $element, array &$form_state, array $form) {
+  public function validateCurrencyCode(array $element, FormStateInterface $form_state, array $form) {
     $currency = $this->getEntity();
     $currency_code = $element['#value'];
     if (!preg_match('/^[a-z]{3}$/i', $currency_code)) {
@@ -205,7 +206,7 @@ class CurrencyForm extends EntityForm {
   /**
    * Implements #element_validate for the currency number element.
    */
-  public function validateCurrencyNumber(array $element, array &$form_state, array $form) {
+  public function validateCurrencyNumber(array $element, FormStateInterface $form_state, array $form) {
     $currency = $this->getEntity();
     $currency_number = $element['#value'];
     if ($currency_number && !preg_match('/^\d{3}$/i', $currency_number)) {
@@ -229,7 +230,7 @@ class CurrencyForm extends EntityForm {
   /**
    * Implements #element_validate for the rounding step element.
    */
-  public function validateRoundingStep(array $element, array &$form_state, array $form) {
+  public function validateRoundingStep(array $element, FormStateInterface $form_state, array $form) {
     $rounding_step = $this->inputParser->parseAmount($element['#value']);
     if ($rounding_step === FALSE) {
       $this->formBuilder->setError($element, $form_state, $this->t('The rounding step is not numeric.'));

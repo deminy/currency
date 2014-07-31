@@ -8,6 +8,7 @@
 namespace Drupal\currency\Element;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\currency\Entity\Currency;
 
 /**
@@ -18,7 +19,7 @@ class CurrencyAmount {
   /**
    * Implements form #process callback.
    */
-  public static function process(array $element, array &$form_state, array $form) {
+  public static function process(array $element, FormStateInterface $form_state, array $form) {
     $currency_storage = \Drupal::entityManager()->getStorage('currency');
 
     // Validate element configuration.
@@ -95,13 +96,13 @@ class CurrencyAmount {
   /**
    * Implements form #element_validate callback.
    */
-  public static function elementValidate($element, &$form_state, $form) {
+  public static function elementValidate($element, FormStateInterface $form_state, $form) {
     /** @var \Drupal\currency\Input $input */
     $input = \Drupal::service('currency.input');
     /** @var \Drupal\currency\Math\MathInterface $math */
     $math = \Drupal::service('currency.math');
 
-    $value = NestedArray::getValue($form_state['values'], $element['#parents']);
+    $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
     $amount = $value['amount'];
     $currency_code = $value['currency_code'];
 

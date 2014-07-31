@@ -158,8 +158,10 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->with($currency_status);
 
     $form = array();
-    $form_state = array(
-      'values' => array(
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->atLeastOnce())
+      ->method('getValues')
+      ->willReturn(array(
         'currency_code' => $currency_code,
         'currency_number' => $currency_number,
         'label' => $currency_label,
@@ -167,13 +169,12 @@ class CurrencyFormUnitTest extends UnitTestCase {
         'subunits' => $currency_subunits,
         'rounding_step' => $currency_rounding_step,
         'status' => $currency_status,
-      ),
-    );
+      ));
 
     $method = new \ReflectionMethod($this->form, 'copyFormValuesToEntity');
     $method->setAccessible(TRUE);
 
-    $method->invokeArgs($this->form, array($this->currency, $form, &$form_state));
+    $method->invokeArgs($this->form, array($this->currency, $form, $form_state));
   }
 
   /**
@@ -219,7 +220,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($language));
 
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
 
     $expected = array(
       'currency_code' => array(
@@ -291,14 +292,12 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->method('save');
 
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->once())
+      ->method('setRedirect')
+      ->with($this->isInstanceOf('\Drupal\Core\Url'));
 
     $this->form->save($form, $form_state);
-    $this->assertArrayHasKey('redirect_route', $form_state);
-    /** @var \Drupal\Core\Url $url */
-    $url = $form_state['redirect_route'];
-    $this->assertInstanceOf('\Drupal\Core\Url', $url);
-    $this->assertSame('currency.currency.list', $url->getRouteName());
   }
 
   /**
@@ -310,7 +309,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       '#value' => $currency_code,
     );
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
 
     $this->currency->expects($this->any())
       ->method('isNew')
@@ -383,7 +382,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       '#value' => $currency_number,
     );
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
 
     $this->currency->expects($this->any())
       ->method('isNew')
@@ -464,7 +463,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       '#value' => $input_value,
     );
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
 
     $this->inputParser->expects($this->once())
       ->method('parseAmount')

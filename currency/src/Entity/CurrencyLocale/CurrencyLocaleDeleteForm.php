@@ -8,6 +8,7 @@
 namespace Drupal\currency\Entity\CurrencyLocale;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -60,12 +61,12 @@ class CurrencyLocaleDeleteForm extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submit(array $form, array &$form_state) {
+  public function submit(array $form, FormStateInterface $form_state) {
     $currency_locale = $this->getEntity();
     $currency_locale->delete();
     drupal_set_message($this->t('The currency locale %label has been deleted.', array(
       '%label' => $currency_locale->label(),
     )));
-    $form_state['redirect_route'] = $this->getCancelUrl();
+    $form_state->setRedirect($this->getCancelUrl());
   }
 }

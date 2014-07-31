@@ -198,7 +198,7 @@ class FixedRatesFormUnitTest extends UnitTestCase {
     }
 
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $build = $this->controller->buildForm($form, $form_state, $currency_code_from, $currency_code_to);
     $this->assertSame($expected_build, $build);
   }
@@ -218,7 +218,7 @@ class FixedRatesFormUnitTest extends UnitTestCase {
    */
   public function testValidateForm() {
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $this->controller->validateForm($form, $form_state);
   }
 

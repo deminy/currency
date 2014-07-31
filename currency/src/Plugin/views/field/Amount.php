@@ -8,6 +8,7 @@
 namespace Drupal\currency\Plugin\views\field;
 
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
@@ -105,7 +106,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   /**
    * {@inheritdoc}
    */
-  function buildOptionsForm(&$form, &$form_state) {
+  function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
 
     $form['currency_round'] = array(

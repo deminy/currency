@@ -11,7 +11,9 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\Url;
 use Drupal\currency\Entity\Currency as CurrencyEntity;
 use Drupal\currency\FormHelperInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
@@ -85,7 +87,7 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state, $currency_code_from = 'XXX', $currency_code_to = 'XXX') {
+  public function buildForm(array $form, FormStateInterface $form_state, $currency_code_from = 'XXX', $currency_code_to = 'XXX') {
     $plugin = $this->currencyExchangeRateProviderManager->createInstance('currency_fixed_rates');
     $rate = $plugin->load($currency_code_from, $currency_code_to);
 
@@ -144,20 +146,21 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, array &$form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates $plugin */
     $plugin = $this->currencyExchangeRateProviderManager->createInstance('currency_fixed_rates');
-    $values = $form_state['values'];
+    $values = $form_state->getValues();
     $currency_from = $this->currencyStorage->load($values['currency_code_from']);
     $currency_to = $this->currencyStorage->load($values['currency_code_to']);
 
-    switch ($form_state['triggering_element']['#name']) {
+    $triggering_element = $form_state->get('triggering_element');
+    switch ($triggering_element['#name']) {
       case 'save':
         $plugin->save($currency_from->id(), $currency_to->id(), $values['rate']['amount']);
         drupal_set_message($this->t('The exchange rate for @currency_title_from to @currency_title_to has been saved.', array(
@@ -173,6 +176,6 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
         )));
         break;
     }
-    $form_state['redirect'] = 'admin/config/regional/currency-exchange/fixed';
+    $form_state->setRedirect(new Url('currency.exchange_rate_provider.fixed_rates.overview'));
   }
 }

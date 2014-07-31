@@ -145,20 +145,21 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->with($grouping_separator);
 
     $form = array();
-    $form_state = array(
-      'values' => array(
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->atLeastOnce())
+      ->method('getValues')
+      ->willReturn(array(
         'language_code' => $language_code,
         'country_code' => $country_code,
         'pattern' => $pattern,
         'decimal_separator' => $decimal_separator,
         'grouping_separator' => $grouping_separator,
-      ),
-    );
+      ));
 
     $method = new \ReflectionMethod($this->form, 'copyFormValuesToEntity');
     $method->setAccessible(TRUE);
 
-    $method->invokeArgs($this->form, array($this->currencyLocale, $form, &$form_state));
+    $method->invokeArgs($this->form, array($this->currencyLocale, $form, $form_state));
   }
 
   /**
@@ -203,7 +204,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($country_list));
 
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
 
     $expected = array(
       'locale' => array(
@@ -362,14 +363,12 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->method('save');
 
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->once())
+      ->method('setRedirect')
+      ->with($this->isInstanceOf('\Drupal\Core\Url'));
 
     $this->form->save($form, $form_state);
-    $this->assertArrayHasKey('redirect_route', $form_state);
-    /** @var \Drupal\Core\Url $url */
-    $url = $form_state['redirect_route'];
-    $this->assertInstanceOf('\Drupal\Core\Url', $url);
-    $this->assertSame('currency.currency_locale.list', $url->getRouteName());
   }
 
   /**
@@ -382,12 +381,16 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
         '#foo' => $this->randomName(),
       ),
     );
-    $form_state = array(
-      'values' => array(
+    // @todo Use FormStateInterface once EntityForm no longer uses ArrayAccess.
+    $form_state = $this->getMockBuilder('\Drupal\Core\Form\FormState')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $form_state->expects($this->any())
+      ->method('getValues')
+      ->willReturn(array(
         'country_code' => $input_value_country_code,
         'language_code' => $input_value_language_code,
-      ),
-    );
+      ));
 
     $this->currencyLocale->expects($this->atLeastOnce())
       ->method('isNew')

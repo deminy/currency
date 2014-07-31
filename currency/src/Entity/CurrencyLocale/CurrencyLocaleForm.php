@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormBuilderInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageManager;
 use Drupal\Core\Locale\CountryManagerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -86,10 +87,10 @@ class CurrencyLocaleForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  protected function copyFormValuesToEntity(EntityInterface $entity, array $form, array &$form_state) {
+  protected function copyFormValuesToEntity(EntityInterface $entity, array $form, FormStateInterface $form_state) {
     /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
     $currency_locale = $entity;
-    $values = $form_state['values'];
+    $values = $form_state->getValues();
     $currency_locale->setLocale($values['language_code'], $values['country_code']);
     $currency_locale->setPattern($values['pattern']);
     $currency_locale->setDecimalSeparator($values['decimal_separator']);
@@ -99,7 +100,7 @@ class CurrencyLocaleForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, array &$form_state) {
+  public function form(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
     $currency_locale = $this->getEntity();
 
@@ -161,11 +162,12 @@ class CurrencyLocaleForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  function validate(array $form, array &$form_state) {
+  function validate(array $form, FormStateInterface $form_state) {
     parent::validate($form, $form_state);
     $currency_locale = $this->getEntity();
     if ($currency_locale->isNew()) {
-      $locale = strtolower($form_state['values']['language_code']) . '_' . strtoupper($form_state['values']['country_code']);
+      $values = $form_state->getValues();
+      $locale = strtolower($values['language_code']) . '_' . strtoupper($values['country_code']);
       $loaded_currency_locale = $this->currencyLocaleStorage->load($locale);
       if ($loaded_currency_locale) {
         $this->formBuilder->setError($form['locale'], $form_state, $this->t('A pattern for this locale already exists.'));
@@ -176,13 +178,13 @@ class CurrencyLocaleForm extends EntityForm {
   /**
    * {@inheritdoc}.
    */
-  public function save(array $form, array &$form_state) {
+  public function save(array $form, FormStateInterface $form_state) {
     $currency_locale = $this->getEntity($form_state);
     $currency_locale->save();
     drupal_set_message($this->t('The currency locale %label has been saved.', array(
       '%label' => $currency_locale->label(),
     )));
-    $form_state['redirect_route'] = new Url('currency.currency_locale.list');
+    $form_state->setRedirect(new Url('currency.currency_locale.list'));
   }
 
 }

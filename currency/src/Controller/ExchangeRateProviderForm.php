@@ -9,6 +9,7 @@ namespace Drupal\currency\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
@@ -66,7 +67,7 @@ class ExchangeRateProviderForm extends FormBase implements ContainerInjectionInt
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $definitions = $this->currencyExchangeRateProviderManager->getDefinitions();
     $configuration = $this->exchangeRateProvider->loadConfiguration();
 
@@ -137,16 +138,17 @@ class ExchangeRateProviderForm extends FormBase implements ContainerInjectionInt
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, array &$form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
-    uasort($form_state['values']['exchangers'], '\Drupal\Component\Utility\SortArray::sortByWeightElement');
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    uasort($values['exchangers'], '\Drupal\Component\Utility\SortArray::sortByWeightElement');
     $configuration = array();
-    foreach ($form_state['values']['exchangers'] as $plugin_name => $exchanger_configuration) {
+    foreach ($values['exchangers'] as $plugin_name => $exchanger_configuration) {
       $configuration[$plugin_name] = (bool) $exchanger_configuration['enabled'];
     }
     $this->exchangeRateProvider->saveConfiguration($configuration);

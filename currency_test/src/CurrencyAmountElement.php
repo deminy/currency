@@ -8,6 +8,7 @@
 namespace Drupal\currency_test;
 
 use Drupal\Core\Form\FormInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a form to test the currency_amount element.
@@ -24,7 +25,7 @@ class CurrencyAmountElement implements FormInterface {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state, $minimum_amount = NULL, $maximum_amount = NULL, $currency_code = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $minimum_amount = NULL, $maximum_amount = NULL, $currency_code = NULL) {
     // Nest the element to make sure that works.
     $form['container'] = array(
       '#tree' => TRUE,
@@ -47,13 +48,14 @@ class CurrencyAmountElement implements FormInterface {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, array &$form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
-    \Drupal::state()->set('currency_test_currency_amount_element', $form_state['values']['container']['amount']);
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    \Drupal::state()->set('currency_test_currency_amount_element', $values['container']['amount']);
   }
 }

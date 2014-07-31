@@ -121,14 +121,12 @@ class CurrencyLocaleDeleteFormUnitTest extends UnitTestCase {
       ->method('delete');
 
     $form = array();
-    $form_state = array();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->once())
+      ->method('setRedirect')
+      ->with($this->isInstanceOf('\Drupal\Core\Url'));
 
     $this->form->submit($form, $form_state);
-    $this->assertArrayHasKey('redirect_route', $form_state);
-    /** @var \Drupal\Core\Url $url */
-    $url = $form_state['redirect_route'];
-    $this->assertInstanceOf('\Drupal\Core\Url', $url);
-    $this->assertSame('currency.currency_locale.list', $url->getRouteName());
   }
 
 }

@@ -6,6 +6,7 @@
  */
 
 namespace Drupal\currency\Element;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides form callbacks for the currency_sign form element.
@@ -20,7 +21,7 @@ class CurrencySign {
   /**
    * Implements form #process callback.
    */
-  public static function process(array $element, array &$form_state, array $form) {
+  public static function process(array $element, FormStateInterface $form_state, array $form) {
     $currency_storage = \Drupal::entityManager()->getStorage('currency');
 
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
@@ -80,7 +81,7 @@ class CurrencySign {
   /**
    * Implements form #element_validate callback.
    */
-  public static function elementValidate($element, &$form_state, $form) {
+  public static function elementValidate($element, FormStateInterface $form_state, $form) {
     // Set a scalar value.
     $sign = $element['#value']['sign'];
     if ($sign == self::CUSTOM_VALUE) {

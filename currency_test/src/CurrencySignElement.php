@@ -8,6 +8,7 @@
 namespace Drupal\currency_test;
 
 use Drupal\Core\Form\FormInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a form to test the currency_sign element.
@@ -24,7 +25,7 @@ class CurrencySignElement implements FormInterface {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state, $currency_code = NULL, $currency_sign = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $currency_code = NULL, $currency_sign = NULL) {
     // Nest the element to make sure that works.
     $form['container'] = array(
       '#tree' => TRUE,
@@ -46,13 +47,14 @@ class CurrencySignElement implements FormInterface {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, array &$form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
-    \Drupal::state()->set('currency_test_currency_sign_element', $form_state['values']['container']['sign']);
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    \Drupal::state()->set('currency_test_currency_sign_element', $values['container']['sign']);
   }
 }
