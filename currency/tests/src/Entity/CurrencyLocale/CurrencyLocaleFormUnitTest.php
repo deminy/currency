@@ -40,13 +40,6 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
   protected $currencyLocaleStorage;
 
   /**
-   * The form builder.
-   *
-   * @var \Drupal\Core\Form\FormBuilderInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $formBuilder;
-
-  /**
    * The link generator.
    *
    * @var \Drupal\Core\Utility\LinkGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -81,8 +74,6 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
 
     $this->currencyLocaleStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
-    $this->formBuilder = $this->getMock('\Drupal\Core\Form\FormBuilderInterface');
-
     $this->linkGenerator = $this->getMock('\Drupal\Core\Utility\LinkGeneratorInterface');
 
     $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
@@ -90,7 +81,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->method('translate')
       ->will($this->returnArgument(0));
 
-    $this->form = new CurrencyLocaleForm($this->stringTranslation, $this->formBuilder, $this->linkGenerator, $this->currencyLocaleStorage, $this->countryManager);
+    $this->form = new CurrencyLocaleForm($this->stringTranslation, $this->linkGenerator, $this->currencyLocaleStorage, $this->countryManager);
     $this->form->setEntity($this->currencyLocale);
   }
 
@@ -109,7 +100,6 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
     $map = array(
       array('country_manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->countryManager),
       array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
-      array('form_builder', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->formBuilder),
       array('link_generator', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->linkGenerator),
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
     );
@@ -125,11 +115,11 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
    * @covers ::copyFormValuesToEntity
    */
   public function testCopyFormValuesToEntity() {
-    $language_code = $this->randomName();
-    $country_code = $this->randomName();
-    $pattern = $this->randomName();
-    $decimal_separator = $this->randomName();
-    $grouping_separator = $this->randomName();
+    $language_code = $this->randomMachineName();
+    $country_code = $this->randomMachineName();
+    $pattern = $this->randomMachineName();
+    $decimal_separator = $this->randomMachineName();
+    $grouping_separator = $this->randomMachineName();
 
     $this->currencyLocale->expects($this->once())
       ->method('setLocale')
@@ -166,11 +156,11 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
    * @covers ::form
    */
   public function testForm() {
-    $language_code = $this->randomName();
-    $country_code = $this->randomName();
-    $pattern = $this->randomName();
-    $decimal_separator = $this->randomName();
-    $grouping_separator = $this->randomName();
+    $language_code = $this->randomMachineName();
+    $country_code = $this->randomMachineName();
+    $pattern = $this->randomMachineName();
+    $decimal_separator = $this->randomMachineName();
+    $grouping_separator = $this->randomMachineName();
 
     $this->currencyLocale->expects($this->once())
       ->method('getLanguageCode')
@@ -197,7 +187,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($language));
 
     $country_list = array(
-      $this->randomName() => $this->randomName(),
+      $this->randomMachineName() => $this->randomMachineName(),
     );
     $this->countryManager->expects($this->atLeastOnce())
       ->method('getList')
@@ -378,7 +368,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
   public function testValidate($input_value_language_code, $input_value_country_code, $locale, $currency_locale_is_new, $locale_is_used) {
     $form = array(
       'locale' => array(
-        '#foo' => $this->randomName(),
+        '#foo' => $this->randomMachineName(),
       ),
     );
     // @todo Use FormStateInterface once EntityForm no longer uses ArrayAccess.
@@ -407,9 +397,9 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
           ->with($locale)
           ->will($this->returnValue($loaded_currency_locale));
 
-        $this->formBuilder->expects($this->once())
+        $form_state->expects($this->once())
           ->method('setError')
-          ->with($form['locale'], $form_state, 'A pattern for this locale already exists.');
+          ->with($form['locale'], 'A pattern for this locale already exists.');
       }
       else {
         $this->currencyLocaleStorage->expects($this->once())
@@ -417,7 +407,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
           ->with($locale)
           ->will($this->returnValue(FALSE));
 
-        $this->formBuilder->expects($this->never())
+        $form_state->expects($this->never())
           ->method('setError');
       }
     }
@@ -425,7 +415,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       $this->currencyLocaleStorage->expects($this->never())
         ->method('load');
 
-      $this->formBuilder->expects($this->never())
+      $form_state->expects($this->never())
         ->method('setError');
     }
 

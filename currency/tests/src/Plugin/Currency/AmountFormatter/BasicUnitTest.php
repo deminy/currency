@@ -46,7 +46,7 @@ class BasicUnitTest extends UnitTestCase {
    */
   public function setUp() {
     $configuration = array();
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
     $this->localeDelegator = $this->getMock('\Drupal\currency\LocaleDelegatorInterface');
@@ -70,7 +70,7 @@ class BasicUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $configuration = array();
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
     $formatter = Basic::create($container, $configuration, $plugin_id, $plugin_definition);
@@ -119,7 +119,7 @@ class BasicUnitTest extends UnitTestCase {
       '!currency_sign' => $currency_sign,
       '!amount' => $formatted_amount,
     );
-    $translation = $this->randomName();
+    $translation = $this->randomMachineName();
 
     $this->stringTranslation->expects($this->once())
       ->method('translate')

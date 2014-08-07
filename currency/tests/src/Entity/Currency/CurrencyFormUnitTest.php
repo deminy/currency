@@ -33,13 +33,6 @@ class CurrencyFormUnitTest extends UnitTestCase {
   protected $currencyStorage;
 
   /**
-   * The form builder.
-   *
-   * @var \Drupal\Core\Form\FormBuilderInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $formBuilder;
-
-  /**
    * The Currency input parser.
    *
    * @var \Drupal\currency\Input|\PHPUnit_Framework_MockObject_MockObject
@@ -79,8 +72,6 @@ class CurrencyFormUnitTest extends UnitTestCase {
 
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
-    $this->formBuilder = $this->getMock('\Drupal\Core\Form\FormBuilderInterface');
-
     $this->linkGenerator = $this->getMock('\Drupal\Core\Utility\LinkGeneratorInterface');
 
     $this->inputParser = $this->getMockBuilder('\Drupal\currency\Input')
@@ -92,7 +83,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->method('translate')
       ->will($this->returnArgument(0));
 
-    $this->form = new CurrencyForm($this->stringTranslation, $this->formBuilder, $this->linkGenerator, $this->currencyStorage, $this->inputParser);
+    $this->form = new CurrencyForm($this->stringTranslation, $this->linkGenerator, $this->currencyStorage, $this->inputParser);
     $this->form->setEntity($this->currency);
   }
 
@@ -111,7 +102,6 @@ class CurrencyFormUnitTest extends UnitTestCase {
     $map = array(
       array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
       array('currency.input', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->inputParser),
-      array('form_builder', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->formBuilder),
       array('link_generator', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->linkGenerator),
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
     );
@@ -127,10 +117,10 @@ class CurrencyFormUnitTest extends UnitTestCase {
    * @covers ::copyFormValuesToEntity
    */
   public function testCopyFormValuesToEntity() {
-    $currency_code = $this->randomName();
-    $currency_number = $this->randomName();
-    $currency_label = $this->randomName();
-    $currency_sign = $this->randomName();
+    $currency_code = $this->randomMachineName();
+    $currency_number = $this->randomMachineName();
+    $currency_label = $this->randomMachineName();
+    $currency_sign = $this->randomMachineName();
     $currency_subunits = mt_rand();
     $currency_rounding_step = mt_rand();
     $currency_status = TRUE;
@@ -181,10 +171,10 @@ class CurrencyFormUnitTest extends UnitTestCase {
    * @covers ::form
    */
   public function testForm() {
-    $currency_code = $this->randomName();
-    $currency_number = $this->randomName();
-    $currency_label = $this->randomName();
-    $currency_sign = $this->randomName();
+    $currency_code = $this->randomMachineName();
+    $currency_number = $this->randomMachineName();
+    $currency_label = $this->randomMachineName();
+    $currency_sign = $this->randomMachineName();
     $currency_subunits = mt_rand();
     $currency_rounding_step = mt_rand();
     $currency_status = TRUE;
@@ -316,12 +306,12 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($currency_is_new));
 
     if (!$valid) {
-      $this->formBuilder->expects($this->once())
+      $form_state->expects($this->once())
         ->method('setError')
-        ->with($element, $form_state, 'The currency code must be three letters.');
+        ->with($element, 'The currency code must be three letters.');
     }
     elseif ($currency_code_exists) {
-      $loaded_currency_label = $this->randomName();
+      $loaded_currency_label = $this->randomMachineName();
 
       $loaded_currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
         ->disableOriginalConstructor()
@@ -335,9 +325,9 @@ class CurrencyFormUnitTest extends UnitTestCase {
         ->with($currency_code)
         ->will($this->returnValue($loaded_currency));
 
-      $this->formBuilder->expects($this->once())
+      $form_state->expects($this->once())
         ->method('setError')
-        ->with($element, $form_state, 'The currency code is already in use by !link.');
+        ->with($element, 'The currency code is already in use by !link.');
 
       $this->linkGenerator->expects($this->once())
         ->method('generate')
@@ -350,9 +340,9 @@ class CurrencyFormUnitTest extends UnitTestCase {
         ->method('load')
         ->with($currency_code)
         ->will($this->returnValue(FALSE));
-      $this->formBuilder->expects($this->never())
+      $form_state->expects($this->never())
         ->method('setError');
-      $this->formBuilder->expects($this->never())
+      $form_state->expects($this->never())
         ->method('setErrorByName');
     }
 
@@ -389,13 +379,13 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($currency_is_new));
 
     if (!$valid) {
-      $this->formBuilder->expects($this->once())
+      $form_state->expects($this->once())
         ->method('setError')
-        ->with($element, $form_state, 'The currency number must be three digits.');
+        ->with($element, 'The currency number must be three digits.');
     }
     elseif ($currency_number_exists) {
-      $loaded_currency_code = $this->randomName();
-      $loaded_currency_label = $this->randomName();
+      $loaded_currency_code = $this->randomMachineName();
+      $loaded_currency_label = $this->randomMachineName();
 
       $loaded_currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
         ->disableOriginalConstructor()
@@ -414,9 +404,9 @@ class CurrencyFormUnitTest extends UnitTestCase {
         ))
         ->will($this->returnValue(array($loaded_currency)));
 
-      $this->formBuilder->expects($this->once())
+      $form_state->expects($this->once())
         ->method('setError')
-        ->with($element, $form_state, 'The currency number is already in use by !link.');
+        ->with($element, 'The currency number is already in use by !link.');
 
       $this->linkGenerator->expects($this->once())
         ->method('generate')
@@ -431,9 +421,9 @@ class CurrencyFormUnitTest extends UnitTestCase {
           'currencyNumber' => $currency_number,
         ))
         ->will($this->returnValue(FALSE));
-      $this->formBuilder->expects($this->never())
+      $form_state->expects($this->never())
         ->method('setError');
-      $this->formBuilder->expects($this->never())
+      $form_state->expects($this->never())
         ->method('setErrorByName');
     }
 
@@ -471,19 +461,19 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($parsed_value));
 
     if (!$valid) {
-      $this->formBuilder->expects($this->once())
+      $form_state->expects($this->once())
         ->method('setError')
-        ->with($element, $form_state, 'The rounding step is not numeric.');
+        ->with($element, 'The rounding step is not numeric.');
     }
     else {
-      $this->formBuilder->expects($this->never())
+      $form_state->expects($this->never())
         ->method('setError');
-      $this->formBuilder->expects($this->never())
+      $form_state->expects($this->never())
         ->method('setErrorByName');
     }
-    $this->formBuilder->expects($this->once())
-      ->method('setValue')
-      ->with($element, $parsed_value, $form_state);
+    $form_state->expects($this->once())
+      ->method('addValue')
+      ->with($element, $parsed_value);
 
     $this->form->validateRoundingStep($element, $form_state, $form);
   }

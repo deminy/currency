@@ -10,7 +10,6 @@ namespace Drupal\currency\Entity\Currency;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
@@ -31,13 +30,6 @@ class CurrencyForm extends EntityForm {
   protected $currencyStorage;
 
   /**
-   * The form builder.
-   *
-   * @var \Drupal\Core\Form\FormBuilderInterface
-   */
-  protected $formBuilder;
-
-  /**
    * The Currency input parser.
    *
    * @var \Drupal\currency\Input
@@ -56,8 +48,6 @@ class CurrencyForm extends EntityForm {
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translator.
-   * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
-   *   The form builder.
    * @param \Drupal\Core\Utility\LinkGeneratorInterface $link_generator
    *   The link generator.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
@@ -65,9 +55,8 @@ class CurrencyForm extends EntityForm {
    * @param \Drupal\currency\Input $input_parser
    *   The Currency input parser.
    */
-  public function __construct(TranslationInterface $string_translation, FormBuilderInterface $form_builder, LinkGeneratorInterface $link_generator, EntityStorageInterface $currency_storage, Input $input_parser) {
+  public function __construct(TranslationInterface $string_translation, LinkGeneratorInterface $link_generator, EntityStorageInterface $currency_storage, Input $input_parser) {
     $this->currencyStorage = $currency_storage;
-    $this->formBuilder = $form_builder;
     $this->inputParser = $input_parser;
     $this->linkGenerator = $link_generator;
     $this->stringTranslation = $string_translation;
@@ -80,7 +69,7 @@ class CurrencyForm extends EntityForm {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
 
-    return new static($container->get('string_translation'), $container->get('form_builder'), $container->get('link_generator'), $entity_manager->getStorage('currency'), $container->get('currency.input'));
+    return new static($container->get('string_translation'), $container->get('link_generator'), $entity_manager->getStorage('currency'), $container->get('currency.input'));
   }
 
   /**
@@ -189,12 +178,12 @@ class CurrencyForm extends EntityForm {
     $currency = $this->getEntity();
     $currency_code = $element['#value'];
     if (!preg_match('/^[a-z]{3}$/i', $currency_code)) {
-      $this->formBuilder->setError($element, $form_state, $this->t('The currency code must be three letters.'));
+      $form_state->setError($element, $this->t('The currency code must be three letters.'));
     }
     elseif ($currency->isNew()) {
       $loaded_currency = $this->currencyStorage->load($currency_code);
       if ($loaded_currency) {
-        $this->formBuilder->setError($element, $form_state, $this->t('The currency code is already in use by !link.', array(
+        $form_state->setError($element, $this->t('The currency code is already in use by !link.', array(
           '!link' => $this->linkGenerator->generate($loaded_currency->label(), 'currency.currency.edit', array(
             'currency' => $currency_code,
           )),
@@ -210,7 +199,7 @@ class CurrencyForm extends EntityForm {
     $currency = $this->getEntity();
     $currency_number = $element['#value'];
     if ($currency_number && !preg_match('/^\d{3}$/i', $currency_number)) {
-      $this->formBuilder->setError($element, $form_state, $this->t('The currency number must be three digits.'));
+      $form_state->setError($element, $this->t('The currency number must be three digits.'));
     }
     elseif ($currency->isNew()) {
       $loaded_currencies = $this->currencyStorage->loadByProperties(array(
@@ -218,7 +207,7 @@ class CurrencyForm extends EntityForm {
       ));
       if ($loaded_currencies) {
         $loaded_currency = reset($loaded_currencies);
-        $this->formBuilder->setError($element, $form_state, $this->t('The currency number is already in use by !link.', array(
+        $form_state->setError($element, $this->t('The currency number is already in use by !link.', array(
           '!link' => $this->linkGenerator->generate($loaded_currency->label(), 'currency.currency.edit', array(
             'currency' => $loaded_currency->id(),
           )),
@@ -233,8 +222,8 @@ class CurrencyForm extends EntityForm {
   public function validateRoundingStep(array $element, FormStateInterface $form_state, array $form) {
     $rounding_step = $this->inputParser->parseAmount($element['#value']);
     if ($rounding_step === FALSE) {
-      $this->formBuilder->setError($element, $form_state, $this->t('The rounding step is not numeric.'));
+      $form_state->setError($element, $this->t('The rounding step is not numeric.'));
     }
-    $this->formBuilder->setValue($element, $rounding_step, $form_state);
+    $form_state->addValue($element, $rounding_step);
   }
 }

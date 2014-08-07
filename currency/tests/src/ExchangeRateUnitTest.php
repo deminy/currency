@@ -30,10 +30,10 @@ class ExchangeRateUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   public function setUp() {
-    $exchange_rate_provider_plugin_id = $this->randomName();
+    $exchange_rate_provider_plugin_id = $this->randomMachineName();
     $timestamp = mt_rand();
-    $source_currency_code = $this->randomName(3);
-    $destination_currency_code = $this->randomName(3);
+    $source_currency_code = $this->randomMachineName(3);
+    $destination_currency_code = $this->randomMachineName(3);
     $rate = mt_rand();
     $this->exchangeRate = new ExchangeRate($exchange_rate_provider_plugin_id, $timestamp, $source_currency_code, $destination_currency_code, $rate);
   }
@@ -43,7 +43,7 @@ class ExchangeRateUnitTest extends UnitTestCase {
    * @covers ::setDestinationCurrencyCode
    */
   public function testGetDestinationCurrencyCode() {
-    $currency_code = $this->randomName(3);
+    $currency_code = $this->randomMachineName(3);
     $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setDestinationCurrencyCode($currency_code)));
     $this->assertSame($currency_code, $this->exchangeRate->getDestinationCurrencyCode());
   }
@@ -53,7 +53,7 @@ class ExchangeRateUnitTest extends UnitTestCase {
    * @covers ::setSourceCurrencyCode
    */
   public function testGetSourceCurrencyCode() {
-    $currency_code = $this->randomName(3);
+    $currency_code = $this->randomMachineName(3);
     $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setSourceCurrencyCode($currency_code)));
     $this->assertSame($currency_code, $this->exchangeRate->getSourceCurrencyCode());
   }
@@ -73,7 +73,7 @@ class ExchangeRateUnitTest extends UnitTestCase {
    * @covers ::setExchangeRateProviderPluginId
    */
   public function testGetExchangeRateProviderPluginId() {
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setExchangeRateProviderPluginId($plugin_id)));
     $this->assertSame($plugin_id, $this->exchangeRate->getExchangeRateProviderPluginId());
   }

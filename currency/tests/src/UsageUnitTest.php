@@ -35,7 +35,7 @@ class UsageUnitTest extends UnitTestCase {
    * @covers ::getStart
    */
   public function testGetStart() {
-    $start = $this->randomName();
+    $start = $this->randomMachineName();
 
     $this->assertSame($this->usage, $this->usage->setStart($start));
     $this->assertSame($start, $this->usage->getStart());
@@ -46,7 +46,7 @@ class UsageUnitTest extends UnitTestCase {
    * @covers ::getEnd
    */
   public function testGetEnd() {
-    $end = $this->randomName();
+    $end = $this->randomMachineName();
 
     $this->assertSame($this->usage, $this->usage->setEnd($end));
     $this->assertSame($end, $this->usage->getEnd());
@@ -57,7 +57,7 @@ class UsageUnitTest extends UnitTestCase {
    * @covers ::getCountryCode
    */
   public function testGetCountryCode() {
-    $country_code = $this->randomName();
+    $country_code = $this->randomMachineName();
 
     $this->assertSame($this->usage, $this->usage->setCountryCode($country_code));
     $this->assertSame($country_code, $this->usage->getCountryCode());

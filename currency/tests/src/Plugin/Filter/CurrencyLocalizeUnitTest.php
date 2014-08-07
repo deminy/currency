@@ -44,10 +44,10 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
    */
   public function setUp() {
     $configuration = array();
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $plugin_definition = array(
       'cache' => TRUE,
-      'provider' => $this->randomName(),
+      'provider' => $this->randomMachineName(),
     );
 
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
@@ -84,9 +84,9 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
       ->method('parseAmount')
       ->will($this->returnArgument(0));
 
-    $langcode = $this->randomName(2);
+    $langcode = $this->randomMachineName(2);
     $cache = TRUE;
-    $cache_id = $this->randomName();
+    $cache_id = $this->randomMachineName();
 
     $tokens_valid = array(
       '[currency-localize:EUR:100]' => '€100.00',

@@ -199,7 +199,7 @@ class MathDelegatorUnitTest extends UnitTestCase {
     $method = new \ReflectionMethod($math, 'isExtensionLoaded');
     $method->setAccessible(TRUE);
 
-    $extensions = array('bcmath', $this->randomName());
+    $extensions = array('bcmath', $this->randomMachineName());
     foreach ($extensions as $extension) {
       $this->assertSame(extension_loaded($extension), $method->invoke($math, $extension));
     }

@@ -83,7 +83,7 @@ class CurrencyLocaleUnitTest extends UnitTestCase {
    * @covers ::editTitle
    */
   public function testEditTitle() {
-    $label = $this->randomName();
+    $label = $this->randomMachineName();
     $string = 'Edit @label';
 
     $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')

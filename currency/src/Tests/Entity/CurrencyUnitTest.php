@@ -101,7 +101,7 @@ class CurrencyUnitTest extends KernelTestBase {
    * Test id() and setCurrencyCode().
    */
   function testId() {
-    $currency_code = $this->randomName(3);
+    $currency_code = $this->randomMachineName(3);
     $this->assertTrue($this->currency->setCurrencyCode($currency_code) instanceof CurrencyInterface);
     $this->assertIdentical($this->currency->id(), $currency_code);
   }
@@ -110,7 +110,7 @@ class CurrencyUnitTest extends KernelTestBase {
    * Test getCurrencyCode() and setCurrencyCode.
    */
   function testGetCurrencyCode() {
-    $currency_code = $this->randomName(3);
+    $currency_code = $this->randomMachineName(3);
     $this->assertIdentical(spl_object_hash($this->currency->setCurrencyNumber($currency_code)), spl_object_hash($this->currency));
     $this->assertIdentical($this->currency->getCurrencyNumber(), $currency_code);
   }

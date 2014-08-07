@@ -93,7 +93,7 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::enable
    */
   public function testEnable() {
-    $url = $this->randomName();
+    $url = $this->randomMachineName();
 
     $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
       ->disableOriginalConstructor()
@@ -117,7 +117,7 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::disable
    */
   public function testDisable() {
-    $url = $this->randomName();
+    $url = $this->randomMachineName();
 
     $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
       ->disableOriginalConstructor()
@@ -141,7 +141,7 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::editTitle
    */
   public function testEditTitle() {
-    $label = $this->randomName();
+    $label = $this->randomMachineName();
     $string = 'Edit @label';
 
     $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')

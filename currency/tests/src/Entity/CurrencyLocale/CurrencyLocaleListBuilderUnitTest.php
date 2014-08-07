@@ -117,7 +117,7 @@ class CurrencyLocaleListBuilderUnitTest extends UnitTestCase {
    * @covers ::buildRow
    */
   function testBuildRow() {
-    $entity_label = $this->randomName();
+    $entity_label = $this->randomMachineName();
 
     $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
       ->disableOriginalConstructor()

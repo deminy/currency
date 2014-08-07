@@ -82,7 +82,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
    * @covers ::getCountryCode
    */
   function testGetCountryCode() {
-    $country_code = $this->randomName(2);
+    $country_code = $this->randomMachineName(2);
 
     // Test getting the default.
     $this->assertNull($this->localeDelegator->getCountryCode());
@@ -201,7 +201,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
    * Prepares the language manager for testing.
    */
   protected function prepareLanguageManager() {
-    $language_code = $this->randomName(2);
+    $language_code = $this->randomMachineName(2);
     $language = $this->getMockBuilder('\Drupal\Core\Language\Language')
       ->disableOriginalConstructor()
       ->getMock();

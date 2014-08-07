@@ -110,7 +110,7 @@ class CurrencyAmount {
     // Confirm that the amount is numeric.
     $amount = $input->parseAmount($amount);
     if ($amount === FALSE) {
-      \Drupal::formBuilder()->setError($element['amount'], $form_state, t('%title is not numeric.', array(
+      $form_state->setError($element['amount'], t('%title is not numeric.', array(
         '%title' => $element['#title'],
       )));
     }
@@ -119,12 +119,12 @@ class CurrencyAmount {
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = entity_load('currency', $currency_code);
     if ($element['#minimum_amount'] !== FALSE && $math->compare($element['#minimum_amount'], $amount) == 1) {
-      \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The minimum amount is !amount.', array(
+      $form_state->setError($element['amount'], t('The minimum amount is !amount.', array(
         '!amount' => $currency->formatAmount($element['#minimum_amount']),
       )));
     }
     elseif ($element['#maximum_amount'] !== FALSE && $math->compare($amount, $element['#maximum_amount']) == 1) {
-      \Drupal::formBuilder()->setError($element['amount'], $form_state, t('The maximum amount is !amount.', array(
+      $form_state->setError($element['amount'], t('The maximum amount is !amount.', array(
         '!amount' => $currency->formatAmount($element['#maximum_amount']),
       )));
     }
@@ -132,10 +132,10 @@ class CurrencyAmount {
     // The amount in $form_state is a human-readable, optionally localized
     // string, which cannot be used by other code. $amount is a numeric string
     // after running it through \Drupal::service('currency.input')->parseAmount().
-    \Drupal::formBuilder()->setValue($element, array(
+    $form_state->addValue($element, array(
       'amount' => $amount,
       'currency_code' => $currency_code,
-    ), $form_state);
+    ));
   }
 
 }

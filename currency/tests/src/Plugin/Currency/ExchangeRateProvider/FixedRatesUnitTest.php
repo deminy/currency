@@ -52,7 +52,7 @@ class FixedRatesUnitTest extends UnitTestCase {
    */
   public function setUp() {
     $configuration = array();
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
     $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
@@ -135,8 +135,8 @@ class FixedRatesUnitTest extends UnitTestCase {
    * @covers ::save
    */
   public function testSave() {
-    $currency_code_from = $this->randomName(3);
-    $currency_code_to = $this->randomName(3);
+    $currency_code_from = $this->randomMachineName(3);
+    $currency_code_to = $this->randomMachineName(3);
     $rate = mt_rand();
     list($rates, $rates_data) = $this->prepareExchangeRates();
     $rates[$currency_code_from][$currency_code_to] = $rate;

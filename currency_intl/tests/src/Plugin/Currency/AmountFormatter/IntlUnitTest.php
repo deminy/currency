@@ -38,7 +38,7 @@ class IntlUnitTest extends UnitTestCase {
    */
   public function setUp() {
     $configuration = array();
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
     $this->localeDelegator = $this->getMock('\Drupal\currency\LocaleDelegatorInterface');
@@ -57,7 +57,7 @@ class IntlUnitTest extends UnitTestCase {
       ->will($this->returnValue($this->localeDelegator));
 
     $configuration = array();
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
     $formatter = Intl::create($container, $configuration, $plugin_id, $plugin_definition);

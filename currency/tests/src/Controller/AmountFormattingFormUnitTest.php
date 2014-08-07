@@ -95,11 +95,11 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
 
     $definitions = array(
       'foo' => array(
-        'label' => $this->randomName(),
+        'label' => $this->randomMachineName(),
       ),
     );
 
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
 
     $this->currencyAmountFormatterManager->expects($this->once())
       ->method('getDefinitions')
@@ -143,10 +143,10 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
 
     $definitions = array(
       'foo' => array(
-        'description' => $this->randomName(),
+        'description' => $this->randomMachineName(),
       ),
       'bar' => array(
-        'description' => $this->randomName(),
+        'description' => $this->randomMachineName(),
       ),
       // This must work without a description.
       'baz' => array(),

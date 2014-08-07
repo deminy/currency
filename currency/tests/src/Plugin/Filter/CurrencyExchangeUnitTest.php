@@ -52,10 +52,10 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
    */
   public function setUp() {
     $configuration = array();
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
     $plugin_definition = array(
       'cache' => TRUE,
-      'provider' => $this->randomName(),
+      'provider' => $this->randomMachineName(),
     );
 
     $this->exchangeRateProvider = $this->getMock('\Drupal\currency\ExchangeRateProviderInterface');
@@ -97,9 +97,9 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
       ->method('multiply')
       ->will($this->returnValueMap($map));
 
-    $langcode = $this->randomName(2);
+    $langcode = $this->randomMachineName(2);
     $cache = TRUE;
-    $cache_id = $this->randomName();
+    $cache_id = $this->randomMachineName();
 
     $tokens_valid = array(
       '[currency:EUR:NLG]' => '2.20371',

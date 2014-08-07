@@ -118,8 +118,8 @@ class FixedRatesFormUnitTest extends UnitTestCase {
    * @dataProvider providerTestBuildForm
    */
   public function testBuildForm($rate_rate) {
-    $currency_code_from = $this->randomName();
-    $currency_code_to = $this->randomName();
+    $currency_code_from = $this->randomMachineName();
+    $currency_code_to = $this->randomMachineName();
 
     $rate = NULL;
     if (!is_null($rate_rate)) {
@@ -141,8 +141,8 @@ class FixedRatesFormUnitTest extends UnitTestCase {
       ->willReturn($plugin);
 
     $currency_options = array(
-      'XXX' => $this->randomName(),
-      $this->randomName() => $this->randomName(),
+      'XXX' => $this->randomMachineName(),
+      $this->randomMachineName() => $this->randomMachineName(),
     );
 
     $this->formHelper->expects($this->once())

@@ -75,7 +75,7 @@ class CurrencyLocaleDeleteFormUnitTest extends UnitTestCase {
    * @covers ::getQuestion
    */
   function testGetQuestion() {
-    $label = $this->randomName();
+    $label = $this->randomMachineName();
     $string = 'Do you really want to delete %label?';
 
     $this->currency->expects($this->once())

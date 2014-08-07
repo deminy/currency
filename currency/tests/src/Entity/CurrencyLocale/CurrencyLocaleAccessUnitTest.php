@@ -92,7 +92,7 @@ class CurrencyLocaleAccessUnitTest extends UnitTestCase {
     $method = new \ReflectionMethod($this->access, 'checkAccess');
     $method->setAccessible(TRUE);
 
-    $language_code = $this->randomName();
+    $language_code = $this->randomMachineName();
 
     $this->assertSame($expected_value, $method->invoke($this->access, $currency_locale, $operation, $language_code, $account));
   }
@@ -105,13 +105,13 @@ class CurrencyLocaleAccessUnitTest extends UnitTestCase {
       // The default currency locale cannot be deleted, even with permission.
       array(FALSE, 'delete', TRUE, 'currency.currency_locale.delete', LocaleDelegatorInterface::DEFAULT_LOCALE),
       // Any non-default currency locale can be deleted with permission.
-      array(TRUE, 'delete', TRUE, 'currency.currency_locale.delete', $this->randomName()),
+      array(TRUE, 'delete', TRUE, 'currency.currency_locale.delete', $this->randomMachineName()),
       // No currency locale can be deleted without permission.
-      array(FALSE, 'delete', FALSE, 'currency.currency_locale.delete', $this->randomName()),
+      array(FALSE, 'delete', FALSE, 'currency.currency_locale.delete', $this->randomMachineName()),
       // Any currency locale can be updated with permission.
-      array(TRUE, 'update', TRUE, 'currency.currency_locale.update', $this->randomName()),
+      array(TRUE, 'update', TRUE, 'currency.currency_locale.update', $this->randomMachineName()),
       // No currency locale can be updated without permission.
-      array(FALSE, 'update', FALSE, 'currency.currency_locale.update', $this->randomName()),
+      array(FALSE, 'update', FALSE, 'currency.currency_locale.update', $this->randomMachineName()),
     );
   }
 

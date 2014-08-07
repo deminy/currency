@@ -95,7 +95,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
    * @covers ::getDefaultPluginId
    */
   public function testGetDefaultPluginId() {
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
 
     $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
       ->disableOriginalConstructor()
@@ -117,7 +117,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
    * @covers ::setDefaultPluginId
    */
   public function testSetDefaultPluginId() {
-    $plugin_id = $this->randomName();
+    $plugin_id = $this->randomMachineName();
 
     $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
       ->disableOriginalConstructor()
@@ -142,7 +142,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
    */
   public function testCreateInstance() {
     $existing_plugin_id = 'currency_basic';
-    $non_existing_plugin_id = $this->randomName();
+    $non_existing_plugin_id = $this->randomMachineName();
 
     $formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
 
@@ -166,7 +166,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   public function testGetDefaultPlugin() {
     $namespaces = new ArrayObject();
 
-    $default_plugin_id = $this->randomName();
+    $default_plugin_id = $this->randomMachineName();
 
     $formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
 

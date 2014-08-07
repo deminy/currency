@@ -57,8 +57,8 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
    * @covers ::loadConfiguration
    */
   public function testLoadConfiguration() {
-    $plugin_id_a = $this->randomName();
-    $plugin_id_b = $this->randomName();
+    $plugin_id_a = $this->randomMachineName();
+    $plugin_id_b = $this->randomMachineName();
 
     $plugin_definitions = array(
       $plugin_id_a => array(),
@@ -186,8 +186,8 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
    * @covers ::load
    */
   public function testLoadWithoutPlugins() {
-    $currency_code_from = $this->randomName();
-    $currency_code_to = $this->randomName();
+    $currency_code_from = $this->randomMachineName();
+    $currency_code_to = $this->randomMachineName();
 
     /** @var \Drupal\currency\ExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
     $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\ExchangeRateProvider')
@@ -282,7 +282,7 @@ class ExchangeRateProviderUnitTest extends UnitTestCase {
   public function testGetPlugins() {
     $configuration = array(
       'foo' => TRUE,
-      $this->randomName() => FALSE,
+      $this->randomMachineName() => FALSE,
       'bar' => TRUE,
       'baz' => FALSE,
     );

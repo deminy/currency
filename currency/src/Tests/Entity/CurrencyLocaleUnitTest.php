@@ -42,7 +42,7 @@ class CurrencyLocaleUnitTest extends KernelTestBase {
    * Test setDecimalSeparator() and getDecimalSeparator().
    */
   function testGetDecimalSeparator() {
-    $separator = $this->randomName();
+    $separator = $this->randomMachineName();
     $this->assertTrue($this->currencyLocale->setDecimalSeparator($separator) instanceof CurrencyLocaleInterface);
     $this->assertIdentical($this->currencyLocale->getDecimalSeparator(), $separator);
   }
@@ -51,7 +51,7 @@ class CurrencyLocaleUnitTest extends KernelTestBase {
    * Test setGroupingSeparator() and getGroupingSeparator().
    */
   function testGetGroupingSeparator() {
-    $separator = $this->randomName();
+    $separator = $this->randomMachineName();
     $this->assertTrue($this->currencyLocale->setGroupingSeparator($separator) instanceof CurrencyLocaleInterface);
     $this->assertIdentical($this->currencyLocale->getGroupingSeparator(), $separator);
   }
@@ -70,7 +70,7 @@ class CurrencyLocaleUnitTest extends KernelTestBase {
    * Test setPattern() and getPattern().
    */
   function testGetPattern() {
-    $pattern = $this->randomName();
+    $pattern = $this->randomMachineName();
     $this->assertTrue($this->currencyLocale->setPattern($pattern) instanceof CurrencyLocaleInterface);
     $this->assertIdentical($this->currencyLocale->getPattern(), $pattern);
   }

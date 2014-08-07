@@ -94,7 +94,7 @@ class CurrencyAccessUnitTest extends UnitTestCase {
     $method = new \ReflectionMethod($this->access, 'checkAccess');
     $method->setAccessible(TRUE);
 
-    $language_code = $this->randomName();
+    $language_code = $this->randomMachineName();
 
     $this->assertSame($expected_value, $method->invoke($this->access, $currency, $operation, $language_code, $account));
   }

@@ -49,7 +49,7 @@ class CurrencyAmountWebTest extends WebTestBase {
     // Test invalid values.
     $invalid_amounts = array(
       // Illegal characters.
-      $this->randomName(2),
+      $this->randomMachineName(2),
       // Multiple decimal marks.
       '49,.95',
       // A value that is below the minimum.

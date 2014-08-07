@@ -82,7 +82,7 @@ class CurrencyCode {
     if ($sign == self::CUSTOM_VALUE) {
       $sign = $element['#value']['sign_custom'];
     }
-    \Drupal::formBuilder()->setValue($element, $sign, $form_state);
+    $form_state->addValue($element, $sign);
   }
 
 }

@@ -114,8 +114,8 @@ class CurrencyListBuilderUnitTest extends UnitTestCase {
    * @covers ::buildRow
    */
   function testBuildRow() {
-    $entity_id = $this->randomName();
-    $entity_label = $this->randomName();
+    $entity_id = $this->randomMachineName();
+    $entity_label = $this->randomMachineName();
 
     $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
       ->disableOriginalConstructor()
