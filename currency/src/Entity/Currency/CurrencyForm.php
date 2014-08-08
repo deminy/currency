@@ -224,6 +224,6 @@ class CurrencyForm extends EntityForm {
     if ($rounding_step === FALSE) {
       $form_state->setError($element, $this->t('The rounding step is not numeric.'));
     }
-    $form_state->addValue($element, $rounding_step);
+    $form_state->setValueForElement($element, $rounding_step);
   }
 }

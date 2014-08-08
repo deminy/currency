@@ -472,7 +472,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
         ->method('setErrorByName');
     }
     $form_state->expects($this->once())
-      ->method('addValue')
+      ->method('setValueForElement')
       ->with($element, $parsed_value);
 
     $this->form->validateRoundingStep($element, $form_state, $form);

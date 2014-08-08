@@ -87,7 +87,7 @@ class CurrencySign {
     if ($sign == self::CUSTOM_VALUE) {
       $sign = $element['#value']['sign_custom'];
     }
-    $form_state->addValue($element, $sign);
+    $form_state->setValueForElement($element, $sign);
   }
 
 }
