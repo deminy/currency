@@ -123,8 +123,7 @@ class CurrencyDeleteFormUnitTest extends UnitTestCase {
     $form = array();
     $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $form_state->expects($this->once())
-      ->method('setRedirect')
-      ->with($this->isInstanceOf('\Drupal\Core\Url'));
+      ->method('setRedirectUrl');
 
     $this->form->submit($form, $form_state);
   }
