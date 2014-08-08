@@ -15,7 +15,7 @@ use Drupal\Core\Language\LanguageManager;
  *
  * @ConfigEntityType(
  *   controllers = {
- *     "access" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess",
+ *     "access" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler",
  *     "form" = {
  *       "default" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm",
  *       "delete" = "Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm"

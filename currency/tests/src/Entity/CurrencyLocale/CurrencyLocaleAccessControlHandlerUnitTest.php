@@ -2,26 +2,26 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Entity\CurrencyLocale\CurrencyLocaleAccessUnitTest.
+ * Contains \Drupal\currency\Tests\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandlerUnitTest.
  */
 
 namespace Drupal\currency\Tests\Entity\CurrencyLocale;
 
-use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess;
+use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler;
 use Drupal\currency\LocaleDelegatorInterface;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess
+ * @coversDefaultClass Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler
  *
  * @group Currency
  */
-class CurrencyLocaleAccessUnitTest extends UnitTestCase {
+class CurrencyLocaleAccessControlHandlerUnitTest extends UnitTestCase {
 
   /**
    * The access handler under test.
    *
-   * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess
+   * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler
    */
   protected $access;
 
@@ -49,7 +49,7 @@ class CurrencyLocaleAccessUnitTest extends UnitTestCase {
 
     $this->moduleHandler = $this->getMock('\Drupal\Core\Extension\ModuleHandlerInterface');
 
-    $this->access = new CurrencyLocaleAccess($this->entityType, $this->moduleHandler);
+    $this->access = new CurrencyLocaleAccessControlHandler($this->entityType, $this->moduleHandler);
   }
 
   /**
@@ -62,8 +62,8 @@ class CurrencyLocaleAccessUnitTest extends UnitTestCase {
       ->with('module_handler')
       ->will($this->returnValue($this->moduleHandler));
 
-    $access = CurrencyLocaleAccess::createInstance($container, $this->entityType);
-    $this->assertInstanceOf('\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess', $access);
+    $access = CurrencyLocaleAccessControlHandler::createInstance($container, $this->entityType);
+    $this->assertInstanceOf('\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler', $access);
   }
 
   /**

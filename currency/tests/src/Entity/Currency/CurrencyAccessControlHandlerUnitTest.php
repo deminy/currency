@@ -7,20 +7,20 @@
 
 namespace Drupal\currency\Tests\Entity\Currency;
 
-use Drupal\currency\Entity\Currency\CurrencyAccess;
+use Drupal\currency\Entity\Currency\CurrencyAccessControlHandler;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass Drupal\currency\Entity\Currency\CurrencyAccess
+ * @coversDefaultClass Drupal\currency\Entity\Currency\CurrencyAccessControlHandler
  *
  * @group Currency
  */
-class CurrencyAccessUnitTest extends UnitTestCase {
+class CurrencyAccessControlHandlerUnitTest extends UnitTestCase {
 
   /**
    * The access handler under test.
    *
-   * @var \Drupal\currency\Entity\Currency\CurrencyAccess
+   * @var \Drupal\currency\Entity\Currency\CurrencyAccessControlHandler
    */
   protected $access;
 
@@ -48,7 +48,7 @@ class CurrencyAccessUnitTest extends UnitTestCase {
 
     $this->moduleHandler = $this->getMock('\Drupal\Core\Extension\ModuleHandlerInterface');
 
-    $this->access = new CurrencyAccess($this->entityType, $this->moduleHandler);
+    $this->access = new CurrencyAccessControlHandler($this->entityType, $this->moduleHandler);
   }
 
   /**
@@ -61,8 +61,8 @@ class CurrencyAccessUnitTest extends UnitTestCase {
       ->with('module_handler')
       ->will($this->returnValue($this->moduleHandler));
 
-    $access = CurrencyAccess::createInstance($container, $this->entityType);
-    $this->assertInstanceOf('\Drupal\currency\Entity\Currency\CurrencyAccess', $access);
+    $access = CurrencyAccessControlHandler::createInstance($container, $this->entityType);
+    $this->assertInstanceOf('\Drupal\currency\Entity\Currency\CurrencyAccessControlHandler', $access);
   }
 
   /**

@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Entity\Currency\CurrencyAccess.
+ * Contains \Drupal\currency\Entity\Currency\CurrencyAccessControlHandler.
  */
 
 namespace Drupal\currency\Entity\Currency;
 
+use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityControllerInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityAccessController;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Checks access for currency entities.
  */
-class CurrencyAccess extends EntityAccessController implements EntityControllerInterface {
+class CurrencyAccessControlHandler extends EntityAccessControlHandler implements EntityControllerInterface {
 
   /**
    * Constructs a new class instance.

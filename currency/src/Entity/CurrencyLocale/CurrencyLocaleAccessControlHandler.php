@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccess.
+ * Contains \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler.
  */
 
 namespace Drupal\currency\Entity\CurrencyLocale;
 
+use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityControllerInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityAccessController;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Checks access for currency_locale entities.
  */
-class CurrencyLocaleAccess extends EntityAccessController implements EntityControllerInterface {
+class CurrencyLocaleAccessControlHandler extends EntityAccessControlHandler implements EntityControllerInterface {
 
   /**
    * Constructor

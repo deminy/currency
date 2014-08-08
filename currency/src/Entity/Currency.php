@@ -15,7 +15,7 @@ use Drupal\currency\Usage;
  *
  * @ConfigEntityType(
  *   controllers = {
- *     "access" = "Drupal\currency\Entity\Currency\CurrencyAccess",
+ *     "access" = "Drupal\currency\Entity\Currency\CurrencyAccessControlHandler",
  *     "form" = {
  *       "default" = "Drupal\currency\Entity\Currency\CurrencyForm",
  *       "delete" = "Drupal\currency\Entity\Currency\CurrencyDeleteForm"
