@@ -174,7 +174,7 @@ class CurrencyLocaleForm extends EntityForm {
     drupal_set_message($this->t('The currency locale %label has been saved.', array(
       '%label' => $currency_locale->label(),
     )));
-    $form_state->setRedirect(new Url('currency.currency_locale.list'));
+    $form_state->setRedirect('currency.currency_locale.list');
   }
 
 }

@@ -132,7 +132,7 @@ class CurrencyAmount {
     // The amount in $form_state is a human-readable, optionally localized
     // string, which cannot be used by other code. $amount is a numeric string
     // after running it through \Drupal::service('currency.input')->parseAmount().
-    $form_state->addValue($element, array(
+    $form_state->setValueForElement($element, array(
       'amount' => $amount,
       'currency_code' => $currency_code,
     ));

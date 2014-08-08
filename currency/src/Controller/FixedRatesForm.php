@@ -176,6 +176,6 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
         )));
         break;
     }
-    $form_state->setRedirect(new Url('currency.exchange_rate_provider.fixed_rates.overview'));
+    $form_state->setRedirect('currency.exchange_rate_provider.fixed_rates.overview');
   }
 }

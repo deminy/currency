@@ -168,7 +168,7 @@ class CurrencyForm extends EntityForm {
     drupal_set_message($this->t('The currency %label has been saved.', array(
       '%label' => $currency->label(),
     )));
-    $form_state->setRedirect(new Url('currency.currency.list'));
+    $form_state->setRedirect('currency.currency.list');
   }
 
   /**
