@@ -8,7 +8,7 @@
 namespace Drupal\currency\Entity\CurrencyLocale;
 
 use Drupal\Core\Entity\EntityAccessControlHandler;
-use Drupal\Core\Entity\EntityControllerInterface;
+use Drupal\Core\Entity\EntityHandlerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Checks access for currency_locale entities.
  */
-class CurrencyLocaleAccessControlHandler extends EntityAccessControlHandler implements EntityControllerInterface {
+class CurrencyLocaleAccessControlHandler extends EntityAccessControlHandler implements EntityHandlerInterface {
 
   /**
    * Constructor

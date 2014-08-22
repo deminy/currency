@@ -14,7 +14,7 @@ use Drupal\currency\Usage;
  * Defines a currency entity class.
  *
  * @ConfigEntityType(
- *   controllers = {
+ *   handlers = {
  *     "access" = "Drupal\currency\Entity\Currency\CurrencyAccessControlHandler",
  *     "form" = {
  *       "default" = "Drupal\currency\Entity\Currency\CurrencyForm",
