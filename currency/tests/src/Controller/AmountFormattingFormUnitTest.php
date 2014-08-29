@@ -127,7 +127,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       '#options' => array(
         'foo' => $definitions['foo']['label'],
       ),
-      '#process' => array('form_process_radios', array($this->controller, 'processPluginOptions')),
+      '#process' => array(array('\Drupal\Core\Render\Element\Radios', 'processRadios'), array($this->controller, 'processPluginOptions')),
       '#title' => 'Default amount formatter',
       '#type' => 'radios',
     );
