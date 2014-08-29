@@ -69,7 +69,7 @@ class AmountFormattingForm extends ConfigFormBase {
     $form['default_plugin_id'] = array(
       '#default_value' => $config->get('plugin_id'),
       '#options' => $options,
-      '#process' => array('form_process_radios', array($this, 'processPluginOptions')),
+      '#process' => array(array('\Drupal\Core\Render\Element\Radios', 'processRadios'), array($this, 'processPluginOptions')),
       '#title' => $this->t('Default amount formatter'),
       '#type' => 'radios',
     );
