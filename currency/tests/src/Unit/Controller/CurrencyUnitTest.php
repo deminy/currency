@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Tests\Controller\CurrencyUnitTest.
  */
 
-namespace Drupal\currency\Tests\Controller;
+namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\currency\Controller\Currency;
 use Drupal\Tests\UnitTestCase;
