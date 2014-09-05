@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Tests\Controller\AmountFormattingFormUnitTest.
  */
 
-namespace Drupal\currency\Tests\Controller;
+namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\currency\Controller\AmountFormattingForm;
 use Drupal\Tests\UnitTestCase;
