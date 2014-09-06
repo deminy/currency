@@ -2,26 +2,26 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Controller\CurrencyUnitTest.
+ * Contains \Drupal\currency\Tests\Unit\Controller\CurrencyLocaleUnitTest.
  */
 
-namespace Drupal\Tests\currency\Unit\Controller;
+namespace Drupal\currency\Tests\Unit\Controller;
 
-use Drupal\currency\Controller\Currency;
+use Drupal\currency\Controller\CurrencyLocale;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @coversDefaultClass \Drupal\currency\Controller\Currency
+ * @coversDefaultClass \Drupal\currency\Controller\CurrencyLocale
  *
  * @group Currency
  */
-class CurrencyUnitTest extends UnitTestCase {
+class CurrencyLocaleUnitTest extends UnitTestCase {
 
   /**
    * The controller under test.
    *
-   * @var \Drupal\currency\Controller\Currency
+   * @var \Drupal\currency\Controller\CurrencyLocale
    */
   protected $controller;
 
@@ -47,13 +47,6 @@ class CurrencyUnitTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
-   * The url generator.
-   *
-   * @var \Drupal\Core\Routing\UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $urlGenerator;
-
-  /**
    * {@inheritdoc}
    *
    * @covers ::__construct
@@ -65,9 +58,7 @@ class CurrencyUnitTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
 
-    $this->urlGenerator = $this->getMock('\Drupal\Core\Routing\UrlGeneratorInterface');
-
-    $this->controller = new Currency($this->entityManager, $this->entityFormBuilder, $this->stringTranslation, $this->urlGenerator);
+    $this->controller = new CurrencyLocale($this->entityManager, $this->entityFormBuilder, $this->stringTranslation);
   }
 
   /**
@@ -79,62 +70,13 @@ class CurrencyUnitTest extends UnitTestCase {
       array('entity.form_builder', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->entityFormBuilder),
       array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->entityManager),
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
-      array('url_generator', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->urlGenerator),
     );
     $container->expects($this->any())
       ->method('get')
       ->will($this->returnValueMap($map));
 
-    $form = Currency::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\Currency', $form);
-  }
-
-  /**
-   * @covers ::enable
-   */
-  public function testEnable() {
-    $url = $this->randomMachineName();
-
-    $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
-      ->disableOriginalConstructor()
-      ->getMock();
-    $currency->expects($this->once())
-      ->method('enable');
-    $currency->expects($this->once())
-      ->method('save');
-
-    $this->urlGenerator->expects($this->once())
-      ->method('generateFromRoute')
-      ->with('currency.currency.list')
-      ->will($this->returnValue($url));
-
-    $response = $this->controller->enable($currency);
-    $this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
-    $this->assertSame($url, $response->getTargetUrl());
-  }
-
-  /**
-   * @covers ::disable
-   */
-  public function testDisable() {
-    $url = $this->randomMachineName();
-
-    $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
-      ->disableOriginalConstructor()
-      ->getMock();
-    $currency->expects($this->once())
-      ->method('disable');
-    $currency->expects($this->once())
-      ->method('save');
-
-    $this->urlGenerator->expects($this->once())
-      ->method('generateFromRoute')
-      ->with('currency.currency.list')
-      ->will($this->returnValue($url));
-
-    $response = $this->controller->disable($currency);
-    $this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
-    $this->assertSame($url, $response->getTargetUrl());
+    $form = CurrencyLocale::create($container);
+    $this->assertInstanceOf('\Drupal\currency\Controller\CurrencyLocale', $form);
   }
 
   /**
@@ -144,10 +86,10 @@ class CurrencyUnitTest extends UnitTestCase {
     $label = $this->randomMachineName();
     $string = 'Edit @label';
 
-    $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
+    $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
       ->disableOriginalConstructor()
       ->getMock();
-    $currency->expects($this->once())
+    $currency_locale->expects($this->once())
       ->method('label')
       ->will($this->returnValue($label));
 
@@ -158,14 +100,14 @@ class CurrencyUnitTest extends UnitTestCase {
       ))
       ->will($this->returnArgument(0));
 
-    $this->assertSame($string, $this->controller->editTitle($currency));
+    $this->assertSame($string, $this->controller->editTitle($currency_locale));
   }
 
   /**
    * @covers ::add
    */
   public function testAdd() {
-    $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
+    $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
       ->disableOriginalConstructor()
       ->getMock();
 
@@ -173,18 +115,18 @@ class CurrencyUnitTest extends UnitTestCase {
     $storage->expects($this->once())
       ->method('create')
       ->with(array())
-      ->will($this->returnValue($currency));
+      ->will($this->returnValue($currency_locale));
 
     $this->entityManager->expects($this->once())
       ->method('getStorage')
-      ->with('currency')
+      ->with('currency_locale')
       ->will($this->returnValue($storage));
 
     $form = $this->getMock('\Drupal\Core\Entity\EntityFormInterface');
 
     $this->entityFormBuilder->expects($this->once())
       ->method('getForm')
-      ->with($currency)
+      ->with($currency_locale)
       ->will($this->returnValue($form));
 
     $this->assertSame($form, $this->controller->add());
