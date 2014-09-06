@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency_intl\Tests\Unit\Plugin\Currency\AmountFormatter\IntlUnitTest.
+ * Contains \Drupal\tests\currency_intl\Unit\Plugin\Currency\AmountFormatter\IntlUnitTest.
  */
 
-namespace Drupal\currency_intl\Tests\Unit\Plugin\Currency\AmountFormatter;
+namespace Drupal\Tests\currency_intl\Unit\Plugin\Currency\AmountFormatter;
 
 use Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl;
 use Drupal\Tests\UnitTestCase;
