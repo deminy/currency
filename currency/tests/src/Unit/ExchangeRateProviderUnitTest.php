@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @file Contains \Drupal\currency\Tests\Unit\ExchangeRateProviderUnitTest.
+ * @file Contains \Drupal\Tests\currency\Unit\ExchangeRateProviderUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit;
+namespace Drupal\Tests\currency\Unit;
 
 use Drupal\currency\ExchangeRate;
 use Drupal\currency\ExchangeRateProvider;

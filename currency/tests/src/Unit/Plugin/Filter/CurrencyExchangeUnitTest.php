@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Plugin\Filter\CurrencyExchangeUnitTest.
+ * Contains \Drupal\Tests\currency\Plugin\Filter\CurrencyExchangeUnitTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\Filter;
+namespace Drupal\Tests\currency\Plugin\Filter;
 
 use Drupal\currency\ExchangeRate;
 use Drupal\Tests\UnitTestCase;

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Controller\CurrencyUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Controller\CurrencyUnitTest.
  */
 
 namespace Drupal\Tests\currency\Unit\Controller;

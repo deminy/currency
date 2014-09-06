@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandlerUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandlerUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Entity\CurrencyLocale;
+namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale;
 
 use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler;
 use Drupal\currency\LocaleDelegatorInterface;

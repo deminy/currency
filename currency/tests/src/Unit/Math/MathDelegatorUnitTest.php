@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @file Contians \Drupal\currency\Tests\Unit\Math\MathDelegatorUnitTest.
+ * @file Contians \Drupal\Tests\currency\Unit\Math\MathDelegatorUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Math;
+namespace Drupal\Tests\currency\Unit\Math;
 
 use Drupal\currency\Math\MathDelegator;
 use Drupal\Tests\UnitTestCase;

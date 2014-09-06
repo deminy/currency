@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Controller\AmountFormattingFormUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Controller\AmountFormattingFormUnitTest.
  */
 
 namespace Drupal\Tests\currency\Unit\Controller;

@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Controller\ExchangeRateProviderFormUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Controller\ExchangeRateProviderFormUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Controller;
+namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\currency\Controller\ExchangeRateProviderForm;
 use Drupal\Tests\UnitTestCase;

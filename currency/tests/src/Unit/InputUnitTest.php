@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\InputUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\InputUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit;
+namespace Drupal\Tests\currency\Unit;
 
 use Drupal\currency\Input;
 use Drupal\Tests\UnitTestCase;

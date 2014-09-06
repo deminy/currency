@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @file Contains \Drupal\currency\Tests\Unit\LocaleDelegatorUnitTest.
+ * @file Contains \Drupal\Tests\currency\Unit\LocaleDelegatorUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit;
+namespace Drupal\Tests\currency\Unit;
 
 use Drupal\Core\Language\Language;
 use Drupal\currency\LocaleDelegator;

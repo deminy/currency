@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Test\Unit\Hook\PermissionUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Hook;
+namespace Drupal\Tests\currency\Unit\Hook;
 
 use Drupal\currency\Hook\Permission;
 use Drupal\Tests\UnitTestCase;

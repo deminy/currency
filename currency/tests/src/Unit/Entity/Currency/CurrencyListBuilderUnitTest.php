@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Entity\Currency\CurrencyListBuilderUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Entity\Currency\CurrencyListBuilderUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Entity\Currency;
+namespace Drupal\Tests\currency\Unit\Entity\Currency;
 
 use Drupal\currency\Entity\Currency\CurrencyListBuilder;
 use Drupal\Tests\UnitTestCase;

@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Controller\CurrencyLocaleUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Controller\CurrencyLocaleUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Controller;
+namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\currency\Controller\CurrencyLocale;
 use Drupal\Tests\UnitTestCase;

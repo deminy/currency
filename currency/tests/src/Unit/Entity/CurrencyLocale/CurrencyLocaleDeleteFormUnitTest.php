@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Entity\CurrencyLocale\CurrencyLocaleDeleteFormUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Entity\CurrencyLocale\CurrencyLocaleDeleteFormUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Entity\CurrencyLocale {
+namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
 use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm;
 use Drupal\Tests\UnitTestCase;

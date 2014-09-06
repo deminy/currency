@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Entity\Currency\CurrencyAccessUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Entity\Currency\CurrencyAccessUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Entity\Currency;
+namespace Drupal\Tests\currency\Unit\Entity\Currency;
 
 use Drupal\currency\Entity\Currency\CurrencyAccessControlHandler;
 use Drupal\Tests\UnitTestCase;

@@ -2,10 +2,10 @@
 
 /**
  * @file Contains
- * \Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider\FixedRatesUnitTest.
+ * \Drupal\Tests\currency\Plugin\Currency\ExchangeRateProvider\FixedRatesUnitTest.
  */
 
-namespace Drupal\currency\Tests\Plugin\Currency\ExchangeRateProvider;
+namespace Drupal\Tests\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates;
 use Drupal\Tests\UnitTestCase;

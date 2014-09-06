@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\ExchangeRateUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\ExchangeRateUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit;
+namespace Drupal\Tests\currency\Unit;
 
 use Drupal\currency\ExchangeRate;
 use Drupal\Tests\UnitTestCase;

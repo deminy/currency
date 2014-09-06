@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @file Contians \Drupal\currency\Tests\Unit\Math\NativeUnitTest.
+ * @file Contians \Drupal\Tests\currency\Unit\Math\NativeUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Math;
+namespace Drupal\Tests\currency\Unit\Math;
 
 use Drupal\currency\Math\Native;
 use Drupal\Tests\UnitTestCase;

@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Test\Unit\Hook\ElementInfoUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Hook;
+namespace Drupal\Tests\currency\Unit\Hook;
 
 use Drupal\Core\Render\Element;
 use Drupal\currency\Hook\ElementInfo;

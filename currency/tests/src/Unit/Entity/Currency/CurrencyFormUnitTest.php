@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Unit\Entity\Currency\CurrencyFormUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Entity\Currency\CurrencyFormUnitTest.
  */
 
-namespace Drupal\currency\Tests\Unit\Entity\Currency {
+namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
 use Drupal\currency\Entity\Currency\CurrencyForm;
 use Drupal\Tests\UnitTestCase;
