@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\Tests\currency\Plugin\Filter\CurrencyLocalizeUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Plugin\Filter\CurrencyLocalizeUnitTest.
  */
 
-namespace Drupal\Tests\currency\Plugin\Filter;
+namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
 use Drupal\Tests\UnitTestCase;
 
