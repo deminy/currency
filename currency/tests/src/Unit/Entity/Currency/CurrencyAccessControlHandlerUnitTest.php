@@ -7,6 +7,8 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\Currency;
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
 use Drupal\currency\Entity\Currency\CurrencyAccessControlHandler;
 use Drupal\Tests\UnitTestCase;
 
@@ -96,7 +98,7 @@ class CurrencyAccessControlHandlerUnitTest extends UnitTestCase {
 
     $language_code = $this->randomMachineName();
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $currency, $operation, $language_code, $account));
+    $this->assertSame($expected_value, $method->invoke($this->access, $currency, $operation, $language_code, $account)->isAllowed());
   }
 
   /**
@@ -145,7 +147,7 @@ class CurrencyAccessControlHandlerUnitTest extends UnitTestCase {
     $method = new \ReflectionMethod($this->access, 'checkCreateAccess');
     $method->setAccessible(TRUE);
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $account, $context));
+    $this->assertSame($expected_value, $method->invoke($this->access, $account, $context)->isAllowed());
   }
 
   /**

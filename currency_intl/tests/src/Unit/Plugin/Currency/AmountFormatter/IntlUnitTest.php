@@ -14,6 +14,7 @@ use Drupal\Tests\UnitTestCase;
  * @coversDefaultClass \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl
  *
  * @group Currency Intl
+ * @requires extension intl
  */
 class IntlUnitTest extends UnitTestCase {
 

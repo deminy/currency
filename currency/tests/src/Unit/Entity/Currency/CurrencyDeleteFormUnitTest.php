@@ -114,9 +114,9 @@ class CurrencyDeleteFormUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::submit
+   * @covers ::submitForm
    */
-  function testSubmit() {
+  function testSubmitForm() {
     $this->currency->expects($this->once())
       ->method('delete');
 
@@ -125,7 +125,7 @@ class CurrencyDeleteFormUnitTest extends UnitTestCase {
     $form_state->expects($this->once())
       ->method('setRedirectUrl');
 
-    $this->form->submit($form, $form_state);
+    $this->form->submitForm($form, $form_state);
   }
 
 }

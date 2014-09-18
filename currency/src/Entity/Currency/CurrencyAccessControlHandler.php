@@ -7,6 +7,7 @@
 
 namespace Drupal\currency\Entity\Currency;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityHandlerInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -48,25 +49,25 @@ class CurrencyAccessControlHandler extends EntityAccessControlHandler implements
 
     // Don't let the default currency be deleted.
     if ($currency->getCurrencyCode() == 'XXX' && $operation == 'delete') {
-      return FALSE;
+      return AccessResult::forbidden();
     }
 
     // The "enable" and "disable" operations are aliases for "update", but with
     // extra checks.
     if ($operation == 'enable') {
-      return $currency->status() ? FALSE : $this->access($currency, 'update', $langcode, $account);
+      return $currency->status() ? AccessResult::forbidden() : $this->access($currency, 'update', $langcode, $account, TRUE);
     }
     if ($operation == 'disable') {
-      return $currency->status() ? $this->access($currency, 'update', $langcode, $account) : FALSE;
+      return $currency->status() ? $this->access($currency, 'update', $langcode, $account, TRUE) : AccessResult::forbidden();
     }
 
-    return $account->hasPermission('currency.currency.' . $operation);
+    return AccessResult::allowedIfHasPermission($account, 'currency.currency.' . $operation);
   }
 
   /**
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return $account->hasPermission('currency.currency.create');
+    return AccessResult::allowedIfHasPermission($account, 'currency.currency.create');
   }
 }

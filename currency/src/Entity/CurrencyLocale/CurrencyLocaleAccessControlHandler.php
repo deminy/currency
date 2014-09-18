@@ -7,6 +7,7 @@
 
 namespace Drupal\currency\Entity\CurrencyLocale;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityHandlerInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -47,15 +48,15 @@ class CurrencyLocaleAccessControlHandler extends EntityAccessControlHandler impl
   protected function checkAccess(EntityInterface $currency_locale, $operation, $langcode, AccountInterface $account) {
     /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
     if ($currency_locale->getLocale() == LocaleDelegatorInterface::DEFAULT_LOCALE && $operation == 'delete') {
-      return FALSE;
+      return AccessResult::forbidden();
     }
-    return $account->hasPermission('currency.currency_locale.' . $operation);
+    return AccessResult::allowedIfHasPermission($account, 'currency.currency_locale.' . $operation);
   }
 
   /**
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return $account->hasPermission('currency.currency_locale.create');
+    return AccessResult::allowedIfHasPermission($account, 'currency.currency_locale.create');
   }
 }

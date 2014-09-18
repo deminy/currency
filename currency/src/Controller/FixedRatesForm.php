@@ -159,7 +159,7 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
     $currency_from = $this->currencyStorage->load($values['currency_code_from']);
     $currency_to = $this->currencyStorage->load($values['currency_code_to']);
 
-    $triggering_element = $form_state->get('triggering_element');
+    $triggering_element = $form_state->getTriggeringElement();
     switch ($triggering_element['#name']) {
       case 'save':
         $plugin->save($currency_from->id(), $currency_to->id(), $values['rate']['amount']);

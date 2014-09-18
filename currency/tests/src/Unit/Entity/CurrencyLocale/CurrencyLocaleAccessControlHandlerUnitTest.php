@@ -94,7 +94,7 @@ class CurrencyLocaleAccessControlHandlerUnitTest extends UnitTestCase {
 
     $language_code = $this->randomMachineName();
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $currency_locale, $operation, $language_code, $account));
+    $this->assertSame($expected_value, $method->invoke($this->access, $currency_locale, $operation, $language_code, $account)->isAllowed());
   }
 
   /**
@@ -131,7 +131,7 @@ class CurrencyLocaleAccessControlHandlerUnitTest extends UnitTestCase {
     $method = new \ReflectionMethod($this->access, 'checkCreateAccess');
     $method->setAccessible(TRUE);
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $account, $context));
+    $this->assertSame($expected_value, $method->invoke($this->access, $account, $context)->isAllowed());
   }
 
   /**
