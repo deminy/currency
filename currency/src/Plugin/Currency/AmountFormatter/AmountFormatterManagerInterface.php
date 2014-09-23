@@ -14,10 +14,6 @@ use Drupal\Component\Plugin\PluginManagerInterface;
  */
 interface AmountFormatterManagerInterface extends PluginManagerInterface {
 
-  const FALLBACK_PLUGIN_ID = 'currency_basic';
-
-  const PREFERRED_PLUGIN_ID = 'currency_intl';
-
   /**
    * Gets the default plugin ID.
    *

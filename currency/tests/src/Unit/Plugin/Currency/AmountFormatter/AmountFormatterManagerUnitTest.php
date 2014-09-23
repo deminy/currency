@@ -92,6 +92,15 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   }
 
   /**
+   * @covers ::getFallbackPluginId
+   */
+  public function testGetFallbackPluginId() {
+    $plugin_id = $this->randomMachineName();
+    $plugin_configuration = array($this->randomMachineName());
+    $this->assertInternalType('string', $this->currencyAmountFormatterManager->getFallbackPluginId($plugin_id, $plugin_configuration));
+  }
+
+  /**
    * @covers ::getDefaultPluginId
    */
   public function testGetDefaultPluginId() {
@@ -135,29 +144,6 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
       ->will($this->returnValue($config));
 
     $this->assertSame(spl_object_hash($this->currencyAmountFormatterManager), spl_object_hash($this->currencyAmountFormatterManager->setDefaultPluginId($plugin_id)));
-  }
-
-  /**
-   * @covers ::createInstance
-   */
-  public function testCreateInstance() {
-    $existing_plugin_id = 'currency_basic';
-    $non_existing_plugin_id = $this->randomMachineName();
-
-    $formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
-
-    $this->discovery->expects($this->at(0))
-      ->method('getDefinitions')
-      ->will($this->returnValue(array(
-        $existing_plugin_id => array(),
-      )));
-    $this->factory->expects($this->exactly(2))
-      ->method('createInstance')
-      ->with($existing_plugin_id, array())
-      ->will($this->returnValue($formatter));
-
-    $this->assertSame(spl_object_hash($formatter), spl_object_hash($this->currencyAmountFormatterManager->createInstance($existing_plugin_id)));
-    $this->assertSame(spl_object_hash($formatter), spl_object_hash($this->currencyAmountFormatterManager->createInstance($non_existing_plugin_id)));
   }
 
   /**

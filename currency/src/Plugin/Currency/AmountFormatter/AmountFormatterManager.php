@@ -7,16 +7,16 @@
 
 namespace Drupal\currency\Plugin\Currency\AmountFormatter;
 
+use Drupal\Component\Plugin\FallbackPluginManagerInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Language\LanguageManager;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
  * Manages amount formatter plugins.
  */
-class AmountFormatterManager extends DefaultPluginManager implements AmountFormatterManagerInterface {
+class AmountFormatterManager extends DefaultPluginManager implements AmountFormatterManagerInterface, FallbackPluginManagerInterface {
 
   /**
    * The config factory.
@@ -48,6 +48,13 @@ class AmountFormatterManager extends DefaultPluginManager implements AmountForma
   /**
    * {@inheritdoc}
    */
+  public function getFallbackPluginId($plugin_id, array $configuration = array()) {
+    return 'currency_basic';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getDefaultPluginId() {
     return $this->configFactory->get('currency.amount_formatter')
       ->get('plugin_id');
@@ -71,13 +78,4 @@ class AmountFormatterManager extends DefaultPluginManager implements AmountForma
     return $this->createInstance($this->getDefaultPluginId());
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function createInstance($plugin_id, array $configuration = array()) {
-    if (!$this->hasDefinition($plugin_id)) {
-      $plugin_id = $this::FALLBACK_PLUGIN_ID;
-    }
-    return parent::createInstance($plugin_id, $configuration);
-  }
 }
