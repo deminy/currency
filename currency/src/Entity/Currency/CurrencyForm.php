@@ -12,7 +12,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\currency\Input;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -184,9 +183,7 @@ class CurrencyForm extends EntityForm {
       $loaded_currency = $this->currencyStorage->load($currency_code);
       if ($loaded_currency) {
         $form_state->setError($element, $this->t('The currency code is already in use by !link.', array(
-          '!link' => $this->linkGenerator->generate($loaded_currency->label(), 'currency.currency.edit', array(
-            'currency' => $currency_code,
-          )),
+          '!link' => $this->linkGenerator->generate($loaded_currency->label(), $loaded_currency->urlInfo('edit-form')),
         )));
       }
     }
@@ -208,9 +205,7 @@ class CurrencyForm extends EntityForm {
       if ($loaded_currencies) {
         $loaded_currency = reset($loaded_currencies);
         $form_state->setError($element, $this->t('The currency number is already in use by !link.', array(
-          '!link' => $this->linkGenerator->generate($loaded_currency->label(), 'currency.currency.edit', array(
-            'currency' => $loaded_currency->id(),
-          )),
+          '!link' => $this->linkGenerator->generate($loaded_currency->label(), $loaded_currency->urlInfo('edit-form')),
         )));
       }
     }

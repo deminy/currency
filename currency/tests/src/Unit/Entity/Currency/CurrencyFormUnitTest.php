@@ -7,7 +7,8 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
-use Drupal\currency\Entity\Currency\CurrencyForm;
+  use Drupal\Core\Url;
+  use Drupal\currency\Entity\Currency\CurrencyForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -312,6 +313,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
     }
     elseif ($currency_code_exists) {
       $loaded_currency_label = $this->randomMachineName();
+      $loaded_currency_url = new Url($this->randomMachineName());
 
       $loaded_currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
         ->disableOriginalConstructor()
@@ -319,6 +321,9 @@ class CurrencyFormUnitTest extends UnitTestCase {
       $loaded_currency->expects($this->any())
         ->method('label')
         ->will($this->returnValue($loaded_currency_label));
+      $loaded_currency->expects($this->atLeastOnce())
+        ->method('urlInfo')
+        ->willReturn($loaded_currency_url);
 
       $this->currencyStorage->expects($this->once())
         ->method('load')
@@ -331,9 +336,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
 
       $this->linkGenerator->expects($this->once())
         ->method('generate')
-        ->with($loaded_currency_label, 'currency.currency.edit', array(
-          'currency' => $currency_code,
-        ));
+        ->with($loaded_currency_label, $loaded_currency_url);
     }
     else {
       $this->currencyStorage->expects($this->once())
@@ -386,6 +389,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
     elseif ($currency_number_exists) {
       $loaded_currency_code = $this->randomMachineName();
       $loaded_currency_label = $this->randomMachineName();
+      $loaded_currency_url = new Url($this->randomMachineName());
 
       $loaded_currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
         ->disableOriginalConstructor()
@@ -396,6 +400,9 @@ class CurrencyFormUnitTest extends UnitTestCase {
       $loaded_currency->expects($this->any())
         ->method('label')
         ->will($this->returnValue($loaded_currency_label));
+      $loaded_currency->expects($this->atLeastOnce())
+        ->method('urlInfo')
+        ->willReturn($loaded_currency_url);
 
       $this->currencyStorage->expects($this->once())
         ->method('loadByProperties')
@@ -410,9 +417,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
 
       $this->linkGenerator->expects($this->once())
         ->method('generate')
-        ->with($loaded_currency_label, 'currency.currency.edit', array(
-          'currency' => $loaded_currency_code,
-        ));
+        ->with($loaded_currency_label, $loaded_currency_url);
     }
     else {
       $this->currencyStorage->expects($this->once())
