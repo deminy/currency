@@ -31,6 +31,3 @@ services:
     class: Drupal\currency\Hook\ElementInfo
   currency.hook.menu_link_defaults:
     class: Drupal\currency\Hook\MenuLinkDefaults
-  currency.hook.permission:
-    class: Drupal\currency\Hook\Permission
-    arguments: ['@string_translation']

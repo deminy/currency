@@ -11,10 +11,3 @@
 function currency_element_info() {
   return \Drupal::service('currency.hook.element_info')->invoke();
 }
-
-/**
- * Implements hook_permission().
- */
-function currency_permission() {
-  return \Drupal::service('currency.hook.permission')->invoke();
-}
