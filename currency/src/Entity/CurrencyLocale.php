@@ -29,7 +29,6 @@ use Drupal\Core\Language\LanguageManager;
  *     "uuid" = "uuid",
  *     "status" = "status"
  *   },
- *   fieldable = FALSE,
  *   id = "currency_locale",
  *   label = @Translation("Currency currency locale"),
  *   links = {

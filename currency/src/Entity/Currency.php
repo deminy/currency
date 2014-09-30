@@ -29,7 +29,6 @@ use Drupal\currency\Usage;
  *     "uuid" = "uuid",
  *     "status" = "status"
  *   },
- *   fieldable = FALSE,
  *   id = "currency",
  *   label = @Translation("Currency"),
  *   links = {
