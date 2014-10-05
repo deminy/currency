@@ -56,10 +56,10 @@ class Currency extends InOperator {
    * {@inheritdoc}
    */
   function getValueOptions() {
-    if (is_null($this->value_options)) {
-      $this->value_options = $this->formHelper->getCurrencyOptions();
+    if (is_null($this->valueOptions)) {
+      $this->valueOptions = $this->formHelper->getCurrencyOptions();
     }
 
-    return $this->value_options;
+    return $this->valueOptions;
   }
 }
