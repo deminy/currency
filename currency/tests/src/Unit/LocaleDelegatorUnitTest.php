@@ -127,7 +127,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
 
     $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
-      ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id . '_' . $request_country_code)
+      ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->getId() . '_' . $request_country_code)
       ->will($this->returnValue($currency_locale));
 
     // Test loading the fallback locale.
@@ -159,7 +159,7 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
 
     $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
-      ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id . '_' . $site_default_country)
+      ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->getId() . '_' . $site_default_country)
       ->will($this->returnValue($currency_locale));
 
     // Test loading the fallback locale.
@@ -202,10 +202,10 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
    */
   protected function prepareLanguageManager() {
     $language_code = $this->randomMachineName(2);
-    $language = $this->getMockBuilder('\Drupal\Core\Language\Language')
-      ->disableOriginalConstructor()
-      ->getMock();
-    $language->id = $language_code;
+    $language = $this->getMock('\Drupal\Core\Language\LanguageInterface');
+    $language->expects($this->atLeastOnce())
+      ->method('getId')
+      ->willReturn($language_code);
 
     $this->languageManager->expects($this->any())
       ->method('getCurrentLanguage')

@@ -81,7 +81,7 @@ class LocaleDelegator implements LocaleDelegatorInterface {
   function getCurrencyLocale() {
     if (is_null($this->currencyLocale)) {
       $currency_locale = NULL;
-      $language_code = $this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->id;
+      $language_code = $this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->getId();
 
       // Try this request's country code.
       if ($this->getCountryCode()) {
