@@ -21,6 +21,7 @@ function currency_schema() {
       'object' => 'Currency',
       'save callback' => 'currency_save',
       'delete callback' => 'currency_delete',
+      'cache defaults' => TRUE,
     ),
     'fields' => array(
       'export_module' => array(
@@ -77,6 +78,7 @@ function currency_schema() {
       'key name' => 'Locale',
       'default hook' => 'currency_locale_pattern_info',
       'object' => 'CurrencyLocalePattern',
+      'cache defaults' => TRUE,
     ),
     'fields' => array(
       'export_module' => array(
