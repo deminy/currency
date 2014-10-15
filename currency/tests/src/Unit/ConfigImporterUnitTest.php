@@ -254,6 +254,29 @@ class ConfigImporterUnitTest extends UnitTestCase {
   }
 
   /**
+   * @covers ::importCurrency
+   * @covers ::import
+   */
+  public function testImportCurrencyWithExistingCurrency() {
+    $currency_code = $this->randomMachineName();
+    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+
+    $this->currencyStorage->expects($this->never())
+      ->method('create');
+    $this->currencyStorage->expects($this->once())
+      ->method('load')
+      ->with($currency_code)
+      ->willReturn($currency);
+
+    $this->configStorage->expects($this->never())
+      ->method('read');
+
+    $this->configImporter->setConfigStorage($this->configStorage);
+
+    $this->assertFalse($this->configImporter->importCurrency($currency_code));
+  }
+
+  /**
    * @covers ::importCurrencyLocale
    * @covers ::import
    */
@@ -282,6 +305,29 @@ class ConfigImporterUnitTest extends UnitTestCase {
     $this->configImporter->setConfigStorage($this->configStorage);
 
     $this->assertSame($currency_locale, $this->configImporter->importCurrencyLocale($locale));
+  }
+
+  /**
+   * @covers ::importCurrencyLocale
+   * @covers ::import
+   */
+  public function testImportCurrencyLocaleWithExistingCurrency() {
+    $locale = $this->randomMachineName();
+    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+
+    $this->currencyLocaleStorage->expects($this->never())
+      ->method('create');
+    $this->currencyLocaleStorage->expects($this->once())
+      ->method('load')
+      ->with($locale)
+      ->willReturn($currency_locale);
+
+    $this->configStorage->expects($this->never())
+      ->method('read');
+
+    $this->configImporter->setConfigStorage($this->configStorage);
+
+    $this->assertFalse($this->configImporter->importCurrencyLocale($locale));
   }
 
 }

@@ -151,10 +151,13 @@ class ConfigImporter implements ConfigImporterInterface {
    *   The imported entity or FALSE in case of errors.
    */
   protected function import(EntityStorageInterface $entity_storage, $entity_id) {
-    $name = 'currency.' . $entity_storage->getEntityTypeId() . '.' . $entity_id;
-    $entity = $entity_storage->create($this->getConfigStorage()->read($name));
-    $entity->save();
-    return $entity;
+    if (!$entity_storage->load($entity_id)) {
+      $name = 'currency.' . $entity_storage->getEntityTypeId() . '.' . $entity_id;
+      $entity = $entity_storage->create($this->getConfigStorage()->read($name));
+      $entity->save();
+      return $entity;
+    }
+    return FALSE;
   }
 
   /**
