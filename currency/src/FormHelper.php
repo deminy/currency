@@ -26,6 +26,13 @@ class FormHelper implements FormHelperInterface {
   protected $currencyStorage;
 
   /**
+   * The currency locale storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $currencyLocaleStorage;
+
+  /**
    * Constructs a new class instance.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface
@@ -33,6 +40,7 @@ class FormHelper implements FormHelperInterface {
    */
   public function __construct(TranslationInterface $string_translation, EntityManagerInterface $entity_manager) {
     $this->currencyStorage = $entity_manager->getStorage('currency');
+    $this->currencyLocaleStorage = $entity_manager->getStorage('currency_locale');
     $this->stringTranslation = $string_translation;
   }
 
@@ -40,10 +48,12 @@ class FormHelper implements FormHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCurrencyOptions() {
+  public function getCurrencyOptions(array $currencies = NULL) {
     $options = array();
     /** @var \Drupal\currency\Entity\CurrencyInterface[] $currencies */
-    $currencies = $this->currencyStorage->loadMultiple();
+    if (is_NULL($currencies)) {
+      $currencies = $this->currencyStorage->loadMultiple();
+    }
     foreach ($currencies as $currency) {
       // Do not show disabled currencies.
       if ($currency->status()) {
@@ -51,6 +61,27 @@ class FormHelper implements FormHelperInterface {
           '@currency_title' => $currency->label(),
           '@currency_code' => $currency->id(),
         ));
+      }
+    }
+    natcasesort($options);
+
+    return $options;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCurrencyLocaleOptions(array $currency_locales = NULL) {
+    $options = array();
+    /** @var \Drupal\currency\Entity\CurrencyLocaleInterface[] $currency_locales */
+    if (is_NULL($currency_locales)) {
+      $currency_locales = $this->currencyLocaleStorage->loadMultiple();
+    }
+    foreach ($currency_locales as $currency_locale) {
+      // Do not show disabled currencies.
+      if ($currency_locale->status()) {
+        $options[$currency_locale->id()] = $currency_locale->label();
       }
     }
     natcasesort($options);

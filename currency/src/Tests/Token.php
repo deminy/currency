@@ -24,25 +24,16 @@ class Token extends WebTestBase {
   function testTokenIntegration() {
     $token_service = \Drupal::token();
 
-    $data = array(
-      'EUR' => array(
-        '[currency:code]' => 'EUR',
-        '[currency:number]' => '978',
-        '[currency:subunits]' => '100',
-      ),
-      'BHD' => array(
-        '[currency:code]' => 'BHD',
-        '[currency:number]' => '048',
-        '[currency:subunits]' => '1000',
-      ),
+    $tokens = array(
+      '[currency:code]' => 'XXX',
+      '[currency:number]' => '999',
+      '[currency:subunits]' => '0',
     );
-    foreach ($data as $currency_code => $tokens) {
-      $data = array(
-        'currency' => $currency_code,
-      );
-      foreach ($tokens as $token => $replacement) {
-        $this->assertEqual($token_service->replace($token, $data), $replacement);
-      }
+    $data = array(
+      'currency' => 'XXX',
+    );
+    foreach ($tokens as $token => $replacement) {
+      $this->assertEqual($token_service->replace($token, $data), $replacement);
     }
   }
 }

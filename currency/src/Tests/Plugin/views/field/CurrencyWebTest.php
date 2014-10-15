@@ -19,6 +19,16 @@ class CurrencyWebTest extends WebTestBase {
   public static $modules = array('currency_test', 'views');
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+    /** @var \Drupal\currency\ConfigImporterInterface $config_importer */
+    $config_importer = \Drupal::service('currency.config_importer');
+    $config_importer->importCurrency('EUR');
+  }
+
+  /**
    * Tests the handler.
    */
   public function testHandler() {

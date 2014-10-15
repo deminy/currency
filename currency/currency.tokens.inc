@@ -62,20 +62,22 @@ function currency_tokens($type, array $tokens, array $data = array(), array $opt
     if ($tokens) {
       /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
       $currency = \Drupal::entityManager()->getStorage('currency')->load($currency_code);
-      foreach ($tokens as $token => $original) {
-        switch ($token) {
-          case 'number':
-            $replacements[$original] = $currency->getCurrencyNumber();
-            break;
-          case 'sign':
-            $replacements[$original] = $currency->getSign();
-            break;
-          case 'subunits':
-            $replacements[$original] = $currency->getSubunits();
-            break;
-          case 'title':
-            $replacements[$original] = $currency->label();
-            break;
+      if ($currency) {
+        foreach ($tokens as $token => $original) {
+          switch ($token) {
+            case 'number':
+              $replacements[$original] = $currency->getCurrencyNumber();
+              break;
+            case 'sign':
+              $replacements[$original] = $currency->getSign();
+              break;
+            case 'subunits':
+              $replacements[$original] = $currency->getSubunits();
+              break;
+            case 'title':
+              $replacements[$original] = $currency->label();
+              break;
+          }
         }
       }
     }

@@ -47,6 +47,14 @@ currency.currency.add:
   requirements:
     _entity_create_access: 'currency'
 
+currency.currency.import:
+  path: '/admin/config/regional/currency/import'
+  defaults:
+    _form: '\Drupal\currency\Controller\CurrencyImportForm'
+    _title: Import a currency
+  requirements:
+    _entity_create_access: 'currency'
+
 currency.currency.edit:
   path: '/admin/config/regional/currency/{currency}'
   defaults:
@@ -90,6 +98,14 @@ currency.currency_locale.add:
   defaults:
     _content: '\Drupal\currency\Controller\CurrencyLocale::add'
     _title: Add a currency locale
+  requirements:
+    _entity_create_access: 'currency_locale'
+
+currency.currency_locale.import:
+  path: '/admin/config/regional/currency-formatting/locale/import'
+  defaults:
+    _form: '\Drupal\currency\Controller\CurrencyLocaleImportForm'
+    _title: Import a currency locale
   requirements:
     _entity_create_access: 'currency_locale'
 

@@ -17,6 +17,9 @@ services:
     arguments: ['@entity.manager', '@language_manager', '@config.factory']
   currency.input:
     class: Drupal\currency\Input
+  currency.config_importer:
+    class: Drupal\currency\ConfigImporter
+    arguments: ['@module_handler', '@event_dispatcher', '@config.typed', '@entity.manager']
   currency.form_helper:
     class: Drupal\currency\FormHelper
     arguments: ['@string_translation', '@entity.manager']

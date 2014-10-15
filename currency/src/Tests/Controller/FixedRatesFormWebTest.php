@@ -33,6 +33,11 @@ class FixedRatesFormWebTest extends WebTestBase {
     $this->drupalGet($path);
     $this->assertText(t('Add an exchange rate'));
 
+    // Set up the currencies.
+    /** @var \Drupal\currency\ConfigImporterInterface $config_importer */
+    $config_importer = \Drupal::service('currency.config_importer');
+    $config_importer->importCurrency('EUR');
+    $config_importer->importCurrency('UAH');
     $currency_code_from = 'EUR';
     $currency_code_to = 'UAH';
 
