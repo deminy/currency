@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Controller;
 
+use Drupal\Core\Form\FormState;
 use Drupal\currency\Controller\AmountFormattingForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -165,6 +166,37 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       ),
     );
     $this->assertSame($expected, $this->controller->processPluginOptions($element));
+  }
+
+  /**
+   * @covers ::submitForm
+   */
+  public function testSubmitForm() {
+    $plugin_id = $this->randomMachineName();
+
+    $values = [
+      'default_plugin_id' => $plugin_id,
+    ];
+
+    $form = [];
+    $form_state = new FormState();
+    $form_state->setValues($values);
+
+    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $config->expects($this->atLeastOnce())
+      ->method('set')
+      ->with('plugin_id', $plugin_id);
+    $config->expects($this->atLeastOnce())
+      ->method('save');
+
+    $this->configFactory->expects($this->atLeastOnce())
+      ->method('get')
+      ->with('currency.amount_formatting')
+      ->willReturn($config);
+
+    $this->controller->submitForm($form, $form_state);
   }
 
 }

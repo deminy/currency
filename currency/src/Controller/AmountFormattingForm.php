@@ -95,9 +95,9 @@ class AmountFormattingForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    $this->configFactory()->get('currency.amount_formatting')
-      ->set('plugin_id', $values['default_plugin_id'])
-      ->save();
+    $config = $this->configFactory()->get('currency.amount_formatting');
+    $config->set('plugin_id', $values['default_plugin_id']);
+    $config->save();
 
     parent::submitForm($form, $form_state);
   }

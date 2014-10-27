@@ -5,7 +5,7 @@
  * Contains \Drupal\currency\Controller\CurrencyLocaleImportForm.
  */
 
-namespace Drupal\currency\Controller {
+namespace Drupal\currency\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormBase;
@@ -120,14 +120,3 @@ class CurrencyLocaleImportForm extends FormBase implements ContainerInjectionInt
   }
 
 }
-
-}
-
-namespace {
-
-  if (!function_exists('drupal_set_message')) {
-    function drupal_set_message() {}
-  }
-
-}
-
