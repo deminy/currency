@@ -5,7 +5,7 @@
  * Contains \Drupal\Tests\currency\Unit\Controller\CurrencyLocaleImportFormUnitTest.
  */
 
-namespace Drupal\Tests\currency\Unit\Controller;
+namespace Drupal\Tests\currency\Unit\Controller {
 
 use Drupal\currency\Controller\CurrencyLocaleImportForm;
 use Drupal\Tests\UnitTestCase;
@@ -151,6 +151,16 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
       ->method('setRedirectUrl');
 
     $this->controller->submitForm($form, $form_state);
+  }
+
+}
+
+}
+
+namespace {
+
+  if (!function_exists('drupal_set_message')) {
+    function drupal_set_message() {}
   }
 
 }
