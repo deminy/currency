@@ -5,7 +5,7 @@
  * Contains \Drupal\Tests\currency\Unit\Controller\AmountFormattingFormUnitTest.
  */
 
-namespace Drupal\Tests\currency\Unit\Controller;
+namespace Drupal\Tests\currency\Unit\Controller {
 
 use Drupal\Core\Form\FormState;
 use Drupal\currency\Controller\AmountFormattingForm;
@@ -197,6 +197,16 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       ->willReturn($config);
 
     $this->controller->submitForm($form, $form_state);
+  }
+
+}
+
+}
+
+namespace {
+
+  if (!function_exists('drupal_set_message')) {
+    function drupal_set_message() {}
   }
 
 }
