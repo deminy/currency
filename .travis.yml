@@ -76,4 +76,4 @@ script:
   - drush en --yes simpletest
   - drush cr
   - cd $TRAVIS_BUILD_DIR/../drupal
-  - modules/currency/travis/simpletest.sh
+  - sudo modules/currency/travis/simpletest.sh
