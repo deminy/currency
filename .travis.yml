@@ -12,11 +12,6 @@ php:
 env:
   - PATH=$PATH:/home/travis/.composer/vendor/bin
 
-mysql:
-  database: drupal
-  username: root
-  encoding: utf8
-
 install:
   - composer self-update
 
