@@ -35,7 +35,7 @@ class PluginBasedExchangeRateProviderFormWebTest extends WebTestBase {
     // Test overridden configuration.
     $path = 'admin/config/regional/currency-exchange';
     $values = array(
-      'exchangers[currency_fixed_rates][enabled]' => FALSE,
+      'exchange_rate_providers[currency_fixed_rates][enabled]' => FALSE,
     );
     $this->drupalPostForm($path, $values, t('Save'));
     $this->assertEqual(array(

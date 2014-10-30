@@ -167,7 +167,7 @@ class PluginBasedExchangeRateProviderFormUnitTest extends UnitTestCase {
     ];
 
     $values = [
-      'exchangers' => [
+      'exchange_rate_providers' => [
         $plugin_id_c => [
           'enabled' => $plugin_enabled_c,
           'weight' => mt_rand(9, 99),

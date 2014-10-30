@@ -140,9 +140,9 @@ class PluginBasedExchangeRateProviderForm extends FormBase implements ContainerI
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    uasort($values['exchangers'], '\Drupal\Component\Utility\SortArray::sortByWeightElement');
+    uasort($values['exchange_rate_providers'], '\Drupal\Component\Utility\SortArray::sortByWeightElement');
     $configuration = array();
-    foreach ($values['exchangers'] as $plugin_id => $exchanger_configuration) {
+    foreach ($values['exchange_rate_providers'] as $plugin_id => $exchanger_configuration) {
       $configuration[$plugin_id] = (bool) $exchanger_configuration['enabled'];
     }
     $this->exchangeRateProvider->saveConfiguration($configuration);
