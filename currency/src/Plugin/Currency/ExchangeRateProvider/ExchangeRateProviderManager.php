@@ -20,6 +20,13 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 class ExchangeRateProviderManager extends DefaultPluginManager implements ExchangeRateProviderManagerInterface {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaults = array(
+    'description' => NULL,
+  );
+
+  /**
    * Constructs a new class instance.
    *
    * @param \Traversable $namespaces

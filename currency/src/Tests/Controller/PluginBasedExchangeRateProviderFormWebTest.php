@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\Tests\Controller\ExchangeRateProviderFormWebTest.
+ * Contains \Drupal\currency\Tests\Controller\PluginBasedExchangeRateProviderFormWebTest.
  */
 
 namespace Drupal\currency\Tests\Controller;
@@ -10,11 +10,11 @@ namespace Drupal\currency\Tests\Controller;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * \Drupal\currency\Controller\ExchangeRateProviderForm web test.
+ * \Drupal\currency\Controller\PluginBasedExchangeRateProviderForm web test.
  *
  * @group Currency
  */
-class ExchangeRateProviderFormWebTest extends WebTestBase {
+class PluginBasedExchangeRateProviderFormWebTest extends WebTestBase {
 
   public static $modules = array('currency');
 

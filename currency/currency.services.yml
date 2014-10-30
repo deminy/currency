@@ -10,7 +10,7 @@ services:
     tags:
       - { name: plugin_manager_cache_clear}
   currency.exchange_rate_provider:
-    class: Drupal\currency\ExchangeRateProvider
+    class: Drupal\currency\PluginBasedExchangeRateProvider
     arguments: ['@plugin.manager.currency.exchange_rate_provider', '@config.factory']
   currency.locale_delegator:
     class: Drupal\currency\LocaleDelegator

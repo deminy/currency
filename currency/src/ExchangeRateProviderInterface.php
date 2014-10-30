@@ -31,11 +31,12 @@ interface ExchangeRateProviderInterface {
    *     'EUR' => array('NLG', 'DEM', 'XXX'),
    *   )
    *
-   * @return array
+   * @return array[]
    *   Keys are the ISO 4217 codes of source currencies, values are arrays of
    *   which the keys are ISO 4217 codes of destination currencies and values
    *   are \Drupal\currency\ExchangeRateInterface objects, or NULL for
    *   combinations of currencies for which no exchange rate could be found.
    */
   public function loadMultiple(array $currency_codes);
+
 }

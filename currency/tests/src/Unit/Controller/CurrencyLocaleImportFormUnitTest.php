@@ -7,7 +7,8 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
-use Drupal\currency\Controller\CurrencyLocaleImportForm;
+  use Drupal\Core\Url;
+  use Drupal\currency\Controller\CurrencyLocaleImportForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -130,7 +131,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
   /**
    * @covers ::submitForm
    */
-  public function testSubmitForm() {
+  public function testSubmitFormImport() {
     $locale = $this->randomMachineName();
 
     $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
@@ -140,13 +141,69 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
       ->with($locale)
       ->willReturn($currency_locale);
 
-    $form = [];
+    $form = [
+      'actions' => [
+        'import' => [
+          '#name' => 'import',
+        ],
+        'import_edit' => [
+          '#name' => 'import_edit',
+        ],
+      ],
+    ];
     $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $form_state->expects($this->atLeastOnce())
       ->method('getValues')
       ->willReturn([
         'locale' => $locale,
       ]);
+    $form_state->expects($this->atLeastOnce())
+      ->method('getTriggeringElement')
+      ->willReturn($form['actions']['import']);
+    $form_state->expects($this->atLeastOnce())
+      ->method('setRedirectUrl');
+
+    $this->controller->submitForm($form, $form_state);
+  }
+
+  /**
+   * @covers ::submitForm
+   */
+  public function testSubmitFormImportEdit() {
+    $locale = $this->randomMachineName();
+
+    $url = new Url($this->randomMachineName());
+
+    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale->expects($this->atLeastOnce())
+      ->method('urlInfo')
+      ->with('edit-form')
+      ->willReturn($url);
+
+    $this->configImporter->expects($this->once())
+      ->method('importCurrencyLocale')
+      ->with($locale)
+      ->willReturn($currency_locale);
+
+    $form = [
+      'actions' => [
+        'import' => [
+          '#name' => 'import',
+        ],
+        'import_edit' => [
+          '#name' => 'import_edit',
+        ],
+      ],
+    ];
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->atLeastOnce())
+      ->method('getValues')
+      ->willReturn([
+        'locale' => $locale,
+      ]);
+    $form_state->expects($this->atLeastOnce())
+      ->method('getTriggeringElement')
+      ->willReturn($form['actions']['import_edit']);
     $form_state->expects($this->atLeastOnce())
       ->method('setRedirectUrl');
 

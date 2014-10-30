@@ -2,7 +2,7 @@
 currency.exchange_rate_provider.config:
   path: '/admin/config/regional/currency-exchange'
   defaults:
-    _form: '\Drupal\currency\Controller\ExchangeRateProviderForm'
+    _form: '\Drupal\currency\Controller\PluginBasedExchangeRateProviderForm'
     _title: Currency exchange
   requirements:
     _permission: 'currency.exchange_rate_provider.administer'

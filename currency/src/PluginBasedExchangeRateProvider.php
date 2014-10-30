@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\currency\ExchangeRateProvider.
+ * Contains \Drupal\currency\PluginBasedExchangeRateProvider.
  */
 
 namespace Drupal\currency;
@@ -13,7 +13,7 @@ use Drupal\Core\Config\ConfigFactory;
 /**
  * Provides currency exchange rates through plugins.
  */
-class ExchangeRateProvider implements ExchangeRateProviderInterface {
+class PluginBasedExchangeRateProvider implements ExchangeRateProviderInterface {
 
   /**
    * The configuration factory.
@@ -43,7 +43,7 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
   /**
    * Loads the plugin configuration.
    *
-   * @return array
+   * @return bool[]
    *   Keys are currency_exchanger plugin names. Values are booleans that
    *   describe whether the plugins are enabled. Items are ordered by weight.
    */
@@ -61,7 +61,7 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
   /**
    * Saves the configuration.
    *
-   * @param array $configuration
+   * @param bool[] $configuration
    *   Keys are currency_exchanger plugin names. Values are booleans that
    *   describe whether the plugins are enabled. Items are ordered by weight.
    *
@@ -150,4 +150,5 @@ class ExchangeRateProvider implements ExchangeRateProviderInterface {
 
     return $rates;
   }
+
 }

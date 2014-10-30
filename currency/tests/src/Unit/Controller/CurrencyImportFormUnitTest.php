@@ -7,7 +7,8 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
-use Drupal\currency\Controller\CurrencyImportForm;
+  use Drupal\Core\Url;
+  use Drupal\currency\Controller\CurrencyImportForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -130,7 +131,7 @@ class CurrencyImportFormUnitTest extends UnitTestCase {
   /**
    * @covers ::submitForm
    */
-  public function testSubmitForm() {
+  public function testSubmitFormImport() {
     $currency_code = $this->randomMachineName();
 
     $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
@@ -140,13 +141,69 @@ class CurrencyImportFormUnitTest extends UnitTestCase {
       ->with($currency_code)
       ->willReturn($currency);
 
-    $form = [];
+    $form = [
+      'actions' => [
+        'import' => [
+          '#name' => 'import',
+        ],
+        'import_edit' => [
+          '#name' => 'import_edit',
+        ],
+      ],
+    ];
     $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $form_state->expects($this->atLeastOnce())
       ->method('getValues')
       ->willReturn([
         'currency_code' => $currency_code,
       ]);
+    $form_state->expects($this->atLeastOnce())
+      ->method('getTriggeringElement')
+      ->willReturn($form['actions']['import']);
+    $form_state->expects($this->atLeastOnce())
+      ->method('setRedirectUrl');
+
+    $this->controller->submitForm($form, $form_state);
+  }
+
+  /**
+   * @covers ::submitForm
+   */
+  public function testSubmitFormImportEdit() {
+    $currency_code = $this->randomMachineName();
+
+    $url = new Url($this->randomMachineName());
+
+    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency->expects($this->atLeastOnce())
+      ->method('urlInfo')
+      ->with('edit-form')
+      ->willReturn($url);
+
+    $this->configImporter->expects($this->once())
+      ->method('importCurrency')
+      ->with($currency_code)
+      ->willReturn($currency);
+
+    $form = [
+      'actions' => [
+        'import' => [
+          '#name' => 'import',
+        ],
+        'import_edit' => [
+          '#name' => 'import_edit',
+        ],
+      ],
+    ];
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->atLeastOnce())
+      ->method('getValues')
+      ->willReturn([
+        'currency_code' => $currency_code,
+      ]);
+    $form_state->expects($this->atLeastOnce())
+      ->method('getTriggeringElement')
+      ->willReturn($form['actions']['import_edit']);
     $form_state->expects($this->atLeastOnce())
       ->method('setRedirectUrl');
 
