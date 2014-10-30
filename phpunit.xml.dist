@@ -18,5 +18,9 @@
       <directory>./currency/src</directory>
       <directory>./currency_intl/src</directory>
     </whitelist>
+    <blacklist>
+      <directory>./currency/src/Tests</directory>
+      <directory>./currency_intl/src/Tests</directory>
+    </blacklist>
   </filter>
 </phpunit>
