@@ -14,11 +14,9 @@
   </testsuites>
   <!-- Filter for coverage reports. -->
   <filter>
-    <blacklist>
-      <directory>./currency/tests</directory>
-      <directory>./currency/src/Tests</directory>
-      <directory>./currency_intl/src/Tests</directory>
-      <directory>./currency_test</directory>
-    </blacklist>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory>./currency/src</directory>
+      <directory>./currency_intl/src</directory>
+    </whitelist>
   </filter>
 </phpunit>
