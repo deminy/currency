@@ -9,6 +9,7 @@ namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\currency\Controller\FixedRatesOverview;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Controller\FixedRatesOverview
@@ -46,11 +47,11 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
   protected $currencyStorage;
 
   /**
-   * The translation manager used for testing.
+   * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
    */
-  protected $translationManager;
+  protected $stringTranslation;
 
   /**
    * The URL generator used for testing.
@@ -71,11 +72,37 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
 
     $this->currencyExchangeRateProviderManager = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface');
 
-    $this->translationManager = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
 
     $this->urlGenerator = $this->getMock('\Drupal\Core\Routing\UrlGeneratorInterface');
 
-    $this->controller = new FixedRatesOverview($this->translationManager, $this->urlGenerator, $this->currencyStorage, $this->currencyAmountFormatterManager, $this->currencyExchangeRateProviderManager);
+    $this->controller = new FixedRatesOverview($this->stringTranslation, $this->urlGenerator, $this->currencyStorage, $this->currencyAmountFormatterManager, $this->currencyExchangeRateProviderManager);
+  }
+
+  /**
+   * @covers ::create
+   */
+  function testCreate() {
+    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager->expects($this->atLeastOnce())
+      ->method('getStorage')
+      ->with('currency')
+      ->willReturn($this->currencyStorage);
+
+    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $map = array(
+      array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
+      array('plugin.manager.currency.amount_formatter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyAmountFormatterManager),
+      array('plugin.manager.currency.exchange_rate_provider', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyExchangeRateProviderManager),
+      array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
+      array('url_generator', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->urlGenerator),
+    );
+    $container->expects($this->any())
+      ->method('get')
+      ->will($this->returnValueMap($map));
+
+    $form = FixedRatesOverview::create($container);
+    $this->assertInstanceOf('\Drupal\currency\Controller\FixedRatesOverview', $form);
   }
 
   /**

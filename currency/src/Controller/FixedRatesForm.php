@@ -156,20 +156,22 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
     /** @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates $plugin */
     $plugin = $this->currencyExchangeRateProviderManager->createInstance('currency_fixed_rates');
     $values = $form_state->getValues();
-    $currency_from = $this->currencyStorage->load($values['currency_code_from']);
-    $currency_to = $this->currencyStorage->load($values['currency_code_to']);
+    $currency_code_from = $values['currency_code_from'];
+    $currency_code_to = $values['currency_code_to'];
+    $currency_from = $this->currencyStorage->load($currency_code_from);
+    $currency_to = $this->currencyStorage->load($currency_code_to);
 
     $triggering_element = $form_state->getTriggeringElement();
     switch ($triggering_element['#name']) {
       case 'save':
-        $plugin->save($currency_from->id(), $currency_to->id(), $values['rate']['amount']);
+        $plugin->save($currency_code_from, $currency_code_to, $values['rate']['amount']);
         drupal_set_message($this->t('The exchange rate for @currency_title_from to @currency_title_to has been saved.', array(
           '@currency_title_from' => $currency_from->label(),
           '@currency_title_to' => $currency_to->label(),
         )));
         break;
       case 'delete':
-        $plugin->delete($currency_from->id(), $currency_to->id());
+        $plugin->delete($currency_code_from, $currency_code_to);
         drupal_set_message($this->t('The exchange rate for @currency_title_from to @currency_title_to has been deleted.', array(
           '@currency_title_from' => $currency_from->label(),
           '@currency_title_to' => $currency_to->label(),

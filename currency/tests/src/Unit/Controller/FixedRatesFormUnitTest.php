@@ -5,8 +5,9 @@
  * Contains \Drupal\Tests\currency\Unit\Controller\FixedRatesFormUnitTest.
  */
 
-namespace Drupal\Tests\currency\Unit\Controller;
+namespace Drupal\Tests\currency\Unit\Controller {
 
+use Drupal\Core\Form\FormState;
 use Drupal\currency\Controller\FixedRatesForm;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -220,6 +221,144 @@ class FixedRatesFormUnitTest extends UnitTestCase {
     $form = array();
     $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $this->controller->validateForm($form, $form_state);
+  }
+
+  /**
+   * @covers ::submitForm
+   */
+  public function testSubmitFormWithSave() {
+    $currency_code_from = $this->randomMachineName();
+    $currency_code_to = $this->randomMachineName();
+    $rate = mt_rand();
+
+    $values = [
+      'currency_code_from' => $currency_code_from,
+      'currency_code_to' => $currency_code_to,
+      'rate' => [
+        'amount' => $rate,
+      ],
+    ];
+
+    $form = [
+      'actions' => [
+        'save' => [
+          '#name' => 'save',
+          '#foo' => $this->randomMachineName(),
+        ],
+        'delete' => [
+          '#name' => 'delete',
+          '#foo' => $this->randomMachineName(),
+        ],
+      ],
+    ];
+
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->atLeastOnce())
+      ->method('getTriggeringElement')
+      ->willReturn($form['actions']['save']);
+    $form_state->expects($this->atLeastOnce())
+      ->method('getValues')
+      ->willReturn($values);
+    $form_state->expects($this->atLeastOnce())
+      ->method('setRedirect')
+      ->with('currency.exchange_rate_provider.fixed_rates.overview');
+
+    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $exchange_rate_provider->expects($this->once())
+      ->method('save')
+      ->with($currency_code_from, $currency_code_to, $rate);
+
+    $this->currencyExchangeRateProviderManager->expects($this->once())
+      ->method('createInstance')
+      ->with('currency_fixed_rates')
+      ->willReturn($exchange_rate_provider);
+
+    $currency_from = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_to = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+
+    $map = [
+      [$currency_code_from, $currency_from],
+      [$currency_code_to, $currency_to],
+    ];
+    $this->currencyStorage->expects($this->atLeastOnce())
+      ->method('load')
+      ->willReturnMap($map);
+
+    $this->controller->submitForm($form, $form_state);
+  }
+
+  /**
+   * @covers ::submitForm
+   */
+  public function testSubmitFormWitDelete() {
+    $currency_code_from = $this->randomMachineName();
+    $currency_code_to = $this->randomMachineName();
+
+    $values = [
+      'currency_code_from' => $currency_code_from,
+      'currency_code_to' => $currency_code_to,
+    ];
+
+    $form = [
+      'actions' => [
+        'save' => [
+          '#name' => 'save',
+          '#foo' => $this->randomMachineName(),
+        ],
+        'delete' => [
+          '#name' => 'delete',
+          '#foo' => $this->randomMachineName(),
+        ],
+      ],
+    ];
+
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state->expects($this->atLeastOnce())
+      ->method('getTriggeringElement')
+      ->willReturn($form['actions']['delete']);
+    $form_state->expects($this->atLeastOnce())
+      ->method('getValues')
+      ->willReturn($values);
+    $form_state->expects($this->atLeastOnce())
+      ->method('setRedirect')
+      ->with('currency.exchange_rate_provider.fixed_rates.overview');
+
+    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $exchange_rate_provider->expects($this->once())
+      ->method('delete')
+      ->with($currency_code_from, $currency_code_to);
+
+    $this->currencyExchangeRateProviderManager->expects($this->once())
+      ->method('createInstance')
+      ->with('currency_fixed_rates')
+      ->willReturn($exchange_rate_provider);
+
+    $currency_from = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_to = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+
+    $map = [
+      [$currency_code_from, $currency_from],
+      [$currency_code_to, $currency_to],
+    ];
+    $this->currencyStorage->expects($this->atLeastOnce())
+      ->method('load')
+      ->willReturnMap($map);
+
+    $this->controller->submitForm($form, $form_state);
+  }
+
+}
+
+}
+
+namespace {
+
+  if (!function_exists('drupal_set_message')) {
+    function drupal_set_message() {}
   }
 
 }
