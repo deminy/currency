@@ -8,6 +8,7 @@
 namespace Drupal\currency\Plugin\Filter;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\ExchangeRateProviderInterface;
 use Drupal\currency\Input;
 use Drupal\currency\Math\MathInterface;
@@ -56,6 +57,8 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface
+   *   The string translator.
    * @param \Drupal\currency\ExchangeRateProviderInterface $exchange_rate_provider
    *   The exchange rate provider.
    * @param \Drupal\currency\Math\MathInterface
@@ -63,25 +66,26 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    * @param \Drupal\currency\Input $input
    *   The input parser.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, ExchangeRateProviderInterface $exchange_rate_provider, MathInterface $math, Input $input) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ExchangeRateProviderInterface $exchange_rate_provider, MathInterface $math, Input $input) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->exchangeRateProvider = $exchange_rate_provider;
     $this->input = $input;
     $this->math = $math;
+    $this->stringTranslation = $string_translation;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.exchange_rate_provider'), $container->get('currency.math'), $container->get('currency.input'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('currency.exchange_rate_provider'), $container->get('currency.math'), $container->get('currency.input'));
   }
 
   /**
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
-    return preg_replace_callback('/\[currency:([a-z]{3}):([a-z]{3})(.*?)\]/i', array($this, 'processCallback'), $text);
+    return preg_replace_callback('/\[currency:([a-z]{3}):([a-z]{3})(.*?)\]/i', [$this, 'processCallback'], $text);
   }
 
   /**

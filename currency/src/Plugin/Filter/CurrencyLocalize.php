@@ -9,6 +9,7 @@ namespace Drupal\currency\Plugin\Filter;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Input;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,15 +50,18 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface
+   *   The string translator.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency entity storage.
    * @param \Drupal\currency\Input $input
    *   The input parser.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageInterface $currency_storage, Input $input) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage, Input $input) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->currencyStorage = $currency_storage;
     $this->input = $input;
+    $this->stringTranslation = $string_translation;
   }
 
   /**
@@ -66,14 +70,14 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
-    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorage('currency'), $container->get('currency.input'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $entity_manager->getStorage('currency'), $container->get('currency.input'));
   }
 
   /**
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
-    return preg_replace_callback('/\[currency-localize:([a-z]{3}):(.+?)\]/i', array($this, 'processCallback'), $text);
+    return preg_replace_callback('/\[currency-localize:([a-z]{3}):(.+?)\]/i', [$this, 'processCallback'], $text);
   }
 
   /**

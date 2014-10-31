@@ -8,7 +8,9 @@
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
 use Drupal\currency\ExchangeRate;
+use Drupal\currency\Plugin\Filter\CurrencyExchange;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Filter\CurrencyExchange
@@ -46,17 +48,31 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
   protected $math;
 
   /**
+   * The plugin definiton.
+   *
+   * @var mixed[]
+   */
+  protected $pluginDefinition;
+
+  /**
+   * The string translator.
+   *
+   * @var \Drupal\Core\StringTranslation\TranslationInterface
+   */
+  protected $stringTranslation;
+
+  /**
    * {@inheritdoc}
    *
    * @covers ::__construct
    */
   public function setUp() {
-    $configuration = array();
+    $configuration = [];
     $plugin_id = $this->randomMachineName();
-    $plugin_definition = array(
+    $this->pluginDefinition = [
       'cache' => TRUE,
       'provider' => $this->randomMachineName(),
-    );
+    ];
 
     $this->exchangeRateProvider = $this->getMock('\Drupal\currency\ExchangeRateProviderInterface');
 
@@ -64,14 +80,33 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
 
     $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
 
-    $this->filter = $this->getMockBuilder('\Drupal\currency\Plugin\Filter\CurrencyExchange')
-      ->setConstructorArgs(array($configuration, $plugin_id, $plugin_definition, $this->exchangeRateProvider, $this->math, $this->input))
-      ->setMethods(array('t'))
-      ->getMock();
+    $this->stringTranslation = $this->getStringTranslationStub();
+
+    $this->filter = new CurrencyExchange($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->exchangeRateProvider, $this->math, $this->input);
+  }
+
+  /**
+   * @covers ::create
+   */
+  function testCreate() {
+    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $map = [
+      ['currency.input', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->input],
+      ['currency.math', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->math],
+      ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
+      ['currency.exchange_rate_provider', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->exchangeRateProvider],
+    ];
+    $container->expects($this->any())
+      ->method('get')
+      ->will($this->returnValueMap($map));
+
+    $filter = CurrencyExchange::create($container, [], '', $this->pluginDefinition);
+    $this->assertInstanceOf('\Drupal\currency\Plugin\Filter\CurrencyExchange', $filter);
   }
 
   /**
    * @covers ::process
+   * @covers ::processCallback
    */
   public function testProcess() {
     $currency_code_from = 'EUR';
@@ -88,11 +123,11 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
       ->with($currency_code_from, $currency_code_to)
       ->will($this->returnValue($exchange_rate));
 
-    $map = array(
-      array(1, $rate, $rate),
-      array('1', $rate, $rate),
-      array('2', $rate, '4.40742'),
-    );
+    $map = [
+      [1, $rate, $rate],
+      ['1', $rate, $rate],
+      ['2', $rate, '4.40742'],
+    ];
     $this->math->expects($this->any())
       ->method('multiply')
       ->will($this->returnValueMap($map));
@@ -101,12 +136,12 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
     $cache = TRUE;
     $cache_id = $this->randomMachineName();
 
-    $tokens_valid = array(
+    $tokens_valid = [
       '[currency:EUR:NLG]' => '2.20371',
       '[currency:EUR:NLG:1]' => '2.20371',
       '[currency:EUR:NLG:2]' => '4.40742',
-    );
-    $tokens_invalid = array(
+    ];
+    $tokens_invalid = [
       // Missing arguments.
       '[currency]',
       '[currency:]',
@@ -117,7 +152,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
       '[currency:123:EUR]',
       // Invalid currency code and missing argument.
       '[currency:123]',
-    );
+    ];
 
     foreach ($tokens_valid as $token => $replacement) {
       $this->assertSame($replacement, $this->filter->process($token, $langcode, $cache, $cache_id));
@@ -131,10 +166,6 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
    * @covers ::tips
    */
   public function testTips() {
-    $this->filter->expects($this->any())
-      ->method('t')
-      ->will($this->returnArgument(0));
-
     $this->assertInternalType('string', $this->filter->tips());
   }
 }

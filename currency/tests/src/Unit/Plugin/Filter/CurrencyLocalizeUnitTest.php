@@ -7,7 +7,9 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
+use Drupal\currency\Plugin\Filter\CurrencyLocalize;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Filter\CurrencyLocalize
@@ -26,7 +28,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
   /**
    * The filter under test.
    *
-   * @var \Drupal\currency\Plugin\Filter\CurrencyExchange|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\Plugin\Filter\CurrencyExchange
    */
   protected $filter;
 
@@ -38,38 +40,76 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
   protected $input;
 
   /**
+   * The plugin definiton.
+   *
+   * @var mixed[]
+   */
+  protected $pluginDefinition;
+
+  /**
+   * The string translator.
+   *
+   * @var \Drupal\Core\StringTranslation\TranslationInterface
+   */
+  protected $stringTranslation;
+
+  /**
    * {@inheritdoc}
    *
    * @covers ::__construct
    */
   public function setUp() {
-    $configuration = array();
+    $configuration = [];
     $plugin_id = $this->randomMachineName();
-    $plugin_definition = array(
+    $this->pluginDefinition = [
       'cache' => TRUE,
       'provider' => $this->randomMachineName(),
-    );
+    ];
 
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
     $this->input = $this->getMock('\Drupal\currency\Input');
 
-    $this->filter = $this->getMockBuilder('\Drupal\currency\Plugin\Filter\CurrencyLocalize')
-      ->setConstructorArgs(array($configuration, $plugin_id, $plugin_definition, $this->currencyStorage, $this->input))
-      ->setMethods(array('t'))
-      ->getMock();
+    $this->stringTranslation = $this->getStringTranslationStub();
+
+    $this->filter = new CurrencyLocalize($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage, $this->input);
+  }
+
+  /**
+   * @covers ::create
+   */
+  function testCreate() {
+    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager->expects($this->atLeastOnce())
+      ->method('getStorage')
+      ->with('currency')
+      ->willReturn($this->currencyStorage);
+
+    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $map = [
+      ['entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager],
+      ['currency.input', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->input],
+      ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
+    ];
+    $container->expects($this->any())
+      ->method('get')
+      ->will($this->returnValueMap($map));
+
+    $filter = CurrencyLocalize::create($container, [], '', $this->pluginDefinition);
+    $this->assertInstanceOf('\Drupal\currency\Plugin\Filter\CurrencyLocalize', $filter);
   }
 
   /**
    * @covers ::process
+   * @covers ::processCallback
    */
   function testProcess() {
-    $map = array(
-      array('100', TRUE, '€100.00'),
-      array('100.7654', TRUE, '€100.77'),
-      array('1.99', TRUE, '€1.99'),
-      array('2.99', TRUE, '€2.99'),
-    );
+    $map = [
+      ['100', TRUE, '€100.00'],
+      ['100.7654', TRUE, '€100.77'],
+      ['1.99', TRUE, '€1.99'],
+      ['2.99', TRUE, '€2.99'],
+    ];
     $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
     $currency->expects($this->any())
       ->method('formatAmount')
@@ -88,13 +128,13 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
     $cache = TRUE;
     $cache_id = $this->randomMachineName();
 
-    $tokens_valid = array(
+    $tokens_valid = [
       '[currency-localize:EUR:100]' => '€100.00',
       '[currency-localize:EUR:100.7654]' => '€100.77',
       '[currency-localize:EUR:1.99]' => '€1.99',
       '[currency-localize:EUR:2.99]' => '€2.99',
-    );
-    $tokens_invalid = array(
+    ];
+    $tokens_invalid = [
       // Missing arguments.
       '[currency-localize]',
       '[currency-localize:]',
@@ -104,7 +144,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
       '[currency-localize:123:456]',
       // Invalid currency code and missing argument.
       '[currency-localize:123]',
-    );
+    ];
 
     foreach ($tokens_valid as $token => $replacement) {
       $this->assertSame($replacement, $this->filter->process($token, $langcode, $cache, $cache_id));
@@ -118,10 +158,6 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
    * @covers ::tips
    */
   public function testTips() {
-    $this->filter->expects($this->any())
-      ->method('t')
-      ->will($this->returnArgument(0));
-
     $this->assertInternalType('string', $this->filter->tips());
   }
 }
