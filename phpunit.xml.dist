@@ -17,10 +17,10 @@
     <whitelist processUncoveredFilesFromWhitelist="true">
       <directory>./currency/src</directory>
       <directory>./currency_intl/src</directory>
+        <exclude>
+          <directory>./currency/src/Tests</directory>
+          <directory>./currency_intl/src/Tests</directory>
+        </exclude>
     </whitelist>
-    <blacklist>
-      <directory>./currency/src/Tests</directory>
-      <directory>./currency_intl/src/Tests</directory>
-    </blacklist>
   </filter>
 </phpunit>
