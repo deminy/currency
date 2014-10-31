@@ -9,6 +9,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
@@ -56,21 +57,47 @@ class HistoricalRatesUnitTest extends UnitTestCase {
   }
 
   /**
+   * @covers ::create
+   */
+  function testCreate() {
+    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager->expects($this->atLeastOnce())
+      ->method('getStorage')
+      ->with('currency')
+      ->willReturn($this->currencyStorage);
+
+    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $map = array(
+      array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
+      array('currency.math', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->math),
+    );
+    $container->expects($this->any())
+      ->method('get')
+      ->will($this->returnValueMap($map));
+
+    $form = HistoricalRates::create($container, array(), '', array());
+    $this->assertInstanceOf('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates', $form);
+  }
+
+  /**
    * @covers ::load
    */
   public function testLoad() {
     $rates = $this->prepareExchangeRates();
+    $reverse_rate = mt_rand();
 
     $this->math->expects($this->any())
       ->method('divide')
-      ->with(1, $rates['EUR']['NLG'])
-      ->will($this->returnValue($rates['NLG']['EUR']));
+      ->with(1, $rates['EUR']['DEM'])
+      ->will($this->returnValue($reverse_rate));
 
-    // Test a rate that is stored in config.
+    // Test rates that are stored in config.
     $this->assertSame($rates['EUR']['NLG'], $this->plugin->load('EUR', 'NLG')->getRate());
-
-    // Test a reverse exchange rate.
     $this->assertSame($rates['NLG']['EUR'], $this->plugin->load('NLG', 'EUR')->getRate());
+    $this->assertSame($rates['EUR']['DEM'], $this->plugin->load('EUR', 'DEM')->getRate());
+
+    // Test a rate that is calculated on-the-fly.
+    $this->assertSame($reverse_rate, $this->plugin->load('DEM', 'EUR')->getRate());
 
     // Test an unavailable exchange rate.
     $this->assertNull($this->plugin->load('NLG', 'UAH'));
@@ -120,6 +147,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
   protected function prepareExchangeRates() {
     $rates = array(
       'EUR' => array(
+        'DEM' => '1.95583',
         'NLG' => '2.20371',
       ),
       'NLG' => array(

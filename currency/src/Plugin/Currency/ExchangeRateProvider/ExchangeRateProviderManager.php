@@ -42,4 +42,5 @@ class ExchangeRateProviderManager extends DefaultPluginManager implements Exchan
     $this->alterInfo('currency_exchange_rate_provider');
     $this->setCacheBackend($cache_backend, 'currency_exchange_rate_provider');
   }
+
 }

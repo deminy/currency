@@ -198,6 +198,37 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
   }
 
   /**
+   * @covers ::getCurrencyLocale
+   *
+   * @expectedException \RuntimeException
+   */
+  function testGetCurrencyLocaleMissingFallback() {
+    $this->prepareLanguageManager();
+
+    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $config->expects($this->any())
+      ->method('get')
+      ->with('country.default')
+      ->will($this->returnValue(NULL));
+
+    $this->configFactory->expects($this->once())
+      ->method('get')
+      ->with('system.data')
+      ->will($this->returnValue($config));
+
+    $delegator = $this->localeDelegator;
+    $this->currencyLocaleStorage->expects($this->any())
+      ->method('load')
+      ->with($delegator::DEFAULT_LOCALE)
+      ->willReturn(NULL);
+
+    // Test loading the fallback locale.
+    $this->localeDelegator->getCurrencyLocale();
+  }
+
+  /**
    * Prepares the language manager for testing.
    */
   protected function prepareLanguageManager() {
