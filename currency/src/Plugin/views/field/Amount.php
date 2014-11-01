@@ -8,8 +8,10 @@
 namespace Drupal\currency\Plugin\views\field;
 
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,12 +39,27 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   protected $currencyStorage;
 
   /**
-   * {@inheritdoc}
+   * Constructs a new instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The string translator.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
+   *   THe currency storage.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageInterface $currency_storage) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ModuleHandlerInterface $module_handler, EntityStorageInterface $currency_storage) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->definition += $this->defaultDefinition();
     $this->currencyStorage = $currency_storage;
+    $this->moduleHandler = $module_handler;
+    $this->stringTranslation = $string_translation;
   }
 
   /**
@@ -51,15 +68,16 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
-    return new static($configuration, $plugin_id, $plugin_definition, $entity_manager->getStorage('currency'));
+
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('module_handler'), $entity_manager->getStorage('currency'));
   }
 
   /**
    * Returns default definition values.
    *
-   * @return array
+   * @return mixed[]
    */
-  function defaultDefinition() {
+  protected function defaultDefinition() {
     return array(
       // A default currency code to use for the amounts.
       'currency_code' => 'XXX',
@@ -74,7 +92,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   /**
    * {@inheritdoc}
    */
-  function query() {
+  public function query() {
     $this->ensureMyTable();
     if ($this->definition['currency_code_field']) {
       $this->addAdditionalFields(array(
@@ -89,10 +107,8 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
 
   /**
    * {@inheritdoc}
-   *
-   * @var array
    */
-  function defineOptions() {
+  public function defineOptions() {
     $options = parent::defineOptions();
 
     // Whether to round amounts.
@@ -106,7 +122,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   /**
    * {@inheritdoc}
    */
-  function buildOptionsForm(&$form, FormStateInterface $form_state) {
+  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
 
     $form['currency_round'] = array(
@@ -136,7 +152,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
    *
    * @return \Drupal\currency\Entity\CurrencyInterface
    */
-  function getCurrency(ResultRow $values) {
+  protected function getCurrency(ResultRow $values) {
     $currency = NULL;
 
     if ($this->definition['currency_code_field']) {
@@ -171,7 +187,8 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
    * @return string
    *   A numeric string.
    */
-  function getAmount(ResultRow $values) {
+  protected function getAmount(ResultRow $values) {
     return $this->getValue($values);
   }
+
 }

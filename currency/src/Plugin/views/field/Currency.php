@@ -7,15 +7,19 @@
 
 namespace Drupal\currency\Plugin\views\field;
 
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * A Views field handler to get properties from currencies.
  *
  * This handler has one definition property:
- * - currency_property: the name of the Currency class property of which to
- *   display the value, which must be a scalar.
+ * - currency_method: the name of the method to call on
+ *   \Drupal\currency\Entity\CurrencyInterface and of which to display the
+ *   value, which must be a scalar.
  *
  * @ingroup views_field_handlers
  *
@@ -24,36 +28,64 @@ use Drupal\views\ResultRow;
 class Currency extends FieldPluginBase {
 
   /**
-   * {@inheritdoc}
+   * The currency storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $currencyStorage;
+
+  /**
+   * Constructs a new instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The string translator.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
+   *   THe currency storage.
    *
    * @throws \InvalidArgumentException
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
-    if (!isset($configuration['currency_property'])) {
-      throw new \InvalidArgumentException('Missing currency property definition.');
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage) {
+    if (!isset($configuration['currency_method'])) {
+      throw new \InvalidArgumentException('Missing currency_method definition.');
+    }
+    elseif (!method_exists('\Drupal\currency\Entity\CurrencyInterface', $configuration['currency_method'])) {
+      throw new \InvalidArgumentException(sprintf('Method %s does not exist on \Drupal\currency\Entity\CurrencyInterface.', $configuration['currency_method']));
     }
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->currencyStorage = $currency_storage;
+    $this->stringTranslation = $string_translation;
   }
 
   /**
    * {@inheritdoc}
    */
-  function render(ResultRow $values) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
+    $entity_manager = $container->get('entity.manager');
+
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $entity_manager->getStorage('currency'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render(ResultRow $values) {
     $currency_code = $this->getValue($values);
-    $currency = entity_load('currency', $currency_code);
-    $property = $this->configuration['currency_property'];
+    $currency = $this->currencyStorage->load($currency_code);
     if ($currency) {
-      if ($property == 'label') {
-        return $currency->label();
-      }
-      else {
-        return $currency->get($property);
-      }
+      return call_user_func([$currency, $this->configuration['currency_method']]);
     }
     else {
-      return t('Unknuwn currency %currency_code', array(
+      return $this->t('Unknuwn currency %currency_code', array(
         '%currency_code' => $currency_code,
       ));
     }
   }
+
 }

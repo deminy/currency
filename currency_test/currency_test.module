@@ -70,7 +70,7 @@ function currency_test_views_data() {
   );
   $data['currency_test']['currency_sign'] = array(
     'field' => array(
-      'currency_property' => 'sign',
+      'currency_method' => 'getSign',
       'id' => 'currency',
     ),
     'help' => t('Currency Sign'),
@@ -79,7 +79,7 @@ function currency_test_views_data() {
   );
   $data['currency_test']['currency_subunits'] = array(
     'field' => array(
-      'currency_property' => 'subunits',
+      'currency_method' => 'getSubunits',
       'id' => 'currency',
     ),
     'help' => t('Number of subunits'),

@@ -28,7 +28,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
   /**
    * The filter under test.
    *
-   * @var \Drupal\currency\Plugin\Filter\CurrencyExchange
+   * @var \Drupal\currency\Plugin\Filter\CurrencyLocalize
    */
   protected $filter;
 
