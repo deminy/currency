@@ -14,6 +14,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Entity\Currency;
+use Drupal\currency\FormHelperInterface;
 use Drupal\currency\InputInterface;
 use Drupal\currency\Math\MathInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,6 +32,13 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $currencyStorage;
+
+  /**
+   * The form helper.
+   *
+   * @var \Drupal\currency\FormHelperInterface
+   */
+  protected $formHelper;
 
   /**
    * The input parser.
@@ -56,10 +64,14 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
+   * @param \Drupal\currency\InputInterface $input
+   * @param \Drupal\currency\Math\MathInterface $math
+   * @param \Drupal\currency\FormHelperInterface $form_helper
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage, InputInterface $input, MathInterface $math) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage, InputInterface $input, MathInterface $math, FormHelperInterface $form_helper) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->currencyStorage = $currency_storage;
+    $this->formHelper = $form_helper;
     $this->input = $input;
     $this->math = $math;
     $this->stringTranslation = $string_translation;
@@ -72,7 +84,7 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
 
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $entity_manager->getStorage('currency'), $container->get('currency.input'), $container->get('currency.math'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $entity_manager->getStorage('currency'), $container->get('currency.input'), $container->get('currency.math'), $container->get('currency.form_helper'));
   }
 
   /**
@@ -118,10 +130,13 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
   public function process(array $element, FormStateInterface $form_state, array $form) {
     // Validate element configuration.
     if ($element['#minimum_amount'] !== FALSE && !is_numeric($element['#minimum_amount'])) {
-      throw new \RuntimeException('The minimum amount must be a number.');
+      throw new \InvalidArgumentException('The minimum amount must be a number.');
     }
     if ($element['#maximum_amount'] !== FALSE && !is_numeric($element['#maximum_amount'])) {
-      throw new \RuntimeException('The maximum amount must be a number.');
+      throw new \InvalidArgumentException('The maximum amount must be a number.');
+    }
+    if (!is_array($element['#limit_currency_codes'])) {
+      throw new \InvalidArgumentException('#limit_currency_codes must be an array.');
     }
     if ($element['#limit_currency_codes']
       && $element['#default_value']['currency_code']
@@ -147,8 +162,6 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
     ];
 
     // Add the currency element.
-    /** @var \Drupal\currency\FormHelperInterface $form_helper */
-    $form_helper = \Drupal::service('currency.form_helper');
     if (count($element['#limit_currency_codes']) == 1) {
       $element['currency_code'] = [
         '#value' => reset($element['#limit_currency_codes']),
@@ -161,7 +174,7 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
         '#type' => 'select',
         '#title' => $this->t('Currency'),
         '#title_display' => 'invisible',
-        '#options' => $element['#limit_currency_codes'] ? array_intersect_key($form_helper->getCurrencyOptions(), $element['#limit_currency_codes']) : $form_helper->getCurrencyOptions(),
+        '#options' => $element['#limit_currency_codes'] ? array_intersect_key($this->formHelper->getCurrencyOptions(), array_flip($element['#limit_currency_codes'])) : $this->formHelper->getCurrencyOptions(),
         '#required' => $element['#required'],
       ];
     }
