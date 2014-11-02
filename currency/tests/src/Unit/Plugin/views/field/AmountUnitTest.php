@@ -5,7 +5,7 @@
  * Contains \Drupal\Tests\currency\Unit\Plugin\views\field\AmountUnitTest.
  */
 
-namespace Drupal\Tests\currency\Unit\Plugin\Filter {
+namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
 use Drupal\Core\Form\FormState;
 use Drupal\currency\Plugin\views\field\Amount;

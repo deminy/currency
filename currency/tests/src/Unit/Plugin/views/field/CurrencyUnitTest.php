@@ -5,7 +5,7 @@
  * Contains \Drupal\Tests\currency\Unit\Plugin\views\field\CurrencyUnitTest.
  */
 
-namespace Drupal\Tests\currency\Unit\Plugin\Filter;
+namespace Drupal\Tests\currency\Unit\Plugin\views\field;
 
 use Drupal\currency\Plugin\views\field\Currency;
 use Drupal\Tests\UnitTestCase;
