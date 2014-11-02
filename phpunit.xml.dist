@@ -8,18 +8,18 @@
   </php>
   <testsuites>
     <testsuite name="Currency Unit Test Suite">
-      <directory>./currency/tests</directory>
-      <directory>./currency_intl/tests</directory>
+      <directory>./tests</directory>
+      <directory>./modules/currency_intl/tests</directory>
     </testsuite>
   </testsuites>
   <!-- Filter for coverage reports. -->
   <filter>
     <whitelist processUncoveredFilesFromWhitelist="true">
-      <directory>./currency/src</directory>
-      <directory>./currency_intl/src</directory>
+      <directory>./src</directory>
+      <directory>./modules/currency_intl/src</directory>
         <exclude>
-          <directory>./currency/src/Tests</directory>
-          <directory>./currency_intl/src/Tests</directory>
+          <directory>./src/Tests</directory>
+          <directory>./modules/currency_intl/src/Tests</directory>
         </exclude>
     </whitelist>
   </filter>
