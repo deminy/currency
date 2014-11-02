@@ -8,20 +8,114 @@
 namespace Drupal\currency\Element;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Entity\Currency;
+use Drupal\currency\InputInterface;
+use Drupal\currency\Math\MathInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides form callbacks for the currency_amount form element.
+ * Provides an element to collect amounts of money and convert them to strings.
+ *
+ * @FormElement("currency_amount")
  */
-class CurrencyAmount {
+class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterface {
+
+  /**
+   * The currency storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $currencyStorage;
+
+  /**
+   * The input parser.
+   *
+   * @var \Drupal\currency\InputInterface
+   */
+  protected $input;
+
+  /**
+   * The math provider.
+   *
+   * @var \Drupal\currency\Math\MathInterface
+   */
+  protected $math;
+
+  /**
+   * Constructs a new instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
+   */
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage, InputInterface $input, MathInterface $math) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->currencyStorage = $currency_storage;
+    $this->input = $input;
+    $this->math = $math;
+    $this->stringTranslation = $string_translation;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
+    $entity_manager = $container->get('entity.manager');
+
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $entity_manager->getStorage('currency'), $container->get('currency.input'), $container->get('currency.math'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInfo() {
+    $plugin_id = $this->getPluginId();
+
+    return [
+      '#default_value' => [
+        'amount' => NULL,
+        'currency_code' => NULL,
+      ],
+      '#element_validate' => [function(array $element, FormStateInterface $form_state, array $form) use ($plugin_id) {
+        /** @var \Drupal\Component\Plugin\PluginManagerInterface $element_info_manager */
+        $element_info_manager = \Drupal::service('plugin.manager.element_info');
+        /** @var \Drupal\currency\Element\CurrencyAmount $element_plugin */
+        $element_plugin = $element_info_manager->createInstance($plugin_id);
+
+        $element_plugin->elementValidate($element, $form_state, $form);
+      }],
+      // The ISO 4217 codes of the currencies the amount must be in. Use an empty
+      // array to allow any currency.
+      '#limit_currency_codes' => [],
+      // The minimum amount as a numeric string, or FALSE to omit.
+      '#minimum_amount' => FALSE,
+      // The maximum amount as a numeric string, or FALSE to omit.
+      '#maximum_amount' => FALSE,
+      '#process' => [function(array $element, FormStateInterface $form_state, array $form) use ($plugin_id) {
+        /** @var \Drupal\Component\Plugin\PluginManagerInterface $element_info_manager */
+        $element_info_manager = \Drupal::service('plugin.manager.element_info');
+        /** @var \Drupal\currency\Element\CurrencyAmount $element_plugin */
+        $element_plugin = $element_info_manager->createInstance($plugin_id);
+
+        return $element_plugin->process($element, $form_state, $form);
+      }],
+    ];
+  }
 
   /**
    * Implements form #process callback.
    */
-  public static function process(array $element, FormStateInterface $form_state, array $form) {
-    $currency_storage = \Drupal::entityManager()->getStorage('currency');
-
+  public function process(array $element, FormStateInterface $form_state, array $form) {
     // Validate element configuration.
     if ($element['#minimum_amount'] !== FALSE && !is_numeric($element['#minimum_amount'])) {
       throw new \RuntimeException('The minimum amount must be a number.');
@@ -39,56 +133,56 @@ class CurrencyAmount {
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = NULL;
     if ($element['#default_value']['currency_code']) {
-      $currency = $currency_storage->load($element['#default_value']['currency_code']);
+      $currency = $this->currencyStorage->load($element['#default_value']['currency_code']);
     }
     if(!$currency) {
-      $currency = $currency_storage->load('XXX');
+      $currency = $this->currencyStorage->load('XXX');
     }
 
     // Modify the element.
     $element['#tree'] = TRUE;
     $element['#theme_wrappers'][] = 'form_element';
-    $element['#attached']['css'] = array(
+    $element['#attached']['css'] = [
       drupal_get_path('module', 'currency') . '/currency.css',
-    );
+    ];
 
     // Add the currency element.
     /** @var \Drupal\currency\FormHelperInterface $form_helper */
     $form_helper = \Drupal::service('currency.form_helper');
     if (count($element['#limit_currency_codes']) == 1) {
-      $element['currency_code'] = array(
+      $element['currency_code'] = [
         '#value' => reset($element['#limit_currency_codes']),
         '#type' => 'value',
-      );
+      ];
     }
     else {
-      $element['currency_code'] = array(
+      $element['currency_code'] = [
         '#default_value' => $currency->id(),
         '#type' => 'select',
-        '#title' => t('Currency'),
+        '#title' => $this->t('Currency'),
         '#title_display' => 'invisible',
         '#options' => $element['#limit_currency_codes'] ? array_intersect_key($form_helper->getCurrencyOptions(), $element['#limit_currency_codes']) : $form_helper->getCurrencyOptions(),
         '#required' => $element['#required'],
-      );
+      ];
     }
 
     // Add the amount element.
     $description = NULL;
     if ($element['#minimum_amount'] !== FALSE) {
-      $description = t('The minimum amount is !amount.', array(
+      $description = $this->t('The minimum amount is !amount.', [
         '!amount' => $currency->formatAmount($element['#minimum_amount']),
-      ));
+      ]);
     }
-    $element['amount'] = array(
+    $element['amount'] = [
       '#default_value' => $element['#default_value']['amount'],
       '#type' => 'textfield',
-      '#title' => t('Amount'),
+      '#title' => $this->t('Amount'),
       '#title_display' => 'invisible',
       '#description' => $description,
       '#prefix' => count($element['#limit_currency_codes']) == 1 ? $currency->getSign() : NULL,
       '#required' => $element['#required'],
       '#size' => 9,
-    );
+    ];
 
     return $element;
   }
@@ -96,46 +190,41 @@ class CurrencyAmount {
   /**
    * Implements form #element_validate callback.
    */
-  public static function elementValidate($element, FormStateInterface $form_state, $form) {
-    /** @var \Drupal\currency\Input $input */
-    $input = \Drupal::service('currency.input');
-    /** @var \Drupal\currency\Math\MathInterface $math */
-    $math = \Drupal::service('currency.math');
-
+  public function elementValidate($element, FormStateInterface $form_state, array $form) {
     $values = $form_state->getValues();
     $value = NestedArray::getValue($values, $element['#parents']);
     $amount = $value['amount'];
     $currency_code = $value['currency_code'];
 
     // Confirm that the amount is numeric.
-    $amount = $input->parseAmount($amount);
+    $amount = $this->input->parseAmount($amount);
     if ($amount === FALSE) {
-      $form_state->setError($element['amount'], t('%title is not numeric.', array(
+      $form_state->setError($element['amount'], $this->t('%title is not numeric.', [
         '%title' => $element['#title'],
-      )));
+      ]));
     }
 
     // Confirm the amount lies within the allowed range.
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
-    $currency = entity_load('currency', $currency_code);
-    if ($element['#minimum_amount'] !== FALSE && $math->compare($element['#minimum_amount'], $amount) == 1) {
-      $form_state->setError($element['amount'], t('The minimum amount is !amount.', array(
+    $currency = $this->currencyStorage->load($currency_code);
+    if ($element['#minimum_amount'] !== FALSE && $this->math->compare($element['#minimum_amount'], $amount) == 1) {
+      $form_state->setError($element['amount'], $this->t('The minimum amount is !amount.', [
         '!amount' => $currency->formatAmount($element['#minimum_amount']),
-      )));
+      ]));
     }
-    elseif ($element['#maximum_amount'] !== FALSE && $math->compare($amount, $element['#maximum_amount']) == 1) {
-      $form_state->setError($element['amount'], t('The maximum amount is !amount.', array(
+    elseif ($element['#maximum_amount'] !== FALSE && $this->math->compare($amount, $element['#maximum_amount']) == 1) {
+      $form_state->setError($element['amount'], $this->t('The maximum amount is !amount.', [
         '!amount' => $currency->formatAmount($element['#maximum_amount']),
-      )));
+      ]));
     }
 
     // The amount in $form_state is a human-readable, optionally localized
     // string, which cannot be used by other code. $amount is a numeric string
     // after running it through \Drupal::service('currency.input')->parseAmount().
-    $form_state->setValueForElement($element, array(
+    $form_state->setValueForElement($element, [
       'amount' => $amount,
       'currency_code' => $currency_code,
-    ));
+    ]);
   }
 
 }

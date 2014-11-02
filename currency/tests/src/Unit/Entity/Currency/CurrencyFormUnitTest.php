@@ -36,7 +36,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
   /**
    * The Currency input parser.
    *
-   * @var \Drupal\currency\Input|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $inputParser;
 
@@ -75,9 +75,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
 
     $this->linkGenerator = $this->getMock('\Drupal\Core\Utility\LinkGeneratorInterface');
 
-    $this->inputParser = $this->getMockBuilder('\Drupal\currency\Input')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->inputParser = $this->getMock('\Drupal\currency\InputInterface');
 
     $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
     $this->stringTranslation->expects($this->any())

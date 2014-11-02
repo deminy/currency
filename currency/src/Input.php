@@ -10,7 +10,7 @@ namespace Drupal\currency;
 /**
  * Parses user-input amounts.
  */
-class Input {
+class Input implements InputInterface {
 
   protected $decimalSeparators = array(
     // A comma.
@@ -23,13 +23,7 @@ class Input {
     '/');
 
   /**
-   * Parses an amount.
-   *
-   * @param string $amount
-   *   Any optionally localized numeric string.
-   *
-   * @return string|false
-   *   A numeric string, or FALSE in case of failure.
+   * {@inheritdoc}
    */
   public function parseAmount($amount) {
     if (!is_numeric($amount)) {

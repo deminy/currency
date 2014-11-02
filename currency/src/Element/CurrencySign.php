@@ -6,12 +6,19 @@
  */
 
 namespace Drupal\currency\Element;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\StringTranslation\TranslationInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides form callbacks for the currency_sign form element.
+ * Provides an element to configure a currency's sign.
+ *
+ * @FormElement("currency_sign")
  */
-class CurrencySign {
+class CurrencySign extends FormElement implements ContainerFactoryPluginInterface {
 
   /**
    * The value for the currency_sign form element's "custom" option.
@@ -19,18 +26,72 @@ class CurrencySign {
   const CUSTOM_VALUE = '###CUSTOM###';
 
   /**
+   * The currency storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $currencyStorage;
+
+  /**
+   * Constructs a new instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
+   */
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->currencyStorage = $currency_storage;
+    $this->stringTranslation = $string_translation;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
+    $entity_manager = $container->get('entity.manager');
+
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $entity_manager->getStorage('currency'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInfo() {
+    $plugin_id = $this->getPluginId();
+
+    return [
+      // The ISO 4217 code of the currency which signs to suggest to the user.
+      // Optional.
+      '#currency_code' => FALSE,
+      '#element_validate' => [[get_class($this), 'elementValidate']],
+      '#process' => [function(array $element, FormStateInterface $form_state, array $form) use ($plugin_id) {
+        /** @var \Drupal\Component\Plugin\PluginManagerInterface $element_info_manager */
+        $element_info_manager = \Drupal::service('plugin.manager.element_info');
+        /** @var \Drupal\currency\Element\CurrencyAmount $element_plugin */
+        $element_plugin = $element_info_manager->createInstance($plugin_id);
+
+        return $element_plugin->process($element, $form_state, $form);
+      }],
+    ];
+  }
+
+  /**
    * Implements form #process callback.
    */
-  public static function process(array $element, FormStateInterface $form_state, array $form) {
-    $currency_storage = \Drupal::entityManager()->getStorage('currency');
-
+  public function process(array $element, FormStateInterface $form_state, array $form) {
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = NULL;
     if ($element['#currency_code']) {
-      $currency = $currency_storage->load($element['#currency_code']);
+      $currency = $this->currencyStorage->load($element['#currency_code']);
     }
     if (!$currency) {
-      $currency = $currency_storage->load('XXX');
+      $currency = $this->currencyStorage->load('XXX');
     }
 
     // Modify the element.

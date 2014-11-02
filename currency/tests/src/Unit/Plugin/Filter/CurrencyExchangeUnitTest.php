@@ -36,7 +36,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
   /**
    * The input parser used for testing.
    *
-   * @var \Drupal\currency\Input|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $input;
 
@@ -76,7 +76,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
 
     $this->exchangeRateProvider = $this->getMock('\Drupal\currency\ExchangeRateProviderInterface');
 
-    $this->input = $this->getMock('\Drupal\currency\Input');
+    $this->input = $this->getMock('\Drupal\currency\InputInterface');
 
     $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
 

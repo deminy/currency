@@ -30,7 +30,3 @@ services:
     class: Drupal\currency\Math\BcMath
   currency.math.native:
     class: Drupal\currency\Math\Native
-  currency.hook.element_info:
-    class: Drupal\currency\Hook\ElementInfo
-  currency.hook.menu_link_defaults:
-    class: Drupal\currency\Hook\MenuLinkDefaults

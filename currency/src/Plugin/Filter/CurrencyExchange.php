@@ -10,7 +10,7 @@ namespace Drupal\currency\Plugin\Filter;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\ExchangeRateProviderInterface;
-use Drupal\currency\Input;
+use Drupal\currency\InputInterface;
 use Drupal\currency\Math\MathInterface;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,7 +37,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
   /**
    * The input parser.
    *
-   * @var \Drupal\currency\Input
+   * @var \Drupal\currency\InputInterface
    */
   protected $input;
 
@@ -63,10 +63,10 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    *   The exchange rate provider.
    * @param \Drupal\currency\Math\MathInterface
    *   The Currency math service.
-   * @param \Drupal\currency\Input $input
+   * @param \Drupal\currency\InputInterface $input
    *   The input parser.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ExchangeRateProviderInterface $exchange_rate_provider, MathInterface $math, Input $input) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ExchangeRateProviderInterface $exchange_rate_provider, MathInterface $math, InputInterface $input) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->exchangeRateProvider = $exchange_rate_provider;
     $this->input = $input;

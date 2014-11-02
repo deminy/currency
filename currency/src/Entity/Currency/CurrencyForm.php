@@ -13,7 +13,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Utility\LinkGeneratorInterface;
-use Drupal\currency\Input;
+use Drupal\currency\InputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,7 +31,7 @@ class CurrencyForm extends EntityForm {
   /**
    * The Currency input parser.
    *
-   * @var \Drupal\currency\Input
+   * @var \Drupal\currency\InputInterface
    */
   protected $inputParser;
 
@@ -51,10 +51,10 @@ class CurrencyForm extends EntityForm {
    *   The link generator.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency storage.
-   * @param \Drupal\currency\Input $input_parser
+   * @param \Drupal\currency\InputInterface $input_parser
    *   The Currency input parser.
    */
-  public function __construct(TranslationInterface $string_translation, LinkGeneratorInterface $link_generator, EntityStorageInterface $currency_storage, Input $input_parser) {
+  public function __construct(TranslationInterface $string_translation, LinkGeneratorInterface $link_generator, EntityStorageInterface $currency_storage, InputInterface $input_parser) {
     $this->currencyStorage = $currency_storage;
     $this->inputParser = $input_parser;
     $this->linkGenerator = $link_generator;

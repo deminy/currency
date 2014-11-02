@@ -35,7 +35,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
   /**
    * The input parser used for testing.
    *
-   * @var \Drupal\currency\Input|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $input;
 
@@ -68,7 +68,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
 
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
-    $this->input = $this->getMock('\Drupal\currency\Input');
+    $this->input = $this->getMock('\Drupal\currency\InputInterface');
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
