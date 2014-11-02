@@ -161,7 +161,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
         $currency = $this->currencyStorage->load($currency_code);
       }
     }
-    if (!$currency) {
+    if (!$currency && $this->definition['currency_code']) {
       $currency = $this->currencyStorage->load($this->definition['currency_code']);
     }
     if (!$currency) {
