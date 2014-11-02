@@ -9,6 +9,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
 use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -61,6 +62,13 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
   protected $form;
 
   /**
+   * The form validator.
+   *
+   * @var \Drupal\Core\Form\FormValidatorInterface
+   */
+  protected $formValidator;
+
+  /**
    * {@inheritdoc}
    *
    * @covers ::__construct
@@ -80,6 +88,12 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
     $this->stringTranslation->expects($this->any())
       ->method('translate')
       ->will($this->returnArgument(0));
+
+    $this->formValidator = $this->getMock('\Drupal\Core\Form\FormValidatorInterface');
+
+    $container = new ContainerBuilder();
+    $container->set('form_validator', $this->formValidator);
+    \Drupal::setContainer($container);
 
     $this->form = new CurrencyLocaleForm($this->stringTranslation, $this->linkGenerator, $this->currencyLocaleStorage, $this->countryManager);
     $this->form->setEntity($this->currencyLocale);
@@ -442,9 +456,6 @@ namespace {
 
   if (!function_exists('drupal_set_message')) {
     function drupal_set_message() {}
-  }
-  if (!function_exists('form_execute_handlers')) {
-    function form_execute_handlers() {}
   }
 
 }
