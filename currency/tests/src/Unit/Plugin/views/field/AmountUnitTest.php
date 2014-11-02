@@ -10,6 +10,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\Filter {
 use Drupal\Core\Form\FormState;
 use Drupal\currency\Plugin\views\field\Amount;
 use Drupal\Tests\UnitTestCase;
+use Drupal\views\ResultRow;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -77,6 +78,13 @@ class AmountUnitTest extends UnitTestCase {
   protected $viewsViewExecutable;
 
   /**
+   * The Views query.
+   *
+   * @var \Drupal\views\Plugin\views\query\Sql
+   */
+  protected $viewsQuery;
+
+  /**
    * {@inheritdoc}
    *
    * @covers ::__construct
@@ -101,10 +109,15 @@ class AmountUnitTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
+    $this->viewsQuery = $this->getMockBuilder('\Drupal\views\Plugin\views\query\Sql')
+      ->disableOriginalConstructor()
+      ->getMock();
+
     $this->viewsViewExecutable = $this->getMockBuilder('\Drupal\views\ViewExecutable')
       ->disableOriginalConstructor()
       ->getMock();
     $this->viewsViewExecutable->display_handler = $this->viewsDisplayHandler;
+    $this->viewsViewExecutable->query = $this->viewsQuery;
 
     $container = new ContainerBuilder();
     $container->set('config.factory', $this->configFactory);
@@ -117,7 +130,7 @@ class AmountUnitTest extends UnitTestCase {
   /**
    * @covers ::create
    */
-  function testCreate() {
+  public function testCreate() {
     $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
     $entity_manager->expects($this->atLeastOnce())
       ->method('getStorage')
@@ -153,7 +166,7 @@ class AmountUnitTest extends UnitTestCase {
   /**
    * @covers ::defineOptions
    */
-  function testDefineOptions() {
+  public function testDefineOptions() {
     foreach ($this->handler->defineOptions() as $option) {
       $this->assertInternalType('array', $option);
       $this->assertTrue(array_key_exists('default', $option) || array_key_exists('contains', $option));
@@ -163,7 +176,7 @@ class AmountUnitTest extends UnitTestCase {
   /**
    * @covers ::buildOptionsForm
    */
-  function testBuildOptionsForm() {
+  public function testBuildOptionsForm() {
     $this->viewsDisplayHandler->expects($this->atLeastOnce())
       ->method('getFieldLabels')
       ->willReturn([]);
@@ -191,6 +204,194 @@ class AmountUnitTest extends UnitTestCase {
     foreach ($form as $element) {
       $this->assertInternalType('array', $element);
     }
+  }
+
+  /**
+   * @covers ::defaultDefinition
+   */
+  function testDefaultDefinition() {
+    $method = new \ReflectionMethod($this->handler, 'defaultDefinition');
+    $method->setAccessible(TRUE);
+
+    $this->assertInternalType('array', $method->invoke($this->handler));
+  }
+
+  /**
+   * @covers ::getAmount
+   */
+  function testGetAmount() {
+    $amount = mt_rand();
+
+    $field_alias = $this->randomMachineName();
+
+    $this->handler->field_alias = $field_alias;
+
+    $result_row = new ResultRow([
+      $field_alias => $amount,
+    ]);
+
+    $method = new \ReflectionMethod($this->handler, 'getAmount');
+    $method->setAccessible(TRUE);
+
+    $this->assertSame($amount, $method->invoke($this->handler, $result_row));
+  }
+
+  /**
+   * @covers ::getCurrency
+   *
+   * @expectedException \RuntimeException
+   */
+  function testGetCurrencyWithoutLoadableCurrencies() {
+    $this->currencyStorage->expects($this->atLeastOnce())
+      ->method('load')
+      ->willReturn(NULL);
+
+    $result_row = new ResultRow();
+
+    $method = new \ReflectionMethod($this->handler, 'getCurrency');
+    $method->setAccessible(TRUE);
+
+    $method->invoke($this->handler, $result_row);
+  }
+
+  /**
+   * @covers ::getCurrency
+   */
+  function testGetCurrencyWithFallbackCurrency() {
+    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+
+    $map = [
+      ['XXX', $currency],
+    ];
+    $this->currencyStorage->expects($this->atLeastOnce())
+      ->method('load')
+      ->willReturnMap($map);
+
+    $result_row = new ResultRow();
+
+    $method = new \ReflectionMethod($this->handler, 'getCurrency');
+    $method->setAccessible(TRUE);
+
+    $this->assertSame($currency, $method->invoke($this->handler, $result_row));
+  }
+
+  /**
+   * @covers ::getCurrency
+   */
+  function testGetCurrencyWithFixedCurrency() {
+    $currency_code = $this->randomMachineName();
+
+    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+
+    $map = [
+      [$currency_code, $currency],
+    ];
+    $this->currencyStorage->expects($this->atLeastOnce())
+      ->method('load')
+      ->willReturnMap($map);
+
+    $result_row = new ResultRow();
+
+    $configuration = [];
+    $plugin_id = $this->randomMachineName();
+    $this->pluginDefinition['currency_code'] = $currency_code;
+
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
+
+    $method = new \ReflectionMethod($this->handler, 'getCurrency');
+    $method->setAccessible(TRUE);
+
+    $this->assertSame($currency, $method->invoke($this->handler, $result_row));
+  }
+
+  /**
+   * @covers ::getCurrency
+   */
+  function testGetCurrencyWithCurrencyCodeField() {
+    $currency_code = $this->randomMachineName();
+
+    $currency_code_field = $this->randomMachineName();
+
+    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+
+    $map = [
+      [$currency_code, $currency],
+    ];
+    $this->currencyStorage->expects($this->atLeastOnce())
+      ->method('load')
+      ->willReturnMap($map);
+
+    $field_alias = $this->randomMachineName();
+
+    $result_row = new ResultRow([
+      $field_alias => $currency_code,
+    ]);
+
+    $configuration = [];
+    $plugin_id = $this->randomMachineName();
+    $this->pluginDefinition['currency_code_field'] = $currency_code_field;
+
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
+    $this->handler->aliases[$currency_code_field] = $field_alias;
+
+    $method = new \ReflectionMethod($this->handler, 'getCurrency');
+    $method->setAccessible(TRUE);
+
+    $this->assertSame($currency, $method->invoke($this->handler, $result_row));
+  }
+
+  /**
+   * @covers ::render
+   *
+   * @depends testGetAmount
+   * @depends testGetCurrencyWithoutLoadableCurrencies
+   * @depends testGetCurrencyWithFallbackCurrency
+   * @depends testGetCurrencyWithFixedCurrency
+   * @depends testGetCurrencyWithCurrencyCodeField
+   */
+  function testRender() {
+    $amount = mt_rand();
+
+    $formatted_amount = $this->randomMachineName();
+
+    $field_alias = $this->randomMachineName();
+
+    $currency_code = $this->randomMachineName();
+
+    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency->expects($this->atLeastOnce())
+      ->method('formatAmount')
+      // @todo Check for the rounding option too.
+      ->with($amount)
+      ->willReturn($formatted_amount);
+
+    $this->currencyStorage->expects($this->atLeastOnce())
+      ->method('load')
+      ->with($currency_code)
+      ->willReturn($currency);
+
+    $result_row = new ResultRow([
+      $field_alias => $amount,
+    ]);
+
+    $configuration = [];
+    $plugin_id = $this->randomMachineName();
+    $this->pluginDefinition['currency_code'] = $currency_code;
+
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
+    $this->handler->field_alias = $field_alias;
+
+    $this->assertSame($formatted_amount, $this->handler->render($result_row));
+  }
+
+  /**
+   * @covers ::query
+   */
+  function testQuery() {
+    $this->handler->query();
   }
 
 }
