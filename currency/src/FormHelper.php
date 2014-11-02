@@ -51,7 +51,7 @@ class FormHelper implements FormHelperInterface {
   public function getCurrencyOptions(array $currencies = NULL) {
     $options = array();
     /** @var \Drupal\currency\Entity\CurrencyInterface[] $currencies */
-    if (is_NULL($currencies)) {
+    if (is_null($currencies)) {
       $currencies = $this->currencyStorage->loadMultiple();
     }
     foreach ($currencies as $currency) {
@@ -75,7 +75,7 @@ class FormHelper implements FormHelperInterface {
   public function getCurrencyLocaleOptions(array $currency_locales = NULL) {
     $options = array();
     /** @var \Drupal\currency\Entity\CurrencyLocaleInterface[] $currency_locales */
-    if (is_NULL($currency_locales)) {
+    if (is_null($currency_locales)) {
       $currency_locales = $this->currencyLocaleStorage->loadMultiple();
     }
     foreach ($currency_locales as $currency_locale) {
