@@ -9,6 +9,8 @@ namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Language\LanguageManager;
+use Drupal\Core\Locale\CountryManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Defines a currency locale entity.
@@ -40,6 +42,15 @@ use Drupal\Core\Language\LanguageManager;
  * )
  */
 class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * The country manager.
+   *
+   * @var \Drupal\Core\Locale\CountryManagerInterface
+   */
+  protected $countryManager;
 
   /**
    * The decimal separator character.
@@ -153,23 +164,18 @@ class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface
   /**
    * {@inheritdoc}
    */
-  public function label($langcode = NULL) {
-    list($language_code, $country_code) = explode('_', $this->locale);
+  public function label() {
     $languages = LanguageManager::getStandardLanguageList();
-    $countries = \Drupal::service('country_manager')->getList();
+    $countries = $this->getCountryManager()->getList();
 
-    return t('@language (@country)', array(
-      '@language' => isset($languages[$language_code]) ? $languages[$language_code][0] : $language_code,
-      '@country' => isset($countries[$country_code]) ? $countries[$country_code] : $country_code,
-    ), array(
-      'langcode' => $langcode,
-    ));
+    return $this->t('@language (@country)', [
+      '@language' => isset($languages[$this->getLanguageCode()]) ? $languages[$this->getLanguageCode()][0] : $this->getLanguageCode(),
+      '@country' => isset($countries[$this->getCountryCode()]) ? $countries[$this->getCountryCode()] : $this->getCountryCode(),
+    ]);
   }
 
   /**
-   * Gets the language code.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   public function getLanguageCode() {
     if ($this->id()) {
@@ -179,9 +185,7 @@ class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface
   }
 
   /**
-   * Gets the country code.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   public function getCountryCode() {
     if ($this->id()) {
@@ -202,4 +206,31 @@ class CurrencyLocale extends ConfigEntityBase implements CurrencyLocaleInterface
 
     return $properties;
   }
+
+  /**
+   * Sets the country manager.
+   *
+   * @param \Drupal\Core\Locale\CountryManagerInterface $country_manager
+   *
+   * @return $this
+   */
+  public function setCountryManager(CountryManagerInterface $country_manager) {
+    $this->countryManager = $country_manager;
+
+    return $this;
+  }
+
+  /**
+   * Gets the country manager.
+   *
+   * @return \Drupal\Core\Locale\CountryManagerInterface
+   */
+  protected function getCountryManager() {
+    if (!$this->countryManager) {
+      $this->countryManager = \Drupal::service('country_manager');
+    }
+
+    return $this->countryManager;
+  }
+
 }

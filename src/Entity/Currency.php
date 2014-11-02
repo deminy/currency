@@ -8,6 +8,9 @@
 namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\currency\Math\MathInterface;
+use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
 use Drupal\currency\Usage;
 
 /**
@@ -47,21 +50,35 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    * @var array
    *   An array of strings that are similar to self::sign.
    */
-  protected $alternativeSigns = array();
+  protected $alternativeSigns = [];
+
+  /**
+   * The currency amount formatter manager.
+   *
+   * @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface
+   */
+  protected $currencyAmountFormatterManager;
 
   /**
    * ISO 4217 currency code.
    *
    * @var string
    */
-  public $currencyCode = NULL;
+  public $currencyCode;
 
   /**
    * ISO 4217 currency number.
    *
    * @var string
    */
-  protected $currencyNumber = NULL;
+  protected $currencyNumber;
+
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityManagerInterface
+   */
+  protected $entityManager;
 
   /**
    * Historical exchange rates to other currencies.
@@ -69,14 +86,14 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    * @var array
    *   Keys are ISO 4217 codes, values are numeric strings.
    */
-  protected $historicalExchangeRates = array();
+  protected $historicalExchangeRates = [];
 
   /**
    * The human-readable name.
    *
    * @var string
    */
-  public $label = NULL;
+  public $label;
 
   /**
    * The number of subunits to round amounts in this currency to.
@@ -85,7 +102,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    *
    * @var integer
    */
-  protected $roundingStep = NULL;
+  protected $roundingStep;
 
   /**
    * The currency's official sign, such as '€' or '$'.
@@ -99,21 +116,28 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    *
    * @var integer|null
    */
-  protected $subunits = NULL;
+  protected $subunits;
 
   /**
    * This currency's usages.
    *
    * @var \Drupal\currency\UsageInterface[]
    */
-  protected $usages = array();
+  protected $usages = [];
 
   /**
    * The UUID for this entity.
    *
    * @var string
    */
-  public $uuid = NULL;
+  public $uuid;
+
+  /**
+   * The math provider.
+   *
+   * @var \Drupal\currency\Math\MathInterface
+   */
+  public $math;
 
   /**
    * {@inheritdoc}
@@ -121,7 +145,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   public function __construct(array $values, $entity_type) {
     if (isset($values['usages'])) {
       $usages_data = $values['usages'];
-      $values['usages'] = array();
+      $values['usages'] = [];
       foreach ($usages_data as $usage_data) {
         $usage = new Usage();
         $usage->setStart($usage_data['start'])
@@ -311,21 +335,81 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   }
 
   /**
+   * Sets the entity manager.
+   *
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   *
+   * @return $this
+   */
+  public function setEntityManager(EntityManagerInterface $entity_manager) {
+    $this->entityManager = $entity_manager;
+
+    return $this;
+  }
+
+  /**
+   * Gets the entity manager.
+   *
+   * @return \Drupal\Core\Entity\EntityManagerInterface
+   */
+  protected function entityManager() {
+    if (!$this->entityManager) {
+      $this->entityManager = parent::entityManager();
+    }
+
+    return $this->entityManager;
+  }
+
+  /**
+   * Sets the currency amount formatter manager.
+   *
+   * @param \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface $currency_amount_formatter_manager
+   *
+   * @return $this
+   */
+  public function setCurrencyAmountFormatterManager(AmountFormatterManagerInterface $currency_amount_formatter_manager) {
+    $this->currencyAmountFormatterManager = $currency_amount_formatter_manager;
+
+    return $this;
+  }
+
+  /**
    * Gets the currency amount formatter manager.
    *
    * @return \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface
    */
   protected function getCurrencyAmountFormatterManager() {
-    return \Drupal::service('plugin.manager.currency.amount_formatter');
+    if (!$this->currencyAmountFormatterManager) {
+      $this->currencyAmountFormatterManager = \Drupal::service('plugin.manager.currency.amount_formatter');
+    }
+
+    return $this->currencyAmountFormatterManager;
   }
 
   /**
-   * Gets the math service.
+   * Sets the math service.
+   *
+   * @param \Drupal\currency\Math\MathInterface $math
+   *
+   * @return $this
+   */
+  public function setMath(MathInterface $math) {
+    $this->math = $math;
+
+    return $this;
+  }
+
+  /**
+   * Sets the math service.
    *
    * @return \Drupal\currency\Math\MathInterface
    */
   protected function getMath() {
-    return \Drupal::service('currency.math');
+    if (!$this->math) {
+      $this->math = \Drupal::service('currency.math');
+    }
+
+    return $this->math;
   }
 
   /**
@@ -340,6 +424,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     elseif (is_numeric($this->getSubunits())) {
       return $this->getSubunits() > 0 ? $this->getMath()->divide(1, $this->getSubunits()) : 1;
     }
+    return NULL;
   }
 
   /**
@@ -383,7 +468,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     $properties['sign'] = $this->getSign();
     $properties['subunits'] = $this->getSubunits();
     $properties['status'] = $this->status();
-    $properties['usages'] = array();
+    $properties['usages'] = [];
     foreach ($this->getUsages() as $usage) {
       $properties['usages'][] = array(
         'start' => $usage->getStart(),
