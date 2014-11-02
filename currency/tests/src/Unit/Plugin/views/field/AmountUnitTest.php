@@ -334,7 +334,7 @@ class AmountUnitTest extends UnitTestCase {
 
     $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
-    $this->handler->aliases[$currency_code_field] = $field_alias;
+    $this->handler->aliases['currency_code_field'] = $field_alias;
 
     $method = new \ReflectionMethod($this->handler, 'getCurrency');
     $method->setAccessible(TRUE);
