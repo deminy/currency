@@ -1,5 +1,5 @@
 name: Currency
-description: 'Provides currency information and allows users to add custom currencies.'
+description: Provides currency metadata and exchange rates, and amount formatting.
 core: 8.x
 configure: admin/config/regional/currency
 type: module
