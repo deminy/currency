@@ -10,8 +10,8 @@ live in \Drupal\$module\Plugin\Currency\AmountFormatter, where $module is the
 machine name of the module that provides the plugins. The classes are annotated
 using \Drupal\currency\Annotation\CurrencyAmountFormatter.
 
-EXCHANGE RATE PROVIDERS
-=======================
+EXCHANGE RATE PROVIDER
+======================
 Exchange rate providers provide exchange rates for a combination of source and
 destination currencies.  They are classes that implement
 \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface

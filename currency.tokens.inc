@@ -11,14 +11,13 @@
 function currency_token_info() {
   // Token groups.
   $types['currency'] = array(
-    'description' => t('ISO 4217 currencies.'),
     'name' => t('Currencies'),
     'needs-data' => 'currency',
   );
 
   // Tokens.
   $tokens['currency']['code'] = array(
-    'description' => t('The ISO 4217 currency code.'),
+    'description' => t('The (ISO 4217) currency code.'),
     'name' => t('Currency code'),
     'type' => 'text',
   );
