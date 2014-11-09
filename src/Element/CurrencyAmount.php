@@ -98,14 +98,7 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
         'amount' => NULL,
         'currency_code' => NULL,
       ],
-      '#element_validate' => [function(array $element, FormStateInterface $form_state, array $form) use ($plugin_id) {
-        /** @var \Drupal\Component\Plugin\PluginManagerInterface $element_info_manager */
-        $element_info_manager = \Drupal::service('plugin.manager.element_info');
-        /** @var \Drupal\currency\Element\CurrencyAmount $element_plugin */
-        $element_plugin = $element_info_manager->createInstance($plugin_id);
-
-        $element_plugin->elementValidate($element, $form_state, $form);
-      }],
+      '#element_validate' => [[get_class($this), 'instantiate#elementValidate#' . $plugin_id]],
       // The ISO 4217 codes of the currencies the amount must be in. Use an empty
       // array to allow any currency.
       '#limit_currency_codes' => [],
@@ -113,15 +106,23 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
       '#minimum_amount' => FALSE,
       // The maximum amount as a numeric string, or FALSE to omit.
       '#maximum_amount' => FALSE,
-      '#process' => [function(array $element, FormStateInterface $form_state, array $form) use ($plugin_id) {
-        /** @var \Drupal\Component\Plugin\PluginManagerInterface $element_info_manager */
-        $element_info_manager = \Drupal::service('plugin.manager.element_info');
-        /** @var \Drupal\currency\Element\CurrencyAmount $element_plugin */
-        $element_plugin = $element_info_manager->createInstance($plugin_id);
-
-        return $element_plugin->process($element, $form_state, $form);
-      }],
+      '#process' => [[get_class($this), 'instantiate#process#' . $plugin_id]],
     ];
+  }
+
+  /**
+   * Instantiates this class as a plugin and calls a method on it.
+   */
+  public static function __callStatic($name, array $arguments) {
+    if (preg_match('/^instantiate#(.+?)#(.+?)$/', $name)) {
+      list(, $method, $plugin_id) = explode('#', $name);
+      /** @var \Drupal\Component\Plugin\PluginManagerInterface $element_info_manager */
+      $element_info_manager = \Drupal::service('plugin.manager.element_info');
+      /** @var \Drupal\currency\Element\CurrencyAmount $element_plugin */
+      $element_plugin = $element_info_manager->createInstance($plugin_id);
+
+      return call_user_func_array([$element_plugin, $method], $arguments);
+    }
   }
 
   /**
