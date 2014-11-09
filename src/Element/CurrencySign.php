@@ -6,11 +6,13 @@
  */
 
 namespace Drupal\currency\Element;
+
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\currency\FormElementCallbackTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,6 +21,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @FormElement("currency_sign")
  */
 class CurrencySign extends FormElement implements ContainerFactoryPluginInterface {
+
+  use FormElementCallbackTrait;
 
   /**
    * The value for the currency_sign form element's "custom" option.
@@ -72,21 +76,6 @@ class CurrencySign extends FormElement implements ContainerFactoryPluginInterfac
       '#element_validate' => [[get_class($this), 'elementValidate']],
       '#process' => [[get_class($this), 'instantiate#process#' . $plugin_id]],
     ];
-  }
-
-  /**
-   * Instantiates this class as a plugin and calls a method on it.
-   */
-  public static function __callStatic($name, array $arguments) {
-    if (preg_match('/^instantiate#(.+?)#(.+?)$/', $name)) {
-      list(, $method, $plugin_id) = explode('#', $name);
-      /** @var \Drupal\Component\Plugin\PluginManagerInterface $element_info_manager */
-      $element_info_manager = \Drupal::service('plugin.manager.element_info');
-      /** @var \Drupal\currency\Element\CurrencyAmount $element_plugin */
-      $element_plugin = $element_info_manager->createInstance($plugin_id);
-
-      return call_user_func_array([$element_plugin, $method], $arguments);
-    }
   }
 
   /**
