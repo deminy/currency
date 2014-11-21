@@ -105,7 +105,7 @@ class ConfigImporterUnitTest extends UnitTestCase {
     $method_get = new \ReflectionMethod($this->configImporter, 'getConfigStorage');
     $method_get->setAccessible(TRUE);
 
-    $extension = new Extension($this->randomMachineName(), $this->randomMachineName());
+    $extension = new Extension($this->randomMachineName(), $this->randomMachineName(), $this->randomMachineName());
 
     $this->moduleHandler->expects($this->atLeastOnce())
       ->method('getModule')
