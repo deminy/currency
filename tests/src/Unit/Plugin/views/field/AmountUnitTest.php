@@ -57,6 +57,13 @@ class AmountUnitTest extends UnitTestCase {
   protected $pluginDefinition;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -103,6 +110,8 @@ class AmountUnitTest extends UnitTestCase {
 
     $this->moduleHandler = $this->getMock('Drupal\Core\Extension\ModuleHandlerInterface');
 
+    $this->renderer = $this->getMock('\Drupal\Core\Render\RendererInterface');
+
     $this->stringTranslation = $this->getStringTranslationStub();
 
     $this->viewsDisplayHandler = $this->getMockBuilder('\Drupal\views\Plugin\views\display\DisplayPluginBase')
@@ -123,7 +132,7 @@ class AmountUnitTest extends UnitTestCase {
     $container->set('config.factory', $this->configFactory);
     \Drupal::setContainer($container);
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
   }
 
@@ -139,21 +148,10 @@ class AmountUnitTest extends UnitTestCase {
 
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
     $map = [
-      [
-        'entity.manager',
-        ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $entity_manager
-      ],
-      [
-        'module_handler',
-        ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $this->moduleHandler
-      ],
-      [
-        'string_translation',
-        ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $this->stringTranslation
-      ],
+      ['entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager],
+      ['module_handler',  ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,  $this->moduleHandler],
+      ['renderer',  ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,  $this->renderer],
+      ['string_translation',  ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,  $this->stringTranslation],
     ];
     $container->expects($this->any())
       ->method('get')
@@ -296,7 +294,7 @@ class AmountUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition['currency_code'] = $currency_code;
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
 
     $method = new \ReflectionMethod($this->handler, 'getCurrency');
@@ -332,7 +330,7 @@ class AmountUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition['currency_code_field'] = $currency_code_field;
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
     $this->handler->aliases['currency_code_field'] = $field_alias;
 
@@ -380,7 +378,7 @@ class AmountUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition['currency_code'] = $currency_code;
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
     $this->handler->field_alias = $field_alias;
 
