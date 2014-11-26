@@ -10,7 +10,7 @@ currency.exchange_rate_provider.config:
 currency.exchange_rate_provider.fixed_rates.overview:
   path: '/admin/config/regional/currency-exchange/fixed'
   defaults:
-    _content: '\Drupal\currency\Controller\FixedRatesOverview::overview'
+    _controller: '\Drupal\currency\Controller\FixedRatesOverview::overview'
     _title: Fixed rates
   requirements:
     _permission: 'currency.exchange_rate_provider.fixed_rates.administer'
@@ -42,7 +42,7 @@ currency.currency.list:
 currency.currency.add:
   path: '/admin/config/regional/currency/add'
   defaults:
-    _content: '\Drupal\currency\Controller\Currency::add'
+    _controller: '\Drupal\currency\Controller\Currency::add'
     _title: Add a currency
   requirements:
     _entity_create_access: 'currency'
@@ -96,7 +96,7 @@ currency.currency_locale.list:
 currency.currency_locale.add:
   path: '/admin/config/regional/currency-formatting/locale/add'
   defaults:
-    _content: '\Drupal\currency\Controller\CurrencyLocale::add'
+    _controller: '\Drupal\currency\Controller\CurrencyLocale::add'
     _title: Add a currency locale
   requirements:
     _entity_create_access: 'currency_locale'
