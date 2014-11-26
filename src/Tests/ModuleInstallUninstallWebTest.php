@@ -25,9 +25,12 @@ class ModuleInstallUninstallWebTest extends WebTestBase {
    * Test uninstall.
    */
   function testUninstallation() {
-    $this->assertTrue(\Drupal::moduleHandler()->moduleExists('currency'));
-    \Drupal::moduleHandler()->uninstall(array('currency'));
-    $this->assertFalse(\Drupal::moduleHandler()->moduleExists('currency'));
+    /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+    $module_installer = \Drupal::service('module_installer');
+    $module_handler = \Drupal::moduleHandler();
+    $this->assertTrue($module_handler->moduleExists('currency'));
+    $module_installer->uninstall(array('currency'));
+    $this->assertFalse($module_handler->moduleExists('currency'));
   }
 
   /**
