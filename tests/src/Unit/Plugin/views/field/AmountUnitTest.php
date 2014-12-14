@@ -57,6 +57,13 @@ class AmountUnitTest extends UnitTestCase {
   protected $pluginDefinition;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $renderer;
+
+  /**
    * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -103,6 +110,8 @@ class AmountUnitTest extends UnitTestCase {
 
     $this->moduleHandler = $this->getMock('Drupal\Core\Extension\ModuleHandlerInterface');
 
+    $this->renderer = $this->getMock('\Drupal\Core\Render\RendererInterface');
+
     $this->stringTranslation = $this->getStringTranslationStub();
 
     $this->viewsDisplayHandler = $this->getMockBuilder('\Drupal\views\Plugin\views\display\DisplayPluginBase')
@@ -121,6 +130,7 @@ class AmountUnitTest extends UnitTestCase {
 
     $container = new ContainerBuilder();
     $container->set('config.factory', $this->configFactory);
+    $container->set('renderer', $this->renderer);
     \Drupal::setContainer($container);
 
     $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
@@ -139,21 +149,10 @@ class AmountUnitTest extends UnitTestCase {
 
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
     $map = [
-      [
-        'entity.manager',
-        ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $entity_manager
-      ],
-      [
-        'module_handler',
-        ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $this->moduleHandler
-      ],
-      [
-        'string_translation',
-        ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $this->stringTranslation
-      ],
+      ['entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager],
+      ['module_handler', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->moduleHandler],
+      ['renderer', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->renderer],
+      ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
     ];
     $container->expects($this->any())
       ->method('get')
