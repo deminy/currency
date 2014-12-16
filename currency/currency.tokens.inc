@@ -33,10 +33,12 @@ function currency_token_info() {
     'type' => 'text',
   );
   $tokens['currency']['sign'] = array(
+    'description' => '',
     'name' => t('Sign'),
     'type' => 'text',
   );
   $tokens['currency']['title'] = array(
+    'description' => '',
     'name' => t('Name'),
     'type' => 'text',
   );
