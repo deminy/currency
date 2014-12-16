@@ -94,9 +94,7 @@ class CurrencySign extends FormElement implements ContainerFactoryPluginInterfac
     // Modify the element.
     $element['#tree'] = TRUE;
     $element['#theme_wrappers'][] = 'form_element';
-    $element['#attached']['css'] = array(
-      drupal_get_path('module', 'currency') . '/currency.css',
-    );
+    $element['#attached']['library'] = ['currency/element.currency_sign'];
 
     $signs = array_merge(array($currency->getSign()), $currency->getAlternativeSigns());
     $signs = array_combine($signs, $signs);
@@ -115,11 +113,6 @@ class CurrencySign extends FormElement implements ContainerFactoryPluginInterfac
     );
     $sign_js_selector = '.form-type-currency-sign .form-select';
     $element['sign_custom'] = array(
-      '#attached' => array(
-        'css' => array(
-          drupal_get_path('module', 'currency') . '/currency.css',
-        ),
-      ),
       '#default_value' => $element['#default_value'],
       '#states' => array(
         'visible' => array(

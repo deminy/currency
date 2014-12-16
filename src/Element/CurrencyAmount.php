@@ -146,9 +146,7 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
     // Modify the element.
     $element['#tree'] = TRUE;
     $element['#theme_wrappers'][] = 'form_element';
-    $element['#attached']['css'] = [
-      drupal_get_path('module', 'currency') . '/currency.css',
-    ];
+    $element['#attached']['library'] = ['currency/element.currency_amount'];
 
     // Add the currency element.
     if (count($element['#limit_currency_codes']) == 1) {
