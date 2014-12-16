@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
@@ -51,14 +52,17 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
    *   The string translator.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
+   * @param \Drupal\Core\Render\RendererInterface
+   *   The renderer.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   THe currency storage.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ModuleHandlerInterface $module_handler, EntityStorageInterface $currency_storage) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ModuleHandlerInterface $module_handler, RendererInterface $renderer, EntityStorageInterface $currency_storage) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->definition += $this->defaultDefinition();
     $this->currencyStorage = $currency_storage;
     $this->moduleHandler = $module_handler;
+    $this->renderer = $renderer;
     $this->stringTranslation = $string_translation;
   }
 
@@ -69,7 +73,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
     /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
     $entity_manager = $container->get('entity.manager');
 
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('module_handler'), $entity_manager->getStorage('currency'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('module_handler'), $container->get('renderer'), $entity_manager->getStorage('currency'));
   }
 
   /**

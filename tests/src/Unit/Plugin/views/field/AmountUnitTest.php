@@ -133,7 +133,7 @@ class AmountUnitTest extends UnitTestCase {
     $container->set('renderer', $this->renderer);
     \Drupal::setContainer($container);
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
   }
 
@@ -295,7 +295,7 @@ class AmountUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition['currency_code'] = $currency_code;
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
 
     $method = new \ReflectionMethod($this->handler, 'getCurrency');
@@ -331,7 +331,7 @@ class AmountUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition['currency_code_field'] = $currency_code_field;
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
     $this->handler->aliases['currency_code_field'] = $field_alias;
 
@@ -379,7 +379,7 @@ class AmountUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition['currency_code'] = $currency_code;
 
-    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->currencyStorage);
+    $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
     $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
     $this->handler->field_alias = $field_alias;
 

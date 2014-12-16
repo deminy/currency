@@ -12,6 +12,8 @@ use Drupal\Tests\UnitTestCase;
 /**
  * @coversDefaultClass \Drupal\currency\Math\BcMath
  *
+ * @requires extension BCMath
+ *
  * @group Currency
  */
 class BcMathUnitTest extends UnitTestCase {
