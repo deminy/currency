@@ -7,6 +7,10 @@
 
 namespace Drupal\currency\Tests;
 
+use Drupal\currency\Entity\Currency;
+use Drupal\currency\Entity\CurrencyInterface;
+use Drupal\currency\Entity\CurrencyLocale;
+use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -22,20 +26,18 @@ class ModuleInstallUninstallWebTest extends WebTestBase {
   public static $modules = array('currency');
 
   /**
-   * Test uninstall.
+   * Tests installation and uninstallation.
    */
-  function testUninstallation() {
-    $this->assertTrue(\Drupal::moduleHandler()->moduleExists('currency'));
-    \Drupal::moduleHandler()->uninstall(array('currency'));
-    $this->assertFalse(\Drupal::moduleHandler()->moduleExists('currency'));
+  function testInstallationAndUninstallation() {
+    /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+    $module_installer = \Drupal::service('module_installer');
+    $module_handler = \Drupal::moduleHandler();;
+
+    $this->assertTrue(Currency::load('XXX') instanceof CurrencyInterface);
+    $this->assertTrue(CurrencyLocale::load('en_US') instanceof CurrencyLocaleInterface);
+
+    $module_installer->uninstall(array('currency'));
+    $this->assertFalse($module_handler->moduleExists('currency'));
   }
 
-  /**
-   * Test configuration import.
-   */
-  function testConfigImport() {
-    // XXX ("No currency") is the fallback currency and must always be available.
-    $currency = entity_load('currency', 'XXX');
-    $this->assertTrue((bool) $currency);
-  }
 }
