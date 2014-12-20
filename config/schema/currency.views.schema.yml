@@ -4,4 +4,15 @@ views.field.currency_amount:
   mapping:
     currency_round:
       label: Round amounts
-      type: bool
+      type: boolean
+
+views.filter.currency:
+  type: views_filter
+  label: 'Currency'
+  mapping:
+    value:
+      label: Currencies
+      sequence:
+        - type: string
+          label: Currency code
+      type: sequence

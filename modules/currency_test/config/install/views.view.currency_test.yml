@@ -31,33 +31,38 @@ display:
           field: currency_code
           id: currency_code
           table: currency_test
+          plugin_id: standard
         amount_currency_code_definition:
           field: amount_currency_code_definition
           id: amount_currency_code_definition
           table: currency_test
           currency_round: TRUE
+          plugin_id: currency_amount
         amount_currency_code_field_definition:
           field: amount_currency_code_field_definition
           id: amount_currency_code_field_definition
           table: currency_test
+          plugin_id: currency_amount
         amount_currency_code_field_table_definition:
           field: amount_currency_code_field_table_definition
           id: amount_currency_code_field_table_definition
           table: currency_test
+          plugin_id: currency_amount
         amount_currency_undefined:
           field: amount_currency_undefined
           id: amount_currency_undefined
           table: currency_test
+          plugin_id: currency_amount
         currency_sign:
-          currency_property: sign
           field: currency_sign
           id: currency_sign
           table: currency_test
+          plugin_id: currency
         currency_subunits:
-          currency_property: subunits
           field: currency_subunits
           id: currency_subunits
           table: currency_test
+          plugin_id: currency
       filters:
         currency:
           id: currency
