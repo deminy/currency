@@ -344,13 +344,15 @@ class AmountUnitTest extends UnitTestCase {
   /**
    * @covers ::render
    *
+   * @dataProvider providerTestRender
+   *
    * @depends testGetAmount
    * @depends testGetCurrencyWithoutLoadableCurrencies
    * @depends testGetCurrencyWithFallbackCurrency
    * @depends testGetCurrencyWithFixedCurrency
    * @depends testGetCurrencyWithCurrencyCodeField
    */
-  function testRender() {
+  function testRender($round) {
     $amount = mt_rand();
 
     $formatted_amount = $this->randomMachineName();
@@ -362,8 +364,7 @@ class AmountUnitTest extends UnitTestCase {
     $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
     $currency->expects($this->atLeastOnce())
       ->method('formatAmount')
-      // @todo Check for the rounding option too.
-      ->with($amount)
+      ->with($amount, $round)
       ->willReturn($formatted_amount);
 
     $this->currencyStorage->expects($this->atLeastOnce())
@@ -379,11 +380,25 @@ class AmountUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition['currency_code'] = $currency_code;
 
+    $options = [
+      'currency_round' => $round,
+    ];
+
     $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
-    $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
+    $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler, $options);
     $this->handler->field_alias = $field_alias;
 
     $this->assertSame($formatted_amount, $this->handler->render($result_row));
+  }
+
+  /**
+   * Provides data to self::testRender().
+   */
+  public function providerTestRender() {
+    return [
+      [TRUE],
+      [FALSE],
+    ];
   }
 
   /**

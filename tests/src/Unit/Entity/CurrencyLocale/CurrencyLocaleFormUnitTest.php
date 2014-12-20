@@ -385,10 +385,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
         '#foo' => $this->randomMachineName(),
       ),
     );
-    // @todo Use FormStateInterface once EntityForm no longer uses ArrayAccess.
-    $form_state = $this->getMockBuilder('\Drupal\Core\Form\FormState')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $form_state->expects($this->any())
       ->method('getValues')
       ->willReturn(array(
