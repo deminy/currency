@@ -70,9 +70,9 @@ class AddCurrencyUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::add
+   * @covers ::execute
    */
-  public function testAdd() {
+  public function testExecute() {
     $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
       ->disableOriginalConstructor()
       ->getMock();
