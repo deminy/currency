@@ -27,7 +27,7 @@ class AmountFormattingForm extends ConfigFormBase {
   protected $currencyAmountFormatterManager;
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.

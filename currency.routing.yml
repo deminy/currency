@@ -42,7 +42,7 @@ currency.currency.list:
 currency.currency.add:
   path: '/admin/config/regional/currency/add'
   defaults:
-    _controller: '\Drupal\currency\Controller\Currency::add'
+    _controller: '\Drupal\currency\Controller\AddCurrency::execute'
     _title: Add a currency
   requirements:
     _entity_create_access: 'currency'
@@ -59,7 +59,7 @@ currency.currency.edit:
   path: '/admin/config/regional/currency/{currency}'
   defaults:
     _entity_form: 'currency.default'
-    _title_callback: \Drupal\currency\Controller\Currency::editTitle
+    _title_callback: \Drupal\currency\Controller\EditCurrency::title
   requirements:
     _entity_access: 'currency.update'
 
@@ -73,14 +73,14 @@ currency.currency.delete:
 currency.currency.enable:
   path: '/admin/config/regional/currency/{currency}/enable'
   defaults:
-    _controller: '\Drupal\currency\Controller\Currency::enable'
+    _controller: '\Drupal\currency\Controller\EnableCurrency::execute'
   requirements:
     _entity_access: 'currency.enable'
 
 currency.currency.disable:
   path: '/admin/config/regional/currency/{currency}/disable'
   defaults:
-    _controller: '\Drupal\currency\Controller\Currency::disable'
+    _controller: '\Drupal\currency\Controller\DisableCurrency::execute'
   requirements:
     _entity_access: 'currency.disable'
 
@@ -96,7 +96,7 @@ currency.currency_locale.list:
 currency.currency_locale.add:
   path: '/admin/config/regional/currency-formatting/locale/add'
   defaults:
-    _controller: '\Drupal\currency\Controller\CurrencyLocale::add'
+    _controller: '\Drupal\currency\Controller\AddCurrencyLocale::execute'
     _title: Add a currency locale
   requirements:
     _entity_create_access: 'currency_locale'
@@ -113,7 +113,7 @@ currency.currency_locale.edit:
   path: '/admin/config/regional/currency-formatting/locale/{currency_locale}'
   defaults:
     _entity_form: 'currency_locale.default'
-    _title_callback: \Drupal\currency\Controller\CurrencyLocale::editTitle
+    _title_callback: \Drupal\currency\Controller\EditCurrencyLocale::title
   requirements:
     _entity_access: 'currency_locale.update'
 

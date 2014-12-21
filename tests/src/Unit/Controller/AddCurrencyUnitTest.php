@@ -2,26 +2,26 @@
 
 /**
  * @file
- * Contains \Drupal\Tests\currency\Unit\Controller\CurrencyLocaleUnitTest.
+ * Contains \Drupal\Tests\currency\Unit\Controller\AddCurrencyUnitTest.
  */
 
 namespace Drupal\Tests\currency\Unit\Controller;
 
-use Drupal\currency\Controller\CurrencyLocale;
+use Drupal\currency\Controller\AddCurrency;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @coversDefaultClass \Drupal\currency\Controller\CurrencyLocale
+ * @coversDefaultClass \Drupal\currency\Controller\AddCurrency
  *
  * @group Currency
  */
-class CurrencyLocaleUnitTest extends UnitTestCase {
+class AddCurrencyUnitTest extends UnitTestCase {
 
   /**
    * The controller under test.
    *
-   * @var \Drupal\currency\Controller\CurrencyLocale
+   * @var \Drupal\currency\Controller\AddCurrency
    */
   protected $controller;
 
@@ -40,13 +40,6 @@ class CurrencyLocaleUnitTest extends UnitTestCase {
   protected $entityManager;
 
   /**
-   * The string translation service.
-   *
-   * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $stringTranslation;
-
-  /**
    * {@inheritdoc}
    *
    * @covers ::__construct
@@ -56,9 +49,7 @@ class CurrencyLocaleUnitTest extends UnitTestCase {
 
     $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
-
-    $this->controller = new CurrencyLocale($this->entityManager, $this->entityFormBuilder, $this->stringTranslation);
+    $this->controller = new AddCurrency($this->entityManager, $this->entityFormBuilder);
   }
 
   /**
@@ -69,45 +60,20 @@ class CurrencyLocaleUnitTest extends UnitTestCase {
     $map = array(
       array('entity.form_builder', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->entityFormBuilder),
       array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->entityManager),
-      array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
     );
     $container->expects($this->any())
       ->method('get')
       ->will($this->returnValueMap($map));
 
-    $form = CurrencyLocale::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\CurrencyLocale', $form);
-  }
-
-  /**
-   * @covers ::editTitle
-   */
-  public function testEditTitle() {
-    $label = $this->randomMachineName();
-    $string = 'Edit @label';
-
-    $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
-      ->disableOriginalConstructor()
-      ->getMock();
-    $currency_locale->expects($this->once())
-      ->method('label')
-      ->will($this->returnValue($label));
-
-    $this->stringTranslation->expects($this->any())
-      ->method('translate')
-      ->with($string, array(
-        '@label' => $label,
-      ))
-      ->will($this->returnArgument(0));
-
-    $this->assertSame($string, $this->controller->editTitle($currency_locale));
+    $form = AddCurrency::create($container);
+    $this->assertInstanceOf('\Drupal\currency\Controller\AddCurrency', $form);
   }
 
   /**
    * @covers ::add
    */
   public function testAdd() {
-    $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
+    $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
       ->disableOriginalConstructor()
       ->getMock();
 
@@ -115,21 +81,21 @@ class CurrencyLocaleUnitTest extends UnitTestCase {
     $storage->expects($this->once())
       ->method('create')
       ->with(array())
-      ->will($this->returnValue($currency_locale));
+      ->will($this->returnValue($currency));
 
     $this->entityManager->expects($this->once())
       ->method('getStorage')
-      ->with('currency_locale')
+      ->with('currency')
       ->will($this->returnValue($storage));
 
     $form = $this->getMock('\Drupal\Core\Entity\EntityFormInterface');
 
     $this->entityFormBuilder->expects($this->once())
       ->method('getForm')
-      ->with($currency_locale)
+      ->with($currency)
       ->will($this->returnValue($form));
 
-    $this->assertSame($form, $this->controller->add());
+    $this->assertSame($form, $this->controller->execute());
   }
 
 }

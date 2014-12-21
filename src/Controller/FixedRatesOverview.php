@@ -50,7 +50,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
   protected $urlGenerator;
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
    *   The translation manager.

@@ -13,7 +13,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\Core\Url;
 use Drupal\currency\Entity\Currency as CurrencyEntity;
 use Drupal\currency\FormHelperInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
@@ -46,7 +45,7 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
   protected $formHelper;
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.

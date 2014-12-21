@@ -36,7 +36,7 @@ class CurrencyImportForm extends FormBase implements ContainerInjectionInterface
   protected $formHelper;
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translator.
