@@ -81,14 +81,6 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   protected $entityManager;
 
   /**
-   * Historical exchange rates to other currencies.
-   *
-   * @var array
-   *   Keys are ISO 4217 codes, values are numeric strings.
-   */
-  protected $historicalExchangeRates = [];
-
-  /**
    * The human-readable name.
    *
    * @var string
@@ -203,22 +195,6 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    */
   public function getCurrencyNumber() {
     return $this->currencyNumber;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setHistoricalExchangeRates(array $rates) {
-    $this->historicalExchangeRates = $rates;
-
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getHistoricalExchangeRates() {
-    return $this->historicalExchangeRates;
   }
 
   /**
@@ -462,7 +438,6 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     $properties['alternativeSigns'] = $this->getAlternativeSigns();
     $properties['currencyCode'] = $this->id();
     $properties['currencyNumber'] = $this->getCurrencyNumber();
-    $properties['exchangeRates'] = $this->getHistoricalExchangeRates();
     $properties['label'] = $this->label();
     $properties['roundingStep'] = $this->roundingStep;
     $properties['sign'] = $this->getSign();

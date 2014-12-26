@@ -1,7 +1,5 @@
 alternativeSigns:
     - N$
-exchangeRates:
-    MXP: '1000'
 currencyCode: MXN
 currencyNumber: '484'
 sign: $

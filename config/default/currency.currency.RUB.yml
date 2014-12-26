@@ -1,8 +1,5 @@
 alternativeSigns:
     - руб
-exchangeRates:
-    SUR: '1000'
-    RUR: '1000'
 currencyCode: RUB
 currencyNumber: '643'
 sign: ''

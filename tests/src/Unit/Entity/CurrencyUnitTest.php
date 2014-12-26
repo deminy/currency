@@ -231,18 +231,6 @@ class CurrencyUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::getHistoricalExchangeRates
-   * @covers ::setHistoricalExchangeRates
-   */
-  function testGetExchangeRates() {
-    $rates = [
-      'ABC' => '0.003',
-    ];
-    $this->assertSame($this->currency, $this->currency->setHistoricalExchangeRates($rates));
-    $this->assertSame($rates, $this->currency->getHistoricalExchangeRates());
-  }
-
-  /**
    * @covers ::label
    * @covers ::setLabel
    */
@@ -352,7 +340,6 @@ class CurrencyUnitTest extends UnitTestCase {
     $expected_array['alternativeSigns'] = $alternative_signs;
     $expected_array['currencyCode'] = $currency_code;
     $expected_array['currencyNumber'] = $currency_number;
-    $expected_array['exchangeRates'] = $exchange_rates;
     $expected_array['label'] = $label;
     $expected_array['roundingStep'] = $rounding_step;
     $expected_array['sign'] = $sign;
@@ -383,7 +370,6 @@ class CurrencyUnitTest extends UnitTestCase {
     $this->currency->setRoundingStep($rounding_step);
     $this->currency->setSign($sign);
     $this->currency->setStatus($status);
-    $this->currency->setHistoricalExchangeRates($exchange_rates);
     $this->currency->setCurrencyCode($currency_code);
     $this->currency->setCurrencyNumber($currency_number);
 

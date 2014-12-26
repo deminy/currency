@@ -1,7 +1,5 @@
 alternativeSigns:
     - $L
-exchangeRates:
-    ARM: '100'
 currencyCode: ARL
 currencyNumber: null
 sign: $

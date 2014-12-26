@@ -1,7 +1,5 @@
 alternativeSigns:
     - $U
-exchangeRates:
-    UYN: '1000'
 currencyCode: UYU
 currencyNumber: '858'
 sign: $
