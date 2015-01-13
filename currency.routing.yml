@@ -55,7 +55,7 @@ currency.currency.import:
   requirements:
     _entity_create_access: 'currency'
 
-currency.currency.edit:
+entity.currency.edit_form:
   path: '/admin/config/regional/currency/{currency}'
   defaults:
     _entity_form: 'currency.default'
@@ -63,21 +63,21 @@ currency.currency.edit:
   requirements:
     _entity_access: 'currency.update'
 
-currency.currency.delete:
+entity.currency.delete_form:
   path: '/admin/config/regional/currency/{currency}/delete'
   defaults:
     _entity_form: 'currency.delete'
   requirements:
     _entity_access: 'currency.delete'
 
-currency.currency.enable:
+entity.currency.enable:
   path: '/admin/config/regional/currency/{currency}/enable'
   defaults:
     _controller: '\Drupal\currency\Controller\EnableCurrency::execute'
   requirements:
     _entity_access: 'currency.enable'
 
-currency.currency.disable:
+entity.currency.disable:
   path: '/admin/config/regional/currency/{currency}/disable'
   defaults:
     _controller: '\Drupal\currency\Controller\DisableCurrency::execute'
@@ -109,7 +109,7 @@ currency.currency_locale.import:
   requirements:
     _entity_create_access: 'currency_locale'
 
-currency.currency_locale.edit:
+entity.currency_locale.edit_form:
   path: '/admin/config/regional/currency-formatting/locale/{currency_locale}'
   defaults:
     _entity_form: 'currency_locale.default'
@@ -117,7 +117,7 @@ currency.currency_locale.edit:
   requirements:
     _entity_access: 'currency_locale.update'
 
-currency.currency_locale.delete:
+entity.currency_locale.delete_form:
   path: '/admin/config/regional/currency-formatting/locale/{currency_locale}/delete'
   defaults:
     _entity_form: 'currency_locale.delete'
