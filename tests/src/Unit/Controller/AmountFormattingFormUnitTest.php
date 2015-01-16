@@ -115,7 +115,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($plugin_id));
 
     $this->configFactory->expects($this->once())
-      ->method('get')
+      ->method('getEditable')
       ->with('currency.amount_formatting')
       ->will($this->returnValue($config));
 
@@ -192,7 +192,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       ->method('save');
 
     $this->configFactory->expects($this->atLeastOnce())
-      ->method('get')
+      ->method('getEditable')
       ->with('currency.amount_formatting')
       ->willReturn($config);
 

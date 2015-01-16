@@ -57,10 +57,21 @@ class AmountFormattingForm extends ConfigFormBase {
   }
 
   /**
+   * Gets the configuration names that will be editable.
+   *
+   * @return array
+   *   An array of configuration object names that are editable if called in
+   *   conjunction with the trait's config() method.
+   */
+  protected function getEditableConfigNames() {
+    return ['currency.amount_formatting'];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->configFactory()->get('currency.amount_formatting');
+    $config = $this->config('currency.amount_formatting');
 
     $options = array();
     foreach ($this->currencyAmountFormatterManager->getDefinitions() as $plugin_id => $plugin_definition) {
@@ -95,7 +106,7 @@ class AmountFormattingForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    $config = $this->configFactory()->get('currency.amount_formatting');
+    $config = $this->config('currency.amount_formatting');
     $config->set('plugin_id', $values['default_plugin_id']);
     $config->save();
 
