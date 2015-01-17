@@ -131,7 +131,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
       ->method('save');
 
     $this->configFactory->expects($this->once())
-      ->method('get')
+      ->method('getEditable')
       ->with('currency.exchange_rate_provider')
       ->will($this->returnValue($config));
 

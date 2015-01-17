@@ -232,6 +232,10 @@ class FixedRatesUnitTest extends UnitTestCase {
       ->method('get')
       ->with('currency.exchanger.fixed_rates')
       ->will($this->returnValue($this->config));
+    $this->configFactory->expects($this->any())
+      ->method('getEditable')
+      ->with('currency.exchanger.fixed_rates')
+      ->will($this->returnValue($this->config));
 
     return array($rates, $rates_data);
   }

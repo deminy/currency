@@ -68,7 +68,7 @@ class PluginBasedExchangeRateProvider implements ExchangeRateProviderInterface {
    * @return $this
    */
   public function saveConfiguration(array $configuration) {
-    $config = $this->configFactory->get('currency.exchange_rate_provider');
+    $config = $this->configFactory->getEditable('currency.exchange_rate_provider');
     // Massage the configuration into a format that can be stored, as
     // associative arrays are not supported by the config system
     $configuration_data = array();

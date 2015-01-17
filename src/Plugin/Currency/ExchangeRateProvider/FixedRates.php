@@ -132,7 +132,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    * @return $this
    */
   public function save($currency_code_from, $currency_code_to, $rate) {
-    $config = $this->configFactory->get('currency.exchanger.fixed_rates');
+    $config = $this->configFactory->getEditable('currency.exchanger.fixed_rates');
     $rates = $this->loadConfiguration();
     $rates[$currency_code_from][$currency_code_to] = $rate;
     // Massage the rates into a format that can be stored, as associative
@@ -163,7 +163,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    * @return NULL
    */
   public function delete($currency_code_from, $currency_code_to) {
-    $config = $this->configFactory->get('currency.exchanger.fixed_rates');
+    $config = $this->configFactory->getEditable('currency.exchanger.fixed_rates');
     $rates = $config->get('rates');
     foreach ($rates as $i => $rate) {
       if ($rate['currency_code_from'] == $currency_code_from && $rate['currency_code_to'] == $currency_code_to) {
