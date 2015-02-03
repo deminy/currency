@@ -197,6 +197,16 @@ class AmountUnitTest extends UnitTestCase {
       ->with('views.settings')
       ->willReturn($views_settings_config);
 
+    $unrouted_url_assembler = $this->getMock('\Drupal\Core\Utility\UnroutedUrlAssemblerInterface');
+    $unrouted_url_assembler->expects($this->atLeastOnce())
+      ->method('assemble')
+      ->willReturn($this->randomMachineName());
+
+    $container = new ContainerBuilder();
+    $container->set('config.factory', $this->configFactory);
+    $container->set('unrouted_url_assembler', $unrouted_url_assembler);
+    \Drupal::setContainer($container);
+
     $form = [];
     $form_state = new FormState();
     $this->handler->buildOptionsForm($form, $form_state);
