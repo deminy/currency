@@ -18,7 +18,6 @@ install:
   # Download Drupal core.
   - cd $TRAVIS_BUILD_DIR/..
   - git clone --branch 8.0.x --depth 1 http://git.drupal.org/project/drupal.git
-  - cd $TRAVIS_BUILD_DIR/../drupal
 
   # Add Coveralls.io integration.
   - cd $TRAVIS_BUILD_DIR/../drupal
@@ -30,7 +29,9 @@ install:
 
 script:
   # Run PHPUnit tests and submit code coverage statistics.
-  - cd $TRAVIS_BUILD_DIR/../drupal/core
+  - cd $TRAVIS_BUILD_DIR/../drupal
   - mkdir -p build/logs
-  - vendor/bin/phpunit -c ../modules/currency/phpunit.xml.dist --bootstrap ../core/tests/bootstrap.php --verbose --debug --coverage-clover build/logs/clover.xml || exit 1
-  - php ../vendor/bin/coveralls -v -c ../modules/currency/.coveralls.yml
+  - cd $TRAVIS_BUILD_DIR/../drupal/core
+  - vendor/bin/phpunit -c ../modules/currency/phpunit.xml.dist --bootstrap ../core/tests/bootstrap.php --verbose --debug --coverage-clover ../build/logs/clover.xml || exit 1
+  - cd $TRAVIS_BUILD_DIR/../drupal
+  - php ./vendor/bin/coveralls -v -c ./modules/currency/.coveralls.yml
