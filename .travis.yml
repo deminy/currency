@@ -14,24 +14,20 @@ env:
   - PATH=$PATH:/home/travis/.composer/vendor/bin
 
 install:
-  - composer self-update
-
   # Download Drupal core.
   - cd $TRAVIS_BUILD_DIR/..
   - git clone --branch 8.0.x --depth 1 http://git.drupal.org/project/drupal.git
 
-  # Add Coveralls.io integration.
-  - cd $TRAVIS_BUILD_DIR/..
-  - composer require --no-update satooshi/php-coveralls:0.6.* --prefer-source
-  - composer update --no-dev
-
   # Copy Currency into Drupal core.
   - cp -Rv $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/../drupal/modules/
 
+  # Add Coveralls.io integration.
+  - cd $TRAVIS_BUILD_DIR/../drupal/modules/currency
+  - composer require satooshi/php-coveralls:0.6.* --prefer-source
+
 script:
   # Run PHPUnit tests and submit code coverage statistics.
-  - mkdir -p $TRAVIS_BUILD_DIR/../build/logs
-  - cd $TRAVIS_BUILD_DIR/../drupal/core
-  - ./vendor/bin/phpunit -c ../modules/currency/phpunit.xml.dist --bootstrap ../core/tests/bootstrap.php --verbose --debug --coverage-clover $TRAVIS_BUILD_DIR/../build/logs/clover.xml || exit 1
-  - cd $TRAVIS_BUILD_DIR/..
-  - php ./vendor/bin/coveralls -v -c ./drupal/modules/currency/.coveralls.yml
+  - cd $TRAVIS_BUILD_DIR/../drupal/modules/currency
+  - mkdir -p build/logs
+  - ../../core/vendor/bin/phpunit -c ./phpunit.xml.dist --bootstrap ../../core/tests/bootstrap.php --verbose --debug --coverage-clover ./build/logs/clover.xml || exit 1
+  - php ./vendor/bin/coveralls -v -c ./.coveralls.yml
