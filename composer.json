@@ -1,0 +1,17 @@
+{
+  "name": "drupal/currency",
+  "license": "GPL-2.0",
+  "autoload": {
+    "psr-4": {
+      "Drupal\\currency\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Drupal\\Tests\\currency\\": "tests/src"
+    }
+  },
+  "require-dev" : {
+    "satooshi/php-coveralls": "dev-master"
+  }
+}
