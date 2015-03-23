@@ -62,7 +62,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
   public function load($currency_code_from, $currency_code_to) {
     $rate = NULL;
 
-    $filename = __DIR__ . '/../../../../payment.historical_exchange_rates.yml';
+    $filename = __DIR__ . '/../../../../currency.historical_exchange_rates.yml';
     $exchange_rates = Yaml::parse($filename);
 
     if (isset($exchange_rates[$currency_code_from][$currency_code_to])) {
