@@ -40,8 +40,6 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
@@ -50,6 +48,13 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
 
     $this->currencyExchangeRateProviderManager = $this->getMock('\Drupal\Component\Plugin\PluginManagerInterface');
 
+    $this->exchangeRateProvider = new PluginBasedExchangeRateProvider($this->currencyExchangeRateProviderManager, $this->configFactory);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
     $this->exchangeRateProvider = new PluginBasedExchangeRateProvider($this->currencyExchangeRateProviderManager, $this->configFactory);
   }
 

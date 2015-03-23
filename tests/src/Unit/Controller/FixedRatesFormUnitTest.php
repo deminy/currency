@@ -63,8 +63,6 @@ class FixedRatesFormUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->configFactory = $this->getMock('\Drupal\Core\Config\ConfigFactoryInterface');
@@ -82,6 +80,7 @@ class FixedRatesFormUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   function testCreate() {
     $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');

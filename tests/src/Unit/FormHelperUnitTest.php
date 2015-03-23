@@ -32,6 +32,13 @@ class FormHelperUnitTest extends UnitTestCase {
   protected $currencyLocaleStorage;
 
   /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityManagerInterface
+   */
+  protected $entityManager;
+
+  /**
    * The form helper under test.
    *
    * @var \Drupal\currency\FormHelper
@@ -47,26 +54,31 @@ class FormHelperUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
     $this->currencyLocaleStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
 
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
     $map = [
       ['currency', $this->currencyStorage],
       ['currency_locale', $this->currencyLocaleStorage],
     ];
-    $entity_manager->expects($this->atLeastOnce())
+    $this->entityManager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->willReturnMap($map);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->formHelper = new FormHelper($this->stringTranslation, $entity_manager);
+    $this->formHelper = new FormHelper($this->stringTranslation, $this->entityManager);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
+    $this->formHelper = new FormHelper($this->stringTranslation, $this->entityManager);
   }
 
   /**

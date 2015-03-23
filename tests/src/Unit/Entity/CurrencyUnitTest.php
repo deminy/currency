@@ -23,7 +23,7 @@ class CurrencyUnitTest extends UnitTestCase {
    *
    * @var \Drupal\currency\Entity\Currency
    */
-  protected $currency;
+  protected $sut;
 
   /**
    * The currency amount formatter manager.
@@ -55,11 +55,6 @@ class CurrencyUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
-   * @covers ::setEntityManager
-   * @covers ::setCurrencyAmountFormatterManager
-   * @covers ::setMath
    */
   function setUp() {
     $this->entityTypeId = $this->randomMachineName();
@@ -70,11 +65,55 @@ class CurrencyUnitTest extends UnitTestCase {
 
     $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
 
-    $this->currency = new Currency([], $this->entityTypeId);
-    $this->currency->setCurrencyAmountFormatterManager($this->currencyAmountFormatterManager);
-    $this->currency->setEntityManager($this->entityManager);
-    $this->currency->setMath($this->math);
+    $this->sut = new Currency([], $this->entityTypeId);
+    $this->sut->setCurrencyAmountFormatterManager($this->currencyAmountFormatterManager);
+    $this->sut->setEntityManager($this->entityManager);
+    $this->sut->setMath($this->math);
   }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
+    $this->sut = new Currency([], $this->entityTypeId);
+  }
+
+  /**
+   * @covers ::setCurrencyAmountFormatterManager
+   * @covers ::getCurrencyAmountFormatterManager
+   */
+  public function testGetCurrencyAmountFormatterManager() {
+    $method = new \ReflectionMethod($this->sut, 'getCurrencyAmountFormatterManager');
+    $method->setAccessible(TRUE);
+
+    $this->assertSame($this->sut, $this->sut->setCurrencyAmountFormatterManager($this->currencyAmountFormatterManager));
+    $this->assertSame($this->currencyAmountFormatterManager, $method->invoke($this->sut));
+  }
+
+  /**
+   * @covers ::setEntityManager
+   * @covers ::entityManager
+   */
+  public function testEntityManager() {
+    $method = new \ReflectionMethod($this->sut, 'entityManager');
+    $method->setAccessible(TRUE);
+
+    $this->assertSame($this->sut, $this->sut->setEntityManager($this->entityManager));
+    $this->assertSame($this->entityManager, $method->invoke($this->sut));
+  }
+
+  /**
+   * @covers ::setMath
+   * @covers ::getMath
+   */
+  public function testGetMath() {
+    $method = new \ReflectionMethod($this->sut, 'getMath');
+    $method->setAccessible(TRUE);
+
+    $this->assertSame($this->sut, $this->sut->setMath($this->math));
+    $this->assertSame($this->math, $method->invoke($this->sut));
+  }
+
   /**
    * @covers ::getRoundingStep
    * @covers ::setRoundingStep
@@ -83,8 +122,8 @@ class CurrencyUnitTest extends UnitTestCase {
   function testGetRoundingStep() {
     $rounding_step = mt_rand();
 
-    $this->assertSame($this->currency, $this->currency->setRoundingStep($rounding_step));
-    $this->assertSame($rounding_step, $this->currency->getRoundingStep());
+    $this->assertSame($this->sut, $this->sut->setRoundingStep($rounding_step));
+    $this->assertSame($rounding_step, $this->sut->getRoundingStep());
   }
 
   /**
@@ -99,16 +138,16 @@ class CurrencyUnitTest extends UnitTestCase {
       ->with(1, $subunits)
       ->willReturn($rounding_step);
 
-    $this->currency->setSubunits($subunits);
+    $this->sut->setSubunits($subunits);
 
-    $this->assertSame($rounding_step, $this->currency->getRoundingStep());
+    $this->assertSame($rounding_step, $this->sut->getRoundingStep());
   }
 
   /**
    * @covers ::getRoundingStep
    */
   function testGetRoundingStepUnavailable() {
-    $this->assertNull($this->currency->getRoundingStep());
+    $this->assertNull($this->sut->getRoundingStep());
   }
 
   /**
@@ -124,7 +163,7 @@ class CurrencyUnitTest extends UnitTestCase {
     $amount_formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
     $amount_formatter->expects($this->atLeastOnce())
       ->method('formatAmount')
-      ->with($this->currency, $amount_with_currency_precision_applied)
+      ->with($this->sut, $amount_with_currency_precision_applied)
       ->willReturn($expected);
 
     $this->currencyAmountFormatterManager->expects($this->atLeastOnce())
@@ -134,7 +173,7 @@ class CurrencyUnitTest extends UnitTestCase {
     if ($amount !== $amount_with_currency_precision_applied) {
       $this->math->expects($this->atLeastOnce())
         ->method('round')
-        ->with($amount, $this->currency->getRoundingStep())
+        ->with($amount, $this->sut->getRoundingStep())
         ->willReturn($amount_with_currency_precision_applied);
     }
     else {
@@ -142,10 +181,10 @@ class CurrencyUnitTest extends UnitTestCase {
         ->method('round');
     }
 
-    $this->currency->setCurrencyCode('BLA');
-    $this->currency->setSubunits(100);
+    $this->sut->setCurrencyCode('BLA');
+    $this->sut->setSubunits(100);
 
-    $this->assertSame($expected, $this->currency->formatAmount($amount, $amount !== $amount_with_currency_precision_applied));
+    $this->assertSame($expected, $this->sut->formatAmount($amount, $amount !== $amount_with_currency_precision_applied));
   }
 
   /**
@@ -163,8 +202,8 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testGetDecimals() {
     foreach ([1, 2, 3] as $decimals) {
-      $this->currency->setSubunits(pow(10, $decimals));
-      $this->assertSame($decimals, $this->currency->getDecimals());
+      $this->sut->setSubunits(pow(10, $decimals));
+      $this->assertSame($decimals, $this->sut->getDecimals());
     }
   }
 
@@ -173,21 +212,21 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testIsObsolete() {
     // A currency without usage data.
-    $this->assertFalse($this->currency->isObsolete());
+    $this->assertFalse($this->sut->isObsolete());
 
     // A currency that is no longer being used.
     $usage = new Usage();
     $usage->setStart('1813-01-01')
       ->setEnd('2002-02-28');
-    $this->currency->setUsages([$usage]);
-    $this->assertTrue($this->currency->isObsolete());
+    $this->sut->setUsages([$usage]);
+    $this->assertTrue($this->sut->isObsolete());
 
     // A currency that will become obsolete next year.
     $usage = new Usage();
     $usage->setStart('1813-01-01')
       ->setEnd(date('o') + 1 . '-02-28');
-    $this->currency->setUsages([$usage]);
-    $this->assertFalse($this->currency->isObsolete());
+    $this->sut->setUsages([$usage]);
+    $this->assertFalse($this->sut->isObsolete());
   }
 
   /**
@@ -196,8 +235,8 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testGetAlternativeSigns() {
     $alternative_signs = ['A', 'B'];
-    $this->assertSame($this->currency, $this->currency->setAlternativeSigns($alternative_signs));
-    $this->assertSame($alternative_signs, $this->currency->getAlternativeSigns());
+    $this->assertSame($this->sut, $this->sut->setAlternativeSigns($alternative_signs));
+    $this->assertSame($alternative_signs, $this->sut->getAlternativeSigns());
   }
 
   /**
@@ -206,8 +245,8 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testId() {
     $currency_code = $this->randomMachineName(3);
-    $this->assertSame($this->currency, $this->currency->setCurrencyCode($currency_code));
-    $this->assertSame($currency_code, $this->currency->id());
+    $this->assertSame($this->sut, $this->sut->setCurrencyCode($currency_code));
+    $this->assertSame($currency_code, $this->sut->id());
   }
 
   /**
@@ -216,8 +255,8 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testGetCurrencyCode() {
     $currency_code = $this->randomMachineName(3);
-    $this->assertSame($this->currency, $this->currency->setCurrencyCode($currency_code));
-    $this->assertSame($currency_code, $this->currency->getCurrencyCode());
+    $this->assertSame($this->sut, $this->sut->setCurrencyCode($currency_code));
+    $this->assertSame($currency_code, $this->sut->getCurrencyCode());
   }
 
   /**
@@ -226,8 +265,8 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testGetCurrencyNumber() {
     $currency_number = '000';
-    $this->assertSame($this->currency, $this->currency->setCurrencyNumber($currency_number));
-    $this->assertSame($currency_number, $this->currency->getCurrencyNumber());
+    $this->assertSame($this->sut, $this->sut->setCurrencyNumber($currency_number));
+    $this->assertSame($currency_number, $this->sut->getCurrencyNumber());
   }
 
   /**
@@ -247,8 +286,8 @@ class CurrencyUnitTest extends UnitTestCase {
       ->willReturn($entity_type);
 
     $label = $this->randomMachineName();
-    $this->assertSame($this->currency, $this->currency->setLabel($label));
-    $this->assertSame($label, $this->currency->label());
+    $this->assertSame($this->sut, $this->sut->setLabel($label));
+    $this->assertSame($label, $this->sut->label());
   }
 
   /**
@@ -257,8 +296,8 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testGetSign() {
     $sign = $this->randomMachineName(1);
-    $this->assertSame($this->currency, $this->currency->setSign($sign));
-    $this->assertSame($sign, $this->currency->getSign());
+    $this->assertSame($this->sut, $this->sut->setSign($sign));
+    $this->assertSame($sign, $this->sut->getSign());
   }
 
   /**
@@ -267,8 +306,8 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   function testGetSubunits() {
     $subunits = 73;
-    $this->assertSame($this->currency, $this->currency->setSubunits($subunits));
-    $this->assertSame($subunits, $this->currency->getSubunits());
+    $this->assertSame($this->sut, $this->sut->setSubunits($subunits));
+    $this->assertSame($subunits, $this->sut->getSubunits());
   }
 
   /**
@@ -279,17 +318,8 @@ class CurrencyUnitTest extends UnitTestCase {
     $usage = new Usage();
     $usage->setStart('1813-01-01')
     ->setEnd(date('o') + 1 . '-02-28');
-    $this->assertSame($this->currency, $this->currency->setUsages([$usage]));
-    $this->assertSame([$usage], $this->currency->getUsages());
-  }
-
-  /**
-   * @covers ::entityManager
-   */
-  public function testEntityManager() {
-    $method = new \ReflectionMethod($this->currency, 'entityManager');
-    $method->setAccessible(TRUE);
-    $this->assertSame($this->entityManager, $method->invoke($this->currency));
+    $this->assertSame($this->sut, $this->sut->setUsages([$usage]));
+    $this->assertSame([$usage], $this->sut->getUsages());
   }
 
   /**
@@ -363,17 +393,17 @@ class CurrencyUnitTest extends UnitTestCase {
       ],
     ];
 
-    $this->currency->setAlternativeSigns($expected_array['alternativeSigns']);
-    $this->currency->setLabel($label);
-    $this->currency->setUsages($usages);
-    $this->currency->setSubunits($subunits);
-    $this->currency->setRoundingStep($rounding_step);
-    $this->currency->setSign($sign);
-    $this->currency->setStatus($status);
-    $this->currency->setCurrencyCode($currency_code);
-    $this->currency->setCurrencyNumber($currency_number);
+    $this->sut->setAlternativeSigns($expected_array['alternativeSigns']);
+    $this->sut->setLabel($label);
+    $this->sut->setUsages($usages);
+    $this->sut->setSubunits($subunits);
+    $this->sut->setRoundingStep($rounding_step);
+    $this->sut->setSign($sign);
+    $this->sut->setStatus($status);
+    $this->sut->setCurrencyCode($currency_code);
+    $this->sut->setCurrencyNumber($currency_number);
 
-    $array = $this->currency->toArray();
+    $array = $this->sut->toArray();
     $this->assertArrayHasKey('uuid', $array);
     unset($array['uuid']);
     $this->assertEquals($expected_array, $array);

@@ -49,8 +49,6 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->configFactory = $this->getMock('\Drupal\Core\Config\ConfigFactoryInterface');
@@ -64,6 +62,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   function testCreate() {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');

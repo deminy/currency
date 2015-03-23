@@ -55,8 +55,6 @@ class ExchangeRateProviderManagerUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->discovery = $this->getMock('\Drupal\Component\Plugin\Discovery\DiscoveryInterface');
@@ -78,6 +76,14 @@ class ExchangeRateProviderManagerUnitTest extends UnitTestCase {
     $factory_property = new \ReflectionProperty($this->currencyExchangeRateProviderManager, 'factory');
     $factory_property->setAccessible(TRUE);
     $factory_property->setValue($this->currencyExchangeRateProviderManager, $this->factory);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
+    $namespaces = new ArrayObject();
+    $this->currencyExchangeRateProviderManager = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler);
   }
 
   /**

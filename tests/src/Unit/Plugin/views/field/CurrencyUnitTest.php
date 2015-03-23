@@ -56,8 +56,6 @@ class CurrencyUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->pluginConfiguration = [
@@ -70,6 +68,14 @@ class CurrencyUnitTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
+    $this->handler = new Currency($this->pluginConfiguration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
+    $plugin_id = $this->randomMachineName();
     $this->handler = new Currency($this->pluginConfiguration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
   }
 

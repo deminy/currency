@@ -49,8 +49,6 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->configImporter = $this->getMock('\Drupal\currency\ConfigImporterInterface');
@@ -64,6 +62,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   function testCreate() {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');

@@ -42,8 +42,6 @@ class CurrencyAccessControlHandlerUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->entityType = $this->getMock('\Drupal\Core\Entity\EntityTypeInterface');
@@ -55,6 +53,7 @@ class CurrencyAccessControlHandlerUnitTest extends UnitTestCase {
 
   /**
    * @covers ::createInstance
+   * @covers ::__construct
    */
   function testCreateInstance() {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');

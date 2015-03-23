@@ -62,8 +62,6 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->discovery = $this->getMock('\Drupal\Component\Plugin\Discovery\DiscoveryInterface');
@@ -89,6 +87,14 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
     $factory_property = new \ReflectionProperty($this->currencyAmountFormatterManager, 'factory');
     $factory_property->setAccessible(TRUE);
     $factory_property->setValue($this->currencyAmountFormatterManager, $this->factory);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
+    $namespaces = new ArrayObject();
+    $this->currencyAmountFormatterManager = new AmountFormatterManager($namespaces, $this->cache, $this->moduleHandler, $this->configFactory);
   }
 
   /**

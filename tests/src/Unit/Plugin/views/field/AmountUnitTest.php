@@ -93,8 +93,6 @@ class AmountUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $configuration = [];
@@ -139,6 +137,7 @@ class AmountUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   public function testCreate() {
     $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');

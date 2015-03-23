@@ -55,8 +55,6 @@ class CurrencyListBuilderUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->entityStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
@@ -75,6 +73,7 @@ class CurrencyListBuilderUnitTest extends UnitTestCase {
 
   /**
    * @covers ::createInstance
+   * @covers ::__construct
    */
   function testCreateInstance() {
     $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');

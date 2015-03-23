@@ -47,6 +47,13 @@ class ConfigImporterUnitTest extends UnitTestCase {
   protected $currencyLocaleStorage;
 
   /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityManagerInterface
+   */
+  protected $entityManager;
+
+  /**
    * The event dispatcher.
    *
    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -69,8 +76,6 @@ class ConfigImporterUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->configStorage = $this->getMock('\Drupal\Core\Config\StorageInterface');
@@ -89,12 +94,19 @@ class ConfigImporterUnitTest extends UnitTestCase {
       ['currency', $this->currencyStorage],
       ['currency_locale', $this->currencyLocaleStorage],
     ];
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
-    $entity_manager->expects($this->exactly(2))
+    $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $this->entityManager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->willReturnMap($map);
 
-    $this->configImporter = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $entity_manager);
+    $this->configImporter = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
+    $this->configImporter = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
   }
 
   /**

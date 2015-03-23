@@ -26,10 +26,20 @@ class ExchangeRateUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
+    $exchange_rate_provider_plugin_id = $this->randomMachineName();
+    $timestamp = mt_rand();
+    $source_currency_code = $this->randomMachineName(3);
+    $destination_currency_code = $this->randomMachineName(3);
+    $rate = mt_rand();
+    $this->exchangeRate = new ExchangeRate($exchange_rate_provider_plugin_id, $timestamp, $source_currency_code, $destination_currency_code, $rate);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
     $exchange_rate_provider_plugin_id = $this->randomMachineName();
     $timestamp = mt_rand();
     $source_currency_code = $this->randomMachineName(3);

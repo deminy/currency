@@ -34,8 +34,6 @@ class DisableCurrencyUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->urlGenerator = $this->getMock('\Drupal\Core\Routing\UrlGeneratorInterface');
@@ -45,6 +43,7 @@ class DisableCurrencyUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   function testCreate() {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');

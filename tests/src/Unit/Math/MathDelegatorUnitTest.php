@@ -47,8 +47,6 @@ class MathDelegatorUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->mathBcMath = $this->getMock('\Drupal\currency\Math\MathInterface');
@@ -68,6 +66,13 @@ class MathDelegatorUnitTest extends UnitTestCase {
       ->setConstructorArgs(array($this->container))
       ->setMethods(array('isExtensionLoaded'))
       ->getMock();
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
+    $this->math = new MathDelegator($this->container);
   }
 
   /**

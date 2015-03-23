@@ -34,8 +34,6 @@ class EditCurrencyLocaleUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->stringTranslation = $this->getStringTranslationStub();
@@ -45,6 +43,7 @@ class EditCurrencyLocaleUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   function testCreate() {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');

@@ -54,8 +54,6 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
@@ -74,6 +72,13 @@ class LocaleDelegatorUnitTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
+    $this->localeDelegator = new LocaleDelegator($this->entityManager, $this->languageManager, $this->configFactory);
+  }
+
+  /**
+   * @covers ::__construct
+   */
+  public function testConstruct() {
     $this->localeDelegator = new LocaleDelegator($this->entityManager, $this->languageManager, $this->configFactory);
   }
 
