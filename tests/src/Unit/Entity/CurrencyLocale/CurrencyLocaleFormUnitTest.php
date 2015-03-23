@@ -70,8 +70,6 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->countryManager = $this->getMock('\Drupal\Core\Locale\CountryManagerInterface');
@@ -101,6 +99,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   function testCreate() {
     $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
@@ -352,6 +351,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
           '#type' => 'textfield',
         ),
       ),
+      '#after_build' => ['::afterBuild'],
     );
     $build = $this->form->form($form, $form_state);
     unset($build['langcode']);

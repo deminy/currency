@@ -63,8 +63,6 @@ class CurrencyFormUnitTest extends UnitTestCase {
 
   /**
    * {@inheritdoc}
-   *
-   * @covers ::__construct
    */
   public function setUp() {
     $this->currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
@@ -88,6 +86,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
 
   /**
    * @covers ::create
+   * @covers ::__construct
    */
   function testCreate() {
     $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
@@ -266,6 +265,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
         '#title' => 'Rounding step',
         '#type' => 'textfield',
       ),
+      '#after_build' => ['::afterBuild'],
     );
     $build = $this->form->form($form, $form_state);
     unset($build['langcode']);
