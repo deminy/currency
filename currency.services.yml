@@ -24,9 +24,14 @@ services:
     class: Drupal\currency\FormHelper
     arguments: ['@string_translation', '@entity.manager']
   currency.math:
-    class: Drupal\currency\Math\MathDelegator
-    arguments: ['@service_container']
+    alias: currency.math.environment_compatible_math_delegator
+  currency.math.environment_compatible_math_delegator:
+    class: Drupal\currency\Math\EnvironmentCompatibleMathDelegator
   currency.math.bcmath:
     class: Drupal\currency\Math\BcMath
+    tags:
+      - { name: currency.math, weight: 0 }
   currency.math.native:
     class: Drupal\currency\Math\Native
+    tags:
+      - { name: currency.math, weight: 999 }

@@ -8,6 +8,9 @@ namespace Drupal\currency\Math;
 
 /**
  * Defines mathematical functions.
+ *
+ * Implementations can optionally implement the following interfaces:
+ * - \Drupal\currency\EnvironmentCompatibilityInterface
  */
 interface MathInterface {
 

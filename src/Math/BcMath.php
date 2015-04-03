@@ -6,10 +6,12 @@
 
 namespace Drupal\currency\Math;
 
+use Drupal\currency\EnvironmentCompatibilityInterface;
+
 /**
  * Provides BC Math mathematical functions.
  */
-class BcMath implements MathInterface {
+class BcMath implements MathInterface, EnvironmentCompatibilityInterface {
 
   /**
    * The number of decimals for BC Math calculations.
@@ -17,6 +19,13 @@ class BcMath implements MathInterface {
    * @var int
    */
   protected $precision = 9;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCompatibleWithCurrentEnvironment() {
+    return extension_loaded('bcmath');
+  }
 
   /**
    * Gets the BC Math precision.
