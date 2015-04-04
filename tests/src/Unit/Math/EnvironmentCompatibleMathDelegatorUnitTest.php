@@ -33,6 +33,7 @@ class EnvironmentCompatibleMathDelegatorUnitTest extends UnitTestCase {
   }
 
   /**
+   * @covers ::addMathHandler
    * @covers ::getMathHandler
    *
    * @dataProvider providerTestGetMathHandler
@@ -78,6 +79,9 @@ class EnvironmentCompatibleMathDelegatorUnitTest extends UnitTestCase {
 
   /**
    * @covers ::add
+   * @covers ::addMathHandler
+   *
+   * @depends testGetMathHandler
    */
   public function testAdd() {
     $number_a = mt_rand();
@@ -98,6 +102,9 @@ class EnvironmentCompatibleMathDelegatorUnitTest extends UnitTestCase {
 
   /**
    * @covers ::subtract
+   * @covers ::addMathHandler
+   *
+   * @depends testGetMathHandler
    */
   public function testSubtract() {
     $number_a = mt_rand();
@@ -117,6 +124,9 @@ class EnvironmentCompatibleMathDelegatorUnitTest extends UnitTestCase {
 
   /**
    * @covers ::multiply
+   * @covers ::addMathHandler
+   *
+   * @depends testGetMathHandler
    */
   public function testMultiply() {
     $number_a = mt_rand();
@@ -136,6 +146,9 @@ class EnvironmentCompatibleMathDelegatorUnitTest extends UnitTestCase {
 
   /**
    * @covers ::divide
+   * @covers ::addMathHandler
+   *
+   * @depends testGetMathHandler
    */
   public function testDivide() {
     $number_a = mt_rand();
@@ -155,6 +168,9 @@ class EnvironmentCompatibleMathDelegatorUnitTest extends UnitTestCase {
 
   /**
    * @covers ::round
+   * @covers ::addMathHandler
+   *
+   * @depends testGetMathHandler
    */
   public function testRound() {
     $number = mt_rand();
@@ -174,6 +190,9 @@ class EnvironmentCompatibleMathDelegatorUnitTest extends UnitTestCase {
 
   /**
    * @covers ::compare
+   * @covers ::addMathHandler
+   *
+   * @depends testGetMathHandler
    */
   public function testCompare() {
     $number_a = mt_rand();

@@ -20,6 +20,7 @@
         <exclude>
           <directory>./src/Tests</directory>
           <directory>./modules/currency_intl/src/Tests</directory>
+          <directory>./modules/currency_test</directory>
         </exclude>
     </whitelist>
   </filter>
