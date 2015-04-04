@@ -103,6 +103,4 @@ class MathCompilerPassUnitTest extends UnitTestCase {
     $this->sut->process($container);
   }
 
-  // @todo Test definitions that are tagged as math handlers, but do not implement MathInterface.
-
 }
