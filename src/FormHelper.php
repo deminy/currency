@@ -79,7 +79,7 @@ class FormHelper implements FormHelperInterface {
       $currency_locales = $this->currencyLocaleStorage->loadMultiple();
     }
     foreach ($currency_locales as $currency_locale) {
-      // Do not show disabled currencies.
+      // Do not show disabled currency locales.
       if ($currency_locale->status()) {
         $options[$currency_locale->id()] = $currency_locale->label();
       }
