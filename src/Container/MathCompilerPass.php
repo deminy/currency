@@ -23,17 +23,28 @@ class MathCompilerPass implements CompilerPassInterface {
     $tag_name = 'currency.math';
     $tags = $container->findTaggedServiceIds($tag_name);
 
-    // Validate the tags.
-    foreach ($tags as $service_id => $handler_tags) {
+    // Validate the tags and populates default values.
+    foreach ($tags as $service_id => &$handler_tags) {
+      $handler_tags[0] += [
+        'weight' => 0,
+      ];
+
+      // Validate the service's type.
+      $service_definition = $container->getDefinition($service_id);
+      $service_class = $service_definition->getClass();
+      $math_interface = '\Drupal\currency\Math\MathInterface';
+      if (!is_subclass_of($service_class, $math_interface)) {
+        throw new \Exception(sprintf('Service %s is tagged with %s, but its class %s does not implement %s.', $service_id, $tag_name, $service_class, $math_interface));
+      }
+
+      // Validate the number of tags.
       if (count($handler_tags) > 1) {
         throw new \Exception(sprintf('Service %s cannot be tagged with %s more than once.', $service_id, $tag_name));
       }
-      if (!isset($handler_tags[0]['weight'])) {
-        throw new \Exception(sprintf('Service %s was tagged with %s, but the tag does not contain a "weight" item.',
-          $service_id, $tag_name));
-      }
+
+      // Validate the weight.
       if (!is_numeric($handler_tags[0]['weight'])) {
-        throw new \Exception(sprintf('Service %s was tagged with %s, but its "weight" item has a non-numeric value.',
+        throw new \Exception(sprintf('Service %s is tagged with %s, but its "weight" item has a non-numeric value.',
           $service_id, $tag_name));
       }
     }
