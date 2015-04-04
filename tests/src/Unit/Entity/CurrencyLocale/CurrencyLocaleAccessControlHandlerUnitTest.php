@@ -8,7 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale;
 
 use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler;
-use Drupal\currency\LocaleDelegatorInterface;
+use Drupal\currency\LocaleResolverInterface;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -102,7 +102,7 @@ class CurrencyLocaleAccessControlHandlerUnitTest extends UnitTestCase {
   function providerTestCheckAccess() {
     return array(
       // The default currency locale cannot be deleted, even with permission.
-      array(FALSE, 'delete', TRUE, 'currency.currency_locale.delete', LocaleDelegatorInterface::DEFAULT_LOCALE),
+      array(FALSE, 'delete', TRUE, 'currency.currency_locale.delete', LocaleResolverInterface::DEFAULT_LOCALE),
       // Any non-default currency locale can be deleted with permission.
       array(TRUE, 'delete', TRUE, 'currency.currency_locale.delete', $this->randomMachineName()),
       // No currency locale can be deleted without permission.

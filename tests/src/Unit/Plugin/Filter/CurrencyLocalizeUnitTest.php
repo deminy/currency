@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\currency\Plugin\Filter\CurrencyLocalize;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -104,10 +105,10 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
    */
   function testProcess() {
     $map = [
-      ['100', TRUE, '€100.00'],
-      ['100.7654', TRUE, '€100.77'],
-      ['1.99', TRUE, '€1.99'],
-      ['2.99', TRUE, '€2.99'],
+      ['100', TRUE, LanguageInterface::TYPE_CONTENT, '€100.00'],
+      ['100.7654', TRUE, LanguageInterface::TYPE_CONTENT, '€100.77'],
+      ['1.99', TRUE, LanguageInterface::TYPE_CONTENT, '€1.99'],
+      ['2.99', TRUE, LanguageInterface::TYPE_CONTENT, '€2.99'],
     ];
     $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
     $currency->expects($this->any())

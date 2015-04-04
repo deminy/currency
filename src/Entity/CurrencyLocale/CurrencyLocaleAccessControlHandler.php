@@ -14,7 +14,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\currency\LocaleDelegatorInterface;
+use Drupal\currency\LocaleResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -47,7 +47,7 @@ class CurrencyLocaleAccessControlHandler extends EntityAccessControlHandler impl
    */
   protected function checkAccess(EntityInterface $currency_locale, $operation, $langcode, AccountInterface $account) {
     /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
-    if ($currency_locale->getLocale() == LocaleDelegatorInterface::DEFAULT_LOCALE && $operation == 'delete') {
+    if ($currency_locale->getLocale() == LocaleResolverInterface::DEFAULT_LOCALE && $operation == 'delete') {
       return AccessResult::forbidden();
     }
     return AccessResult::allowedIfHasPermission($account, 'currency.currency_locale.' . $operation);

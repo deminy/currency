@@ -79,8 +79,8 @@ class CurrencyLocaleWebTest extends WebTestBase {
     $this->drupalGet($currency_locale_overview_path);
     $this->assertLinkByHref('admin/config/regional/currency-formatting/locale/nl_NL');
     $this->assertLinkByHref('admin/config/regional/currency-formatting/locale/nl_NL/delete');
-    /** @var \Drupal\currency\LocaleDelegatorInterface $locale_delegator */
-    $locale_delegator = \Drupal::service('currency.locale_delegator');
+    /** @var \Drupal\currency\LocaleResolverInterface $locale_delegator */
+    $locale_delegator = \Drupal::service('currency.locale_resolver');
     // Make sure that there is an edit link, but no delete link for the default
     // currency locale.
     $this->assertLinkByHref('admin/config/regional/currency-formatting/locale/' . $locale_delegator::DEFAULT_LOCALE);

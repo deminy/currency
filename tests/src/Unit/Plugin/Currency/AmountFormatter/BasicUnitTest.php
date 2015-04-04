@@ -26,11 +26,11 @@ class BasicUnitTest extends UnitTestCase {
   protected $formatter;
 
   /**
-   * The locale delegator used for testing.
+   * The locale resolver.
    *
-   * @var \Drupal\currency\LocaleDelegatorInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\LocaleResolverInterface|\PHPUnit_Framework_MockObject_MockObject
    */
-  protected $localeDelegator;
+  protected $localeResolver;
 
   /**
    * The string translator.
@@ -47,11 +47,11 @@ class BasicUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->localeDelegator = $this->getMock('\Drupal\currency\LocaleDelegatorInterface');
+    $this->localeResolver = $this->getMock('\Drupal\currency\LocaleResolverInterface');
 
     $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
 
-    $this->formatter = new Basic($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->localeDelegator);
+    $this->formatter = new Basic($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->localeResolver);
   }
 
   /**
@@ -61,7 +61,7 @@ class BasicUnitTest extends UnitTestCase {
   function testCreate() {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
     $map = array(
-      array('currency.locale_delegator', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->localeDelegator),
+      array('currency.locale_resolver', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->localeResolver),
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
     );
     $container->expects($this->any())
@@ -90,8 +90,8 @@ class BasicUnitTest extends UnitTestCase {
       ->method('getGroupingSeparator')
       ->will($this->returnValue($grouping_separator));
 
-    $this->localeDelegator->expects($this->any())
-      ->method('getCurrencyLocale')
+    $this->localeResolver->expects($this->any())
+      ->method('resolveCurrencyLocale')
       ->will($this->returnValue($currency_locale));
 
     // The formatter must not alter the decimals.

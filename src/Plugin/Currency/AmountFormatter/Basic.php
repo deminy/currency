@@ -6,11 +6,12 @@
 
 namespace Drupal\currency\Plugin\Currency\AmountFormatter;
 
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Entity\CurrencyInterface;
-use Drupal\currency\LocaleDelegatorInterface;
+use Drupal\currency\LocaleResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,7 +28,7 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
   /**
    * The locale delegator.
    *
-   * @var \Drupal\currency\LocaleDelegatorInterface
+   * @var \Drupal\currency\LocaleResolverInterface
    */
   protected $localeDelegator;
 
@@ -42,10 +43,10 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
    *   The plugin implementation definition.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation_manager
    *   The translation manager.
-   * @param \Drupal\currency\LocaleDelegatorInterface $locale_delegator
+   * @param \Drupal\currency\LocaleResolverInterface $locale_delegator
    *   The locale delegator.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $translation_manager, LocaleDelegatorInterface $locale_delegator) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $translation_manager, LocaleResolverInterface $locale_delegator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->localeDelegator = $locale_delegator;
     $this->stringTranslation = $translation_manager;
@@ -55,17 +56,17 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('currency.locale_delegator'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('currency.locale_resolver'));
   }
 
   /**
    * {@inheritdoc}
    */
-  public function formatAmount(CurrencyInterface $currency, $amount) {
+  public function formatAmount(CurrencyInterface $currency, $amount, $language_type = LanguageInterface::TYPE_CONTENT) {
     // Compute the number of decimals, so we can format all of them and no less
     // or more.
     $decimals = strlen($amount) - strpos($amount, '.') - 1;
-    $currency_locale = $this->localeDelegator->getCurrencyLocale();
+    $currency_locale = $this->localeDelegator->resolveCurrencyLocale();
     $formatted_amount = number_format($amount, $decimals, $currency_locale->getDecimalSeparator(), $currency_locale->getGroupingSeparator());
     $arguments = array(
       '!currency_code' => $currency->getCurrencyCode(),

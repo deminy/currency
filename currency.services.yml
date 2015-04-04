@@ -1,4 +1,7 @@
 services:
+  currency.event_dispatcher:
+    class: Drupal\currency\EventDispatcher
+    arguments: ['@event_dispatcher']
   plugin.manager.currency.amount_formatter:
     class: Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager
     arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@config.factory']
@@ -12,9 +15,9 @@ services:
   currency.exchange_rate_provider:
     class: Drupal\currency\PluginBasedExchangeRateProvider
     arguments: ['@plugin.manager.currency.exchange_rate_provider', '@config.factory']
-  currency.locale_delegator:
-    class: Drupal\currency\LocaleDelegator
-    arguments: ['@entity.manager', '@language_manager', '@config.factory']
+  currency.locale_resolver:
+    class: Drupal\currency\LocaleResolver
+    arguments: ['@entity.manager', '@language_manager', '@config.factory', '@currency.event_dispatcher']
   currency.input:
     class: Drupal\currency\Input
   currency.config_importer:

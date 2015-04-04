@@ -26,11 +26,11 @@ class IntlUnitTest extends UnitTestCase {
   protected $formatter;
 
   /**
-   * The locale delegator used for testing.
+   * The locale resolver.
    *
-   * @var \Drupal\currency\LocaleDelegatorInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\LocaleResolverInterface|\PHPUnit_Framework_MockObject_MockObject
    */
-  protected $localeDelegator;
+  protected $localeResolver;
 
   /**
    * {@inheritdoc}
@@ -40,9 +40,9 @@ class IntlUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->localeDelegator = $this->getMock('\Drupal\currency\LocaleDelegatorInterface');
+    $this->localeResolver = $this->getMock('\Drupal\currency\LocaleResolverInterface');
 
-    $this->formatter = new Intl($configuration, $plugin_id, $plugin_definition, $this->localeDelegator);
+    $this->formatter = new Intl($configuration, $plugin_id, $plugin_definition, $this->localeResolver);
   }
 
   /**
@@ -53,8 +53,8 @@ class IntlUnitTest extends UnitTestCase {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
     $container->expects($this->once())
       ->method('get')
-      ->with('currency.locale_delegator')
-      ->will($this->returnValue($this->localeDelegator));
+      ->with('currency.locale_resolver')
+      ->will($this->returnValue($this->localeResolver));
 
     $configuration = array();
     $plugin_id = $this->randomMachineName();
@@ -86,8 +86,8 @@ class IntlUnitTest extends UnitTestCase {
       ->method('getGroupingSeparator')
       ->will($this->returnValue($grouping_separator));
 
-    $this->localeDelegator->expects($this->any())
-      ->method('getCurrencyLocale')
+    $this->localeResolver->expects($this->any())
+      ->method('resolveCurrencyLocale')
       ->will($this->returnValue($currency_locale));
 
     // ICU, the C library that PHP's Intl extension uses for formatting, is

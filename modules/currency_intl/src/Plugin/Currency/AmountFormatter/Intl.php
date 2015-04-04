@@ -6,10 +6,11 @@
 
 namespace Drupal\currency_intl\Plugin\Currency\AmountFormatter;
 
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\currency\Entity\CurrencyInterface;
-use Drupal\currency\LocaleDelegatorInterface;
+use Drupal\currency\LocaleResolverInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -27,7 +28,7 @@ class Intl extends PluginBase implements AmountFormatterInterface, ContainerFact
   /**
    * The locale delegator.
    *
-   * @var \Drupal\currency\LocaleDelegator
+   * @var \Drupal\currency\LocaleResolver
    */
   protected $localeDelegator;
 
@@ -40,10 +41,10 @@ class Intl extends PluginBase implements AmountFormatterInterface, ContainerFact
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\currency\LocaleDelegatorInterface $locale_delegator
+   * @param \Drupal\currency\LocaleResolverInterface $locale_delegator
    *   The locale delegator.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, LocaleDelegatorInterface $locale_delegator) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, LocaleResolverInterface $locale_delegator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->localeDelegator = $locale_delegator;
   }
@@ -52,14 +53,14 @@ class Intl extends PluginBase implements AmountFormatterInterface, ContainerFact
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.locale_delegator'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.locale_resolver'));
   }
 
   /**
    * {@inheritdoc}
    */
-  public function formatAmount(CurrencyInterface $currency, $amount) {
-    $currency_locale = $this->localeDelegator->getCurrencyLocale();
+  public function formatAmount(CurrencyInterface $currency, $amount, $language_type = LanguageInterface::TYPE_CONTENT) {
+    $currency_locale = $this->localeDelegator->resolveCurrencyLocale();
     $decimal_position = strpos($amount, '.');
     $number_of_decimals = $decimal_position !== FALSE ? strlen(substr($amount, $decimal_position + 1)) : 0;
     $formatter = new \NumberFormatter($currency_locale->getLocale(), \NumberFormatter::PATTERN_DECIMAL, $currency_locale->getPattern());

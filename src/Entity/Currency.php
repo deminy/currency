@@ -9,6 +9,7 @@ namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\currency\Math\MathInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
 use Drupal\currency\Usage;
@@ -288,7 +289,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * {@inheritdoc}
    */
-  function formatAmount($amount, $use_currency_precision = TRUE) {
+  function formatAmount($amount, $use_currency_precision = TRUE, $language_type = LanguageInterface::TYPE_CONTENT) {
     if ($use_currency_precision && $this->getSubunits()) {
       // Round the amount according the currency's configuration.
       $amount = $this->getMath()->round($amount, $this->getRoundingStep());
@@ -307,7 +308,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
       }
     }
 
-    return $this->getCurrencyAmountFormatterManager()->getDefaultPlugin()->formatAmount($this, $amount);
+    return $this->getCurrencyAmountFormatterManager()->getDefaultPlugin()->formatAmount($this, $amount, $language_type);
   }
 
   /**
