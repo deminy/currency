@@ -98,6 +98,14 @@ function currency_schema() {
         'type' => 'varchar',
         'length' => 255,
       ),
+      'symbol_decimal_separator' => array(
+        'type' => 'varchar',
+        'length' => '255',
+      ),
+      'symbol_grouping_separator' => array(
+        'type' => 'varchar',
+        'length' => '255',
+      ),
     ),
     'primary key' => array('locale'),
   );
@@ -176,5 +184,19 @@ function currency_update_7201(array &$sandbox) {
     'not null' => TRUE,
     'length' => 255,
     'type' => 'varchar',
+  ));
+}
+
+/**
+ * Adds missing fields on locale schema.
+ */
+function currency_update_7202(array &$sandbox) {
+  db_add_field('currency_locale_pattern', 'symbol_decimal_separator', array(
+    'type' => 'varchar',
+    'length' => '255',
+  ));
+  db_add_field('currency_locale_pattern', 'symbol_grouping_separator', array(
+    'type' => 'varchar',
+    'length' => '255',
   ));
 }
