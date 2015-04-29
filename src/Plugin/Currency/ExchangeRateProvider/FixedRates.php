@@ -20,9 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @CurrencyExchangeRateProvider(
  *   id = "currency_fixed_rates",
  *   label = @Translation("Fixed rates"),
- *   operations = {
- *     "admin/config/regional/currency-exchange/fixed" = @Translation("configure"),
- *   }
+ *   operations_provider = "\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRatesOperationsProvider"
  * )
  */
 class FixedRates extends PluginBase implements ExchangeRateProviderInterface, ContainerFactoryPluginInterface {

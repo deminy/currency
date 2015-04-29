@@ -26,6 +26,13 @@ class ExchangeRateProviderManagerUnitTest extends UnitTestCase {
   protected $cache;
 
   /**
+   * The class resolver.
+   *
+   * @var \Drupal\Core\DependencyInjection\ClassResolverInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $classResolver;
+
+  /**
    * The plugin discovery used for testing.
    *
    * @var \Drupal\Component\Plugin\Discovery\DiscoveryInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -57,6 +64,8 @@ class ExchangeRateProviderManagerUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
+    $this->classResolver = $this->getMock('\Drupal\Core\DependencyInjection\ClassResolverInterface');
+
     $this->discovery = $this->getMock('\Drupal\Component\Plugin\Discovery\DiscoveryInterface');
 
     $this->factory = $this->getMockBuilder('\Drupal\Component\Plugin\Factory\DefaultFactory')
@@ -69,7 +78,7 @@ class ExchangeRateProviderManagerUnitTest extends UnitTestCase {
 
     $namespaces = new ArrayObject();
 
-    $this->currencyExchangeRateProviderManager = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler);
+    $this->currencyExchangeRateProviderManager = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler, $this->classResolver);
     $discovery_property = new \ReflectionProperty($this->currencyExchangeRateProviderManager, 'discovery');
     $discovery_property->setAccessible(TRUE);
     $discovery_property->setValue($this->currencyExchangeRateProviderManager, $this->discovery);
@@ -83,7 +92,7 @@ class ExchangeRateProviderManagerUnitTest extends UnitTestCase {
    */
   public function testConstruct() {
     $namespaces = new ArrayObject();
-    $this->currencyExchangeRateProviderManager = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler);
+    $this->currencyExchangeRateProviderManager = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler, $this->classResolver);
   }
 
   /**

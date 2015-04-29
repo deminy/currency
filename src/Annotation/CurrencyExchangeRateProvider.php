@@ -38,11 +38,14 @@ class CurrencyExchangeRateProvider extends Plugin {
   public $label;
 
   /**
-   * Operations links (optional).
+   * The name of the class that provides plugin operations.
    *
-   * @var array
-   *   Keys are URL paths and values are link texts.
+   * The class must implement
+   * \Drupal\currency\Plugin\Currency\OperationsProviderInterface and may
+   * implement \Drupal\Core\DependencyInjection\ContainerInjectionInterface.
+   *
+   * @var string
    */
-  public $operations = array();
+  public $operations_provider;
 
 }

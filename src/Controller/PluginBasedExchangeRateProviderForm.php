@@ -110,15 +110,9 @@ class PluginBasedExchangeRateProviderForm extends FormBase implements ContainerI
         '#title_display' => 'invisible',
         '#type' => 'weight',
       );
-      $links = array();
-      foreach ($plugin_definition['operations'] as $path => $title) {
-        $links[] = array(
-          'href' => $path,
-          'title' => $title,
-        );
-      }
+      $operations_provider = $this->currencyExchangeRateProviderManager->getOperationsProvider($plugin_id);
       $form['exchange_rate_providers'][$plugin_id]['operations'] = array(
-        '#links' => $links,
+        '#links' => $operations_provider ? $operations_provider->getOperations($plugin_id) : [],
         '#title' => $this->t('Operations'),
         '#type' => 'operations',
       );

@@ -8,8 +8,10 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\currency\Plugin\Currency\OperationsProviderPluginManagerTrait;
 
 /**
  * Manages currency exchange rate provider plugins.
@@ -17,6 +19,8 @@ use Drupal\Core\Plugin\DefaultPluginManager;
  * @see \Drupal\block\BlockInterface
  */
 class ExchangeRateProviderManager extends DefaultPluginManager implements ExchangeRateProviderManagerInterface {
+
+  use OperationsProviderPluginManagerTrait;
 
   /**
    * {@inheritdoc}
@@ -35,11 +39,14 @@ class ExchangeRateProviderManager extends DefaultPluginManager implements Exchan
    *   Cache backend instance to use.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler to invoke the alter hook with.
+   * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $class_resolver
+   *   The class resolver.
    */
-  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
+  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler, ClassResolverInterface $class_resolver) {
     parent::__construct('Plugin/Currency/ExchangeRateProvider', $namespaces, $module_handler, '\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface', '\Drupal\currency\Annotation\CurrencyExchangeRateProvider');
     $this->alterInfo('currency_exchange_rate_provider');
     $this->setCacheBackend($cache_backend, 'currency_exchange_rate_provider');
+    $this->classResolver = $class_resolver;
   }
 
 }

@@ -8,11 +8,12 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\currency\Plugin\Currency\OperationsProviderPluginManagerInterface;
 
 /**
  * Defines an amount formatter plugin manager.
  */
-interface ExchangeRateProviderManagerInterface extends PluginManagerInterface {
+interface ExchangeRateProviderManagerInterface extends PluginManagerInterface, OperationsProviderPluginManagerInterface {
 
   /**
    * Creates an exchange rate provider.
