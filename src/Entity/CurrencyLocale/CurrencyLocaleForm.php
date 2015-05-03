@@ -92,16 +92,12 @@ class CurrencyLocaleForm extends EntityForm {
     /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
     $currency_locale = $this->getEntity();
 
-    $form['locale'] = array(
-      '#title' => $this->t('Locale'),
-      '#type' => 'details',
-    );
     $options = array();
     foreach (LanguageManager::getStandardLanguageList() as $language_code => $language_names) {
       $options[$language_code] = $language_names[0];
     }
     natcasesort($options);
-    $form['locale']['language_code'] = array(
+    $form['language_code'] = array(
       '#default_value' => $currency_locale->getLanguageCode(),
       '#empty_value' => '',
       '#options' => $options,
@@ -109,7 +105,7 @@ class CurrencyLocaleForm extends EntityForm {
       '#title' => $this->t('Language'),
       '#type' => 'select',
     );
-    $form['locale']['country_code'] = array(
+    $form['country_code'] = array(
       '#default_value' => $currency_locale->getCountryCode(),
       '#empty_value' => '',
       '#options' => $this->countryManager->getList(),
@@ -118,6 +114,7 @@ class CurrencyLocaleForm extends EntityForm {
       '#type' => 'select',
     );
     $form['formatting'] = array(
+      '#open' => TRUE,
       '#title' => $this->t('Formatting'),
       '#type' => 'details',
     );
@@ -138,7 +135,7 @@ class CurrencyLocaleForm extends EntityForm {
     );
     $form['formatting']['pattern'] = array(
       '#default_value' => $currency_locale->getPattern(),
-      '#description' => $this->t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>'),
+      '#description' => $this->t('A Unicode <abbr title="Common Locale Data Repository">CLDR</abbr> <a href="http://cldr.unicode.org/translation/number-patterns">currency number pattern</a>.'),
       '#maxlength' => 255,
       '#title' => $this->t('Pattern'),
       '#type' => 'textfield',
