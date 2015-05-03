@@ -19,6 +19,7 @@ currency.exchange_rate_provider.fixed_rates.add:
   path: '/admin/config/regional/currency-exchange/fixed/add'
   defaults:
     _form: '\Drupal\currency\Controller\FixedRatesForm'
+    _title: 'Add an exchange rate'
   requirements:
     _permission: 'currency.exchange_rate_provider.fixed_rates.administer'
 
@@ -26,6 +27,7 @@ currency.exchange_rate_provider.fixed_rates.edit:
   path: '/admin/config/regional/currency-exchange/fixed/{currency_code_from}/{currency_code_to}'
   defaults:
     _form: '\Drupal\currency\Controller\FixedRatesForm'
+    _title: 'Edit an exchange rate'
   requirements:
     _permission: 'currency.exchange_rate_provider.fixed_rates.administer'
 
