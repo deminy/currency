@@ -10,7 +10,6 @@ namespace Drupal\currency\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\currency\Math\MathInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
 use Drupal\currency\Usage;
 
@@ -124,13 +123,6 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
    * @var string
    */
   public $uuid;
-
-  /**
-   * The math provider.
-   *
-   * @var \Drupal\currency\Math\MathInterface
-   */
-  public $math;
 
   /**
    * {@inheritdoc}
@@ -292,7 +284,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   function formatAmount($amount, $use_currency_precision = TRUE, $language_type = LanguageInterface::TYPE_CONTENT) {
     if ($use_currency_precision && $this->getSubunits()) {
       // Round the amount according the currency's configuration.
-      $amount = $this->getMath()->round($amount, $this->getRoundingStep());
+      $amount = bcmul(round(bcdiv($amount, $this->getRoundingStep(), 6)), $this->getRoundingStep(), 6);
 
       $decimal_mark_position = strpos($amount, '.');
       // The amount has no decimals yet, so add a decimal mark.
@@ -364,32 +356,6 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   }
 
   /**
-   * Sets the math service.
-   *
-   * @param \Drupal\currency\Math\MathInterface $math
-   *
-   * @return $this
-   */
-  public function setMath(MathInterface $math) {
-    $this->math = $math;
-
-    return $this;
-  }
-
-  /**
-   * Sets the math service.
-   *
-   * @return \Drupal\currency\Math\MathInterface
-   */
-  protected function getMath() {
-    if (!$this->math) {
-      $this->math = \Drupal::service('currency.math');
-    }
-
-    return $this->math;
-  }
-
-  /**
    * {@inheritdoc}
    */
   function getRoundingStep() {
@@ -399,7 +365,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
     // If a rounding step was not set explicitly, the rounding step is equal
     // to one subunit.
     elseif (is_numeric($this->getSubunits())) {
-      return $this->getSubunits() > 0 ? $this->getMath()->divide(1, $this->getSubunits()) : 1;
+      return $this->getSubunits() > 0 ? bcdiv(1, $this->getSubunits(), 6) : 1;
     }
     return NULL;
   }

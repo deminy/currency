@@ -8,11 +8,7 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRate;
-use Drupal\currency\Math\MathInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -23,38 +19,7 @@ use Symfony\Component\Yaml\Yaml;
  *   label = @Translation("Historical rates")
  * )
  */
-class HistoricalRates extends PluginBase implements ExchangeRateProviderInterface, ContainerFactoryPluginInterface {
-
-  /**
-   * The math service.
-   *
-   * @var \Drupal\currency\Math\MathInterface
-   */
-  protected $math;
-
-  /**
-   * Constructs a new class instance
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param array $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\currency\Math\MathInterface
-   *   The Currency math service.
-   */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MathInterface $math) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->math = $math;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('currency.math'));
-  }
+class HistoricalRates extends PluginBase implements ExchangeRateProviderInterface {
 
   /**
    * {@inheritdoc}
@@ -72,7 +37,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
     // Conversion rates are two-way. If a reverse rate is unavailable, set it.
     if (!$rate) {
       if (isset($exchange_rates[$currency_code_to][$currency_code_from])) {
-        $rate = $this->math->divide(1, $exchange_rates[$currency_code_to][$currency_code_from]);
+        $rate = bcdiv(1, $exchange_rates[$currency_code_to][$currency_code_from], 6);
       }
     }
 

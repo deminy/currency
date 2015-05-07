@@ -9,7 +9,6 @@ namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates;
 use Drupal\Tests\UnitTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
@@ -17,13 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @group Currency
  */
 class HistoricalRatesUnitTest extends UnitTestCase {
-
-  /**
-   * The math service.
-   *
-   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $math;
 
   /**
    * The plugin under test.
@@ -40,26 +32,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
-
-    $this->plugin = new HistoricalRates($configuration, $plugin_id, $plugin_definition, $this->math);
-  }
-
-  /**
-   * @covers ::create
-   * @covers ::__construct
-   */
-  function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
-    $map = array(
-      array('currency.math', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->math),
-    );
-    $container->expects($this->any())
-      ->method('get')
-      ->will($this->returnValueMap($map));
-
-    $form = HistoricalRates::create($container, array(), '', array());
-    $this->assertInstanceOf('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates', $form);
+    $this->plugin = new HistoricalRates($configuration, $plugin_id, $plugin_definition);
   }
 
   /**
@@ -68,12 +41,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
   public function testLoad() {
     $expected_rates = $this->prepareExchangeRates();
 
-    $reverse_rate = mt_rand();
-
-    $this->math->expects($this->any())
-      ->method('divide')
-      ->with(1, $expected_rates['EUR']['DEM'])
-      ->will($this->returnValue($reverse_rate));
+    $reverse_rate = '0.511291';
 
     // Test rates that are stored in config.
     $this->assertSame($expected_rates['EUR']['NLG'], $this->plugin->load('EUR', 'NLG')->getRate());
@@ -92,11 +60,6 @@ class HistoricalRatesUnitTest extends UnitTestCase {
    */
   public function testLoadMultiple() {
     $expected_rates = $this->prepareExchangeRates();
-
-    $this->math->expects($this->any())
-      ->method('divide')
-      ->with(1, $expected_rates['EUR']['NLG'])
-      ->will($this->returnValue($expected_rates['NLG']['EUR']));
 
     $returned_rates = $this->plugin->loadMultiple(array(
       // Test a rate that is stored in config.
@@ -124,7 +87,7 @@ class HistoricalRatesUnitTest extends UnitTestCase {
         'NLG' => '2.20371',
       ),
       'NLG' => array(
-        'EUR' => '0.453780216',
+        'EUR' => '0.453780',
       ),
     );
 

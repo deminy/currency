@@ -12,6 +12,10 @@
       "Drupal\\Tests\\currency\\": "tests/src"
     }
   },
+  "require" : {
+    "ext-bcmath": "*",
+    "php": "~5.4"
+  },
   "require-dev" : {
     "satooshi/php-coveralls": "dev-master"
   }

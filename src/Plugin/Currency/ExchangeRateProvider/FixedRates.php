@@ -11,7 +11,6 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\currency\ExchangeRate;
-use Drupal\currency\Math\MathInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -33,13 +32,6 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
   protected $configFactory;
 
   /**
-   * The math service.
-   *
-   * @var \Drupal\currency\Math\MathInterface
-   */
-  protected $math;
-
-  /**
    * Constructs a new class instance
    *
    * @param array $configuration
@@ -50,20 +42,17 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    *   The plugin implementation definition.
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   The configuration factory service.
-   * @param \Drupal\currency\Math\MathInterface
-   *   The Currency math service.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactory $config_factory, MathInterface $math) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactory $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
-    $this->math = $math;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('config.factory'), $container->get('currency.math'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('config.factory'));
   }
 
   /**
@@ -80,7 +69,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
     // cached data would require additional checks when deleting rates, to see
     // if the they are reversed from other rates or are originals.
     elseif(isset($rates[$currency_code_to]) && isset($rates[$currency_code_to][$currency_code_from])) {
-      $rate = $this->math->divide(1, $rates[$currency_code_to][$currency_code_from]);
+      $rate = bcdiv(1, $rates[$currency_code_to][$currency_code_from], 6);
     }
 
     if ($rate) {

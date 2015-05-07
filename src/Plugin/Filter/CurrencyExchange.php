@@ -11,7 +11,6 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\ExchangeRateProviderInterface;
 use Drupal\currency\InputInterface;
-use Drupal\currency\Math\MathInterface;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -42,13 +41,6 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
   protected $input;
 
   /**
-   * The math service.
-   *
-   * @var \Drupal\currency\Math\MathInterface
-   */
-  protected $math;
-
-  /**
    * Constructs a new class instance
    *
    * @param array $configuration
@@ -61,16 +53,13 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    *   The string translator.
    * @param \Drupal\currency\ExchangeRateProviderInterface $exchange_rate_provider
    *   The exchange rate provider.
-   * @param \Drupal\currency\Math\MathInterface
-   *   The Currency math service.
    * @param \Drupal\currency\InputInterface $input
    *   The input parser.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ExchangeRateProviderInterface $exchange_rate_provider, MathInterface $math, InputInterface $input) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, ExchangeRateProviderInterface $exchange_rate_provider, InputInterface $input) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->exchangeRateProvider = $exchange_rate_provider;
     $this->input = $input;
-    $this->math = $math;
     $this->stringTranslation = $string_translation;
   }
 
@@ -78,7 +67,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('currency.exchange_rate_provider'), $container->get('currency.math'), $container->get('currency.input'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('string_translation'), $container->get('currency.exchange_rate_provider'), $container->get('currency.input'));
   }
 
   /**
@@ -111,7 +100,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
 
     $exchange_rate = $this->exchangeRateProvider->load($currency_code_from, $currency_code_to);
     if ($exchange_rate) {
-      return $this->math->multiply($amount, $exchange_rate->getRate());
+      return bcmul($amount, $exchange_rate->getRate(), 6);
     }
     // No exchange rate could be loaded, so return the token.
     return $matches[0];

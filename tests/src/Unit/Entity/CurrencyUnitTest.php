@@ -47,13 +47,6 @@ class CurrencyUnitTest extends UnitTestCase {
   protected $entityTypeId;
 
   /**
-   * The math provider.
-   *
-   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  public $math;
-
-  /**
    * {@inheritdoc}
    */
   function setUp() {
@@ -63,12 +56,9 @@ class CurrencyUnitTest extends UnitTestCase {
 
     $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
 
-    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
-
     $this->sut = new Currency([], $this->entityTypeId);
     $this->sut->setCurrencyAmountFormatterManager($this->currencyAmountFormatterManager);
     $this->sut->setEntityManager($this->entityManager);
-    $this->sut->setMath($this->math);
   }
 
   /**
@@ -103,21 +93,8 @@ class CurrencyUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::setMath
-   * @covers ::getMath
-   */
-  public function testGetMath() {
-    $method = new \ReflectionMethod($this->sut, 'getMath');
-    $method->setAccessible(TRUE);
-
-    $this->assertSame($this->sut, $this->sut->setMath($this->math));
-    $this->assertSame($this->math, $method->invoke($this->sut));
-  }
-
-  /**
    * @covers ::getRoundingStep
    * @covers ::setRoundingStep
-   * @covers ::getMath
    */
   function testGetRoundingStep() {
     $rounding_step = mt_rand();
@@ -130,13 +107,8 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::getRoundingStep
    */
   function testGetRoundingStepBySubunits() {
-    $subunits = mt_rand();
-    $rounding_step = mt_rand();
-
-    $this->math->expects($this->atLeastOnce())
-      ->method('divide')
-      ->with(1, $subunits)
-      ->willReturn($rounding_step);
+    $subunits = 5;
+    $rounding_step = '0.200000';
 
     $this->sut->setSubunits($subunits);
 
@@ -153,7 +125,6 @@ class CurrencyUnitTest extends UnitTestCase {
   /**
    * @covers ::formatAmount
    * @covers ::getCurrencyAmountFormatterManager
-   * @covers ::getMath
    *
    * @depends testGetRoundingStep
    *
@@ -170,17 +141,6 @@ class CurrencyUnitTest extends UnitTestCase {
       ->method('getDefaultPlugin')
       ->willReturn($amount_formatter);
 
-    if ($amount !== $amount_with_currency_precision_applied) {
-      $this->math->expects($this->atLeastOnce())
-        ->method('round')
-        ->with($amount, $this->sut->getRoundingStep())
-        ->willReturn($amount_with_currency_precision_applied);
-    }
-    else {
-      $this->math->expects($this->never())
-        ->method('round');
-    }
-
     $this->sut->setCurrencyCode('BLA');
     $this->sut->setSubunits(100);
 
@@ -192,7 +152,7 @@ class CurrencyUnitTest extends UnitTestCase {
    */
   public function providerTestFormatAmount() {
     return [
-      ['BLA 12,345.68', '12345.6789', '12345.67'],
+      ['BLA 12,345.68', '12345.6789', '12345.68'],
       ['BLA 12,345.6789', '12345.6789', '12345.6789'],
     ];
   }

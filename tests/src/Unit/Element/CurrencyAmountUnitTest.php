@@ -48,13 +48,6 @@ class CurrencyAmountUnitTest extends UnitTestCase {
   protected $formHelper;
 
   /**
-   * The math provider.
-   *
-   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $math;
-
-  /**
    * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -71,15 +64,13 @@ class CurrencyAmountUnitTest extends UnitTestCase {
 
     $this->input = $this->getMock('\Drupal\currency\InputInterface');
 
-    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
-
     $this->stringTranslation = $this->getStringTranslationStub();
 
     $configuration = [];
     $plugin_id = $this->randomMachineName();
     $plugin_definition = [];
 
-    $this->element = new CurrencyAmount($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->currencyStorage, $this->input, $this->math, $this->formHelper);
+    $this->element = new CurrencyAmount($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->currencyStorage, $this->input, $this->formHelper);
   }
 
   /**
@@ -104,11 +95,6 @@ class CurrencyAmountUnitTest extends UnitTestCase {
         'currency.input',
         ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
         $this->input
-      ),
-      array(
-        'currency.math',
-        ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $this->math
       ),
       array(
         'entity.manager',

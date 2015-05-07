@@ -41,13 +41,6 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
   protected $input;
 
   /**
-   * The math service used for testing.
-   *
-   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $math;
-
-  /**
    * The plugin definiton.
    *
    * @var mixed[]
@@ -76,11 +69,9 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
 
     $this->input = $this->getMock('\Drupal\currency\InputInterface');
 
-    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
-
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->filter = new CurrencyExchange($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->exchangeRateProvider, $this->math, $this->input);
+    $this->filter = new CurrencyExchange($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->exchangeRateProvider, $this->input);
   }
 
   /**
@@ -91,7 +82,6 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
     $map = [
       ['currency.input', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->input],
-      ['currency.math', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->math],
       ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
       ['currency.exchange_rate_provider', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->exchangeRateProvider],
     ];
@@ -121,15 +111,6 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
       ->method('load')
       ->with($currency_code_from, $currency_code_to)
       ->will($this->returnValue($exchange_rate));
-
-    $map = [
-      [1, $rate, $rate],
-      ['1', $rate, $rate],
-      ['2', $rate, '4.40742'],
-    ];
-    $this->math->expects($this->any())
-      ->method('multiply')
-      ->will($this->returnValueMap($map));
 
     $langcode = $this->randomMachineName(2);
     $cache = TRUE;

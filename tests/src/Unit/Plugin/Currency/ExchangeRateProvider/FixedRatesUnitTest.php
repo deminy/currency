@@ -33,13 +33,6 @@ class FixedRatesUnitTest extends UnitTestCase {
   protected $configFactory;
 
   /**
-   * The math service.
-   *
-   * @var \Drupal\currency\Math\MathInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $math;
-
-  /**
    * The plugin under test.
    *
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates
@@ -58,9 +51,7 @@ class FixedRatesUnitTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->math = $this->getMock('\Drupal\currency\Math\MathInterface');
-
-    $this->plugin = new FixedRates($configuration, $plugin_id, $plugin_definition, $this->configFactory, $this->math);
+    $this->plugin = new FixedRates($configuration, $plugin_id, $plugin_definition, $this->configFactory);
   }
 
   /**
@@ -71,7 +62,6 @@ class FixedRatesUnitTest extends UnitTestCase {
     $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
     $map = array(
       array('config.factory', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configFactory),
-      array('currency.math', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->math),
     );
     $container->expects($this->any())
       ->method('get')
@@ -95,12 +85,7 @@ class FixedRatesUnitTest extends UnitTestCase {
    */
   public function testLoad() {
     list($rates) = $this->prepareExchangeRates();
-    $reverse_rate = mt_rand();
-
-    $this->math->expects($this->any())
-      ->method('divide')
-      ->with(1, $rates['EUR']['DEM'])
-      ->will($this->returnValue($reverse_rate));
+    $reverse_rate = '0.511291';
 
     // Test rates that are stored in config.
     $this->assertSame($rates['EUR']['NLG'], $this->plugin->load('EUR', 'NLG')->getRate());
@@ -119,11 +104,6 @@ class FixedRatesUnitTest extends UnitTestCase {
    */
   public function testLoadMultiple() {
     list($rates) = $this->prepareExchangeRates();
-
-    $this->math->expects($this->any())
-      ->method('divide')
-      ->with(1, $rates['EUR']['NLG'])
-      ->will($this->returnValue($rates['NLG']['EUR']));
 
     $rates = array(
       'EUR' => array(
