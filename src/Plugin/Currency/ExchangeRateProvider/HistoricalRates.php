@@ -28,7 +28,7 @@ class HistoricalRates extends PluginBase implements ExchangeRateProviderInterfac
     $rate = NULL;
 
     $filename = __DIR__ . '/../../../../currency.historical_exchange_rates.yml';
-    $exchange_rates = Yaml::parse($filename);
+    $exchange_rates = Yaml::parse(file_get_contents($filename));
 
     if (isset($exchange_rates[$currency_code_from][$currency_code_to])) {
       $rate = $exchange_rates[$currency_code_from][$currency_code_to];
