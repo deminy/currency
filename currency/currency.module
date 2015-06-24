@@ -301,12 +301,12 @@ function currency_form_currency_amount_validate(array $element, array &$form_sta
 
   // Confirm the amount lies within the allowed range.
   $currency = currency_load($currency_code);
-  if ($element['#minimum_amount'] !== FALSE && bccomp($element['#minimum_amount'], $amount) == 1) {
+  if ($element['#minimum_amount'] !== FALSE && bccomp($element['#minimum_amount'], $amount, CURRENCY_BCMATH_SCALE) == 1) {
     form_error($element['amount'], t('The minimum amount is !amount.', array(
       '!amount' => $currency->format($element['#minimum_amount']),
     )));
   }
-  elseif ($element['#maximum_amount'] !== FALSE && bccomp($amount, $element['#maximum_amount']) == 1) {
+  elseif ($element['#maximum_amount'] !== FALSE && bccomp($amount, $element['#maximum_amount'], CURRENCY_BCMATH_SCALE) == 1) {
     form_error($element['amount'], t('The maximum amount is !amount.', array(
       '!amount' => $currency->format($element['#maximum_amount']),
     )));
