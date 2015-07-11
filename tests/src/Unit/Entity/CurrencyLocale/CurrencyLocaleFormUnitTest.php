@@ -373,10 +373,10 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::validate
+   * @covers ::validateForm
    * @dataProvider providerTestValidate
    */
-  public function testValidate($input_value_language_code, $input_value_country_code, $locale, $currency_locale_is_new, $locale_is_used) {
+  public function testValidateForm($input_value_language_code, $input_value_country_code, $locale, $currency_locale_is_new, $locale_is_used) {
     $form = array(
       'locale' => array(
         '#foo' => $this->randomMachineName(),
@@ -427,7 +427,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
         ->method('setError');
     }
 
-    $this->form->validate($form, $form_state);
+    $this->form->validateForm($form, $form_state);
   }
 
   /**

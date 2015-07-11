@@ -147,8 +147,8 @@ class CurrencyLocaleForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  function validate(array $form, FormStateInterface $form_state) {
-    parent::validate($form, $form_state);
+  function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
     $currency_locale = $this->getEntity();
     if ($currency_locale->isNew()) {
       $values = $form_state->getValues();
