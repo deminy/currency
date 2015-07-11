@@ -11,7 +11,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
-use Drupal\currency\Plugin\Currency\OperationsProviderPluginManagerTrait;
+use Drupal\plugin\Plugin\PluginOperationsProviderPluginManagerTrait;
 
 /**
  * Manages currency exchange rate provider plugins.
@@ -20,7 +20,7 @@ use Drupal\currency\Plugin\Currency\OperationsProviderPluginManagerTrait;
  */
 class ExchangeRateProviderManager extends DefaultPluginManager implements ExchangeRateProviderManagerInterface {
 
-  use OperationsProviderPluginManagerTrait;
+  use PluginOperationsProviderPluginManagerTrait;
 
   /**
    * {@inheritdoc}

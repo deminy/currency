@@ -40,9 +40,7 @@ class CurrencyExchangeRateProvider extends Plugin {
   /**
    * The name of the class that provides plugin operations.
    *
-   * The class must implement
-   * \Drupal\currency\Plugin\Currency\OperationsProviderInterface and may
-   * implement \Drupal\Core\DependencyInjection\ContainerInjectionInterface.
+   * The class must implement \Drupal\plugin\PluginOperationsProviderInterface.
    *
    * @var string
    */

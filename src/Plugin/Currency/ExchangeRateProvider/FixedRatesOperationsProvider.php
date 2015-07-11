@@ -11,13 +11,13 @@ use Drupal\Core\Routing\RedirectDestinationInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
-use Drupal\currency\Plugin\Currency\OperationsProviderInterface;
+use Drupal\plugin\PluginOperationsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides operations for the fixed rates exchange rate provider.
  */
-class FixedRatesOperationsProvider implements OperationsProviderInterface, ContainerInjectionInterface {
+class FixedRatesOperationsProvider implements PluginOperationsProviderInterface, ContainerInjectionInterface {
 
   use StringTranslationTrait;
 

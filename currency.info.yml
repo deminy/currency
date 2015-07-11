@@ -3,3 +3,5 @@ description: Provides currency metadata and exchange rates, and amount formattin
 core: 8.x
 configure: currency.currency.list
 type: module
+dependencies:
+  - plugin
