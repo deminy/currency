@@ -5,9 +5,10 @@
  * Contains \Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderOperationsProviderTest.
  */
 
-namespace Drupal\Tests\plugin\Unit;
+namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderOperationsProvider;
+use Drupal\Tests\plugin\Unit\DefaultPluginTypeOperationsProviderTest;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderOperationsProvider

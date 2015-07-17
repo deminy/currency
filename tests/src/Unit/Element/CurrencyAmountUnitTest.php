@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @coversDefaultClass \Drupal\currency\Element\CurrencyAmount
  *
- * @group Payment Reference Field
+ * @group Currency
  */
 class CurrencyAmountUnitTest extends UnitTestCase {
 

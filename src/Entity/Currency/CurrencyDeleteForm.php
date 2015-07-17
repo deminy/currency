@@ -14,7 +14,7 @@ use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides the payment method deletion form.
+ * Provides the currency deletion form.
  */
 class CurrencyDeleteForm extends EntityConfirmFormBase {
 

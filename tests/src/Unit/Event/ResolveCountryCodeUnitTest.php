@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\payment\Event\ResolveCountryCodeUnitTest.
+ * Contains \Drupal\currency\Event\ResolveCountryCodeUnitTest.
  */
 
-namespace Drupal\Tests\payment\Unit\Event;
+namespace Drupal\Tests\currency\Unit\Event;
 
 use Drupal\currency\Event\ResolveCountryCode;
 use Drupal\Tests\UnitTestCase;

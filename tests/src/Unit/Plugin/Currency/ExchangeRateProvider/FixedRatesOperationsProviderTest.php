@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Contains \Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderOperationsProviderTest.
+ * Contains \Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider\FixedRatesOperationsProviderTest.
  */
 
-namespace Drupal\Tests\plugin\Unit;
+namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRatesOperationsProvider;
-use Drupal\Tests\plugin\OperationsProviderTestTrait;
+use Drupal\Tests\plugin\Unit\OperationsProviderTestTrait;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
