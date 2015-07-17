@@ -1,7 +1,7 @@
-currency.currency.list:
+entity.currency.collection:
   title: Currencies
   parent: system.admin_config_regional
-  route_name: currency.currency.list
+  route_name: entity.currency.collection
 currency.amount_formatting:
   title: Currency amount formatting
   description: Configure amount formatting for different locales.

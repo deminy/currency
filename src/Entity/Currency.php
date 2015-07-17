@@ -35,10 +35,10 @@ use Drupal\currency\Usage;
  *   id = "currency",
  *   label = @Translation("Currency"),
  *   links = {
- *     "canonical" = "currency.currency.edit",
- *     "create-form" = "currency.currency.add",
- *     "edit-form" = "currency.currency.edit",
- *     "delete-form" = "currency.currency.delete"
+ *     "collection" = "/admin/config/regional/currency",
+ *     "create-form" = "/admin/config/regional/currency/add",
+ *     "edit-form" = "/admin/config/regional/currency/{currency}",
+ *     "delete-form" = "/admin/config/regional/currency/{currency}/delete"
  *   }
  * )
  */

@@ -109,7 +109,7 @@ class CurrencyDeleteFormUnitTest extends UnitTestCase {
   function testGetCancelUrl() {
     $url = $this->form->getCancelUrl();
     $this->assertInstanceOf('\Drupal\Core\Url', $url);
-    $this->assertSame('currency.currency.list', $url->getRouteName());
+    $this->assertSame('entity.currency.collection', $url->getRouteName());
   }
 
   /**

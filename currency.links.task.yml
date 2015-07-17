@@ -3,7 +3,7 @@ currency.amount_formatting:
   route_name: currency.amount_formatting
   title: Formatting
 
-currency.currency_locale.list:
+entity.currency_locale.collection:
   base_route: currency.amount_formatting
-  route_name: currency.currency_locale.list
+  route_name: entity.currency_locale.collection
   title: Locales

@@ -367,7 +367,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
     $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
     $form_state->expects($this->once())
       ->method('setRedirect')
-      ->with('currency.currency_locale.list');
+      ->with('entity.currency_locale.collection');
 
     $this->form->save($form, $form_state);
   }

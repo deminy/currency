@@ -47,7 +47,7 @@ class DisableCurrency extends ControllerBase implements ContainerInjectionInterf
     $currency->disable();
     $currency->save();
 
-    return new RedirectResponse($this->urlGenerator->generateFromRoute('currency.currency.list', array(
+    return new RedirectResponse($this->urlGenerator->generateFromRoute('entity.currency.collection', array(
       'absolute' => TRUE,
     )));
   }

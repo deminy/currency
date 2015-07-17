@@ -32,7 +32,7 @@ currency.exchange_rate_provider.fixed_rates.edit:
     _permission: 'currency.exchange_rate_provider.fixed_rates.administer'
 
 # Currency entities.
-currency.currency.list:
+entity.currency.collection:
   path: '/admin/config/regional/currency'
   defaults:
     _entity_list: 'currency'
@@ -87,7 +87,7 @@ entity.currency.disable:
     _entity_access: 'currency.disable'
 
 # Currency currency locale entities.
-currency.currency_locale.list:
+entity.currency_locale.collection:
   path: '/admin/config/regional/currency-formatting/locale'
   defaults:
     _entity_list: 'currency_locale'

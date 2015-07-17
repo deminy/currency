@@ -34,10 +34,10 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *   id = "currency_locale",
  *   label = @Translation("Currency currency locale"),
  *   links = {
- *     "canonical" = "currency.currency_locale.edit",
- *     "create-form" = "currency.currency_locale.add",
- *     "edit-form" = "currency.currency_locale.edit",
- *     "delete-form" = "currency.currency_locale.delete"
+ *     "collection" = "/admin/config/regional/currency-formatting/locale",
+ *     "create-form" = "/admin/config/regional/currency-formatting/locale/add",
+ *     "edit-form" = "/admin/config/regional/currency-formatting/locale/{currency_locale}",
+ *     "delete-form" = "/admin/config/regional/currency-formatting/locale/{currency_locale}/delete"
  *   }
  * )
  */

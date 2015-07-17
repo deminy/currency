@@ -115,7 +115,7 @@ class CurrencyLocaleImportForm extends FormBase implements ContainerInjectionInt
       $form_state->setRedirectUrl($currency_locale->urlInfo('edit-form'));
     }
     else {
-      $form_state->setRedirectUrl(new Url('currency.currency_locale.list'));
+      $form_state->setRedirectUrl(new Url('entity.currency_locale.collection'));
     }
   }
 

@@ -48,7 +48,7 @@ class CurrencyLocaleDeleteForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('currency.currency_locale.list');
+    return new Url('entity.currency_locale.collection');
   }
 
   /**

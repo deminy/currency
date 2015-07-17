@@ -115,7 +115,7 @@ class CurrencyImportForm extends FormBase implements ContainerInjectionInterface
       $form_state->setRedirectUrl($currency->urlInfo('edit-form'));
     }
     else {
-      $form_state->setRedirectUrl(new Url('currency.currency.list'));
+      $form_state->setRedirectUrl(new Url('entity.currency.collection'));
     }
   }
 

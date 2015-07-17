@@ -147,7 +147,7 @@ class CurrencyLocaleForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  function validateForm(array &$form, FormStateInterface $form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
     $currency_locale = $this->getEntity();
     if ($currency_locale->isNew()) {
@@ -169,7 +169,7 @@ class CurrencyLocaleForm extends EntityForm {
     drupal_set_message($this->t('The currency locale %label has been saved.', array(
       '%label' => $currency_locale->label(),
     )));
-    $form_state->setRedirect('currency.currency_locale.list');
+    $form_state->setRedirect('entity.currency_locale.collection');
   }
 
 }

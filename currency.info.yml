@@ -1,7 +1,7 @@
 name: Currency
 description: Provides currency metadata and exchange rates, and amount formatting.
 core: 8.x
-configure: currency.currency.list
+configure: entity.currency.collection
 type: module
 dependencies:
   - plugin

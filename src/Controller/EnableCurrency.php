@@ -49,7 +49,7 @@ class EnableCurrency extends ControllerBase implements ContainerInjectionInterfa
     $currency->enable();
     $currency->save();
 
-    return new RedirectResponse($this->urlGenerator->generateFromRoute('currency.currency.list', array(
+    return new RedirectResponse($this->urlGenerator->generateFromRoute('entity.currency.collection', array(
       'absolute' => TRUE,
     )));
   }

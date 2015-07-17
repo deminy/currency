@@ -74,7 +74,7 @@ class EnableCurrencyUnitTest extends UnitTestCase {
 
     $this->urlGenerator->expects($this->once())
       ->method('generateFromRoute')
-      ->with('currency.currency.list')
+      ->with('entity.currency.collection')
       ->will($this->returnValue($url));
 
     $response = $this->controller->execute($currency);
