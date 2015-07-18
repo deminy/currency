@@ -5,9 +5,9 @@
  */
 
 /**
- * Alters exchange rate provider plugins.
+ * Alters currency exchange rate provider plugins.
  *
- * @param array $definitions
+ * @param array[] $definitions
  *   Keys are plugin IDs. Values are plugin definitions.
  */
 function hook_currency_exchange_rate_provider_alter(array &$definitions) {
@@ -19,9 +19,9 @@ function hook_currency_exchange_rate_provider_alter(array &$definitions) {
 }
 
 /**
- * Alters amount formatter plugins.
+ * Alters currency amount formatter plugins.
  *
- * @param array $definitions
+ * @param array[] $definitions
  *   Keys are plugin IDs. Values are plugin definitions.
  */
 function hook_currency_amount_formatter_alter(array &$definitions) {
