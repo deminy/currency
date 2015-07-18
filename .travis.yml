@@ -25,6 +25,10 @@ install:
   # Copy Currency into Drupal core.
   - cp -Rv $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/../drupal/modules/currency
 
+  # Download module dependencies.
+  - cd $TRAVIS_BUILD_DIR/../drupal/modules
+  - git clone --branch 8.x-2.x --depth 1 http://git.drupal.org/project/plugin.git
+
   # Install Composer dependencies.
   - cd $TRAVIS_BUILD_DIR/../drupal/modules/currency
   - composer install
