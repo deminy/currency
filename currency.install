@@ -14,7 +14,7 @@ function currency_requirements($phase) {
     'description' => t('BCMath is used to prevent possible precision loss during calculations.'),
     'title' => t('PHP BCMath extension'),
     'value' => $loaded ? t('Loaded') : t('Not loaded'),
-    'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_WARNING,
+    'severity' => $loaded ? REQUIREMENT_OK : REQUIREMENT_ERROR,
   );
 
   return $requirements;
