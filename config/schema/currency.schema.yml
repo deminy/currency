@@ -8,12 +8,6 @@ currency.currency.*:
       sequence:
         - type: string
           label: Alternative sign
-    exchangeRates:
-      type: sequence
-      label: Historical exchange reates
-      sequence:
-        - type: string
-          label: Historical exchange rates
     currencyCode:
       label: Currency code
       type: string
