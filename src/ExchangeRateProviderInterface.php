@@ -24,7 +24,7 @@ interface ExchangeRateProviderInterface {
   /**
    * Returns the exchange rates for multiple currency combinations.
    *
-   * @param array $currency_codes
+   * @param array[] $currency_codes
    *   Keys are the ISO 4217 codes of source currencies, values are arrays that
    *   contain ISO 4217 codes of destination currencies. Example:
    *   array(

@@ -66,7 +66,7 @@ class ConfigImporter implements ConfigImporterInterface {
   protected $typedConfigManager;
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface
    *   The module handler.

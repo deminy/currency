@@ -47,7 +47,7 @@ class ExchangeRate implements ExchangeRateInterface {
   protected $rate;
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param string $exchange_rate_provider_plugin_id
    *   The ID of the exchange rate provider plugin that provided this rate.

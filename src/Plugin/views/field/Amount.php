@@ -42,7 +42,7 @@ class Amount extends FieldPluginBase implements ContainerFactoryPluginInterface 
   /**
    * Constructs a new instance.
    *
-   * @param array $configuration
+   * @param mixed[] $configuration
    *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
    *   The plugin_id for the plugin instance.

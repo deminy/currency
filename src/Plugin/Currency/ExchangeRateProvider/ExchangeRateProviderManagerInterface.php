@@ -20,7 +20,7 @@ interface ExchangeRateProviderManagerInterface extends PluginManagerInterface, P
    *
    * @param string $plugin_id
    *   The id of the plugin being instantiated.
-   * @param array $configuration
+   * @param mixed[] $configuration
    *   An array of configuration relevant to the plugin instance.
    *
    * @return \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface

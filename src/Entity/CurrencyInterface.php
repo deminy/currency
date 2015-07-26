@@ -18,7 +18,7 @@ interface CurrencyInterface extends ConfigEntityInterface {
   /**
    * Sets alternative (non-official) currency signs.
    *
-   * @param array $signs
+   * @param string[] $signs
    *   Values are currency signs.
    *
    * @return \Drupal\currency\Entity\CurrencyInterface

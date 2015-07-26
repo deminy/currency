@@ -43,7 +43,7 @@ class CurrencyForm extends EntityForm {
   protected $linkGenerator;
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translator.

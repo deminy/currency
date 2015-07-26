@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CurrencyDeleteForm extends EntityConfirmFormBase {
 
   /**
-   * Constructs a new class instance.
+   * Constructs a new instance.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translator.
