@@ -67,7 +67,7 @@ class AddCurrencyLocaleTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = AddCurrencyLocale::create($container);
     $this->assertInstanceOf(AddCurrencyLocale::class, $form);
@@ -83,19 +83,19 @@ class AddCurrencyLocaleTest extends UnitTestCase {
     $storage->expects($this->once())
       ->method('create')
       ->with(array())
-      ->will($this->returnValue($currency_locale));
+      ->willReturn($currency_locale);
 
     $this->entityManager->expects($this->once())
       ->method('getStorage')
       ->with('currency_locale')
-      ->will($this->returnValue($storage));
+      ->willReturn($storage);
 
     $form = $this->getMock(EntityFormInterface::class);
 
     $this->entityFormBuilder->expects($this->once())
       ->method('getForm')
       ->with($currency_locale)
-      ->will($this->returnValue($form));
+      ->willReturn($form);
 
     $this->assertSame($form, $this->controller->execute());
   }

@@ -67,7 +67,7 @@ class AddCurrencyTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = AddCurrency::create($container);
     $this->assertInstanceOf(AddCurrency::class, $form);
@@ -83,19 +83,19 @@ class AddCurrencyTest extends UnitTestCase {
     $storage->expects($this->once())
       ->method('create')
       ->with(array())
-      ->will($this->returnValue($currency));
+      ->willReturn($currency);
 
     $this->entityManager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
-      ->will($this->returnValue($storage));
+      ->willReturn($storage);
 
     $form = $this->getMock(EntityFormInterface::class);
 
     $this->entityFormBuilder->expects($this->once())
       ->method('getForm')
       ->with($currency)
-      ->will($this->returnValue($form));
+      ->willReturn($form);
 
     $this->assertSame($form, $this->controller->execute());
   }

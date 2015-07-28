@@ -57,7 +57,7 @@ class CurrencyTest extends UnitTestCase {
     ];
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $configuration = [];
     $plugin_id = $this->randomMachineName();

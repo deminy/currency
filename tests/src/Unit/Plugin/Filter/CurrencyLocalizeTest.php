@@ -97,7 +97,7 @@ class CurrencyLocalizeTest extends UnitTestCase {
     ];
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $filter = CurrencyLocalize::create($container, [], '', $this->pluginDefinition);
     $this->assertInstanceOf(CurrencyLocalize::class, $filter);
@@ -117,12 +117,12 @@ class CurrencyLocalizeTest extends UnitTestCase {
     $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('formatAmount')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $this->currencyStorage->expects($this->any())
       ->method('load')
       ->with('EUR')
-      ->will($this->returnValue($currency));
+      ->willReturn($currency);
 
     $this->input->expects($this->any())
       ->method('parseAmount')

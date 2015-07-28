@@ -123,12 +123,12 @@ class AmountFormatterManagerTest extends UnitTestCase {
     $config->expects($this->once())
       ->method('get')
       ->with('plugin_id')
-      ->will($this->returnValue($plugin_id));
+      ->willReturn($plugin_id);
 
     $this->configFactory->expects($this->once())
       ->method('get')
       ->with('currency.amount_formatter')
-      ->will($this->returnValue($config));
+      ->willReturn($config);
 
     $this->assertSame($plugin_id, $this->currencyAmountFormatterManager->getDefaultPluginId());
   }
@@ -152,7 +152,7 @@ class AmountFormatterManagerTest extends UnitTestCase {
     $this->configFactory->expects($this->once())
       ->method('get')
       ->with('currency.amount_formatter')
-      ->will($this->returnValue($config));
+      ->willReturn($config);
 
     $this->assertSame(spl_object_hash($this->currencyAmountFormatterManager), spl_object_hash($this->currencyAmountFormatterManager->setDefaultPluginId($plugin_id)));
   }
@@ -174,11 +174,11 @@ class AmountFormatterManagerTest extends UnitTestCase {
     ->getMock();
     $currency_amount_formatter_manager->expects($this->once())
       ->method('getDefaultPluginId')
-      ->will($this->returnValue($default_plugin_id));
+      ->willReturn($default_plugin_id);
     $currency_amount_formatter_manager->expects($this->once())
       ->method('createInstance')
       ->with($default_plugin_id)
-      ->will($this->returnValue($formatter));
+      ->willReturn($formatter);
 
     $this->assertSame(spl_object_hash($formatter), spl_object_hash($currency_amount_formatter_manager->getDefaultPlugin()));
   }

@@ -58,7 +58,7 @@ class IntlTest extends UnitTestCase {
     $container->expects($this->once())
       ->method('get')
       ->with('currency.locale_resolver')
-      ->will($this->returnValue($this->localeResolver));
+      ->willReturn($this->localeResolver);
 
     $configuration = array();
     $plugin_id = $this->randomMachineName();
@@ -79,20 +79,20 @@ class IntlTest extends UnitTestCase {
     $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->any())
       ->method('getLocale')
-      ->will($this->returnValue($locale));
+      ->willReturn($locale);
     $currency_locale->expects($this->any())
       ->method('getPattern')
-      ->will($this->returnValue($pattern));
+      ->willReturn($pattern);
     $currency_locale->expects($this->any())
       ->method('getDecimalSeparator')
-      ->will($this->returnValue($decimal_separator));
+      ->willReturn($decimal_separator);
     $currency_locale->expects($this->any())
       ->method('getGroupingSeparator')
-      ->will($this->returnValue($grouping_separator));
+      ->willReturn($grouping_separator);
 
     $this->localeResolver->expects($this->any())
       ->method('resolveCurrencyLocale')
-      ->will($this->returnValue($currency_locale));
+      ->willReturn($currency_locale);
 
     // ICU, the C library that PHP's Intl extension uses for formatting, is
     // known to have trouble formatting combinations of currencies and locales
@@ -104,10 +104,10 @@ class IntlTest extends UnitTestCase {
     $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('getCurrencyCode')
-      ->will($this->returnValue($currency_code));
+      ->willReturn($currency_code);
     $currency->expects($this->any())
       ->method('getSign')
-      ->will($this->returnValue($currency_sign));
+      ->willReturn($currency_sign);
 
     $results = array(
       // An amount with no decimals should be formatted without decimals and

@@ -89,7 +89,7 @@ class CurrencyExchangeTest extends UnitTestCase {
     ];
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $filter = CurrencyExchange::create($container, [], '', $this->pluginDefinition);
     $this->assertInstanceOf(CurrencyExchange::class, $filter);
@@ -112,7 +112,7 @@ class CurrencyExchangeTest extends UnitTestCase {
     $this->exchangeRateProvider->expects($this->any())
       ->method('load')
       ->with($currency_code_from, $currency_code_to)
-      ->will($this->returnValue($exchange_rate));
+      ->willReturn($exchange_rate);
 
     $langcode = $this->randomMachineName(2);
     $cache = TRUE;

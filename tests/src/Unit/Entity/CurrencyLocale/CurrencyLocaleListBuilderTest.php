@@ -80,13 +80,13 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
   function testCreateInstance() {
     $this->entityType->expects($this->any())
       ->method('id')
-      ->will($this->returnValue('currency'));
+      ->willReturn('currency');
 
     $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
-      ->will($this->returnValue($this->entityStorage));
+      ->willReturn($this->entityStorage);
 
     $container = $this->getMock(ContainerInterface::class);
     $map = array(
@@ -96,7 +96,7 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = CurrencyLocaleListBuilder::createInstance($container, $this->entityType);
     $this->assertInstanceOf(CurrencyLocaleListBuilder::class, $form);
@@ -123,11 +123,11 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
     $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->any())
       ->method('label')
-      ->will($this->returnValue($entity_label));
+      ->willReturn($entity_label);
 
     $this->moduleHandler->expects($this->any())
       ->method('invokeAll')
-      ->will($this->returnValue(array()));
+      ->willReturn([]);
 
     $row = $this->form->buildRow($currency_locale);
     $expected = array(

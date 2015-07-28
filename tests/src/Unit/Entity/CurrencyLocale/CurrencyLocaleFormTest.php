@@ -109,7 +109,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
       $entity_manager->expects($this->once())
         ->method('getStorage')
         ->with('currency_locale')
-        ->will($this->returnValue($this->currencyLocaleStorage));
+        ->willReturn($this->currencyLocaleStorage);
 
       $container = $this->getMock(ContainerInterface::class);
 
@@ -121,7 +121,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
       );
       $container->expects($this->any())
         ->method('get')
-        ->will($this->returnValueMap($map));
+        ->willReturnMap($map);
 
       $form = CurrencyLocaleForm::create($container);
       $this->assertInstanceOf(CurrencyLocaleForm::class, $form);
@@ -180,32 +180,32 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
       $this->currencyLocale->expects($this->once())
         ->method('getLanguageCode')
-        ->will($this->returnValue($language_code));
+        ->willReturn($language_code);
       $this->currencyLocale->expects($this->once())
         ->method('getCountryCode')
-        ->will($this->returnValue($country_code));
+        ->willReturn($country_code);
       $this->currencyLocale->expects($this->once())
         ->method('getPattern')
-        ->will($this->returnValue($pattern));
+        ->willReturn($pattern);
       $this->currencyLocale->expects($this->once())
         ->method('getDecimalSeparator')
-        ->will($this->returnValue($decimal_separator));
+        ->willReturn($decimal_separator);
       $this->currencyLocale->expects($this->once())
         ->method('getGroupingSeparator')
-        ->will($this->returnValue($grouping_separator));
+        ->willReturn($grouping_separator);
 
       $language = $this->getMock(LanguageInterface::class);
 
       $this->currencyLocale->expects($this->any())
         ->method('language')
-        ->will($this->returnValue($language));
+        ->willReturn($language);
 
       $country_list = array(
         $this->randomMachineName() => $this->randomMachineName(),
       );
       $this->countryManager->expects($this->atLeastOnce())
         ->method('getList')
-        ->will($this->returnValue($country_list));
+        ->willReturn($country_list);
 
       $form = array();
       $form_state = $this->getMock(FormStateInterface::class);
@@ -393,7 +393,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
       $this->currencyLocale->expects($this->atLeastOnce())
         ->method('isNew')
-        ->will($this->returnValue($currency_locale_is_new));
+        ->willReturn($currency_locale_is_new);
 
       if ($currency_locale_is_new) {
         if ($locale_is_used) {
@@ -402,7 +402,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
           $this->currencyLocaleStorage->expects($this->once())
             ->method('load')
             ->with($locale)
-            ->will($this->returnValue($loaded_currency_locale));
+            ->willReturn($loaded_currency_locale);
 
           $form_state->expects($this->once())
             ->method('setError')
@@ -412,7 +412,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
           $this->currencyLocaleStorage->expects($this->once())
             ->method('load')
             ->with($locale)
-            ->will($this->returnValue(FALSE));
+            ->willReturn(FALSE);
 
           $form_state->expects($this->never())
             ->method('setError');

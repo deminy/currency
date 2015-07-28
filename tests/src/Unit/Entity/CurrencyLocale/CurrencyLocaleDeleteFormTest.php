@@ -63,7 +63,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
       $container->expects($this->once())
         ->method('get')
         ->with('string_translation')
-        ->will($this->returnValue($this->stringTranslation));
+        ->willReturn($this->stringTranslation);
 
       $form = CurrencyLocaleDeleteForm::create($container);
       $this->assertInstanceOf(CurrencyLocaleDeleteForm::class, $form);

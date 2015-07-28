@@ -124,7 +124,7 @@ class CurrencyTest extends UnitTestCase {
     ];
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $filter = Currency::create($container, $this->pluginConfiguration, '', $this->pluginDefinition);
     $this->assertInstanceOf(Currency::class, $filter);

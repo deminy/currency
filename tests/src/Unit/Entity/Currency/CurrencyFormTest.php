@@ -95,7 +95,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
       $entity_manager->expects($this->once())
         ->method('getStorage')
         ->with('currency')
-        ->will($this->returnValue($this->currencyStorage));
+        ->willReturn($this->currencyStorage);
 
       $container = $this->getMock(ContainerInterface::class);
 
@@ -107,7 +107,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
       );
       $container->expects($this->any())
         ->method('get')
-        ->will($this->returnValueMap($map));
+        ->willReturnMap($map);
 
       $form = CurrencyForm::create($container);
       $this->assertInstanceOf(CurrencyForm::class, $form);
@@ -181,31 +181,31 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
       $this->currency->expects($this->any())
         ->method('getCurrencyCode')
-        ->will($this->returnValue($currency_code));
+        ->willReturn($currency_code);
       $this->currency->expects($this->any())
         ->method('getCurrencyNumber')
-        ->will($this->returnValue($currency_number));
+        ->willReturn($currency_number);
       $this->currency->expects($this->any())
         ->method('label')
-        ->will($this->returnValue($currency_label));
+        ->willReturn($currency_label);
       $this->currency->expects($this->any())
         ->method('getSign')
-        ->will($this->returnValue($currency_sign));
+        ->willReturn($currency_sign);
       $this->currency->expects($this->any())
         ->method('getSubunits')
-        ->will($this->returnValue($currency_subunits));
+        ->willReturn($currency_subunits);
       $this->currency->expects($this->any())
         ->method('getRoundingStep')
-        ->will($this->returnValue($currency_rounding_step));
+        ->willReturn($currency_rounding_step);
       $this->currency->expects($this->any())
         ->method('status')
-        ->will($this->returnValue($currency_status));
+        ->willReturn($currency_status);
 
       $language = $this->getMock(LanguageInterface::class);
 
       $this->currency->expects($this->any())
         ->method('language')
-        ->will($this->returnValue($language));
+        ->willReturn($language);
 
       $form = array();
       $form_state = $this->getMock(FormStateInterface::class);
@@ -302,7 +302,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
       $this->currency->expects($this->any())
         ->method('isNew')
-        ->will($this->returnValue($currency_is_new));
+        ->willReturn($currency_is_new);
 
       if (!$valid) {
         $form_state->expects($this->once())
@@ -316,7 +316,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         $loaded_currency = $this->getMock(CurrencyInterface::class);
         $loaded_currency->expects($this->any())
           ->method('label')
-          ->will($this->returnValue($loaded_currency_label));
+          ->willReturn($loaded_currency_label);
         $loaded_currency->expects($this->atLeastOnce())
           ->method('urlInfo')
           ->willReturn($loaded_currency_url);
@@ -324,7 +324,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         $this->currencyStorage->expects($this->once())
           ->method('load')
           ->with($currency_code)
-          ->will($this->returnValue($loaded_currency));
+          ->willReturn($loaded_currency);
 
         $form_state->expects($this->once())
           ->method('setError');
@@ -337,7 +337,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         $this->currencyStorage->expects($this->once())
           ->method('load')
           ->with($currency_code)
-          ->will($this->returnValue(FALSE));
+          ->willReturn(FALSE);
         $form_state->expects($this->never())
           ->method('setError');
         $form_state->expects($this->never())
@@ -374,7 +374,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
       $this->currency->expects($this->any())
         ->method('isNew')
-        ->will($this->returnValue($currency_is_new));
+        ->willReturn($currency_is_new);
 
       if (!$valid) {
         $form_state->expects($this->once())
@@ -389,10 +389,10 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         $loaded_currency = $this->getMock(CurrencyInterface::class);
         $loaded_currency->expects($this->any())
           ->method('id')
-          ->will($this->returnValue($loaded_currency_code));
+          ->willReturn($loaded_currency_code);
         $loaded_currency->expects($this->any())
           ->method('label')
-          ->will($this->returnValue($loaded_currency_label));
+          ->willReturn($loaded_currency_label);
         $loaded_currency->expects($this->atLeastOnce())
           ->method('urlInfo')
           ->willReturn($loaded_currency_url);
@@ -402,7 +402,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
           ->with(array(
             'currencyNumber' => $currency_number,
           ))
-          ->will($this->returnValue(array($loaded_currency)));
+          ->willReturn(array($loaded_currency));
 
         $form_state->expects($this->once())
           ->method('setError');
@@ -417,7 +417,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
           ->with(array(
             'currencyNumber' => $currency_number,
           ))
-          ->will($this->returnValue(FALSE));
+          ->willReturn(FALSE);
         $form_state->expects($this->never())
           ->method('setError');
         $form_state->expects($this->never())
@@ -455,7 +455,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
       $this->inputParser->expects($this->once())
         ->method('parseAmount')
         ->with($input_value)
-        ->will($this->returnValue($parsed_value));
+        ->willReturn($parsed_value);
 
       if (!$valid) {
         $form_state->expects($this->once())

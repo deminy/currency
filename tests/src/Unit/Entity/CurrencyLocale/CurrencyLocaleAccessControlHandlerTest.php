@@ -64,7 +64,7 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
     $container->expects($this->once())
       ->method('get')
       ->with('module_handler')
-      ->will($this->returnValue($this->moduleHandler));
+      ->willReturn($this->moduleHandler);
 
     $access = CurrencyLocaleAccessControlHandler::createInstance($container, $this->entityType);
     $this->assertInstanceOf(CurrencyLocaleAccessControlHandler::class, $access);
@@ -80,16 +80,16 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
     $account->expects($this->any())
       ->method('hasPermission')
       ->with($permission)
-      ->will($this->returnValue((bool) $has_permission));
+      ->willReturn((bool) $has_permission);
 
     $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->any())
       ->method('getLocale')
-      ->will($this->returnValue($locale));
+      ->willReturn($locale);
 
     $this->moduleHandler->expects($this->any())
       ->method('invokeAll')
-      ->will($this->returnValue(array()));
+      ->willReturn([]);
 
     $method = new \ReflectionMethod($this->access, 'checkAccess');
     $method->setAccessible(TRUE);
@@ -127,7 +127,7 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
     $account->expects($this->once())
       ->method('hasPermission')
       ->with('currency.currency_locale.create')
-      ->will($this->returnValue($has_permission));
+      ->willReturn($has_permission);
     $context = array();
 
     $method = new \ReflectionMethod($this->access, 'checkCreateAccess');

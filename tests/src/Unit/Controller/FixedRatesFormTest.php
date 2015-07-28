@@ -96,7 +96,7 @@ class FixedRatesFormTest extends UnitTestCase {
     $entity_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
-      ->will($this->returnValue($this->currencyStorage));
+      ->willReturn($this->currencyStorage);
 
     $container = $this->getMock(ContainerInterface::class);
     $map = array(
@@ -108,7 +108,7 @@ class FixedRatesFormTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = FixedRatesForm::create($container);
     $this->assertInstanceOf(FixedRatesForm::class, $form);

@@ -69,7 +69,7 @@ class BasicTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $configuration = array();
     $plugin_id = $this->randomMachineName();
@@ -88,14 +88,14 @@ class BasicTest extends UnitTestCase {
     $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->any())
       ->method('getDecimalSeparator')
-      ->will($this->returnValue($decimal_separator));
+      ->willReturn($decimal_separator);
     $currency_locale->expects($this->any())
       ->method('getGroupingSeparator')
-      ->will($this->returnValue($grouping_separator));
+      ->willReturn($grouping_separator);
 
     $this->localeResolver->expects($this->any())
       ->method('resolveCurrencyLocale')
-      ->will($this->returnValue($currency_locale));
+      ->willReturn($currency_locale);
 
     // The formatter must not alter the decimals.
     $amount = '987654.321';
@@ -106,13 +106,13 @@ class BasicTest extends UnitTestCase {
     $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('getCurrencyCode')
-      ->will($this->returnValue($currency_code));
+      ->willReturn($currency_code);
     $currency->expects($this->any())
       ->method('getDecimals')
-      ->will($this->returnValue($currency_decimals));
+      ->willReturn($currency_decimals);
     $currency->expects($this->any())
       ->method('getSign')
-      ->will($this->returnValue($currency_sign));;
+      ->willReturn($currency_sign);
 
     $translation = 'UAH 987%654@321';
 

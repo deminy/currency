@@ -53,7 +53,7 @@ class EditCurrencyTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = EditCurrency::create($container);
     $this->assertInstanceOf(EditCurrency::class, $form);
@@ -69,7 +69,7 @@ class EditCurrencyTest extends UnitTestCase {
     $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->once())
       ->method('label')
-      ->will($this->returnValue($label));
+      ->willReturn($label);
 
     $this->assertInternalType('string', $this->controller->title($currency));
   }

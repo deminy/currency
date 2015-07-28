@@ -78,7 +78,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
       );
       $container->expects($this->any())
         ->method('get')
-        ->will($this->returnValueMap($map));
+        ->willReturnMap($map);
 
       $form = AmountFormattingForm::create($container);
       $this->assertInstanceOf(AmountFormattingForm::class, $form);
@@ -108,7 +108,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
       $this->currencyAmountFormatterManager->expects($this->once())
         ->method('getDefinitions')
-        ->will($this->returnValue($definitions));
+        ->willReturn($definitions);
 
       $config = $this->getMockBuilder(Config::class)
         ->disableOriginalConstructor()
@@ -116,12 +116,12 @@ namespace Drupal\Tests\currency\Unit\Controller {
       $config->expects($this->once())
         ->method('get')
         ->with('plugin_id')
-        ->will($this->returnValue($plugin_id));
+        ->willReturn($plugin_id);
 
       $this->configFactory->expects($this->once())
         ->method('getEditable')
         ->with('currency.amount_formatting')
-        ->will($this->returnValue($config));
+        ->willReturn($config);
 
       $this->stringTranslation->expects($this->any())
         ->method('translate')
@@ -159,7 +159,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
       $this->currencyAmountFormatterManager->expects($this->once())
         ->method('getDefinitions')
-        ->will($this->returnValue($definitions));
+        ->willReturn($definitions);
 
       $expected = array(
         'foo' => array(

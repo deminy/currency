@@ -92,7 +92,7 @@ class CurrencySignTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $configuration = array();
     $plugin_id = $this->randomMachineName();

@@ -78,7 +78,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
       ];
       $container->expects($this->any())
         ->method('get')
-        ->will($this->returnValueMap($map));
+        ->willReturnMap($map);
 
       $form = CurrencyLocaleImportForm::create($container);
       $this->assertInstanceOf(CurrencyLocaleImportForm::class, $form);

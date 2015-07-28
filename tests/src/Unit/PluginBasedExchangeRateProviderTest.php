@@ -84,7 +84,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
 
     $this->currencyExchangeRateProviderManager->expects($this->once())
       ->method('getDefinitions')
-      ->will($this->returnValue($plugin_definitions));
+      ->willReturn($plugin_definitions);
 
     $config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
@@ -92,12 +92,12 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
     $config->expects($this->once())
       ->method('get')
       ->with('plugins')
-      ->will($this->returnValue($config_value));
+      ->willReturn($config_value);
 
     $this->configFactory->expects($this->once())
       ->method('get')
       ->with('currency.exchange_rate_provider')
-      ->will($this->returnValue($config));
+      ->willReturn($config);
 
     $configuration = $this->exchangeRateProvider->loadConfiguration();
     $expected = array(
@@ -143,7 +143,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
     $this->configFactory->expects($this->once())
       ->method('getEditable')
       ->with('currency.exchange_rate_provider')
-      ->will($this->returnValue($config));
+      ->willReturn($config);
 
     $this->exchangeRateProvider->saveConfiguration($configuration);
   }
@@ -160,13 +160,13 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
     $plugin_a->expects($this->once())
       ->method('load')
       ->with($currency_code_from, $currency_code_to)
-      ->will($this->returnValue(NULL));
+      ->willReturn(NULL);
 
     $plugin_b = $this->getMock(ExchangeRateProviderInterface::class);
     $plugin_b->expects($this->once())
       ->method('load')
       ->with($currency_code_from, $currency_code_to)
-      ->will($this->returnValue($rate));
+      ->willReturn($rate);
 
     /** @var \Drupal\currency\PluginBasedExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
     $exchange_rate_provider = $this->getMockBuilder(PluginBasedExchangeRateProvider::class)
@@ -175,7 +175,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
       ->getMock();
     $exchange_rate_provider->expects($this->once())
       ->method('getPlugins')
-      ->will($this->returnValue(array($plugin_a, $plugin_b)));
+      ->willReturn([$plugin_a, $plugin_b]);
 
     $this->assertSame($rate, $exchange_rate_provider->load($currency_code_from, $currency_code_to));
   }
@@ -206,7 +206,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
       ->getMock();
     $exchange_rate_provider->expects($this->once())
       ->method('getPlugins')
-      ->will($this->returnValue(array()));
+      ->willReturn([]);
 
     $this->assertNull($exchange_rate_provider->load($currency_code_from, $currency_code_to));
   }
@@ -252,7 +252,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
     $plugin_a->expects($this->once())
       ->method('loadMultiple')
       ->with($requested_rates_plugin_a)
-      ->will($this->returnValue($returned_rates_a));
+      ->willReturn($returned_rates_a);
 
     $plugin_b = $this->getMock(ExchangeRateProviderInterface::class);
     $returned_rates_b = array(
@@ -266,7 +266,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
     $plugin_b->expects($this->once())
       ->method('loadMultiple')
       ->with($requested_rates_plugin_b)
-      ->will($this->returnValue($returned_rates_b));
+      ->willReturn($returned_rates_b);
 
     /** @var \Drupal\currency\PluginBasedExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
     $exchange_rate_provider = $this->getMockBuilder(PluginBasedExchangeRateProvider::class)
@@ -275,7 +275,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
       ->getMock();
     $exchange_rate_provider->expects($this->once())
       ->method('getPlugins')
-      ->will($this->returnValue(array($plugin_a, $plugin_b)));
+      ->willReturn(array($plugin_a, $plugin_b));
 
     $returned_rates = $exchange_rate_provider->loadMultiple($requested_rates_provider);
     $this->assertSame($returned_rates_a[$currency_code_from_a][$currency_code_to_a], $returned_rates[$currency_code_from_a][$currency_code_to_a]);
@@ -304,7 +304,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
       ->getMock();
     $exchange_rate_provider->expects($this->once())
       ->method('loadConfiguration')
-      ->will($this->returnValue($configuration));
+      ->willReturn($configuration);
 
     $plugin_foo = $this->getMock(ExchangeRateProviderInterface::class);
     $plugin_bar = $this->getMock(ExchangeRateProviderInterface::class);
@@ -316,7 +316,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
 
     $this->currencyExchangeRateProviderManager->expects($this->exactly(2))
       ->method('createInstance')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $method = new \ReflectionMethod($exchange_rate_provider, 'getPlugins');
     $method->setAccessible(TRUE);

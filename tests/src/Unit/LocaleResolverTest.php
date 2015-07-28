@@ -112,7 +112,7 @@ class LocaleResolverTest extends UnitTestCase {
     $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
       ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->getId() . '_' . $request_country_code)
-      ->will($this->returnValue($currency_locale));
+      ->willReturn($currency_locale);
 
     // Test loading the fallback locale.
     $this->assertSame($currency_locale, $this->sut->resolveCurrencyLocale());
@@ -132,19 +132,19 @@ class LocaleResolverTest extends UnitTestCase {
     $config->expects($this->any())
       ->method('get')
       ->with('country.default')
-      ->will($this->returnValue($site_default_country));
+      ->willReturn($site_default_country);
 
     $this->configFactory->expects($this->once())
       ->method('get')
       ->with('system.data')
-      ->will($this->returnValue($config));
+      ->willReturn($config);
 
     $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
 
     $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
       ->with($this->languageManager->getCurrentLanguage(Language::TYPE_CONTENT)->getId() . '_' . $site_default_country)
-      ->will($this->returnValue($currency_locale));
+      ->willReturn($currency_locale);
 
     // Test loading the fallback locale.
     $this->assertSame($currency_locale, $this->sut->resolveCurrencyLocale());
@@ -162,19 +162,19 @@ class LocaleResolverTest extends UnitTestCase {
     $config->expects($this->any())
       ->method('get')
       ->with('country.default')
-      ->will($this->returnValue(NULL));
+      ->willReturn(NULL);
 
     $this->configFactory->expects($this->once())
       ->method('get')
       ->with('system.data')
-      ->will($this->returnValue($config));
+      ->willReturn($config);
 
     $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
 
     $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
       ->with(LocaleResolverInterface::DEFAULT_LOCALE)
-      ->will($this->returnValue($currency_locale));
+      ->willReturn($currency_locale);
 
     // Test loading the fallback locale.
     $this->assertSame($currency_locale, $this->sut->resolveCurrencyLocale());
@@ -194,12 +194,12 @@ class LocaleResolverTest extends UnitTestCase {
     $config->expects($this->any())
       ->method('get')
       ->with('country.default')
-      ->will($this->returnValue(NULL));
+      ->willReturn(NULL);
 
     $this->configFactory->expects($this->once())
       ->method('get')
       ->with('system.data')
-      ->will($this->returnValue($config));
+      ->willReturn($config);
 
     $this->currencyLocaleStorage->expects($this->any())
       ->method('load')
@@ -223,7 +223,7 @@ class LocaleResolverTest extends UnitTestCase {
     $this->languageManager->expects($this->any())
       ->method('getCurrentLanguage')
       ->with(Language::TYPE_CONTENT)
-      ->will($this->returnValue($language));
+      ->willReturn($language);
   }
 
 }

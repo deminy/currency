@@ -53,7 +53,7 @@ class EditCurrencyLocaleTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = EditCurrencyLocale::create($container);
     $this->assertInstanceOf(EditCurrencyLocale::class, $form);
@@ -68,7 +68,7 @@ class EditCurrencyLocaleTest extends UnitTestCase {
     $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->once())
       ->method('label')
-      ->will($this->returnValue($label));
+      ->willReturn($label);
 
     $this->assertInternalType('string', $this->controller->title($currency_locale));
   }

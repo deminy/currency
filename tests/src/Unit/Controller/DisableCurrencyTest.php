@@ -55,7 +55,7 @@ class DisableCurrencyTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = DisableCurrency::create($container);
     $this->assertInstanceOf(DisableCurrency::class, $form);
@@ -76,7 +76,7 @@ class DisableCurrencyTest extends UnitTestCase {
     $this->urlGenerator->expects($this->once())
       ->method('generateFromRoute')
       ->with('entity.currency.collection')
-      ->will($this->returnValue($url));
+      ->willReturn($url);
 
     $response = $this->controller->execute($currency);
     $this->assertInstanceOf(RedirectResponse::class, $response);

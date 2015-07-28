@@ -82,7 +82,7 @@ class CurrencyListBuilderTest extends UnitTestCase {
     $entity_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
-      ->will($this->returnValue($this->entityStorage));
+      ->willReturn($this->entityStorage);
 
     $container = $this->getMock(ContainerInterface::class);
     $map = array(
@@ -92,7 +92,7 @@ class CurrencyListBuilderTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = CurrencyListBuilder::createInstance($container, $this->entityType);
     $this->assertInstanceOf(CurrencyListBuilder::class, $form);
@@ -121,14 +121,14 @@ class CurrencyListBuilderTest extends UnitTestCase {
     $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('id')
-      ->will($this->returnValue($entity_id));
+      ->willReturn($entity_id);
     $currency->expects($this->any())
       ->method('label')
-      ->will($this->returnValue($entity_label));
+      ->willReturn($entity_label);
 
     $this->moduleHandler->expects($this->any())
       ->method('invokeAll')
-      ->will($this->returnValue(array()));
+      ->willReturn([]);
 
     $row = $this->form->buildRow($currency);
     $expected = array(

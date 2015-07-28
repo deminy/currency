@@ -106,7 +106,7 @@ class FixedRatesOverviewTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = FixedRatesOverview::create($container);
     $this->assertInstanceOf(FixedRatesOverview::class, $form);
@@ -134,7 +134,7 @@ class FixedRatesOverviewTest extends UnitTestCase {
     );
     $this->currencyStorage->expects($this->any())
       ->method('load')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $rates_configuration = array(
       $currency_code_from => array(
@@ -146,12 +146,12 @@ class FixedRatesOverviewTest extends UnitTestCase {
       ->getMock();
     $fixed_rates->expects($this->once())
       ->method('loadConfiguration')
-      ->will($this->returnValue($rates_configuration));
+      ->willReturn($rates_configuration);
 
     $this->currencyExchangeRateProviderManager->expects($this->once())
       ->method('createInstance')
       ->with('currency_fixed_rates')
-      ->will($this->returnValue($fixed_rates));
+      ->willReturn($fixed_rates);
 
     $this->urlGenerator->expects($this->once())
       ->method('generateFromRoute')
@@ -164,7 +164,7 @@ class FixedRatesOverviewTest extends UnitTestCase {
 
     $this->currencyAmountFormatterManager->expects($this->once())
       ->method('getDefaultPlugin')
-      ->will($this->returnValue($amount_formatter));
+      ->willReturn($amount_formatter);
 
     $build = $this->controller->overview();
     $this->assertInternalType('array', $build);

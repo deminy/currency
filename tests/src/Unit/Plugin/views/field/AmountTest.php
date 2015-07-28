@@ -166,7 +166,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
       ];
       $container->expects($this->any())
         ->method('get')
-        ->will($this->returnValueMap($map));
+        ->willReturnMap($map);
 
       $filter = Amount::create($container, [], '', $this->pluginDefinition);
       $this->assertInstanceOf(Amount::class, $filter);
@@ -427,7 +427,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
     function testQuery() {
       $this->handler->query();
     }
-  
+
   }
 
 }

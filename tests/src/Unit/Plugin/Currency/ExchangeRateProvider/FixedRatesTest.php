@@ -65,7 +65,7 @@ class FixedRatesTest extends UnitTestCase {
     );
     $container->expects($this->any())
       ->method('get')
-      ->will($this->returnValueMap($map));
+      ->willReturnMap($map);
 
     $form = FixedRates::create($container, array(), '', array());
     $this->assertInstanceOf(FixedRates::class, $form);
@@ -205,16 +205,16 @@ class FixedRatesTest extends UnitTestCase {
     $this->config->expects($this->any())
       ->method('get')
       ->with('rates')
-      ->will($this->returnValue($rates_data));
+      ->willReturn($rates_data);
 
     $this->configFactory->expects($this->any())
       ->method('get')
       ->with('currency.exchanger.fixed_rates')
-      ->will($this->returnValue($this->config));
+      ->willReturn($this->config);
     $this->configFactory->expects($this->any())
       ->method('getEditable')
       ->with('currency.exchanger.fixed_rates')
-      ->will($this->returnValue($this->config));
+      ->willReturn($this->config);
 
     return array($rates, $rates_data);
   }
