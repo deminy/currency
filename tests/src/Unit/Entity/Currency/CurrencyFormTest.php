@@ -55,7 +55,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
     protected $linkGenerator;
 
     /**
-     * The string translation service.
+     * The string translator.
      *
      * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
      */

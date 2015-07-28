@@ -29,7 +29,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
     protected $currency;
 
     /**
-     * The string translation service.
+     * The string translator.
      *
      * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
      */

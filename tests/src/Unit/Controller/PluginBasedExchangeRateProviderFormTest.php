@@ -36,7 +36,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
     protected $exchangeRateProvider;
 
     /**
-     * The string translation service.
+     * The string translator.
      *
      * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
      */
