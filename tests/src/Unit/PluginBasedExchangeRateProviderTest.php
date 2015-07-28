@@ -7,7 +7,7 @@
 namespace Drupal\Tests\currency\Unit;
 
 use Drupal\Core\Config\Config;
-use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\currency\ExchangeRate;
 use Drupal\currency\ExchangeRateInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface;
@@ -25,7 +25,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
   /**
    * The configuration factory used for testing.
    *
-   * @var \Drupal\Core\Config\ConfigFactory|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\Core\Config\ConfigFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $configFactory;
 
@@ -47,7 +47,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->configFactory = $this->getMockBuilder(ConfigFactory::class)
+    $this->configFactory = $this->getMockBuilder(ConfigFactoryInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
 

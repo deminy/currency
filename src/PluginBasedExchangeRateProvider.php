@@ -8,7 +8,7 @@
 namespace Drupal\currency;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
-use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Provides currency exchange rates through plugins.
@@ -18,7 +18,7 @@ class PluginBasedExchangeRateProvider implements ExchangeRateProviderInterface {
   /**
    * The configuration factory.
    *
-   * @var \Drupal\Core\Config\ConfigFactory
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $configFactory;
 
@@ -33,9 +33,9 @@ class PluginBasedExchangeRateProvider implements ExchangeRateProviderInterface {
    * Constructs a new instance.
    *
    * @param \Drupal\Component\Plugin\PluginManagerInterface $currency_exchange_rate_provider_manager
-   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    */
-  function __construct(PluginManagerInterface $currency_exchange_rate_provider_manager, ConfigFactory $config_factory) {
+  function __construct(PluginManagerInterface $currency_exchange_rate_provider_manager, ConfigFactoryInterface $config_factory) {
     $this->currencyExchangeRateProviderManager = $currency_exchange_rate_provider_manager;
     $this->configFactory = $config_factory;
   }
