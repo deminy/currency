@@ -7,7 +7,11 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\currency\Entity\CurrencyInterface;
+use Drupal\currency\InputInterface;
 use Drupal\currency\Plugin\Filter\CurrencyLocalize;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -65,9 +69,9 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
       'provider' => $this->randomMachineName(),
     ];
 
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->input = $this->getMock('\Drupal\currency\InputInterface');
+    $this->input = $this->getMock(InputInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
@@ -79,13 +83,13 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = [
       ['entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager],
       ['currency.input', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->input],
@@ -96,7 +100,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $filter = CurrencyLocalize::create($container, [], '', $this->pluginDefinition);
-    $this->assertInstanceOf('\Drupal\currency\Plugin\Filter\CurrencyLocalize', $filter);
+    $this->assertInstanceOf(CurrencyLocalize::class, $filter);
   }
 
   /**
@@ -110,7 +114,7 @@ class CurrencyLocalizeUnitTest extends UnitTestCase {
       ['1.99', TRUE, LanguageInterface::TYPE_CONTENT, '€1.99'],
       ['2.99', TRUE, LanguageInterface::TYPE_CONTENT, '€2.99'],
     ];
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('formatAmount')
       ->will($this->returnValueMap($map));

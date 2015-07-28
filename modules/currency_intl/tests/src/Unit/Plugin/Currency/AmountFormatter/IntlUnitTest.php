@@ -7,8 +7,12 @@
 
 namespace Drupal\Tests\currency_intl\Unit\Plugin\Currency\AmountFormatter;
 
+use Drupal\currency\Entity\CurrencyInterface;
+use Drupal\currency\Entity\CurrencyLocaleInterface;
+use Drupal\currency\LocaleResolverInterface;
 use Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl
@@ -40,7 +44,7 @@ class IntlUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->localeResolver = $this->getMock('\Drupal\currency\LocaleResolverInterface');
+    $this->localeResolver = $this->getMock(LocaleResolverInterface::class);
 
     $this->formatter = new Intl($configuration, $plugin_id, $plugin_definition, $this->localeResolver);
   }
@@ -50,7 +54,7 @@ class IntlUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $container->expects($this->once())
       ->method('get')
       ->with('currency.locale_resolver')
@@ -61,7 +65,7 @@ class IntlUnitTest extends UnitTestCase {
     $plugin_definition = array();
 
     $formatter = Intl::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf('\Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl', $formatter);
+    $this->assertInstanceOf(Intl::class, $formatter);
   }
 
   /**
@@ -72,7 +76,7 @@ class IntlUnitTest extends UnitTestCase {
     $pattern = '¤-#,##0.00¤¤';
     $decimal_separator = '@';
     $grouping_separator ='%';
-    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->any())
       ->method('getLocale')
       ->will($this->returnValue($locale));
@@ -97,7 +101,7 @@ class IntlUnitTest extends UnitTestCase {
     // (nl_NL).
     $currency_sign = '₴';
     $currency_code = 'UAH';
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('getCurrencyCode')
       ->will($this->returnValue($currency_code));

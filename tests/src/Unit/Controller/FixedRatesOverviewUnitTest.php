@@ -7,7 +7,15 @@
 
 namespace Drupal\Tests\currency\Unit\Controller;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Routing\UrlGeneratorInterface;
 use Drupal\currency\Controller\FixedRatesOverview;
+use Drupal\currency\Entity\CurrencyInterface;
+use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
+use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
+use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
+use Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -64,15 +72,15 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->currencyAmountFormatterManager = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface');
+    $this->currencyAmountFormatterManager = $this->getMock(AmountFormatterManagerInterface::class);
 
-    $this->currencyExchangeRateProviderManager = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface');
+    $this->currencyExchangeRateProviderManager = $this->getMock(ExchangeRateProviderManagerInterface::class);
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->urlGenerator = $this->getMock('\Drupal\Core\Routing\UrlGeneratorInterface');
+    $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
 
     $this->controller = new FixedRatesOverview($this->stringTranslation, $this->urlGenerator, $this->currencyStorage, $this->currencyAmountFormatterManager, $this->currencyExchangeRateProviderManager);
   }
@@ -82,13 +90,13 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
       array('plugin.manager.currency.amount_formatter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyAmountFormatterManager),
@@ -101,7 +109,7 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = FixedRatesOverview::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\FixedRatesOverview', $form);
+    $this->assertInstanceOf(FixedRatesOverview::class, $form);
   }
 
   /**
@@ -112,11 +120,11 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
     $currency_code_to = 'NLG';
     $rate = '2.20371';
 
-    $currency_from = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_from = $this->getMock(CurrencyInterface::class);
     $currency_from->expects($this->once())
       ->method('label');
 
-    $currency_to = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_to = $this->getMock(CurrencyInterface::class);
     $currency_to->expects($this->once())
       ->method('label');
 
@@ -133,7 +141,7 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
         $currency_code_to => $rate,
       ),
     );
-    $fixed_rates = $this->getMockBuilder('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates')
+    $fixed_rates = $this->getMockBuilder(FixedRates::class)
       ->disableOriginalConstructor()
       ->getMock();
     $fixed_rates->expects($this->once())
@@ -149,7 +157,7 @@ class FixedRatesOverviewUnitTest extends UnitTestCase {
       ->method('generateFromRoute')
       ->with('currency.exchange_rate_provider.fixed_rates.add');
 
-    $amount_formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
+    $amount_formatter = $this->getMock(AmountFormatterInterface::class);
     $amount_formatter->expects($this->once())
       ->method('formatAmount')
       ->with($currency_to, $rate);

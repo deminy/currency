@@ -7,6 +7,11 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
+use Drupal\Component\Plugin\Discovery\DiscoveryInterface;
+use Drupal\Component\Plugin\Factory\DefaultFactory;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\DependencyInjection\ClassResolverInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManager;
 use Drupal\Tests\UnitTestCase;
 use Zend\Stdlib\ArrayObject;
@@ -64,17 +69,17 @@ class ExchangeRateProviderManagerUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->classResolver = $this->getMock('\Drupal\Core\DependencyInjection\ClassResolverInterface');
+    $this->classResolver = $this->getMock(ClassResolverInterface::class);
 
-    $this->discovery = $this->getMock('\Drupal\Component\Plugin\Discovery\DiscoveryInterface');
+    $this->discovery = $this->getMock(DiscoveryInterface::class);
 
-    $this->factory = $this->getMockBuilder('\Drupal\Component\Plugin\Factory\DefaultFactory')
+    $this->factory = $this->getMockBuilder(DefaultFactory::class)
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->moduleHandler = $this->getMock('\Drupal\Core\Extension\ModuleHandlerInterface');
+    $this->moduleHandler = $this->getMock(ModuleHandlerInterface::class);
 
-    $this->cache = $this->getMock('\Drupal\Core\Cache\CacheBackendInterface');
+    $this->cache = $this->getMock(CacheBackendInterface::class);
 
     $namespaces = new ArrayObject();
 

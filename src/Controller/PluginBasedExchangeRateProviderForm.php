@@ -7,6 +7,7 @@
 
 namespace Drupal\currency\Controller;
 
+use Drupal\Component\Utility\SortArray;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -134,7 +135,7 @@ class PluginBasedExchangeRateProviderForm extends FormBase implements ContainerI
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    uasort($values['exchange_rate_providers'], '\Drupal\Component\Utility\SortArray::sortByWeightElement');
+    uasort($values['exchange_rate_providers'], [SortArray::class, 'sortByWeightElement']);
     $configuration = array();
     foreach ($values['exchange_rate_providers'] as $plugin_id => $exchanger_configuration) {
       $configuration[$plugin_id] = (bool) $exchanger_configuration['enabled'];

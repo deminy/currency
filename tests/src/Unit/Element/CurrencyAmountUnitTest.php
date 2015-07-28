@@ -7,8 +7,13 @@
 
 namespace Drupal\Tests\currency\Unit\Element;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\currency\Element\CurrencyAmount;
+use Drupal\currency\Entity\CurrencyInterface;
+use Drupal\currency\FormHelperInterface;
+use Drupal\currency\InputInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -58,11 +63,11 @@ class CurrencyAmountUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->formHelper = $this->getMock('\Drupal\currency\FormHelperInterface');
+    $this->formHelper = $this->getMock(FormHelperInterface::class);
 
-    $this->input = $this->getMock('\Drupal\currency\InputInterface');
+    $this->input = $this->getMock(InputInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
@@ -78,13 +83,13 @@ class CurrencyAmountUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array(
         'currency.form_helper',
@@ -116,7 +121,7 @@ class CurrencyAmountUnitTest extends UnitTestCase {
     $plugin_definition = array();
 
     $form = CurrencyAmount::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf('\Drupal\currency\Element\CurrencyAmount', $form);
+    $this->assertInstanceOf(CurrencyAmount::class, $form);
   }
 
   /**
@@ -252,7 +257,7 @@ class CurrencyAmountUnitTest extends UnitTestCase {
     $currency_code_b = $this->randomMachineName();
     $currency_code_c = $this->randomMachineName();
 
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
 
     $currency_options = [
       $currency_code_a => $this->randomMachineName(),

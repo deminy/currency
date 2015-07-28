@@ -7,9 +7,12 @@
 
 namespace Drupal\Tests\currency\Unit\Controller;
 
+use Drupal\Core\Routing\UrlGeneratorInterface;
 use Drupal\currency\Controller\DisableCurrency;
+use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @coversDefaultClass \Drupal\currency\Controller\DisableCurrency
@@ -36,7 +39,7 @@ class DisableCurrencyUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->urlGenerator = $this->getMock('\Drupal\Core\Routing\UrlGeneratorInterface');
+    $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
 
     $this->controller = new DisableCurrency($this->urlGenerator);
   }
@@ -46,7 +49,7 @@ class DisableCurrencyUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array('url_generator', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->urlGenerator),
     );
@@ -55,7 +58,7 @@ class DisableCurrencyUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = DisableCurrency::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\DisableCurrency', $form);
+    $this->assertInstanceOf(DisableCurrency::class, $form);
   }
 
   /**
@@ -64,9 +67,7 @@ class DisableCurrencyUnitTest extends UnitTestCase {
   public function testExecute() {
     $url = $this->randomMachineName();
 
-    $currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->once())
       ->method('disable');
     $currency->expects($this->once())
@@ -78,7 +79,7 @@ class DisableCurrencyUnitTest extends UnitTestCase {
       ->will($this->returnValue($url));
 
     $response = $this->controller->execute($currency);
-    $this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
+    $this->assertInstanceOf(RedirectResponse::class, $response);
     $this->assertSame($url, $response->getTargetUrl());
   }
 

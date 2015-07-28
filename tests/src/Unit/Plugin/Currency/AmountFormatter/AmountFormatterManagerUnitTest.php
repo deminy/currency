@@ -7,6 +7,13 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\AmountFormatter;
 
+use Drupal\Component\Plugin\Discovery\DiscoveryInterface;
+use Drupal\Component\Plugin\Factory\DefaultFactory;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\Config;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager;
 use Drupal\Tests\UnitTestCase;
 use Zend\Stdlib\ArrayObject;
@@ -64,19 +71,17 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->discovery = $this->getMock('\Drupal\Component\Plugin\Discovery\DiscoveryInterface');
+    $this->discovery = $this->getMock(DiscoveryInterface::class);
 
-    $this->factory = $this->getMockBuilder('\Drupal\Component\Plugin\Factory\DefaultFactory')
+    $this->factory = $this->getMockBuilder(DefaultFactory::class)
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->moduleHandler = $this->getMock('\Drupal\Core\Extension\ModuleHandlerInterface');
+    $this->moduleHandler = $this->getMock(ModuleHandlerInterface::class);
 
-    $this->cache = $this->getMock('\Drupal\Core\Cache\CacheBackendInterface');
+    $this->cache = $this->getMock(CacheBackendInterface::class);
 
-    $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->configFactory = $this->getMock(ConfigFactoryInterface::class);
 
     $namespaces = new ArrayObject();
 
@@ -112,7 +117,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   public function testGetDefaultPluginId() {
     $plugin_id = $this->randomMachineName();
 
-    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $config->expects($this->once())
@@ -134,7 +139,7 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
   public function testSetDefaultPluginId() {
     $plugin_id = $this->randomMachineName();
 
-    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $config->expects($this->once())
@@ -160,10 +165,10 @@ class AmountFormatterManagerUnitTest extends UnitTestCase {
 
     $default_plugin_id = $this->randomMachineName();
 
-    $formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
+    $formatter = $this->getMock(AmountFormatterInterface::class);
 
     /** @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager|\PHPUnit_Framework_MockObject_MockObject $currency_amount_formatter_manager */
-    $currency_amount_formatter_manager = $this->getMockBuilder('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager')
+    $currency_amount_formatter_manager = $this->getMockBuilder(AmountFormatterManager::class)
     ->setConstructorArgs(array($namespaces, $this->cache, $this->moduleHandler, $this->configFactory))
     ->setMethods(array('getDefaultPluginId', 'createInstance'))
     ->getMock();

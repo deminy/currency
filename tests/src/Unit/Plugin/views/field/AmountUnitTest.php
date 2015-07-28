@@ -7,10 +7,21 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
+  use Drupal\Core\Config\Config;
+  use Drupal\Core\Config\ConfigFactoryInterface;
+  use Drupal\Core\Entity\EntityManagerInterface;
+  use Drupal\Core\Entity\EntityStorageInterface;
+  use Drupal\Core\Extension\ModuleHandlerInterface;
   use Drupal\Core\Form\FormState;
+  use Drupal\Core\Render\RendererInterface;
+  use Drupal\Core\Utility\UnroutedUrlAssemblerInterface;
+  use Drupal\currency\Entity\CurrencyInterface;
   use Drupal\currency\Plugin\views\field\Amount;
   use Drupal\Tests\UnitTestCase;
+  use Drupal\views\Plugin\views\display\DisplayPluginBase;
+  use Drupal\views\Plugin\views\query\Sql;
   use Drupal\views\ResultRow;
+  use Drupal\views\ViewExecutable;
   use Symfony\Component\DependencyInjection\ContainerBuilder;
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -102,25 +113,25 @@ class AmountUnitTest extends UnitTestCase {
       'title' => $this->randomMachineName(),
     ];
 
-    $this->configFactory = $this->getMock('\Drupal\Core\Config\ConfigFactoryInterface');
+    $this->configFactory = $this->getMock(ConfigFactoryInterface::class);
 
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->moduleHandler = $this->getMock('Drupal\Core\Extension\ModuleHandlerInterface');
+    $this->moduleHandler = $this->getMock(ModuleHandlerInterface::class);
 
-    $this->renderer = $this->getMock('\Drupal\Core\Render\RendererInterface');
+    $this->renderer = $this->getMock(RendererInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->viewsDisplayHandler = $this->getMockBuilder('\Drupal\views\Plugin\views\display\DisplayPluginBase')
+    $this->viewsDisplayHandler = $this->getMockBuilder(DisplayPluginBase::class)
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->viewsQuery = $this->getMockBuilder('\Drupal\views\Plugin\views\query\Sql')
+    $this->viewsQuery = $this->getMockBuilder(Sql::class)
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->viewsViewExecutable = $this->getMockBuilder('\Drupal\views\ViewExecutable')
+    $this->viewsViewExecutable = $this->getMockBuilder(ViewExecutable::class)
       ->disableOriginalConstructor()
       ->getMock();
     $this->viewsViewExecutable->display_handler = $this->viewsDisplayHandler;
@@ -140,13 +151,13 @@ class AmountUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   public function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = [
       ['entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager],
       ['module_handler', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->moduleHandler],
@@ -158,7 +169,7 @@ class AmountUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $filter = Amount::create($container, [], '', $this->pluginDefinition);
-    $this->assertInstanceOf('\Drupal\currency\Plugin\views\field\Amount', $filter);
+    $this->assertInstanceOf(Amount::class, $filter);
   }
 
   /**
@@ -183,7 +194,7 @@ class AmountUnitTest extends UnitTestCase {
       ->with('argument')
       ->willReturn([]);
 
-    $views_settings_config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $views_settings_config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $views_settings_config->expects($this->atLeastOnce())
@@ -196,7 +207,7 @@ class AmountUnitTest extends UnitTestCase {
       ->with('views.settings')
       ->willReturn($views_settings_config);
 
-    $unrouted_url_assembler = $this->getMock('\Drupal\Core\Utility\UnroutedUrlAssemblerInterface');
+    $unrouted_url_assembler = $this->getMock(UnroutedUrlAssemblerInterface::class);
     $unrouted_url_assembler->expects($this->atLeastOnce())
       ->method('assemble')
       ->willReturn($this->randomMachineName());
@@ -266,7 +277,7 @@ class AmountUnitTest extends UnitTestCase {
    * @covers ::getCurrency
    */
   function testGetCurrencyWithFallbackCurrency() {
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
 
     $map = [
       ['XXX', $currency],
@@ -289,7 +300,7 @@ class AmountUnitTest extends UnitTestCase {
   function testGetCurrencyWithFixedCurrency() {
     $currency_code = $this->randomMachineName();
 
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
 
     $map = [
       [$currency_code, $currency],
@@ -321,7 +332,7 @@ class AmountUnitTest extends UnitTestCase {
 
     $currency_code_field = $this->randomMachineName();
 
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
 
     $map = [
       [$currency_code, $currency],
@@ -370,7 +381,7 @@ class AmountUnitTest extends UnitTestCase {
 
     $currency_code = $this->randomMachineName();
 
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->atLeastOnce())
       ->method('formatAmount')
       ->with($amount, $round)

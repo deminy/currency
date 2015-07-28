@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\views\filter;
 
+use Drupal\currency\FormHelperInterface;
 use Drupal\currency\Plugin\views\filter\Currency;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -40,7 +41,7 @@ class CurrencyUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = [];
 
-    $this->formHelper = $this->getMock('\Drupal\currency\FormHelperInterface');
+    $this->formHelper = $this->getMock(FormHelperInterface::class);
 
     $this->handler = new Currency($configuration, $plugin_id, $plugin_definition, $this->formHelper);
   }
@@ -50,7 +51,7 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = [
       ['currency.form_helper', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->formHelper],
     ];
@@ -63,7 +64,7 @@ class CurrencyUnitTest extends UnitTestCase {
     $plugin_definition = [];
 
     $filter = Currency::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf('\Drupal\currency\Plugin\views\filter\Currency', $filter);
+    $this->assertInstanceOf(Currency::class, $filter);
   }
 
   /**

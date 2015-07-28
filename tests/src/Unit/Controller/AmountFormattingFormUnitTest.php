@@ -7,8 +7,13 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
+  use Drupal\Core\Config\Config;
+  use Drupal\Core\Config\ConfigFactoryInterface;
   use Drupal\Core\Form\FormState;
+  use Drupal\Core\Form\FormStateInterface;
+  use Drupal\Core\Render\Element\Radios;
   use Drupal\currency\Controller\AmountFormattingForm;
+  use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
   use Drupal\Tests\UnitTestCase;
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -51,11 +56,11 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->configFactory = $this->getMock('\Drupal\Core\Config\ConfigFactoryInterface');
+    $this->configFactory = $this->getMock(ConfigFactoryInterface::class);
 
-    $this->currencyAmountFormatterManager = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface');
+    $this->currencyAmountFormatterManager = $this->getMock(AmountFormatterManagerInterface::class);
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->stringTranslation = $this->getStringTranslationStub();
 
     $this->controller = new AmountFormattingForm($this->configFactory, $this->stringTranslation, $this->currencyAmountFormatterManager);
   }
@@ -65,7 +70,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array('config.factory', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configFactory),
       array('plugin.manager.currency.amount_formatter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyAmountFormatterManager),
@@ -76,7 +81,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = AmountFormattingForm::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\AmountFormattingForm', $form);
+    $this->assertInstanceOf(AmountFormattingForm::class, $form);
   }
 
   /**
@@ -91,7 +96,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
    */
   public function testBuildForm() {
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $definitions = array(
       'foo' => array(
@@ -105,7 +110,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       ->method('getDefinitions')
       ->will($this->returnValue($definitions));
 
-    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $config->expects($this->once())
@@ -127,7 +132,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
       '#options' => array(
         'foo' => $definitions['foo']['label'],
       ),
-      '#process' => array(array('\Drupal\Core\Render\Element\Radios', 'processRadios'), array($this->controller, 'processPluginOptions')),
+      '#process' => [[Radios::class, 'processRadios'], [$this->controller, 'processPluginOptions']],
       '#title' => 'Default amount formatter',
       '#type' => 'radios',
     );
@@ -181,7 +186,7 @@ class AmountFormattingFormUnitTest extends UnitTestCase {
     $form_state = new FormState();
     $form_state->setValues($values);
 
-    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $config->expects($this->atLeastOnce())

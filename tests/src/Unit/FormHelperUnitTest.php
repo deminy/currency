@@ -7,6 +7,10 @@
 
 namespace Drupal\Tests\currency\Unit;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\currency\Entity\CurrencyInterface;
+use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\currency\FormHelper;
 use Drupal\Tests\UnitTestCase;
 
@@ -56,11 +60,11 @@ class FormHelperUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->currencyLocaleStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyLocaleStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $this->entityManager = $this->getMock(EntityManagerInterface::class);
     $map = [
       ['currency', $this->currencyStorage],
       ['currency_locale', $this->currencyLocaleStorage],
@@ -101,7 +105,7 @@ class FormHelperUnitTest extends UnitTestCase {
 
     $currency_locale_id_a = $this->randomMachineName();
     $currency_locale_label_a = $this->randomMachineName();
-    $currency_locale_a = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_locale_a = $this->getMock(CurrencyInterface::class);
     $currency_locale_a->expects($this->atLeastOnce())
       ->method('id')
       ->willReturn($currency_locale_id_a);
@@ -111,13 +115,13 @@ class FormHelperUnitTest extends UnitTestCase {
     $currency_locale_a->expects($this->atLeastOnce())
       ->method('status')
       ->willReturn(TRUE);
-    $currency_locale_b = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_locale_b = $this->getMock(CurrencyInterface::class);
     $currency_locale_b->expects($this->atLeastOnce())
       ->method('status')
       ->willReturn(FALSE);
     $currency_locale_id_c = $this->randomMachineName();
     $currency_locale_label_c = $this->randomMachineName();
-    $currency_locale_c = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_locale_c = $this->getMock(CurrencyInterface::class);
     $currency_locale_c->expects($this->atLeastOnce())
       ->method('id')
       ->willReturn($currency_locale_id_c);
@@ -157,7 +161,7 @@ class FormHelperUnitTest extends UnitTestCase {
 
     $currency_locale_id_a = $this->randomMachineName();
     $currency_locale_label_a = $this->randomMachineName();
-    $currency_locale_a = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale_a = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale_a->expects($this->atLeastOnce())
       ->method('id')
       ->willReturn($currency_locale_id_a);
@@ -167,13 +171,13 @@ class FormHelperUnitTest extends UnitTestCase {
     $currency_locale_a->expects($this->atLeastOnce())
       ->method('status')
       ->willReturn(TRUE);
-    $currency_locale_b = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale_b = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale_b->expects($this->atLeastOnce())
       ->method('status')
       ->willReturn(FALSE);
     $currency_locale_id_c = $this->randomMachineName();
     $currency_locale_label_c = $this->randomMachineName();
-    $currency_locale_c = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale_c = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale_c->expects($this->atLeastOnce())
       ->method('id')
       ->willReturn($currency_locale_id_c);

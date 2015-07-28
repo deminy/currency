@@ -7,8 +7,13 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
+  use Drupal\Core\Form\FormStateInterface;
   use Drupal\Core\Url;
+  use Drupal\currency\ConfigImporterInterface;
   use Drupal\currency\Controller\CurrencyLocaleImportForm;
+  use Drupal\currency\Entity\CurrencyInterface;
+  use Drupal\currency\Entity\CurrencyLocaleInterface;
+  use Drupal\currency\FormHelperInterface;
   use Drupal\Tests\UnitTestCase;
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -51,9 +56,9 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->configImporter = $this->getMock('\Drupal\currency\ConfigImporterInterface');
+    $this->configImporter = $this->getMock(ConfigImporterInterface::class);
 
-    $this->formHelper = $this->getMock('\Drupal\currency\FormHelperInterface');
+    $this->formHelper = $this->getMock(FormHelperInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
@@ -65,7 +70,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = [
       ['currency.config_importer', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configImporter],
       ['currency.form_helper', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->formHelper],
@@ -76,7 +81,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = CurrencyLocaleImportForm::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\CurrencyLocaleImportForm', $form);
+    $this->assertInstanceOf(CurrencyLocaleImportForm::class, $form);
   }
 
   /**
@@ -94,7 +99,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
       ->method('getImportableCurrencyLocales')
       ->willReturn([]);
 
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $form = $this->controller->buildForm([], $form_state);
 
@@ -109,14 +114,14 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
    * @covers ::buildForm
    */
   public function testBuildFormWithImportableCurrencyLocales() {
-    $currency_locale_a = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
-    $currency_locale_b = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency_locale_a = $this->getMock(CurrencyInterface::class);
+    $currency_locale_b = $this->getMock(CurrencyInterface::class);
 
     $this->configImporter->expects($this->once())
       ->method('getImportableCurrencyLocales')
       ->willReturn([$currency_locale_a, $currency_locale_b]);
 
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $form = $this->controller->buildForm([], $form_state);
 
@@ -133,7 +138,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
   public function testSubmitFormImport() {
     $locale = $this->randomMachineName();
 
-    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
 
     $this->configImporter->expects($this->once())
       ->method('importCurrencyLocale')
@@ -150,7 +155,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
         ],
       ],
     ];
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
     $form_state->expects($this->atLeastOnce())
       ->method('getValues')
       ->willReturn([
@@ -173,7 +178,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
 
     $url = new Url($this->randomMachineName());
 
-    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->atLeastOnce())
       ->method('urlInfo')
       ->with('edit-form')
@@ -194,7 +199,7 @@ class CurrencyLocaleImportFormUnitTest extends UnitTestCase {
         ],
       ],
     ];
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
     $form_state->expects($this->atLeastOnce())
       ->method('getValues')
       ->willReturn([

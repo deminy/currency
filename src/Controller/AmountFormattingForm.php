@@ -10,6 +10,7 @@ namespace Drupal\currency\Controller;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element\Radios;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -76,7 +77,7 @@ class AmountFormattingForm extends ConfigFormBase {
     $form['default_plugin_id'] = array(
       '#default_value' => $config->get('plugin_id'),
       '#options' => $options,
-      '#process' => array(array('\Drupal\Core\Render\Element\Radios', 'processRadios'), array($this, 'processPluginOptions')),
+      '#process' => [[Radios::class, 'processRadios'], [$this, 'processPluginOptions']],
       '#title' => $this->t('Default amount formatter'),
       '#type' => 'radios',
     );

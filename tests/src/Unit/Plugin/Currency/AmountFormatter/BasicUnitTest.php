@@ -7,6 +7,9 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\AmountFormatter;
 
+use Drupal\currency\Entity\CurrencyInterface;
+use Drupal\currency\Entity\CurrencyLocaleInterface;
+use Drupal\currency\LocaleResolverInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\Basic;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,9 +50,9 @@ class BasicUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->localeResolver = $this->getMock('\Drupal\currency\LocaleResolverInterface');
+    $this->localeResolver = $this->getMock(LocaleResolverInterface::class);
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->stringTranslation = $this->getStringTranslationStub();
 
     $this->formatter = new Basic($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->localeResolver);
   }
@@ -59,7 +62,7 @@ class BasicUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array('currency.locale_resolver', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->localeResolver),
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
@@ -73,7 +76,7 @@ class BasicUnitTest extends UnitTestCase {
     $plugin_definition = array();
 
     $formatter = Basic::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf('\Drupal\currency\Plugin\Currency\AmountFormatter\Basic', $formatter);
+    $this->assertInstanceOf(Basic::class, $formatter);
   }
 
   /**
@@ -82,7 +85,7 @@ class BasicUnitTest extends UnitTestCase {
   function testFormatAmount() {
     $decimal_separator = '@';
     $grouping_separator ='%';
-    $currency_locale = $this->getMock('\Drupal\currency\Entity\CurrencyLocaleInterface');
+    $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->any())
       ->method('getDecimalSeparator')
       ->will($this->returnValue($decimal_separator));
@@ -96,12 +99,11 @@ class BasicUnitTest extends UnitTestCase {
 
     // The formatter must not alter the decimals.
     $amount = '987654.321';
-    $formatted_amount = '987%654@321';
 
     $currency_sign = '₴';
     $currency_code = 'UAH';
     $currency_decimals = 2;
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('getCurrencyCode')
       ->will($this->returnValue($currency_code));
@@ -110,20 +112,9 @@ class BasicUnitTest extends UnitTestCase {
       ->will($this->returnValue($currency_decimals));
     $currency->expects($this->any())
       ->method('getSign')
-      ->will($this->returnValue($currency_sign));
+      ->will($this->returnValue($currency_sign));;
 
-    $translatable_string = '!currency_code !amount';
-    $translation_arguments = array(
-      '!currency_code' => $currency_code,
-      '!currency_sign' => $currency_sign,
-      '!amount' => $formatted_amount,
-    );
-    $translation = $this->randomMachineName();
-
-    $this->stringTranslation->expects($this->once())
-      ->method('translate')
-      ->with($translatable_string, $translation_arguments)
-      ->will($this->returnValue($translation));
+    $translation = 'UAH 987%654@321';
 
     $this->assertSame($translation, $this->formatter->formatAmount($currency, $amount));
   }

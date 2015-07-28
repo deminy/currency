@@ -7,6 +7,9 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\views\field;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\Plugin\views\field\Currency;
 use Drupal\Tests\UnitTestCase;
 use Drupal\views\ResultRow;
@@ -64,7 +67,7 @@ class CurrencyUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $this->pluginDefinition = [];
 
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
@@ -108,13 +111,13 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::create
    */
   function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = [
       ['entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager],
       ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
@@ -124,7 +127,7 @@ class CurrencyUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $filter = Currency::create($container, $this->pluginConfiguration, '', $this->pluginDefinition);
-    $this->assertInstanceOf('\Drupal\currency\Plugin\views\field\Currency', $filter);
+    $this->assertInstanceOf(Currency::class, $filter);
   }
 
   /**
@@ -143,7 +146,7 @@ class CurrencyUnitTest extends UnitTestCase {
       $field_alias => $currency_code,
     ]);
 
-    $currency = $this->getMock('\Drupal\currency\Entity\CurrencyInterface');
+    $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->atLeastOnce())
       ->method($this->pluginConfiguration['currency_method'])
       ->willReturn($currency_method_return_value);

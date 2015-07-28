@@ -7,8 +7,15 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
+  use Drupal\Core\Entity\EntityManagerInterface;
+  use Drupal\Core\Entity\EntityStorageInterface;
+  use Drupal\Core\Form\FormStateInterface;
+  use Drupal\Core\Language\LanguageInterface;
   use Drupal\Core\Url;
+  use Drupal\Core\Utility\LinkGeneratorInterface;
   use Drupal\currency\Entity\Currency\CurrencyForm;
+  use Drupal\currency\Entity\CurrencyInterface;
+  use Drupal\currency\InputInterface;
   use Drupal\Tests\UnitTestCase;
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -65,20 +72,15 @@ class CurrencyFormUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->currency = $this->getMock(CurrencyInterface::class);
 
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->linkGenerator = $this->getMock('\Drupal\Core\Utility\LinkGeneratorInterface');
+    $this->linkGenerator = $this->getMock(LinkGeneratorInterface::class);
 
-    $this->inputParser = $this->getMock('\Drupal\currency\InputInterface');
+    $this->inputParser = $this->getMock(InputInterface::class);
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
-    $this->stringTranslation->expects($this->any())
-      ->method('translate')
-      ->will($this->returnArgument(0));
+    $this->stringTranslation = $this->getStringTranslationStub();
 
     $this->form = new CurrencyForm($this->stringTranslation, $this->linkGenerator, $this->currencyStorage, $this->inputParser);
     $this->form->setEntity($this->currency);
@@ -89,13 +91,13 @@ class CurrencyFormUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
       ->will($this->returnValue($this->currencyStorage));
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
 
     $map = array(
       array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
@@ -108,7 +110,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = CurrencyForm::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Entity\Currency\CurrencyForm', $form);
+    $this->assertInstanceOf(CurrencyForm::class, $form);
   }
 
   /**
@@ -146,7 +148,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->with($currency_status);
 
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
     $form_state->expects($this->atLeastOnce())
       ->method('getValues')
       ->willReturn(array(
@@ -199,16 +201,14 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->method('status')
       ->will($this->returnValue($currency_status));
 
-    $language = $this->getMockBuilder('\Drupal\Core\Language\Language')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $language = $this->getMock(LanguageInterface::class);
 
     $this->currency->expects($this->any())
       ->method('language')
       ->will($this->returnValue($language));
 
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $expected = array(
       'currency_code' => array(
@@ -281,7 +281,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       ->method('save');
 
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
     $form_state->expects($this->once())
       ->method('setRedirect')
       ->with('entity.currency.collection');
@@ -298,7 +298,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       '#value' => $currency_code,
     );
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $this->currency->expects($this->any())
       ->method('isNew')
@@ -313,9 +313,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       $loaded_currency_label = $this->randomMachineName();
       $loaded_currency_url = new Url($this->randomMachineName());
 
-      $loaded_currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
-        ->disableOriginalConstructor()
-        ->getMock();
+      $loaded_currency = $this->getMock(CurrencyInterface::class);
       $loaded_currency->expects($this->any())
         ->method('label')
         ->will($this->returnValue($loaded_currency_label));
@@ -329,8 +327,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
         ->will($this->returnValue($loaded_currency));
 
       $form_state->expects($this->once())
-        ->method('setError')
-        ->with($element, 'The currency code is already in use by !link.');
+        ->method('setError');
 
       $this->linkGenerator->expects($this->once())
         ->method('generate')
@@ -373,7 +370,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       '#value' => $currency_number,
     );
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $this->currency->expects($this->any())
       ->method('isNew')
@@ -389,9 +386,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       $loaded_currency_label = $this->randomMachineName();
       $loaded_currency_url = new Url($this->randomMachineName());
 
-      $loaded_currency = $this->getMockBuilder('\Drupal\currency\Entity\Currency')
-        ->disableOriginalConstructor()
-        ->getMock();
+      $loaded_currency = $this->getMock(CurrencyInterface::class);
       $loaded_currency->expects($this->any())
         ->method('id')
         ->will($this->returnValue($loaded_currency_code));
@@ -410,8 +405,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
         ->will($this->returnValue(array($loaded_currency)));
 
       $form_state->expects($this->once())
-        ->method('setError')
-        ->with($element, 'The currency number is already in use by !link.');
+        ->method('setError');
 
       $this->linkGenerator->expects($this->once())
         ->method('generate')
@@ -456,7 +450,7 @@ class CurrencyFormUnitTest extends UnitTestCase {
       '#value' => $input_value,
     );
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $this->inputParser->expects($this->once())
       ->method('parseAmount')

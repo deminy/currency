@@ -9,6 +9,8 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
   use Drupal\Core\Form\FormState;
   use Drupal\currency\Controller\PluginBasedExchangeRateProviderForm;
+  use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
+  use Drupal\currency\PluginBasedExchangeRateProvider;
   use Drupal\Tests\UnitTestCase;
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -51,13 +53,13 @@ class PluginBasedExchangeRateProviderFormUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->currencyExchangeRateProviderManager = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface');
+    $this->currencyExchangeRateProviderManager = $this->getMock(ExchangeRateProviderManagerInterface::class);
 
-    $this->exchangeRateProvider = $this->getMockBuilder('\Drupal\currency\PluginBasedExchangeRateProvider')
+    $this->exchangeRateProvider = $this->getMockBuilder(PluginBasedExchangeRateProvider::class)
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
+    $this->stringTranslation = $this->getStringTranslationStub();
 
     $this->controller = new PluginBasedExchangeRateProviderForm($this->stringTranslation, $this->exchangeRateProvider, $this->currencyExchangeRateProviderManager);
   }
@@ -67,7 +69,7 @@ class PluginBasedExchangeRateProviderFormUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = [
       ['plugin.manager.currency.exchange_rate_provider', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyExchangeRateProviderManager],
       ['currency.exchange_rate_provider', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->exchangeRateProvider],
@@ -78,7 +80,7 @@ class PluginBasedExchangeRateProviderFormUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = PluginBasedExchangeRateProviderForm::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\PluginBasedExchangeRateProviderForm', $form);
+    $this->assertInstanceOf(PluginBasedExchangeRateProviderForm::class, $form);
   }
 
   /**

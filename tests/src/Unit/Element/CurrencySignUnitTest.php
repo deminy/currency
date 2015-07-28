@@ -7,7 +7,10 @@
 
 namespace Drupal\Tests\currency\Unit\Element;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\currency\Element\CurrencySign;
+use Drupal\currency\InputInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -50,9 +53,9 @@ class CurrencySignUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->currencyStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->input = $this->getMock('\Drupal\currency\InputInterface');
+    $this->input = $this->getMock(InputInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
@@ -68,13 +71,13 @@ class CurrencySignUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array(
         'entity.manager',
@@ -96,7 +99,7 @@ class CurrencySignUnitTest extends UnitTestCase {
     $plugin_definition = array();
 
     $form = CurrencySign::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf('\Drupal\currency\Element\CurrencySign', $form);
+    $this->assertInstanceOf(CurrencySign::class, $form);
   }
 
   /**

@@ -9,6 +9,7 @@ namespace Drupal\currency\Plugin\views\field;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -54,7 +55,7 @@ class Currency extends FieldPluginBase {
     if (!isset($configuration['currency_method'])) {
       throw new \InvalidArgumentException('Missing currency_method definition.');
     }
-    elseif (!method_exists('\Drupal\currency\Entity\CurrencyInterface', $configuration['currency_method'])) {
+    elseif (!method_exists(CurrencyInterface::class, $configuration['currency_method'])) {
       throw new \InvalidArgumentException(sprintf('Method %s does not exist on \Drupal\currency\Entity\CurrencyInterface.', $configuration['currency_method']));
     }
     parent::__construct($configuration, $plugin_id, $plugin_definition);

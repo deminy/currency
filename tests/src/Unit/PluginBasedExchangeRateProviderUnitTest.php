@@ -6,7 +6,12 @@
 
 namespace Drupal\Tests\currency\Unit;
 
+use Drupal\Core\Config\Config;
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\currency\ExchangeRate;
+use Drupal\currency\ExchangeRateInterface;
+use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface;
+use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
 use Drupal\currency\PluginBasedExchangeRateProvider;
 use Drupal\Tests\UnitTestCase;
 
@@ -42,11 +47,11 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
+    $this->configFactory = $this->getMockBuilder(ConfigFactory::class)
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->currencyExchangeRateProviderManager = $this->getMock('\Drupal\Component\Plugin\PluginManagerInterface');
+    $this->currencyExchangeRateProviderManager = $this->getMock(ExchangeRateProviderManagerInterface::class);
 
     $this->exchangeRateProvider = new PluginBasedExchangeRateProvider($this->currencyExchangeRateProviderManager, $this->configFactory);
   }
@@ -81,7 +86,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
       ->method('getDefinitions')
       ->will($this->returnValue($plugin_definitions));
 
-    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $config->expects($this->once())
@@ -126,7 +131,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
       ),
     );
 
-    $config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $config->expects($this->once())
@@ -151,20 +156,20 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
     $currency_code_to = 'NLG';
     $rate = '2.20371';
 
-    $plugin_a = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+    $plugin_a = $this->getMock(ExchangeRateProviderInterface::class);
     $plugin_a->expects($this->once())
       ->method('load')
       ->with($currency_code_from, $currency_code_to)
       ->will($this->returnValue(NULL));
 
-    $plugin_b = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+    $plugin_b = $this->getMock(ExchangeRateProviderInterface::class);
     $plugin_b->expects($this->once())
       ->method('load')
       ->with($currency_code_from, $currency_code_to)
       ->will($this->returnValue($rate));
 
     /** @var \Drupal\currency\PluginBasedExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
-    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\PluginBasedExchangeRateProvider')
+    $exchange_rate_provider = $this->getMockBuilder(PluginBasedExchangeRateProvider::class)
       ->setConstructorArgs(array($this->currencyExchangeRateProviderManager, $this->configFactory))
       ->setMethods(array('getPlugins'))
       ->getMock();
@@ -183,7 +188,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
     $currency_code_to = 'EUR';
 
     $rate = $this->exchangeRateProvider->load($currency_code_from, $currency_code_to);
-    $this->assertInstanceOf('\Drupal\currency\ExchangeRate', $rate);
+    $this->assertInstanceOf(ExchangeRateInterface::class, $rate);
     $this->assertSame(1, $rate->getRate());
   }
 
@@ -195,7 +200,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
     $currency_code_to = $this->randomMachineName();
 
     /** @var \Drupal\currency\PluginBasedExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
-    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\PluginBasedExchangeRateProvider')
+    $exchange_rate_provider = $this->getMockBuilder(PluginBasedExchangeRateProvider::class)
       ->setConstructorArgs(array($this->currencyExchangeRateProviderManager, $this->configFactory))
       ->setMethods(array('getPlugins'))
       ->getMock();
@@ -235,7 +240,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
       $currency_code_from_b => array($currency_code_to_b),
     );
 
-    $plugin_a = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+    $plugin_a = $this->getMock(ExchangeRateProviderInterface::class);
     $returned_rates_a = array(
       $currency_code_from_a => array(
         $currency_code_to_a => new ExchangeRate(NULL, NULL, $currency_code_from_a, $currency_code_to_a, $rate_a),
@@ -249,7 +254,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
       ->with($requested_rates_plugin_a)
       ->will($this->returnValue($returned_rates_a));
 
-    $plugin_b = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+    $plugin_b = $this->getMock(ExchangeRateProviderInterface::class);
     $returned_rates_b = array(
       $currency_code_from_a => array(
         $currency_code_to_a => NULL,
@@ -264,7 +269,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
       ->will($this->returnValue($returned_rates_b));
 
     /** @var \Drupal\currency\PluginBasedExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
-    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\PluginBasedExchangeRateProvider')
+    $exchange_rate_provider = $this->getMockBuilder(PluginBasedExchangeRateProvider::class)
       ->setConstructorArgs(array($this->currencyExchangeRateProviderManager, $this->configFactory))
       ->setMethods(array('getPlugins'))
       ->getMock();
@@ -293,7 +298,7 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
     );
 
     /** @var \Drupal\currency\PluginBasedExchangeRateProvider|\PHPUnit_Framework_MockObject_MockObject $exchange_rate_provider */
-    $exchange_rate_provider = $this->getMockBuilder('\Drupal\currency\PluginBasedExchangeRateProvider')
+    $exchange_rate_provider = $this->getMockBuilder(PluginBasedExchangeRateProvider::class)
       ->setConstructorArgs(array($this->currencyExchangeRateProviderManager, $this->configFactory))
       ->setMethods(array('loadConfiguration'))
       ->getMock();
@@ -301,8 +306,8 @@ class PluginBasedExchangeRateProviderUnitTest extends UnitTestCase {
       ->method('loadConfiguration')
       ->will($this->returnValue($configuration));
 
-    $plugin_foo = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
-    $plugin_bar = $this->getMock('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface');
+    $plugin_foo = $this->getMock(ExchangeRateProviderInterface::class);
+    $plugin_bar = $this->getMock(ExchangeRateProviderInterface::class);
 
     $map = array(
       array('foo', array(), $plugin_foo),

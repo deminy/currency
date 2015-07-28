@@ -9,9 +9,10 @@ namespace Drupal\currency\Plugin\Currency\AmountFormatter;
 
 use Drupal\Component\Plugin\FallbackPluginManagerInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
-use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\currency\Annotation\CurrencyAmountFormatter;
 
 /**
  * Manages amount formatter plugins.
@@ -21,7 +22,7 @@ class AmountFormatterManager extends DefaultPluginManager implements AmountForma
   /**
    * The config factory.
    *
-   * @var \Drupal\Core\Config\ConfigFactory
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $configFactory;
 
@@ -35,11 +36,11 @@ class AmountFormatterManager extends DefaultPluginManager implements AmountForma
    *   Cache backend instance to use.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler to invoke the alter hook with.
-   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler, ConfigFactory $config_factory) {
-    parent::__construct('Plugin/Currency/AmountFormatter', $namespaces, $module_handler, '\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface', '\Drupal\currency\Annotation\CurrencyAmountFormatter');
+  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory) {
+    parent::__construct('Plugin/Currency/AmountFormatter', $namespaces, $module_handler, AmountFormatterInterface::class, CurrencyAmountFormatter::class);
     $this->alterInfo('currency_amount_formatter');
     $this->setCacheBackend($cache_backend, 'currency_amount_formatter');
     $this->configFactory = $config_factory;

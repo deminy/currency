@@ -7,6 +7,8 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
+use Drupal\Core\Config\Config;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,9 +49,7 @@ class FixedRatesUnitTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->configFactory = $this->getMockBuilder('\Drupal\Core\Config\ConfigFactory')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->configFactory = $this->getMock(ConfigFactoryInterface::class);
 
     $this->plugin = new FixedRates($configuration, $plugin_id, $plugin_definition, $this->configFactory);
   }
@@ -59,7 +59,7 @@ class FixedRatesUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array('config.factory', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configFactory),
     );
@@ -68,7 +68,7 @@ class FixedRatesUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = FixedRates::create($container, array(), '', array());
-    $this->assertInstanceOf('\Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates', $form);
+    $this->assertInstanceOf(FixedRates::class, $form);
   }
 
   /**
@@ -199,7 +199,7 @@ class FixedRatesUnitTest extends UnitTestCase {
       }
     }
 
-    $this->config = $this->getMockBuilder('\Drupal\Core\Config\Config')
+    $this->config = $this->getMockBuilder(Config::class)
       ->disableOriginalConstructor()
       ->getMock();
     $this->config->expects($this->any())

@@ -8,6 +8,8 @@
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
 use Drupal\currency\ExchangeRate;
+use Drupal\currency\ExchangeRateProviderInterface;
+use Drupal\currency\InputInterface;
 use Drupal\currency\Plugin\Filter\CurrencyExchange;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -65,9 +67,9 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
       'provider' => $this->randomMachineName(),
     ];
 
-    $this->exchangeRateProvider = $this->getMock('\Drupal\currency\ExchangeRateProviderInterface');
+    $this->exchangeRateProvider = $this->getMock(ExchangeRateProviderInterface::class);
 
-    $this->input = $this->getMock('\Drupal\currency\InputInterface');
+    $this->input = $this->getMock(InputInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
@@ -79,7 +81,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = [
       ['currency.input', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->input],
       ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
@@ -90,7 +92,7 @@ class CurrencyExchangeUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $filter = CurrencyExchange::create($container, [], '', $this->pluginDefinition);
-    $this->assertInstanceOf('\Drupal\currency\Plugin\Filter\CurrencyExchange', $filter);
+    $this->assertInstanceOf(CurrencyExchange::class, $filter);
   }
 
   /**

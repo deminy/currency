@@ -8,6 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Entity;
 
 use Drupal\Core\Language\LanguageManager;
+use Drupal\Core\Locale\CountryManagerInterface;
 use Drupal\currency\Entity\CurrencyLocale;
 use Drupal\Tests\UnitTestCase;
 
@@ -45,7 +46,7 @@ class CurrencyLocaleUnitTest extends UnitTestCase {
    * @covers ::setCountryManager
    */
   function setUp() {
-    $this->countryManager = $this->getMock('\Drupal\Core\Locale\CountryManagerInterface');
+    $this->countryManager = $this->getMock(CountryManagerInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 

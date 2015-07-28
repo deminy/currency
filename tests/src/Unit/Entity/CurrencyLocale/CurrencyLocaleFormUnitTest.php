@@ -7,7 +7,15 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
+  use Drupal\Core\Entity\EntityManagerInterface;
+  use Drupal\Core\Entity\EntityStorageInterface;
+  use Drupal\Core\Form\FormStateInterface;
+  use Drupal\Core\Form\FormValidatorInterface;
+  use Drupal\Core\Language\LanguageInterface;
+  use Drupal\Core\Locale\CountryManagerInterface;
+  use Drupal\Core\Utility\LinkGeneratorInterface;
   use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm;
+  use Drupal\currency\Entity\CurrencyLocaleInterface;
   use Drupal\Tests\UnitTestCase;
   use Symfony\Component\DependencyInjection\ContainerBuilder;
   use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -72,22 +80,17 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->countryManager = $this->getMock('\Drupal\Core\Locale\CountryManagerInterface');
+    $this->countryManager = $this->getMock(CountryManagerInterface::class);
 
-    $this->currencyLocale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->currencyLocale = $this->getMock(CurrencyLocaleInterface::class);
 
-    $this->currencyLocaleStorage = $this->getMock('\Drupal\Core\Entity\EntityStorageInterface');
+    $this->currencyLocaleStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->linkGenerator = $this->getMock('\Drupal\Core\Utility\LinkGeneratorInterface');
+    $this->linkGenerator = $this->getMock(LinkGeneratorInterface::class);
 
-    $this->stringTranslation = $this->getMock('\Drupal\Core\StringTranslation\TranslationInterface');
-    $this->stringTranslation->expects($this->any())
-      ->method('translate')
-      ->will($this->returnArgument(0));
+    $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->formValidator = $this->getMock('\Drupal\Core\Form\FormValidatorInterface');
+    $this->formValidator = $this->getMock(FormValidatorInterface::class);
 
     $container = new ContainerBuilder();
     $container->set('form_validator', $this->formValidator);
@@ -102,13 +105,13 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $entity_manager = $this->getMock(EntityManagerInterface::class);
     $entity_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency_locale')
       ->will($this->returnValue($this->currencyLocaleStorage));
 
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
 
     $map = array(
       array('country_manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->countryManager),
@@ -121,7 +124,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = CurrencyLocaleForm::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm', $form);
+    $this->assertInstanceOf(CurrencyLocaleForm::class, $form);
   }
 
   /**
@@ -148,7 +151,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->with($grouping_separator);
 
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
     $form_state->expects($this->atLeastOnce())
       ->method('getValues')
       ->willReturn(array(
@@ -191,9 +194,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->method('getGroupingSeparator')
       ->will($this->returnValue($grouping_separator));
 
-    $language = $this->getMockBuilder('\Drupal\Core\Language\Language')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $language = $this->getMock(LanguageInterface::class);
 
     $this->currencyLocale->expects($this->any())
       ->method('language')
@@ -207,7 +208,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->will($this->returnValue($country_list));
 
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
 
     $expected = array(
       'language_code' => array(
@@ -364,7 +365,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
       ->method('save');
 
     $form = array();
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
     $form_state->expects($this->once())
       ->method('setRedirect')
       ->with('entity.currency_locale.collection');
@@ -382,7 +383,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
         '#foo' => $this->randomMachineName(),
       ),
     );
-    $form_state = $this->getMock('\Drupal\Core\Form\FormStateInterface');
+    $form_state = $this->getMock(FormStateInterface::class);
     $form_state->expects($this->any())
       ->method('getValues')
       ->willReturn(array(
@@ -396,9 +397,7 @@ class CurrencyLocaleFormUnitTest extends UnitTestCase {
 
     if ($currency_locale_is_new) {
       if ($locale_is_used) {
-        $loaded_currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
-          ->disableOriginalConstructor()
-          ->getMock();
+        $loaded_currency_locale = $this->getMock(CurrencyLocaleInterface::class);
 
         $this->currencyLocaleStorage->expects($this->once())
           ->method('load')

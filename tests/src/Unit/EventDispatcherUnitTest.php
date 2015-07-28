@@ -8,8 +8,10 @@
 namespace Drupal\Tests\currency\Unit;
 
 use Drupal\currency\Event\CurrencyEvents;
+use Drupal\currency\Event\ResolveCountryCode;
 use Drupal\currency\EventDispatcher;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @coversDefaultClass \Drupal\currency\EventDispatcher
@@ -36,7 +38,7 @@ class EventDispatcherUnitTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->symfonyEventDispatcher = $this->getMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
+    $this->symfonyEventDispatcher = $this->getMock(EventDispatcherInterface::class);
 
     $this->sut = new EventDispatcher($this->symfonyEventDispatcher);
   }
@@ -54,7 +56,7 @@ class EventDispatcherUnitTest extends UnitTestCase {
   public function testResolveCountryCode() {;
     $this->symfonyEventDispatcher->expects($this->once())
       ->method('dispatch')
-      ->with(CurrencyEvents::RESOLVE_COUNTRY_CODE, $this->isInstanceOf('\Drupal\currency\Event\ResolveCountryCode'));
+      ->with(CurrencyEvents::RESOLVE_COUNTRY_CODE, $this->isInstanceOf(ResolveCountryCode::class));
 
     $this->sut->resolveCountryCode();
   }

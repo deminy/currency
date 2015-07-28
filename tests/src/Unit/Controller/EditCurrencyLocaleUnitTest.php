@@ -8,6 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\currency\Controller\EditCurrencyLocale;
+use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -46,7 +47,7 @@ class EditCurrencyLocaleUnitTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
+    $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),
     );
@@ -55,7 +56,7 @@ class EditCurrencyLocaleUnitTest extends UnitTestCase {
       ->will($this->returnValueMap($map));
 
     $form = EditCurrencyLocale::create($container);
-    $this->assertInstanceOf('\Drupal\currency\Controller\EditCurrencyLocale', $form);
+    $this->assertInstanceOf(EditCurrencyLocale::class, $form);
   }
 
   /**
@@ -64,9 +65,7 @@ class EditCurrencyLocaleUnitTest extends UnitTestCase {
   public function testTitle() {
     $label = $this->randomMachineName();
 
-    $currency_locale = $this->getMockBuilder('\Drupal\currency\Entity\CurrencyLocale')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
     $currency_locale->expects($this->once())
       ->method('label')
       ->will($this->returnValue($label));

@@ -7,7 +7,11 @@
 
 namespace Drupal\Tests\currency\Unit\Entity;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\currency\Entity\Currency;
+use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
+use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
 use Drupal\currency\Usage;
 use Drupal\Tests\UnitTestCase;
 
@@ -52,9 +56,9 @@ class CurrencyUnitTest extends UnitTestCase {
   function setUp() {
     $this->entityTypeId = $this->randomMachineName();
 
-    $this->currencyAmountFormatterManager = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface');
+    $this->currencyAmountFormatterManager = $this->getMock(AmountFormatterManagerInterface::class);
 
-    $this->entityManager = $this->getMock('\Drupal\Core\Entity\EntityManagerInterface');
+    $this->entityManager = $this->getMock(EntityManagerInterface::class);
 
     $this->sut = new Currency([], $this->entityTypeId);
     $this->sut->setCurrencyAmountFormatterManager($this->currencyAmountFormatterManager);
@@ -131,7 +135,7 @@ class CurrencyUnitTest extends UnitTestCase {
    * @dataProvider providerTestFormatAmount
    */
   function testFormatAmount($expected, $amount, $amount_with_currency_precision_applied) {
-    $amount_formatter = $this->getMock('\Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface');
+    $amount_formatter = $this->getMock(AmountFormatterInterface::class);
     $amount_formatter->expects($this->atLeastOnce())
       ->method('formatAmount')
       ->with($this->sut, $amount_with_currency_precision_applied)
@@ -234,7 +238,7 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::setLabel
    */
   function testLabel() {
-    $entity_type = $this->getMock('\Drupal\Core\Entity\EntityTypeInterface');
+    $entity_type = $this->getMock(EntityTypeInterface::class);
     $entity_type->expects($this->atLeastOnce())
       ->method('getKey')
       ->with('label')
@@ -286,7 +290,7 @@ class CurrencyUnitTest extends UnitTestCase {
    * @covers ::toArray
    */
   public function testToArray() {
-    $entity_type = $this->getMock('\Drupal\Core\Entity\EntityTypeInterface');
+    $entity_type = $this->getMock(EntityTypeInterface::class);
     $entity_type->expects($this->atLeastOnce())
       ->method('getKey')
       ->with('label')
