@@ -15,99 +15,99 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
   /**
- * @coversDefaultClass \Drupal\currency\Entity\Currency\CurrencyDeleteForm
- *
- * @group Currency
- */
-class CurrencyDeleteFormTest extends UnitTestCase {
-
-  /**
-   * The currency.
+   * @coversDefaultClass \Drupal\currency\Entity\Currency\CurrencyDeleteForm
    *
-   * @var \Drupal\currency\Entity\CurrencyInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @group Currency
    */
-  protected $currency;
+  class CurrencyDeleteFormTest extends UnitTestCase {
 
-  /**
-   * The string translation service.
-   *
-   * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $stringTranslation;
+    /**
+     * The currency.
+     *
+     * @var \Drupal\currency\Entity\CurrencyInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $currency;
 
-  /**
-   * The form under test.
-   *
-   * @var \Drupal\currency\Entity\Currency\CurrencyDeleteForm
-   */
-  protected $form;
+    /**
+     * The string translation service.
+     *
+     * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $stringTranslation;
 
-  /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    $this->currency = $this->getMock(CurrencyInterface::class);
+    /**
+     * The form under test.
+     *
+     * @var \Drupal\currency\Entity\Currency\CurrencyDeleteForm
+     */
+    protected $form;
 
-    $this->stringTranslation = $this->getStringTranslationStub();
+    /**
+     * {@inheritdoc}
+     */
+    public function setUp() {
+      $this->currency = $this->getMock(CurrencyInterface::class);
 
-    $this->form = new CurrencyDeleteForm($this->stringTranslation);
-    $this->form->setEntity($this->currency);
+      $this->stringTranslation = $this->getStringTranslationStub();
+
+      $this->form = new CurrencyDeleteForm($this->stringTranslation);
+      $this->form->setEntity($this->currency);
+    }
+
+    /**
+     * @covers ::create
+     * @covers ::__construct
+     */
+    function testCreate() {
+      $container = $this->getMock(ContainerInterface::class);
+      $container->expects($this->once())
+        ->method('get')
+        ->with('string_translation')
+        ->will($this->returnValue($this->stringTranslation));
+
+      $form = CurrencyDeleteForm::create($container);
+      $this->assertInstanceOf(CurrencyDeleteForm::class, $form);
+    }
+
+    /**
+     * @covers ::getQuestion
+     */
+    function testGetQuestion() {
+      $this->assertInternalType('string', $this->form->getQuestion());
+    }
+
+    /**
+     * @covers ::getConfirmText
+     */
+    function testGetConfirmText() {
+      $this->assertInternalType('string', $this->form->getConfirmText());
+    }
+
+    /**
+     * @covers ::getCancelUrl
+     */
+    function testGetCancelUrl() {
+      $url = $this->form->getCancelUrl();
+      $this->assertInstanceOf(Url::class, $url);
+      $this->assertSame('entity.currency.collection', $url->getRouteName());
+    }
+
+    /**
+     * @covers ::submitForm
+     */
+    function testSubmitForm() {
+      $this->currency->expects($this->once())
+        ->method('delete');
+
+      $form = array();
+      $form_state = $this->getMock(FormStateInterface::class);
+      $form_state->expects($this->once())
+        ->method('setRedirectUrl');
+
+      $this->form->submitForm($form, $form_state);
+    }
+
   }
-
-  /**
-   * @covers ::create
-   * @covers ::__construct
-   */
-  function testCreate() {
-    $container = $this->getMock(ContainerInterface::class);
-    $container->expects($this->once())
-      ->method('get')
-      ->with('string_translation')
-      ->will($this->returnValue($this->stringTranslation));
-
-    $form = CurrencyDeleteForm::create($container);
-    $this->assertInstanceOf(CurrencyDeleteForm::class, $form);
-  }
-
-  /**
-   * @covers ::getQuestion
-   */
-  function testGetQuestion() {
-    $this->assertInternalType('string', $this->form->getQuestion());
-  }
-
-  /**
-   * @covers ::getConfirmText
-   */
-  function testGetConfirmText() {
-    $this->assertInternalType('string', $this->form->getConfirmText());
-  }
-
-  /**
-   * @covers ::getCancelUrl
-   */
-  function testGetCancelUrl() {
-    $url = $this->form->getCancelUrl();
-    $this->assertInstanceOf(Url::class, $url);
-    $this->assertSame('entity.currency.collection', $url->getRouteName());
-  }
-
-  /**
-   * @covers ::submitForm
-   */
-  function testSubmitForm() {
-    $this->currency->expects($this->once())
-      ->method('delete');
-
-    $form = array();
-    $form_state = $this->getMock(FormStateInterface::class);
-    $form_state->expects($this->once())
-      ->method('setRedirectUrl');
-
-    $this->form->submitForm($form, $form_state);
-  }
-
-}
 
 }
 

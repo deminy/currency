@@ -18,203 +18,203 @@ namespace Drupal\Tests\currency\Unit\Controller {
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
   /**
- * @coversDefaultClass \Drupal\currency\Controller\CurrencyLocaleImportForm
- *
- * @group Currency
- */
-class CurrencyLocaleImportFormTest extends UnitTestCase {
-
-  /**
-   * The controller under test.
+   * @coversDefaultClass \Drupal\currency\Controller\CurrencyLocaleImportForm
    *
-   * @var \Drupal\currency\Controller\CurrencyLocaleImportForm
+   * @group Currency
    */
-  protected $controller;
+  class CurrencyLocaleImportFormTest extends UnitTestCase {
 
-  /**
-   * The config importer.
-   *
-   * @var \Drupal\currency\ConfigImporterInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $configImporter;
+    /**
+     * The controller under test.
+     *
+     * @var \Drupal\currency\Controller\CurrencyLocaleImportForm
+     */
+    protected $controller;
 
-  /**
-   * The form helper.
-   *
-   * @var \Drupal\currency\FormHelperInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $formHelper;
+    /**
+     * The config importer.
+     *
+     * @var \Drupal\currency\ConfigImporterInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $configImporter;
 
-  /**
-   * The string translation service.
-   *
-   * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $stringTranslation;
+    /**
+     * The form helper.
+     *
+     * @var \Drupal\currency\FormHelperInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $formHelper;
 
-  /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    $this->configImporter = $this->getMock(ConfigImporterInterface::class);
+    /**
+     * The string translation service.
+     *
+     * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $stringTranslation;
 
-    $this->formHelper = $this->getMock(FormHelperInterface::class);
+    /**
+     * {@inheritdoc}
+     */
+    public function setUp() {
+      $this->configImporter = $this->getMock(ConfigImporterInterface::class);
 
-    $this->stringTranslation = $this->getStringTranslationStub();
+      $this->formHelper = $this->getMock(FormHelperInterface::class);
 
-    $this->controller = new CurrencyLocaleImportForm($this->stringTranslation, $this->configImporter, $this->formHelper);
-  }
+      $this->stringTranslation = $this->getStringTranslationStub();
 
-  /**
-   * @covers ::create
-   * @covers ::__construct
-   */
-  function testCreate() {
-    $container = $this->getMock(ContainerInterface::class);
-    $map = [
-      ['currency.config_importer', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configImporter],
-      ['currency.form_helper', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->formHelper],
-      ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
-    ];
-    $container->expects($this->any())
-      ->method('get')
-      ->will($this->returnValueMap($map));
+      $this->controller = new CurrencyLocaleImportForm($this->stringTranslation, $this->configImporter, $this->formHelper);
+    }
 
-    $form = CurrencyLocaleImportForm::create($container);
-    $this->assertInstanceOf(CurrencyLocaleImportForm::class, $form);
-  }
+    /**
+     * @covers ::create
+     * @covers ::__construct
+     */
+    function testCreate() {
+      $container = $this->getMock(ContainerInterface::class);
+      $map = [
+        ['currency.config_importer', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->configImporter],
+        ['currency.form_helper', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->formHelper],
+        ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],
+      ];
+      $container->expects($this->any())
+        ->method('get')
+        ->will($this->returnValueMap($map));
 
-  /**
-   * @covers ::getFormId
-   */
-  public function testGetFormId() {
-    $this->assertInternalType('string', $this->controller->getFormId());
-  }
+      $form = CurrencyLocaleImportForm::create($container);
+      $this->assertInstanceOf(CurrencyLocaleImportForm::class, $form);
+    }
 
-  /**
-   * @covers ::buildForm
-   */
-  public function testBuildFormWithoutImportableCurrencies() {
-    $this->configImporter->expects($this->once())
-      ->method('getImportableCurrencyLocales')
-      ->willReturn([]);
+    /**
+     * @covers ::getFormId
+     */
+    public function testGetFormId() {
+      $this->assertInternalType('string', $this->controller->getFormId());
+    }
 
-    $form_state = $this->getMock(FormStateInterface::class);
+    /**
+     * @covers ::buildForm
+     */
+    public function testBuildFormWithoutImportableCurrencies() {
+      $this->configImporter->expects($this->once())
+        ->method('getImportableCurrencyLocales')
+        ->willReturn([]);
 
-    $form = $this->controller->buildForm([], $form_state);
+      $form_state = $this->getMock(FormStateInterface::class);
 
-    // There should be one element and it must not be the currency selector or a
-    // group of actions.
-    $this->assertCount(1, $form);
-    $this->assertArrayNotHasKey('actions', $form);
-    $this->assertArrayNotHasKey('locale', $form);
-  }
+      $form = $this->controller->buildForm([], $form_state);
 
-  /**
-   * @covers ::buildForm
-   */
-  public function testBuildFormWithImportableCurrencyLocales() {
-    $currency_locale_a = $this->getMock(CurrencyInterface::class);
-    $currency_locale_b = $this->getMock(CurrencyInterface::class);
+      // There should be one element and it must not be the currency selector or a
+      // group of actions.
+      $this->assertCount(1, $form);
+      $this->assertArrayNotHasKey('actions', $form);
+      $this->assertArrayNotHasKey('locale', $form);
+    }
 
-    $this->configImporter->expects($this->once())
-      ->method('getImportableCurrencyLocales')
-      ->willReturn([$currency_locale_a, $currency_locale_b]);
+    /**
+     * @covers ::buildForm
+     */
+    public function testBuildFormWithImportableCurrencyLocales() {
+      $currency_locale_a = $this->getMock(CurrencyInterface::class);
+      $currency_locale_b = $this->getMock(CurrencyInterface::class);
 
-    $form_state = $this->getMock(FormStateInterface::class);
+      $this->configImporter->expects($this->once())
+        ->method('getImportableCurrencyLocales')
+        ->willReturn([$currency_locale_a, $currency_locale_b]);
 
-    $form = $this->controller->buildForm([], $form_state);
+      $form_state = $this->getMock(FormStateInterface::class);
 
-    // There should a currency selector and a group of actions.
-    $this->assertArrayHasKey('locale', $form);
-    $this->assertArrayHasKey('actions', $form);
-    $this->assertArrayHasKey('import', $form['actions']);
-    $this->assertArrayHasKey('import_edit', $form['actions']);
-  }
+      $form = $this->controller->buildForm([], $form_state);
 
-  /**
-   * @covers ::submitForm
-   */
-  public function testSubmitFormImport() {
-    $locale = $this->randomMachineName();
+      // There should a currency selector and a group of actions.
+      $this->assertArrayHasKey('locale', $form);
+      $this->assertArrayHasKey('actions', $form);
+      $this->assertArrayHasKey('import', $form['actions']);
+      $this->assertArrayHasKey('import_edit', $form['actions']);
+    }
 
-    $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
+    /**
+     * @covers ::submitForm
+     */
+    public function testSubmitFormImport() {
+      $locale = $this->randomMachineName();
 
-    $this->configImporter->expects($this->once())
-      ->method('importCurrencyLocale')
-      ->with($locale)
-      ->willReturn($currency_locale);
+      $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
 
-    $form = [
-      'actions' => [
-        'import' => [
-          '#name' => 'import',
+      $this->configImporter->expects($this->once())
+        ->method('importCurrencyLocale')
+        ->with($locale)
+        ->willReturn($currency_locale);
+
+      $form = [
+        'actions' => [
+          'import' => [
+            '#name' => 'import',
+          ],
+          'import_edit' => [
+            '#name' => 'import_edit',
+          ],
         ],
-        'import_edit' => [
-          '#name' => 'import_edit',
-        ],
-      ],
-    ];
-    $form_state = $this->getMock(FormStateInterface::class);
-    $form_state->expects($this->atLeastOnce())
-      ->method('getValues')
-      ->willReturn([
-        'locale' => $locale,
-      ]);
-    $form_state->expects($this->atLeastOnce())
-      ->method('getTriggeringElement')
-      ->willReturn($form['actions']['import']);
-    $form_state->expects($this->atLeastOnce())
-      ->method('setRedirectUrl');
+      ];
+      $form_state = $this->getMock(FormStateInterface::class);
+      $form_state->expects($this->atLeastOnce())
+        ->method('getValues')
+        ->willReturn([
+          'locale' => $locale,
+        ]);
+      $form_state->expects($this->atLeastOnce())
+        ->method('getTriggeringElement')
+        ->willReturn($form['actions']['import']);
+      $form_state->expects($this->atLeastOnce())
+        ->method('setRedirectUrl');
 
-    $this->controller->submitForm($form, $form_state);
+      $this->controller->submitForm($form, $form_state);
+    }
+
+    /**
+     * @covers ::submitForm
+     */
+    public function testSubmitFormImportEdit() {
+      $locale = $this->randomMachineName();
+
+      $url = new Url($this->randomMachineName());
+
+      $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
+      $currency_locale->expects($this->atLeastOnce())
+        ->method('urlInfo')
+        ->with('edit-form')
+        ->willReturn($url);
+
+      $this->configImporter->expects($this->once())
+        ->method('importCurrencyLocale')
+        ->with($locale)
+        ->willReturn($currency_locale);
+
+      $form = [
+        'actions' => [
+          'import' => [
+            '#name' => 'import',
+          ],
+          'import_edit' => [
+            '#name' => 'import_edit',
+          ],
+        ],
+      ];
+      $form_state = $this->getMock(FormStateInterface::class);
+      $form_state->expects($this->atLeastOnce())
+        ->method('getValues')
+        ->willReturn([
+          'locale' => $locale,
+        ]);
+      $form_state->expects($this->atLeastOnce())
+        ->method('getTriggeringElement')
+        ->willReturn($form['actions']['import_edit']);
+      $form_state->expects($this->atLeastOnce())
+        ->method('setRedirectUrl');
+
+      $this->controller->submitForm($form, $form_state);
+    }
+
   }
-
-  /**
-   * @covers ::submitForm
-   */
-  public function testSubmitFormImportEdit() {
-    $locale = $this->randomMachineName();
-
-    $url = new Url($this->randomMachineName());
-
-    $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
-    $currency_locale->expects($this->atLeastOnce())
-      ->method('urlInfo')
-      ->with('edit-form')
-      ->willReturn($url);
-
-    $this->configImporter->expects($this->once())
-      ->method('importCurrencyLocale')
-      ->with($locale)
-      ->willReturn($currency_locale);
-
-    $form = [
-      'actions' => [
-        'import' => [
-          '#name' => 'import',
-        ],
-        'import_edit' => [
-          '#name' => 'import_edit',
-        ],
-      ],
-    ];
-    $form_state = $this->getMock(FormStateInterface::class);
-    $form_state->expects($this->atLeastOnce())
-      ->method('getValues')
-      ->willReturn([
-        'locale' => $locale,
-      ]);
-    $form_state->expects($this->atLeastOnce())
-      ->method('getTriggeringElement')
-      ->willReturn($form['actions']['import_edit']);
-    $form_state->expects($this->atLeastOnce())
-      ->method('setRedirectUrl');
-
-    $this->controller->submitForm($form, $form_state);
-  }
-
-}
 
 }
 
