@@ -2,29 +2,29 @@
 
 /**
  * @file
- * Contains \Drupal\Tests\currency\Unit\Controller\EnableCurrencyTest.
+ * Contains \Drupal\Tests\currency\Unit\Controller\DisableCurrencyTest.
  */
 
 namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\Core\Routing\UrlGeneratorInterface;
-use Drupal\currency\Controller\EnableCurrency;
+use Drupal\currency\Controller\DisableCurrency;
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * @coversDefaultClass \Drupal\currency\Controller\EnableCurrency
+ * @coversDefaultClass \Drupal\currency\Controller\DisableCurrency
  *
  * @group Currency
  */
-class EnableCurrencyTest extends UnitTestCase {
+class DisableCurrencyTest extends UnitTestCase {
 
   /**
    * The controller under test.
    *
-   * @var \Drupal\currency\Controller\EnableCurrency
+   * @var \Drupal\currency\Controller\DisableCurrency
    */
   protected $controller;
 
@@ -41,7 +41,7 @@ class EnableCurrencyTest extends UnitTestCase {
   public function setUp() {
     $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
 
-    $this->controller = new EnableCurrency($this->urlGenerator);
+    $this->controller = new DisableCurrency($this->urlGenerator);
   }
 
   /**
@@ -57,8 +57,8 @@ class EnableCurrencyTest extends UnitTestCase {
       ->method('get')
       ->will($this->returnValueMap($map));
 
-    $form = EnableCurrency::create($container);
-    $this->assertInstanceOf(EnableCurrency::class, $form);
+    $form = DisableCurrency::create($container);
+    $this->assertInstanceOf(DisableCurrency::class, $form);
   }
 
   /**
@@ -69,7 +69,7 @@ class EnableCurrencyTest extends UnitTestCase {
 
     $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->once())
-      ->method('enable');
+      ->method('disable');
     $currency->expects($this->once())
       ->method('save');
 
