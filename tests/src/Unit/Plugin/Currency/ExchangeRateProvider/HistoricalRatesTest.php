@@ -18,11 +18,11 @@ use Drupal\Tests\UnitTestCase;
 class HistoricalRatesTest extends UnitTestCase {
 
   /**
-   * The plugin under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
    */
-  protected $plugin;
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -32,7 +32,7 @@ class HistoricalRatesTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->plugin = new HistoricalRates($configuration, $plugin_id, $plugin_definition);
+    $this->sut = new HistoricalRates($configuration, $plugin_id, $plugin_definition);
   }
 
   /**
@@ -44,15 +44,15 @@ class HistoricalRatesTest extends UnitTestCase {
     $reverse_rate = '0.511291';
 
     // Test rates that are stored in config.
-    $this->assertSame($expected_rates['EUR']['NLG'], $this->plugin->load('EUR', 'NLG')->getRate());
-    $this->assertSame($expected_rates['EUR']['DEM'], $this->plugin->load('EUR', 'DEM')->getRate());
+    $this->assertSame($expected_rates['EUR']['NLG'], $this->sut->load('EUR', 'NLG')->getRate());
+    $this->assertSame($expected_rates['EUR']['DEM'], $this->sut->load('EUR', 'DEM')->getRate());
 
     // Test a rate that is calculated on-the-fly.
-    $this->assertSame($reverse_rate, $this->plugin->load('DEM', 'EUR')->getRate());
+    $this->assertSame($reverse_rate, $this->sut->load('DEM', 'EUR')->getRate());
 
     // Test an unavailable exchange rate.
-    $this->assertNull($this->plugin->load('UAH', 'EUR'));
-    $this->assertNull($this->plugin->load('EUR', 'UAH'));
+    $this->assertNull($this->sut->load('UAH', 'EUR'));
+    $this->assertNull($this->sut->load('EUR', 'UAH'));
   }
 
   /**
@@ -61,7 +61,7 @@ class HistoricalRatesTest extends UnitTestCase {
   public function testLoadMultiple() {
     $expected_rates = $this->prepareExchangeRates();
 
-    $returned_rates = $this->plugin->loadMultiple(array(
+    $returned_rates = $this->sut->loadMultiple(array(
       // Test a rate that is stored in config.
       'EUR' => array('NLG'),
       // Test a reverse exchange rate.

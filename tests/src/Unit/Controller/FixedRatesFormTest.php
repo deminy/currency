@@ -36,13 +36,6 @@ class FixedRatesFormTest extends UnitTestCase {
   protected $configFactory;
 
   /**
-   * The controller under test.
-   *
-   * @var \Drupal\currency\Controller\FixedRatesForm
-   */
-  protected $controller;
-
-  /**
    * The currency exchange rate provider manager.
    *
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -71,6 +64,13 @@ class FixedRatesFormTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Controller\FixedRatesForm
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -84,7 +84,7 @@ class FixedRatesFormTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->controller = new FixedRatesForm($this->configFactory, $this->stringTranslation, $this->currencyStorage, $this->currencyExchangeRateProviderManager, $this->formHelper);
+    $this->sut = new FixedRatesForm($this->configFactory, $this->stringTranslation, $this->currencyStorage, $this->currencyExchangeRateProviderManager, $this->formHelper);
   }
 
   /**
@@ -110,15 +110,15 @@ class FixedRatesFormTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = FixedRatesForm::create($container);
-    $this->assertInstanceOf(FixedRatesForm::class, $form);
+    $sut = FixedRatesForm::create($container);
+    $this->assertInstanceOf(FixedRatesForm::class, $sut);
   }
 
   /**
    * @covers ::getFormId
    */
   public function testGetFormId() {
-    $this->assertSame('currency_exchange_rate_provider_fixed_rates', $this->controller->getFormId());
+    $this->assertSame('currency_exchange_rate_provider_fixed_rates', $this->sut->getFormId());
   }
 
   /**
@@ -208,7 +208,7 @@ class FixedRatesFormTest extends UnitTestCase {
 
     $form = array();
     $form_state = $this->getMock(FormStateInterface::class);
-    $build = $this->controller->buildForm($form, $form_state, $currency_code_from, $currency_code_to);
+    $build = $this->sut->buildForm($form, $form_state, $currency_code_from, $currency_code_to);
     $this->assertSame($expected_build, $build);
   }
 
@@ -228,7 +228,7 @@ class FixedRatesFormTest extends UnitTestCase {
   public function testValidateForm() {
     $form = array();
     $form_state = $this->getMock(FormStateInterface::class);
-    $this->controller->validateForm($form, $form_state);
+    $this->sut->validateForm($form, $form_state);
   }
 
   /**
@@ -294,7 +294,7 @@ class FixedRatesFormTest extends UnitTestCase {
       ->method('load')
       ->willReturnMap($map);
 
-    $this->controller->submitForm($form, $form_state);
+    $this->sut->submitForm($form, $form_state);
   }
 
   /**
@@ -356,7 +356,7 @@ class FixedRatesFormTest extends UnitTestCase {
       ->method('load')
       ->willReturnMap($map);
 
-    $this->controller->submitForm($form, $form_state);
+    $this->sut->submitForm($form, $form_state);
   }
 
 }

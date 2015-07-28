@@ -22,13 +22,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class EnableCurrencyTest extends UnitTestCase {
 
   /**
-   * The controller under test.
-   *
-   * @var \Drupal\currency\Controller\EnableCurrency
-   */
-  protected $controller;
-
-  /**
    * The url generator.
    *
    * @var \Drupal\Core\Routing\UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -36,12 +29,19 @@ class EnableCurrencyTest extends UnitTestCase {
   protected $urlGenerator;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Controller\EnableCurrency
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
     $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
 
-    $this->controller = new EnableCurrency($this->urlGenerator);
+    $this->sut = new EnableCurrency($this->urlGenerator);
   }
 
   /**
@@ -57,8 +57,8 @@ class EnableCurrencyTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = EnableCurrency::create($container);
-    $this->assertInstanceOf(EnableCurrency::class, $form);
+    $sut = EnableCurrency::create($container);
+    $this->assertInstanceOf(EnableCurrency::class, $sut);
   }
 
   /**
@@ -78,7 +78,7 @@ class EnableCurrencyTest extends UnitTestCase {
       ->with('entity.currency.collection')
       ->willReturn($url);
 
-    $response = $this->controller->execute($currency);
+    $response = $this->sut->execute($currency);
     $this->assertInstanceOf(RedirectResponse::class, $response);
     $this->assertSame($url, $response->getTargetUrl());
   }

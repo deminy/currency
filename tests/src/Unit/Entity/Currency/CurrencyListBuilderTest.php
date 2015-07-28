@@ -52,11 +52,11 @@ class CurrencyListBuilderTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
-   * The form under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Entity\Currency\CurrencyListBuilder
    */
-  protected $form;
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -70,7 +70,7 @@ class CurrencyListBuilderTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->form = new CurrencyListBuilder($this->entityType, $this->entityStorage, $this->stringTranslation, $this->moduleHandler);
+    $this->sut = new CurrencyListBuilder($this->entityType, $this->entityStorage, $this->stringTranslation, $this->moduleHandler);
   }
 
   /**
@@ -94,15 +94,15 @@ class CurrencyListBuilderTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = CurrencyListBuilder::createInstance($container, $this->entityType);
-    $this->assertInstanceOf(CurrencyListBuilder::class, $form);
+    $sut = CurrencyListBuilder::createInstance($container, $this->entityType);
+    $this->assertInstanceOf(CurrencyListBuilder::class, $sut);
   }
 
   /**
    * @covers ::buildHeader
    */
   function testBuildHeader() {
-    $header = $this->form->buildHeader();
+    $header = $this->sut->buildHeader();
     $expected = array(
       'id' => 'Currency code',
       'label' => 'Name',
@@ -130,7 +130,7 @@ class CurrencyListBuilderTest extends UnitTestCase {
       ->method('invokeAll')
       ->willReturn([]);
 
-    $row = $this->form->buildRow($currency);
+    $row = $this->sut->buildRow($currency);
     $expected = array(
       'id' => $entity_id,
       'label' => $entity_label,

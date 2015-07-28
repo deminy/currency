@@ -27,18 +27,18 @@ class CurrencyLocaleTest extends UnitTestCase {
   protected $countryManager;
 
   /**
-   * The currency locale under test.
-   *
-   * @var \Drupal\currency\Entity\CurrencyLocale
-   */
-  protected $currencyLocale;
-
-  /**
    * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $stringTranslation;
+
+  /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Entity\CurrencyLocale
+   */
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -50,9 +50,9 @@ class CurrencyLocaleTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->currencyLocale = new CurrencyLocale([], $this->randomMachineName());
-    $this->currencyLocale->setCountryManager($this->countryManager);
-    $this->currencyLocale->setStringTranslation($this->stringTranslation);
+    $this->sut = new CurrencyLocale([], $this->randomMachineName());
+    $this->sut->setCountryManager($this->countryManager);
+    $this->sut->setStringTranslation($this->stringTranslation);
   }
 
   /**
@@ -61,8 +61,8 @@ class CurrencyLocaleTest extends UnitTestCase {
    */
   function testGetDecimalSeparator() {
     $separator = $this->randomMachineName();
-    $this->assertSame($this->currencyLocale, $this->currencyLocale->setDecimalSeparator($separator));
-    $this->assertSame($separator, $this->currencyLocale->getDecimalSeparator());
+    $this->assertSame($this->sut, $this->sut->setDecimalSeparator($separator));
+    $this->assertSame($separator, $this->sut->getDecimalSeparator());
   }
 
   /**
@@ -71,8 +71,8 @@ class CurrencyLocaleTest extends UnitTestCase {
    */
   function testGetGroupingSeparator() {
     $separator = $this->randomMachineName();
-    $this->assertSame($this->currencyLocale, $this->currencyLocale->setGroupingSeparator($separator));
-    $this->assertSame($separator, $this->currencyLocale->getGroupingSeparator());
+    $this->assertSame($this->sut, $this->sut->setGroupingSeparator($separator));
+    $this->assertSame($separator, $this->sut->getGroupingSeparator());
   }
 
   /**
@@ -82,8 +82,8 @@ class CurrencyLocaleTest extends UnitTestCase {
   function testGetLocale() {
     $language_code = $this->randomMachineName();
     $country_code = $this->randomMachineName();
-    $this->assertSame($this->currencyLocale, $this->currencyLocale->setLocale($language_code, $country_code));
-    $this->assertSame(strtolower($language_code) . '_' . strtoupper($country_code), $this->currencyLocale->getLocale());
+    $this->assertSame($this->sut, $this->sut->setLocale($language_code, $country_code));
+    $this->assertSame(strtolower($language_code) . '_' . strtoupper($country_code), $this->sut->getLocale());
   }
 
   /**
@@ -94,8 +94,8 @@ class CurrencyLocaleTest extends UnitTestCase {
   function testId() {
     $language_code = $this->randomMachineName();
     $country_code = $this->randomMachineName();
-    $this->assertSame($this->currencyLocale, $this->currencyLocale->setLocale($language_code, $country_code));
-    $this->assertSame(strtolower($language_code) . '_' . strtoupper($country_code), $this->currencyLocale->id());
+    $this->assertSame($this->sut, $this->sut->setLocale($language_code, $country_code));
+    $this->assertSame(strtolower($language_code) . '_' . strtoupper($country_code), $this->sut->id());
   }
 
   /**
@@ -106,8 +106,8 @@ class CurrencyLocaleTest extends UnitTestCase {
   function testGetLanguageCode() {
     $language_code = $this->randomMachineName();
     $country_code = $this->randomMachineName();
-    $this->assertSame($this->currencyLocale, $this->currencyLocale->setLocale($language_code, $country_code));
-    $this->assertSame(strtolower($language_code), $this->currencyLocale->getLanguageCode());
+    $this->assertSame($this->sut, $this->sut->setLocale($language_code, $country_code));
+    $this->assertSame(strtolower($language_code), $this->sut->getLanguageCode());
   }
 
   /**
@@ -118,8 +118,8 @@ class CurrencyLocaleTest extends UnitTestCase {
   function testGetCountryCode() {
     $language_code = $this->randomMachineName();
     $country_code = $this->randomMachineName();
-    $this->assertSame($this->currencyLocale, $this->currencyLocale->setLocale($language_code, $country_code));
-    $this->assertSame(strtoupper($country_code), $this->currencyLocale->getCountryCode());
+    $this->assertSame($this->sut, $this->sut->setLocale($language_code, $country_code));
+    $this->assertSame(strtoupper($country_code), $this->sut->getCountryCode());
   }
 
   /**
@@ -128,8 +128,8 @@ class CurrencyLocaleTest extends UnitTestCase {
    */
   function testGetPattern() {
     $pattern = $this->randomMachineName();
-    $this->assertSame($this->currencyLocale, $this->currencyLocale->setPattern($pattern));
-    $this->assertSame($pattern, $this->currencyLocale->getPattern());
+    $this->assertSame($this->sut, $this->sut->setPattern($pattern));
+    $this->assertSame($pattern, $this->sut->getPattern());
   }
 
   /**
@@ -157,10 +157,10 @@ class CurrencyLocaleTest extends UnitTestCase {
       ->method('getList')
       ->willReturn($country_list);
 
-    $this->currencyLocale->setLocale($language_code, $country_code_b);
+    $this->sut->setLocale($language_code, $country_code_b);
 
     $expected = $languages[$language_code][0] . ' (' . $country_list[$country_code_b] . ')';
-    $this->assertSame($expected, $this->currencyLocale->label());
+    $this->assertSame($expected, $this->sut->label());
   }
 
   /**
@@ -178,12 +178,12 @@ class CurrencyLocaleTest extends UnitTestCase {
       'pattern' => $this->randomMachineName(),
     ];
 
-    $this->currencyLocale->setLocale($language_code, $country_code);
-    $this->currencyLocale->setDecimalSeparator($expected_array['decimalSeparator']);
-    $this->currencyLocale->setGroupingSeparator($expected_array['groupingSeparator']);
-    $this->currencyLocale->setPattern($expected_array['pattern']);
+    $this->sut->setLocale($language_code, $country_code);
+    $this->sut->setDecimalSeparator($expected_array['decimalSeparator']);
+    $this->sut->setGroupingSeparator($expected_array['groupingSeparator']);
+    $this->sut->setPattern($expected_array['pattern']);
 
-    $array = $this->currencyLocale->toArray();
+    $array = $this->sut->toArray();
     $this->assertArrayHasKey('uuid', $array);
     unset($array['uuid']);
     $this->assertEquals($expected_array, $array);

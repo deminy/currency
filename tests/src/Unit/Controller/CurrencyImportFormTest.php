@@ -24,13 +24,6 @@ namespace Drupal\Tests\currency\Unit\Controller {
   class CurrencyImportFormTest extends UnitTestCase {
 
     /**
-     * The controller under test.
-     *
-     * @var \Drupal\currency\Controller\CurrencyImportForm
-     */
-    protected $controller;
-
-    /**
      * The config importer.
      *
      * @var \Drupal\currency\ConfigImporterInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -52,6 +45,13 @@ namespace Drupal\Tests\currency\Unit\Controller {
     protected $stringTranslation;
 
     /**
+     * The class under test.
+     *
+     * @var \Drupal\currency\Controller\CurrencyImportForm
+     */
+    protected $sut;
+
+    /**
      * {@inheritdoc}
      */
     public function setUp() {
@@ -61,7 +61,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
       $this->stringTranslation = $this->getStringTranslationStub();
 
-      $this->controller = new CurrencyImportForm($this->stringTranslation, $this->configImporter, $this->formHelper);
+      $this->sut = new CurrencyImportForm($this->stringTranslation, $this->configImporter, $this->formHelper);
     }
 
     /**
@@ -79,15 +79,15 @@ namespace Drupal\Tests\currency\Unit\Controller {
         ->method('get')
         ->willReturnMap($map);
 
-      $form = CurrencyImportForm::create($container);
-      $this->assertInstanceOf(CurrencyImportForm::class, $form);
+      $sut = CurrencyImportForm::create($container);
+      $this->assertInstanceOf(CurrencyImportForm::class, $sut);
     }
 
     /**
      * @covers ::getFormId
      */
     public function testGetFormId() {
-      $this->assertInternalType('string', $this->controller->getFormId());
+      $this->assertInternalType('string', $this->sut->getFormId());
     }
 
     /**
@@ -100,7 +100,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
       $form_state = $this->getMock(FormStateInterface::class);
 
-      $form = $this->controller->buildForm([], $form_state);
+      $form = $this->sut->buildForm([], $form_state);
 
       // There should be one element and it must not be the currency selector or a
       // group of actions.
@@ -122,7 +122,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
       $form_state = $this->getMock(FormStateInterface::class);
 
-      $form = $this->controller->buildForm([], $form_state);
+      $form = $this->sut->buildForm([], $form_state);
 
       // There should a currency selector and a group of actions.
       $this->assertArrayHasKey('currency_code', $form);
@@ -166,7 +166,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
       $form_state->expects($this->atLeastOnce())
         ->method('setRedirectUrl');
 
-      $this->controller->submitForm($form, $form_state);
+      $this->sut->submitForm($form, $form_state);
     }
 
     /**
@@ -210,7 +210,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
       $form_state->expects($this->atLeastOnce())
         ->method('setRedirectUrl');
 
-      $this->controller->submitForm($form, $form_state);
+      $this->sut->submitForm($form, $form_state);
     }
 
   }

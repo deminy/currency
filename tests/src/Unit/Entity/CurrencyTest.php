@@ -23,13 +23,6 @@ use Drupal\Tests\UnitTestCase;
 class CurrencyTest extends UnitTestCase {
 
   /**
-   * The currency under test.
-   *
-   * @var \Drupal\currency\Entity\Currency
-   */
-  protected $sut;
-
-  /**
    * The currency amount formatter manager.
    *
    * @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -49,6 +42,13 @@ class CurrencyTest extends UnitTestCase {
    * @var string
    */
   protected $entityTypeId;
+
+  /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Entity\Currency
+   */
+  protected $sut;
 
   /**
    * {@inheritdoc}

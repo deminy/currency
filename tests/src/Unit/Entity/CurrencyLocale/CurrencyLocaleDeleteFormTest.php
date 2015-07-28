@@ -36,11 +36,11 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
     protected $stringTranslation;
 
     /**
-     * The form under test.
+     * The class under test.
      *
      * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm
      */
-    protected $form;
+    protected $sut;
 
     /**
      * {@inheritdoc}
@@ -50,8 +50,8 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
       $this->stringTranslation = $this->getStringTranslationStub();
 
-      $this->form = new CurrencyLocaleDeleteForm($this->stringTranslation);
-      $this->form->setEntity($this->currency);
+      $this->sut = new CurrencyLocaleDeleteForm($this->stringTranslation);
+      $this->sut->setEntity($this->currency);
     }
 
     /**
@@ -65,15 +65,15 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
         ->with('string_translation')
         ->willReturn($this->stringTranslation);
 
-      $form = CurrencyLocaleDeleteForm::create($container);
-      $this->assertInstanceOf(CurrencyLocaleDeleteForm::class, $form);
+      $sut = CurrencyLocaleDeleteForm::create($container);
+      $this->assertInstanceOf(CurrencyLocaleDeleteForm::class, $sut);
     }
 
     /**
      * @covers ::getQuestion
      */
     function testGetQuestion() {
-      $this->assertInternalType('string', $this->form->getQuestion());
+      $this->assertInternalType('string', $this->sut->getQuestion());
     }
 
     /**
@@ -86,14 +86,14 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
         ->method('translate')
         ->with($string);
 
-      $this->assertSame($string, $this->form->getConfirmText());
+      $this->assertSame($string, $this->sut->getConfirmText());
     }
 
     /**
      * @covers ::getCancelUrl
      */
     function testGetCancelUrl() {
-      $url = $this->form->getCancelUrl();
+      $url = $this->sut->getCancelUrl();
       $this->assertInstanceOf(Url::class, $url);
       $this->assertSame('entity.currency_locale.collection', $url->getRouteName());
     }
@@ -110,7 +110,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
       $form_state->expects($this->once())
         ->method('setRedirectUrl');
 
-      $this->form->submitForm($form, $form_state);
+      $this->sut->submitForm($form, $form_state);
     }
 
   }

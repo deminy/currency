@@ -24,13 +24,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AddCurrencyLocaleTest extends UnitTestCase {
 
   /**
-   * The controller under test.
-   *
-   * @var \Drupal\currency\Controller\AddCurrencyLocale
-   */
-  protected $controller;
-
-  /**
    * The entity form builder.
    *
    * @var \Drupal\Core\Entity\EntityFormBuilderInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -45,6 +38,13 @@ class AddCurrencyLocaleTest extends UnitTestCase {
   protected $entityManager;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Controller\AddCurrencyLocale
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -52,7 +52,7 @@ class AddCurrencyLocaleTest extends UnitTestCase {
 
     $this->entityManager = $this->getMock(EntityManagerInterface::class);
 
-    $this->controller = new AddCurrencyLocale($this->entityManager, $this->entityFormBuilder);
+    $this->sut = new AddCurrencyLocale($this->entityManager, $this->entityFormBuilder);
   }
 
   /**
@@ -69,8 +69,8 @@ class AddCurrencyLocaleTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = AddCurrencyLocale::create($container);
-    $this->assertInstanceOf(AddCurrencyLocale::class, $form);
+    $sut = AddCurrencyLocale::create($container);
+    $this->assertInstanceOf(AddCurrencyLocale::class, $sut);
   }
 
   /**
@@ -97,7 +97,7 @@ class AddCurrencyLocaleTest extends UnitTestCase {
       ->with($currency_locale)
       ->willReturn($form);
 
-    $this->assertSame($form, $this->controller->execute());
+    $this->assertSame($form, $this->sut->execute());
   }
 
 }

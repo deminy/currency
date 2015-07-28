@@ -35,11 +35,11 @@ class FixedRatesTest extends UnitTestCase {
   protected $configFactory;
 
   /**
-   * The plugin under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates
    */
-  protected $plugin;
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -51,7 +51,7 @@ class FixedRatesTest extends UnitTestCase {
 
     $this->configFactory = $this->getMock(ConfigFactoryInterface::class);
 
-    $this->plugin = new FixedRates($configuration, $plugin_id, $plugin_definition, $this->configFactory);
+    $this->sut = new FixedRates($configuration, $plugin_id, $plugin_definition, $this->configFactory);
   }
 
   /**
@@ -67,8 +67,8 @@ class FixedRatesTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = FixedRates::create($container, array(), '', array());
-    $this->assertInstanceOf(FixedRates::class, $form);
+    $sut = FixedRates::create($container, array(), '', array());
+    $this->assertInstanceOf(FixedRates::class, $sut);
   }
 
   /**
@@ -76,7 +76,7 @@ class FixedRatesTest extends UnitTestCase {
    */
   public function testLoadConfiguration() {
     list($rates) = $this->prepareExchangeRates();
-    $this->assertSame($rates, $this->plugin->loadConfiguration());
+    $this->assertSame($rates, $this->sut->loadConfiguration());
   }
 
   /**
@@ -88,15 +88,15 @@ class FixedRatesTest extends UnitTestCase {
     $reverse_rate = '0.511291';
 
     // Test rates that are stored in config.
-    $this->assertSame($rates['EUR']['NLG'], $this->plugin->load('EUR', 'NLG')->getRate());
-    $this->assertSame($rates['NLG']['EUR'], $this->plugin->load('NLG', 'EUR')->getRate());
-    $this->assertSame($rates['EUR']['DEM'], $this->plugin->load('EUR', 'DEM')->getRate());
+    $this->assertSame($rates['EUR']['NLG'], $this->sut->load('EUR', 'NLG')->getRate());
+    $this->assertSame($rates['NLG']['EUR'], $this->sut->load('NLG', 'EUR')->getRate());
+    $this->assertSame($rates['EUR']['DEM'], $this->sut->load('EUR', 'DEM')->getRate());
 
     // Test a rate that is calculated on-the-fly.
-    $this->assertSame($reverse_rate, $this->plugin->load('DEM', 'EUR')->getRate());
+    $this->assertSame($reverse_rate, $this->sut->load('DEM', 'EUR')->getRate());
 
     // Test an unavailable exchange rate.
-    $this->assertNull($this->plugin->load('NLG', 'UAH'));
+    $this->assertNull($this->sut->load('NLG', 'UAH'));
   }
 
   /**
@@ -117,7 +117,7 @@ class FixedRatesTest extends UnitTestCase {
       ),
     );
 
-    $returned_rates = $this->plugin->loadMultiple(array(
+    $returned_rates = $this->sut->loadMultiple(array(
       // Test a rate that is stored in config.
       'EUR' => array('NLG'),
       // Test a reverse exchange rate.
@@ -151,7 +151,7 @@ class FixedRatesTest extends UnitTestCase {
     $this->config->expects($this->once())
       ->method('save');
 
-    $this->plugin->save($currency_code_from, $currency_code_to, $rate);
+    $this->sut->save($currency_code_from, $currency_code_to, $rate);
   }
 
   /**
@@ -168,7 +168,7 @@ class FixedRatesTest extends UnitTestCase {
     $this->config->expects($this->once())
       ->method('save');
 
-    $this->plugin->delete('EUR', 'NLG');
+    $this->sut->delete('EUR', 'NLG');
   }
 
   /**

@@ -23,13 +23,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CurrencyAccessControlHandlerTest extends UnitTestCase {
 
   /**
-   * The access handler under test.
-   *
-   * @var \Drupal\currency\Entity\Currency\CurrencyAccessControlHandler
-   */
-  protected $access;
-
-  /**
    * Information about the entity type.
    *
    * @var \Drupal\Core\Entity\EntityTypeInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -44,6 +37,13 @@ class CurrencyAccessControlHandlerTest extends UnitTestCase {
   protected $moduleHandler;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Entity\Currency\CurrencyAccessControlHandler
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -51,7 +51,7 @@ class CurrencyAccessControlHandlerTest extends UnitTestCase {
 
     $this->moduleHandler = $this->getMock(ModuleHandlerInterface::class);
 
-    $this->access = new CurrencyAccessControlHandler($this->entityType, $this->moduleHandler);
+    $this->sut = new CurrencyAccessControlHandler($this->entityType, $this->moduleHandler);
   }
 
   /**
@@ -65,8 +65,8 @@ class CurrencyAccessControlHandlerTest extends UnitTestCase {
       ->with('module_handler')
       ->willReturn($this->moduleHandler);
 
-    $access = CurrencyAccessControlHandler::createInstance($container, $this->entityType);
-    $this->assertInstanceOf(CurrencyAccessControlHandler::class, $access);
+    $sut = CurrencyAccessControlHandler::createInstance($container, $this->entityType);
+    $this->assertInstanceOf(CurrencyAccessControlHandler::class, $sut);
   }
 
   /**
@@ -93,12 +93,12 @@ class CurrencyAccessControlHandlerTest extends UnitTestCase {
       ->method('invokeAll')
       ->willReturn([]);
 
-    $method = new \ReflectionMethod($this->access, 'checkAccess');
+    $method = new \ReflectionMethod($this->sut, 'checkAccess');
     $method->setAccessible(TRUE);
 
     $language_code = $this->randomMachineName();
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $currency, $operation, $language_code, $account)->isAllowed());
+    $this->assertSame($expected_value, $method->invoke($this->sut, $currency, $operation, $language_code, $account)->isAllowed());
   }
 
   /**
@@ -144,10 +144,10 @@ class CurrencyAccessControlHandlerTest extends UnitTestCase {
       ->willReturn($has_permission);
     $context = array();
 
-    $method = new \ReflectionMethod($this->access, 'checkCreateAccess');
+    $method = new \ReflectionMethod($this->sut, 'checkCreateAccess');
     $method->setAccessible(TRUE);
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $account, $context)->isAllowed());
+    $this->assertSame($expected_value, $method->invoke($this->sut, $account, $context)->isAllowed());
   }
 
   /**

@@ -27,13 +27,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ConfigImporterTest extends UnitTestCase {
 
   /**
-   * The config importer under test.
-   *
-   * @var \Drupal\currency\ConfigImporter
-   */
-  protected $configImporter;
-
-  /**
    * The config storage.
    *
    * @var \Drupal\Core\Config\StorageInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -76,6 +69,13 @@ class ConfigImporterTest extends UnitTestCase {
   protected $moduleHandler;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\ConfigImporter
+   */
+  protected $sut;
+
+  /**
    * The typed config manager.
    *
    * @var \Drupal\Core\Config\TypedConfigManagerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -107,14 +107,14 @@ class ConfigImporterTest extends UnitTestCase {
       ->method('getStorage')
       ->willReturnMap($map);
 
-    $this->configImporter = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
+    $this->sut = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
   }
 
   /**
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->configImporter = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
+    $this->sut = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
   }
 
   /**
@@ -122,7 +122,7 @@ class ConfigImporterTest extends UnitTestCase {
    * @covers ::setConfigStorage
    */
   public function testGetConfigStorage() {
-    $method_get = new \ReflectionMethod($this->configImporter, 'getConfigStorage');
+    $method_get = new \ReflectionMethod($this->sut, 'getConfigStorage');
     $method_get->setAccessible(TRUE);
 
     $extension = new Extension($this->randomMachineName(), $this->randomMachineName(), $this->randomMachineName());
@@ -131,11 +131,11 @@ class ConfigImporterTest extends UnitTestCase {
       ->method('getModule')
       ->willReturn($extension);
 
-    $this->assertInstanceof(StorageInterface::class, $method_get->invoke($this->configImporter));
+    $this->assertInstanceof(StorageInterface::class, $method_get->invoke($this->sut));
 
     $config_storage = $this->getMock(StorageInterface::class);
-    $this->configImporter->setConfigStorage($config_storage);
-    $this->assertSame($config_storage, $method_get->invoke($this->configImporter));
+    $this->sut->setConfigStorage($config_storage);
+    $this->assertSame($config_storage, $method_get->invoke($this->sut));
   }
 
   /**
@@ -184,9 +184,9 @@ class ConfigImporterTest extends UnitTestCase {
       ->with($prefix . $currency_code_c)
       ->willReturn($currency_data_c);
 
-    $this->configImporter->setConfigStorage($this->configStorage);
+    $this->sut->setConfigStorage($this->configStorage);
 
-    $importable_currencies = $this->configImporter->getImportableCurrencies();
+    $importable_currencies = $this->sut->getImportableCurrencies();
     $this->assertSame([$currency_c], $importable_currencies);
   }
 
@@ -236,9 +236,9 @@ class ConfigImporterTest extends UnitTestCase {
       ->with($prefix . $locale_c)
       ->willReturn($currency_locale_data_c);
 
-    $this->configImporter->setConfigStorage($this->configStorage);
+    $this->sut->setConfigStorage($this->configStorage);
 
-    $importable_currencies = $this->configImporter->getImportableCurrencyLocales();
+    $importable_currencies = $this->sut->getImportableCurrencyLocales();
     $this->assertSame([$currency_locale_c], $importable_currencies);
   }
 
@@ -268,9 +268,9 @@ class ConfigImporterTest extends UnitTestCase {
       ->with('currency.' . $entity_type_id . '.' . $currency_code)
       ->willReturn($currency_data);
 
-    $this->configImporter->setConfigStorage($this->configStorage);
+    $this->sut->setConfigStorage($this->configStorage);
 
-    $this->assertSame($currency, $this->configImporter->importCurrency($currency_code));
+    $this->assertSame($currency, $this->sut->importCurrency($currency_code));
   }
 
   /**
@@ -291,9 +291,9 @@ class ConfigImporterTest extends UnitTestCase {
     $this->configStorage->expects($this->never())
       ->method('read');
 
-    $this->configImporter->setConfigStorage($this->configStorage);
+    $this->sut->setConfigStorage($this->configStorage);
 
-    $this->assertFalse($this->configImporter->importCurrency($currency_code));
+    $this->assertFalse($this->sut->importCurrency($currency_code));
   }
 
   /**
@@ -322,9 +322,9 @@ class ConfigImporterTest extends UnitTestCase {
       ->with('currency.' . $entity_type_id . '.' . $locale)
       ->willReturn($currency_locale_data);
 
-    $this->configImporter->setConfigStorage($this->configStorage);
+    $this->sut->setConfigStorage($this->configStorage);
 
-    $this->assertSame($currency_locale, $this->configImporter->importCurrencyLocale($locale));
+    $this->assertSame($currency_locale, $this->sut->importCurrencyLocale($locale));
   }
 
   /**
@@ -345,9 +345,9 @@ class ConfigImporterTest extends UnitTestCase {
     $this->configStorage->expects($this->never())
       ->method('read');
 
-    $this->configImporter->setConfigStorage($this->configStorage);
+    $this->sut->setConfigStorage($this->configStorage);
 
-    $this->assertFalse($this->configImporter->importCurrencyLocale($locale));
+    $this->assertFalse($this->sut->importCurrencyLocale($locale));
   }
 
 }

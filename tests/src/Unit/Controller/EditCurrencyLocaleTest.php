@@ -20,13 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class EditCurrencyLocaleTest extends UnitTestCase {
 
   /**
-   * The controller under test.
-   *
-   * @var \Drupal\currency\Controller\EditCurrencyLocale
-   */
-  protected $controller;
-
-  /**
    * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -34,12 +27,19 @@ class EditCurrencyLocaleTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Controller\EditCurrencyLocale
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->controller = new EditCurrencyLocale($this->stringTranslation);
+    $this->sut = new EditCurrencyLocale($this->stringTranslation);
   }
 
   /**
@@ -55,8 +55,8 @@ class EditCurrencyLocaleTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = EditCurrencyLocale::create($container);
-    $this->assertInstanceOf(EditCurrencyLocale::class, $form);
+    $sut = EditCurrencyLocale::create($container);
+    $this->assertInstanceOf(EditCurrencyLocale::class, $sut);
   }
 
   /**
@@ -70,7 +70,7 @@ class EditCurrencyLocaleTest extends UnitTestCase {
       ->method('label')
       ->willReturn($label);
 
-    $this->assertInternalType('string', $this->controller->title($currency_locale));
+    $this->assertInternalType('string', $this->sut->title($currency_locale));
   }
 
 }

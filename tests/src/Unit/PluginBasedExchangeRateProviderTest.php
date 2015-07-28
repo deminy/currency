@@ -30,18 +30,18 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
   protected $configFactory;
 
   /**
-   * The exchange rate provider under test.
-   *
-   * @var \Drupal\currency\PluginBasedExchangeRateProvider
-   */
-  protected $exchangeRateProvider;
-
-  /**
    * The currency exchanger plugin manager used for testing.
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyExchangeRateProviderManager;
+
+  /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\PluginBasedExchangeRateProvider
+   */
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -53,14 +53,14 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
 
     $this->currencyExchangeRateProviderManager = $this->getMock(ExchangeRateProviderManagerInterface::class);
 
-    $this->exchangeRateProvider = new PluginBasedExchangeRateProvider($this->currencyExchangeRateProviderManager, $this->configFactory);
+    $this->sut = new PluginBasedExchangeRateProvider($this->currencyExchangeRateProviderManager, $this->configFactory);
   }
 
   /**
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->exchangeRateProvider = new PluginBasedExchangeRateProvider($this->currencyExchangeRateProviderManager, $this->configFactory);
+    $this->sut = new PluginBasedExchangeRateProvider($this->currencyExchangeRateProviderManager, $this->configFactory);
   }
 
   /**
@@ -99,7 +99,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
       ->with('currency.exchange_rate_provider')
       ->willReturn($config);
 
-    $configuration = $this->exchangeRateProvider->loadConfiguration();
+    $configuration = $this->sut->loadConfiguration();
     $expected = array(
       $plugin_id_b => TRUE,
       $plugin_id_a => FALSE,
@@ -145,7 +145,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
       ->with('currency.exchange_rate_provider')
       ->willReturn($config);
 
-    $this->exchangeRateProvider->saveConfiguration($configuration);
+    $this->sut->saveConfiguration($configuration);
   }
 
   /**
@@ -187,7 +187,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
     $currency_code_from = 'EUR';
     $currency_code_to = 'EUR';
 
-    $rate = $this->exchangeRateProvider->load($currency_code_from, $currency_code_to);
+    $rate = $this->sut->load($currency_code_from, $currency_code_to);
     $this->assertInstanceOf(ExchangeRateInterface::class, $rate);
     $this->assertSame(1, $rate->getRate());
   }

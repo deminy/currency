@@ -29,13 +29,6 @@ class CurrencyExchangeTest extends UnitTestCase {
   protected $exchangeRateProvider;
 
   /**
-   * The filter under test.
-   *
-   * @var \Drupal\currency\Plugin\Filter\CurrencyExchange|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $filter;
-
-  /**
    * The input parser used for testing.
    *
    * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -57,6 +50,13 @@ class CurrencyExchangeTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Plugin\Filter\CurrencyExchange|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -73,7 +73,7 @@ class CurrencyExchangeTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->filter = new CurrencyExchange($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->exchangeRateProvider, $this->input);
+    $this->sut = new CurrencyExchange($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->exchangeRateProvider, $this->input);
   }
 
   /**
@@ -91,8 +91,8 @@ class CurrencyExchangeTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $filter = CurrencyExchange::create($container, [], '', $this->pluginDefinition);
-    $this->assertInstanceOf(CurrencyExchange::class, $filter);
+    $sut = CurrencyExchange::create($container, [], '', $this->pluginDefinition);
+    $this->assertInstanceOf(CurrencyExchange::class, $sut);
   }
 
   /**
@@ -137,10 +137,10 @@ class CurrencyExchangeTest extends UnitTestCase {
     ];
 
     foreach ($tokens_valid as $token => $replacement) {
-      $this->assertSame($replacement, $this->filter->process($token, $langcode, $cache, $cache_id));
+      $this->assertSame($replacement, $this->sut->process($token, $langcode, $cache, $cache_id));
     }
     foreach ($tokens_invalid as $token) {
-      $this->assertSame($token, $this->filter->process($token, $langcode, $cache, $cache_id));
+      $this->assertSame($token, $this->sut->process($token, $langcode, $cache, $cache_id));
     }
   }
 
@@ -148,6 +148,6 @@ class CurrencyExchangeTest extends UnitTestCase {
    * @covers ::tips
    */
   public function testTips() {
-    $this->assertInternalType('string', $this->filter->tips());
+    $this->assertInternalType('string', $this->sut->tips());
   }
 }

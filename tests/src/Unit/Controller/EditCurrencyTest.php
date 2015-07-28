@@ -20,13 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class EditCurrencyTest extends UnitTestCase {
 
   /**
-   * The controller under test.
-   *
-   * @var \Drupal\currency\Controller\EditCurrency
-   */
-  protected $controller;
-
-  /**
    * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -34,12 +27,19 @@ class EditCurrencyTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Controller\EditCurrency
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->controller = new EditCurrency($this->stringTranslation);
+    $this->sut = new EditCurrency($this->stringTranslation);
   }
 
   /**
@@ -71,7 +71,7 @@ class EditCurrencyTest extends UnitTestCase {
       ->method('label')
       ->willReturn($label);
 
-    $this->assertInternalType('string', $this->controller->title($currency));
+    $this->assertInternalType('string', $this->sut->title($currency));
   }
 
 }

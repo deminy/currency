@@ -24,13 +24,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
 
   /**
-   * The access handler under test.
-   *
-   * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler
-   */
-  protected $access;
-
-  /**
    * Information about the entity type.
    *
    * @var \Drupal\Core\Entity\EntityTypeInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -45,6 +38,13 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
   protected $moduleHandler;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -52,7 +52,7 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
 
     $this->moduleHandler = $this->getMock(ModuleHandlerInterface::class);
 
-    $this->access = new CurrencyLocaleAccessControlHandler($this->entityType, $this->moduleHandler);
+    $this->sut = new CurrencyLocaleAccessControlHandler($this->entityType, $this->moduleHandler);
   }
 
   /**
@@ -66,8 +66,8 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
       ->with('module_handler')
       ->willReturn($this->moduleHandler);
 
-    $access = CurrencyLocaleAccessControlHandler::createInstance($container, $this->entityType);
-    $this->assertInstanceOf(CurrencyLocaleAccessControlHandler::class, $access);
+    $sut = CurrencyLocaleAccessControlHandler::createInstance($container, $this->entityType);
+    $this->assertInstanceOf(CurrencyLocaleAccessControlHandler::class, $sut);
   }
 
   /**
@@ -91,12 +91,12 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
       ->method('invokeAll')
       ->willReturn([]);
 
-    $method = new \ReflectionMethod($this->access, 'checkAccess');
+    $method = new \ReflectionMethod($this->sut, 'checkAccess');
     $method->setAccessible(TRUE);
 
     $language_code = $this->randomMachineName();
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $currency_locale, $operation, $language_code, $account)->isAllowed());
+    $this->assertSame($expected_value, $method->invoke($this->sut, $currency_locale, $operation, $language_code, $account)->isAllowed());
   }
 
   /**
@@ -130,10 +130,10 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
       ->willReturn($has_permission);
     $context = array();
 
-    $method = new \ReflectionMethod($this->access, 'checkCreateAccess');
+    $method = new \ReflectionMethod($this->sut, 'checkCreateAccess');
     $method->setAccessible(TRUE);
 
-    $this->assertSame($expected_value, $method->invoke($this->access, $account, $context)->isAllowed());
+    $this->assertSame($expected_value, $method->invoke($this->sut, $account, $context)->isAllowed());
   }
 
   /**

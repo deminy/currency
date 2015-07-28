@@ -27,13 +27,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FixedRatesOverviewTest extends UnitTestCase {
 
   /**
-   * The controller under test.
-   *
-   * @var \Drupal\currency\Controller\FixedRatesOverview
-   */
-  protected $controller;
-
-  /**
    * The currency amount formatter manager used for testing.
    *
    * @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -62,6 +55,13 @@ class FixedRatesOverviewTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Controller\FixedRatesOverview
+   */
+  protected $sut;
+
+  /**
    * The URL generator used for testing.
    *
    * @var \Drupal\Core\Routing\UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -82,7 +82,7 @@ class FixedRatesOverviewTest extends UnitTestCase {
 
     $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
 
-    $this->controller = new FixedRatesOverview($this->stringTranslation, $this->urlGenerator, $this->currencyStorage, $this->currencyAmountFormatterManager, $this->currencyExchangeRateProviderManager);
+    $this->sut = new FixedRatesOverview($this->stringTranslation, $this->urlGenerator, $this->currencyStorage, $this->currencyAmountFormatterManager, $this->currencyExchangeRateProviderManager);
   }
 
   /**
@@ -108,8 +108,8 @@ class FixedRatesOverviewTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = FixedRatesOverview::create($container);
-    $this->assertInstanceOf(FixedRatesOverview::class, $form);
+    $sut = FixedRatesOverview::create($container);
+    $this->assertInstanceOf(FixedRatesOverview::class, $sut);
   }
 
   /**
@@ -166,7 +166,7 @@ class FixedRatesOverviewTest extends UnitTestCase {
       ->method('getDefaultPlugin')
       ->willReturn($amount_formatter);
 
-    $build = $this->controller->overview();
+    $build = $this->sut->overview();
     $this->assertInternalType('array', $build);
   }
 }

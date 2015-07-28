@@ -32,13 +32,6 @@ class CurrencyAmountTest extends UnitTestCase {
   protected $currencyStorage;
 
   /**
-   * The element under test.
-   *
-   * @var \Drupal\currency\Element\CurrencyAmount
-   */
-  protected $element;
-
-  /**
    * The input parser.
    *
    * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -60,6 +53,13 @@ class CurrencyAmountTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Element\CurrencyAmount
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -75,7 +75,7 @@ class CurrencyAmountTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = [];
 
-    $this->element = new CurrencyAmount($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->currencyStorage, $this->input, $this->formHelper);
+    $this->sut = new CurrencyAmount($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->currencyStorage, $this->input, $this->formHelper);
   }
 
   /**
@@ -120,15 +120,15 @@ class CurrencyAmountTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $form = CurrencyAmount::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf(CurrencyAmount::class, $form);
+    $sut = CurrencyAmount::create($container, $configuration, $plugin_id, $plugin_definition);
+    $this->assertInstanceOf(CurrencyAmount::class, $sut);
   }
 
   /**
    * @covers ::getInfo
    */
   public function testGetInfo() {
-    $info = $this->element->getInfo();
+    $info = $this->sut->getInfo();
     $this->assertInternalType('array', $info);
     foreach ($info['#element_validate'] as $callback) {
       $this->assertTrue(is_callable($callback));
@@ -155,7 +155,7 @@ class CurrencyAmountTest extends UnitTestCase {
     $form_state = new FormState();
     $form = [];
 
-    $this->element->process($element, $form_state, $form);
+    $this->sut->process($element, $form_state, $form);
   }
 
   /**
@@ -187,7 +187,7 @@ class CurrencyAmountTest extends UnitTestCase {
     $form_state = new FormState();
     $form = [];
 
-    $this->element->process($element, $form_state, $form);
+    $this->sut->process($element, $form_state, $form);
   }
 
   /**
@@ -220,7 +220,7 @@ class CurrencyAmountTest extends UnitTestCase {
     $form_state = new FormState();
     $form = [];
 
-    $this->element->process($element, $form_state, $form);
+    $this->sut->process($element, $form_state, $form);
   }
 
   /**
@@ -286,12 +286,12 @@ class CurrencyAmountTest extends UnitTestCase {
         ],
         '#required' => TRUE,
         '#limit_currency_codes' => $limit_currency_codes,
-      ] + $this->element->getInfo();
+      ] + $this->sut->getInfo();
 
     $form_state = new FormState();
     $form = [];
 
-    $element = $this->element->process($element, $form_state, $form);
+    $element = $this->sut->process($element, $form_state, $form);
     $this->assertEmpty(array_diff($limit_currency_codes, array_keys($element['currency_code']['#options'])));
     $this->assertEmpty(array_diff(array_keys($element['currency_code']['#options']), $limit_currency_codes));
   }

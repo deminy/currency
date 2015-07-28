@@ -29,13 +29,6 @@ class CurrencySignTest extends UnitTestCase {
   protected $currencyStorage;
 
   /**
-   * The element under test.
-   *
-   * @var \Drupal\currency\Element\CurrencySign
-   */
-  protected $element;
-
-  /**
    * The input parser.
    *
    * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -48,6 +41,13 @@ class CurrencySignTest extends UnitTestCase {
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $stringTranslation;
+
+  /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Element\CurrencySign
+   */
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -63,7 +63,7 @@ class CurrencySignTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = [];
 
-    $this->element = new CurrencySign($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->currencyStorage, $this->input);
+    $this->sut = new CurrencySign($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->currencyStorage, $this->input);
   }
 
   /**
@@ -98,15 +98,15 @@ class CurrencySignTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $form = CurrencySign::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf(CurrencySign::class, $form);
+    $sut = CurrencySign::create($container, $configuration, $plugin_id, $plugin_definition);
+    $this->assertInstanceOf(CurrencySign::class, $sut);
   }
 
   /**
    * @covers ::getInfo
    */
   public function testGetInfo() {
-    $info = $this->element->getInfo();
+    $info = $this->sut->getInfo();
     $this->assertInternalType('array', $info);
     foreach ($info['#element_validate'] as $callback) {
       $this->assertTrue(is_callable($callback));

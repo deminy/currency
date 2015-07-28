@@ -22,13 +22,6 @@ namespace Drupal\Tests\currency\Unit\Controller {
   class PluginBasedExchangeRateProviderFormTest extends UnitTestCase {
 
     /**
-     * The controller under test.
-     *
-     * @var \Drupal\currency\Controller\PluginBasedExchangeRateProviderForm
-     */
-    protected $controller;
-
-    /**
      * The currency exchange rate provider manager.
      *
      * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -50,6 +43,13 @@ namespace Drupal\Tests\currency\Unit\Controller {
     protected $stringTranslation;
 
     /**
+     * The class under test.
+     *
+     * @var \Drupal\currency\Controller\PluginBasedExchangeRateProviderForm
+     */
+    protected $sut;
+
+    /**
      * {@inheritdoc}
      */
     public function setUp() {
@@ -61,7 +61,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
       $this->stringTranslation = $this->getStringTranslationStub();
 
-      $this->controller = new PluginBasedExchangeRateProviderForm($this->stringTranslation, $this->exchangeRateProvider, $this->currencyExchangeRateProviderManager);
+      $this->sut = new PluginBasedExchangeRateProviderForm($this->stringTranslation, $this->exchangeRateProvider, $this->currencyExchangeRateProviderManager);
     }
 
     /**
@@ -79,15 +79,15 @@ namespace Drupal\Tests\currency\Unit\Controller {
         ->method('get')
         ->willReturnMap($map);
 
-      $form = PluginBasedExchangeRateProviderForm::create($container);
-      $this->assertInstanceOf(PluginBasedExchangeRateProviderForm::class, $form);
+      $sut = PluginBasedExchangeRateProviderForm::create($container);
+      $this->assertInstanceOf(PluginBasedExchangeRateProviderForm::class, $sut);
     }
 
     /**
      * @covers ::getFormId
      */
     public function testGetFormId() {
-      $this->assertSame('currency_exchange_rate_provider', $this->controller->getFormId());
+      $this->assertSame('currency_exchange_rate_provider', $this->sut->getFormId());
     }
 
     /**
@@ -138,7 +138,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
       $form = [];
       $form_state = new FormState();
 
-      $build = $this->controller->buildForm($form, $form_state);
+      $build = $this->sut->buildForm($form, $form_state);
 
       foreach ([$plugin_id_a, $plugin_id_b, $plugin_id_c] as $weight => $plugin_id) {
         $this->assertInternalType('array', $build['exchange_rate_providers'][$plugin_id]['weight']);
@@ -192,7 +192,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
         ->method('saveConfiguration')
         ->with(new \PHPUnit_Framework_Constraint_IsIdentical($configuration));
 
-      $this->controller->submitForm($form, $form_state);
+      $this->sut->submitForm($form, $form_state);
     }
 
   }

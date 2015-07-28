@@ -24,13 +24,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AddCurrencyTest extends UnitTestCase {
 
   /**
-   * The controller under test.
-   *
-   * @var \Drupal\currency\Controller\AddCurrency
-   */
-  protected $controller;
-
-  /**
    * The entity form builder.
    *
    * @var \Drupal\Core\Entity\EntityFormBuilderInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -45,6 +38,13 @@ class AddCurrencyTest extends UnitTestCase {
   protected $entityManager;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Controller\AddCurrency
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -52,7 +52,7 @@ class AddCurrencyTest extends UnitTestCase {
 
     $this->entityManager = $this->getMock(EntityManagerInterface::class);
 
-    $this->controller = new AddCurrency($this->entityManager, $this->entityFormBuilder);
+    $this->sut = new AddCurrency($this->entityManager, $this->entityFormBuilder);
   }
 
   /**
@@ -69,8 +69,8 @@ class AddCurrencyTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = AddCurrency::create($container);
-    $this->assertInstanceOf(AddCurrency::class, $form);
+    $sut = AddCurrency::create($container);
+    $this->assertInstanceOf(AddCurrency::class, $sut);
   }
 
   /**
@@ -97,7 +97,7 @@ class AddCurrencyTest extends UnitTestCase {
       ->with($currency)
       ->willReturn($form);
 
-    $this->assertSame($form, $this->controller->execute());
+    $this->assertSame($form, $this->sut->execute());
   }
 
 }

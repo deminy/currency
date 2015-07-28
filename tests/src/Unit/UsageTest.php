@@ -21,13 +21,13 @@ class UsageTest extends UnitTestCase {
    *
    * @var \Drupal\currency\Usage
    */
-  protected $usage;
+  protected $sut;
 
   /**
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->usage = new Usage();
+    $this->sut = new Usage();
   }
 
   /**
@@ -37,8 +37,8 @@ class UsageTest extends UnitTestCase {
   public function testGetStart() {
     $start = $this->randomMachineName();
 
-    $this->assertSame($this->usage, $this->usage->setStart($start));
-    $this->assertSame($start, $this->usage->getStart());
+    $this->assertSame($this->sut, $this->sut->setStart($start));
+    $this->assertSame($start, $this->sut->getStart());
   }
 
   /**
@@ -48,8 +48,8 @@ class UsageTest extends UnitTestCase {
   public function testGetEnd() {
     $end = $this->randomMachineName();
 
-    $this->assertSame($this->usage, $this->usage->setEnd($end));
-    $this->assertSame($end, $this->usage->getEnd());
+    $this->assertSame($this->sut, $this->sut->setEnd($end));
+    $this->assertSame($end, $this->sut->getEnd());
   }
 
   /**
@@ -59,8 +59,8 @@ class UsageTest extends UnitTestCase {
   public function testGetCountryCode() {
     $country_code = $this->randomMachineName();
 
-    $this->assertSame($this->usage, $this->usage->setCountryCode($country_code));
-    $this->assertSame($country_code, $this->usage->getCountryCode());
+    $this->assertSame($this->sut, $this->sut->setCountryCode($country_code));
+    $this->assertSame($country_code, $this->sut->getCountryCode());
   }
 
 }

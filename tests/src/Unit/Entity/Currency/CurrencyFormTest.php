@@ -62,11 +62,11 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
     protected $stringTranslation;
 
     /**
-     * The form under test.
+     * The class under test.
      *
      * @var \Drupal\currency\Entity\Currency\CurrencyForm
      */
-    protected $form;
+    protected $sut;
 
     /**
      * {@inheritdoc}
@@ -82,8 +82,8 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
       $this->stringTranslation = $this->getStringTranslationStub();
 
-      $this->form = new CurrencyForm($this->stringTranslation, $this->linkGenerator, $this->currencyStorage, $this->inputParser);
-      $this->form->setEntity($this->currency);
+      $this->sut = new CurrencyForm($this->stringTranslation, $this->linkGenerator, $this->currencyStorage, $this->inputParser);
+      $this->sut->setEntity($this->currency);
     }
 
     /**
@@ -109,8 +109,8 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         ->method('get')
         ->willReturnMap($map);
 
-      $form = CurrencyForm::create($container);
-      $this->assertInstanceOf(CurrencyForm::class, $form);
+      $sut = CurrencyForm::create($container);
+      $this->assertInstanceOf(CurrencyForm::class, $sut);
     }
 
     /**
@@ -161,10 +161,10 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
           'status' => $currency_status,
         ));
 
-      $method = new \ReflectionMethod($this->form, 'copyFormValuesToEntity');
+      $method = new \ReflectionMethod($this->sut, 'copyFormValuesToEntity');
       $method->setAccessible(TRUE);
 
-      $method->invokeArgs($this->form, array($this->currency, $form, $form_state));
+      $method->invokeArgs($this->sut, array($this->currency, $form, $form_state));
     }
 
     /**
@@ -214,7 +214,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         'currency_code' => array(
           '#default_value' => $currency_code,
           '#disabled' => TRUE,
-          '#element_validate' => array(array($this->form, 'validateCurrencyCode')),
+          '#element_validate' => array(array($this->sut, 'validateCurrencyCode')),
           '#maxlength' => 3,
           '#pattern' => '[a-zA-Z]{3}',
           '#placeholder' => 'XXX',
@@ -225,7 +225,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         ),
         'currency_number' => array(
           '#default_value' => $currency_number,
-          '#element_validate' => array(array($this->form, 'validateCurrencyNumber')),
+          '#element_validate' => array(array($this->sut, 'validateCurrencyNumber')),
           '#maxlength' => 3,
           '#pattern' => '[\d]{3}',
           '#placeholder' => '999',
@@ -260,14 +260,14 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         ),
         'rounding_step' => array(
           '#default_value' => $currency_rounding_step,
-          '#element_validate' => array(array($this->form, 'validateRoundingStep')),
+          '#element_validate' => array(array($this->sut, 'validateRoundingStep')),
           '#required' => TRUE,
           '#title' => 'Rounding step',
           '#type' => 'textfield',
         ),
         '#after_build' => ['::afterBuild'],
       );
-      $build = $this->form->form($form, $form_state);
+      $build = $this->sut->form($form, $form_state);
       unset($build['langcode']);
       unset($build['#process']);
       $this->assertSame($expected, $build);
@@ -286,7 +286,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         ->method('setRedirect')
         ->with('entity.currency.collection');
 
-      $this->form->save($form, $form_state);
+      $this->sut->save($form, $form_state);
     }
 
     /**
@@ -344,7 +344,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
           ->method('setErrorByName');
       }
 
-      $this->form->validateCurrencyCode($element, $form_state, $form);
+      $this->sut->validateCurrencyCode($element, $form_state, $form);
     }
 
     /**
@@ -424,7 +424,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
           ->method('setErrorByName');
       }
 
-      $this->form->validateCurrencyNumber($element, $form_state, $form);
+      $this->sut->validateCurrencyNumber($element, $form_state, $form);
     }
 
     /**
@@ -472,7 +472,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         ->method('setValueForElement')
         ->with($element, $parsed_value);
 
-      $this->form->validateRoundingStep($element, $form_state, $form);
+      $this->sut->validateRoundingStep($element, $form_state, $form);
     }
 
     /**

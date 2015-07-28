@@ -30,13 +30,6 @@ class CurrencyTest extends UnitTestCase {
   protected $currencyStorage;
 
   /**
-   * The handler under test.
-   *
-   * @var \Drupal\currency\Plugin\views\field\Currency
-   */
-  protected $handler;
-
-  /**
    * The plugin configuration.
    *
    * @var mixed[]
@@ -58,6 +51,13 @@ class CurrencyTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Plugin\views\field\Currency
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -71,7 +71,7 @@ class CurrencyTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->handler = new Currency($this->pluginConfiguration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
+    $this->sut = new Currency($this->pluginConfiguration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
   }
 
   /**
@@ -79,7 +79,7 @@ class CurrencyTest extends UnitTestCase {
    */
   public function testConstruct() {
     $plugin_id = $this->randomMachineName();
-    $this->handler = new Currency($this->pluginConfiguration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
+    $this->sut = new Currency($this->pluginConfiguration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
   }
 
   /**
@@ -90,7 +90,7 @@ class CurrencyTest extends UnitTestCase {
   public function testConstructWithoutMethod() {
     $plugin_id = $this->randomMachineName();
 
-    $this->handler = new Currency([], $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
+    $this->sut = new Currency([], $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
   }
 
   /**
@@ -104,7 +104,7 @@ class CurrencyTest extends UnitTestCase {
     ];
     $plugin_id = $this->randomMachineName();
 
-    $this->filter = new Currency($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
+    $this->sut = new Currency($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage);
   }
 
   /**
@@ -126,8 +126,8 @@ class CurrencyTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $filter = Currency::create($container, $this->pluginConfiguration, '', $this->pluginDefinition);
-    $this->assertInstanceOf(Currency::class, $filter);
+    $sut = Currency::create($container, $this->pluginConfiguration, '', $this->pluginDefinition);
+    $this->assertInstanceOf(Currency::class, $sut);
   }
 
   /**
@@ -140,7 +140,7 @@ class CurrencyTest extends UnitTestCase {
 
     $field_alias = $this->randomMachineName();
 
-    $this->handler->field_alias = $field_alias;
+    $this->sut->field_alias = $field_alias;
 
     $result_row = new ResultRow([
       $field_alias => $currency_code,
@@ -156,7 +156,7 @@ class CurrencyTest extends UnitTestCase {
       ->with($currency_code)
       ->willReturn($currency);
 
-    $this->assertSame($currency_method_return_value, $this->handler->render($result_row));
+    $this->assertSame($currency_method_return_value, $this->sut->render($result_row));
   }
 
   /**
@@ -167,7 +167,7 @@ class CurrencyTest extends UnitTestCase {
 
     $field_alias = $this->randomMachineName();
 
-    $this->handler->field_alias = $field_alias;
+    $this->sut->field_alias = $field_alias;
 
     $result_row = new ResultRow([
       $field_alias => $currency_code,
@@ -178,7 +178,7 @@ class CurrencyTest extends UnitTestCase {
       ->with($currency_code)
       ->willReturn(NULL);
 
-    $this->assertInternalType('string', $this->handler->render($result_row));
+    $this->assertInternalType('string', $this->sut->render($result_row));
   }
 
 }

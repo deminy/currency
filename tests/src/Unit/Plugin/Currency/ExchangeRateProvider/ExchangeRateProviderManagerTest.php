@@ -59,11 +59,11 @@ class ExchangeRateProviderManagerTest extends UnitTestCase {
   protected $moduleHandler;
 
   /**
-   * The exchange rate provider plugin manager under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManager
    */
-  public $currencyExchangeRateProviderManager;
+  public $sut;
 
   /**
    * {@inheritdoc}
@@ -83,13 +83,13 @@ class ExchangeRateProviderManagerTest extends UnitTestCase {
 
     $namespaces = new ArrayObject();
 
-    $this->currencyExchangeRateProviderManager = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler, $this->classResolver);
-    $discovery_property = new \ReflectionProperty($this->currencyExchangeRateProviderManager, 'discovery');
+    $this->sut = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler, $this->classResolver);
+    $discovery_property = new \ReflectionProperty($this->sut, 'discovery');
     $discovery_property->setAccessible(TRUE);
-    $discovery_property->setValue($this->currencyExchangeRateProviderManager, $this->discovery);
-    $factory_property = new \ReflectionProperty($this->currencyExchangeRateProviderManager, 'factory');
+    $discovery_property->setValue($this->sut, $this->discovery);
+    $factory_property = new \ReflectionProperty($this->sut, 'factory');
     $factory_property->setAccessible(TRUE);
-    $factory_property->setValue($this->currencyExchangeRateProviderManager, $this->factory);
+    $factory_property->setValue($this->sut, $this->factory);
   }
 
   /**
@@ -97,7 +97,7 @@ class ExchangeRateProviderManagerTest extends UnitTestCase {
    */
   public function testConstruct() {
     $namespaces = new ArrayObject();
-    $this->currencyExchangeRateProviderManager = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler, $this->classResolver);
+    $this->sut = new ExchangeRateProviderManager($namespaces, $this->cache, $this->moduleHandler, $this->classResolver);
   }
 
   /**
@@ -125,7 +125,7 @@ class ExchangeRateProviderManagerTest extends UnitTestCase {
       ->method('getDefinitions')
       ->willReturn($discovery_definitions);
 
-    $definitions = $this->currencyExchangeRateProviderManager->getDefinitions();
+    $definitions = $this->sut->getDefinitions();
     foreach ([$plugin_id_a, $plugin_id_b, $plugin_id_c] as $plugin_id) {
       $this->assertArrayHasKey('description', $definitions[$plugin_id]);
     }

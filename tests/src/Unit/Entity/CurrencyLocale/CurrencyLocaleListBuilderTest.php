@@ -52,11 +52,11 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
-   * The form under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleListBuilder
    */
-  protected $form;
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -70,7 +70,7 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->form = new CurrencyLocaleListBuilder($this->entityType, $this->entityStorage, $this->stringTranslation, $this->moduleHandler);
+    $this->sut = new CurrencyLocaleListBuilder($this->entityType, $this->entityStorage, $this->stringTranslation, $this->moduleHandler);
   }
 
   /**
@@ -98,15 +98,15 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $form = CurrencyLocaleListBuilder::createInstance($container, $this->entityType);
-    $this->assertInstanceOf(CurrencyLocaleListBuilder::class, $form);
+    $sut = CurrencyLocaleListBuilder::createInstance($container, $this->entityType);
+    $this->assertInstanceOf(CurrencyLocaleListBuilder::class, $sut);
   }
 
   /**
    * @covers ::buildHeader
    */
   function testBuildHeader() {
-    $header = $this->form->buildHeader();
+    $header = $this->sut->buildHeader();
     $expected = array(
       'label' => 'Locale',
       'operations' => 'Operations',
@@ -129,7 +129,7 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
       ->method('invokeAll')
       ->willReturn([]);
 
-    $row = $this->form->buildRow($currency_locale);
+    $row = $this->sut->buildRow($currency_locale);
     $expected = array(
       'label' => $entity_label,
       'operations' => array(

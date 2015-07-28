@@ -61,11 +61,11 @@ class AmountFormatterManagerTest extends UnitTestCase {
   protected $moduleHandler;
 
   /**
-   * The amount formatter plugin manager under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManager
    */
-  public $currencyAmountFormatterManager;
+  public $sut;
 
   /**
    * {@inheritdoc}
@@ -85,13 +85,13 @@ class AmountFormatterManagerTest extends UnitTestCase {
 
     $namespaces = new ArrayObject();
 
-    $this->currencyAmountFormatterManager = new AmountFormatterManager($namespaces, $this->cache, $this->moduleHandler, $this->configFactory);
-    $discovery_property = new \ReflectionProperty($this->currencyAmountFormatterManager, 'discovery');
+    $this->sut = new AmountFormatterManager($namespaces, $this->cache, $this->moduleHandler, $this->configFactory);
+    $discovery_property = new \ReflectionProperty($this->sut, 'discovery');
     $discovery_property->setAccessible(TRUE);
-    $discovery_property->setValue($this->currencyAmountFormatterManager, $this->discovery);
-    $factory_property = new \ReflectionProperty($this->currencyAmountFormatterManager, 'factory');
+    $discovery_property->setValue($this->sut, $this->discovery);
+    $factory_property = new \ReflectionProperty($this->sut, 'factory');
     $factory_property->setAccessible(TRUE);
-    $factory_property->setValue($this->currencyAmountFormatterManager, $this->factory);
+    $factory_property->setValue($this->sut, $this->factory);
   }
 
   /**
@@ -99,7 +99,7 @@ class AmountFormatterManagerTest extends UnitTestCase {
    */
   public function testConstruct() {
     $namespaces = new ArrayObject();
-    $this->currencyAmountFormatterManager = new AmountFormatterManager($namespaces, $this->cache, $this->moduleHandler, $this->configFactory);
+    $this->sut = new AmountFormatterManager($namespaces, $this->cache, $this->moduleHandler, $this->configFactory);
   }
 
   /**
@@ -108,7 +108,7 @@ class AmountFormatterManagerTest extends UnitTestCase {
   public function testGetFallbackPluginId() {
     $plugin_id = $this->randomMachineName();
     $plugin_configuration = array($this->randomMachineName());
-    $this->assertInternalType('string', $this->currencyAmountFormatterManager->getFallbackPluginId($plugin_id, $plugin_configuration));
+    $this->assertInternalType('string', $this->sut->getFallbackPluginId($plugin_id, $plugin_configuration));
   }
 
   /**
@@ -130,7 +130,7 @@ class AmountFormatterManagerTest extends UnitTestCase {
       ->with('currency.amount_formatter')
       ->willReturn($config);
 
-    $this->assertSame($plugin_id, $this->currencyAmountFormatterManager->getDefaultPluginId());
+    $this->assertSame($plugin_id, $this->sut->getDefaultPluginId());
   }
 
   /**
@@ -154,7 +154,7 @@ class AmountFormatterManagerTest extends UnitTestCase {
       ->with('currency.amount_formatter')
       ->willReturn($config);
 
-    $this->assertSame(spl_object_hash($this->currencyAmountFormatterManager), spl_object_hash($this->currencyAmountFormatterManager->setDefaultPluginId($plugin_id)));
+    $this->assertSame(spl_object_hash($this->sut), spl_object_hash($this->sut->setDefaultPluginId($plugin_id)));
   }
 
   /**

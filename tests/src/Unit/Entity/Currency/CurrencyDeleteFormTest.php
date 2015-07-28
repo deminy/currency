@@ -36,11 +36,11 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
     protected $stringTranslation;
 
     /**
-     * The form under test.
+     * The class under test.
      *
      * @var \Drupal\currency\Entity\Currency\CurrencyDeleteForm
      */
-    protected $form;
+    protected $sut;
 
     /**
      * {@inheritdoc}
@@ -50,8 +50,8 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
       $this->stringTranslation = $this->getStringTranslationStub();
 
-      $this->form = new CurrencyDeleteForm($this->stringTranslation);
-      $this->form->setEntity($this->currency);
+      $this->sut = new CurrencyDeleteForm($this->stringTranslation);
+      $this->sut->setEntity($this->currency);
     }
 
     /**
@@ -65,29 +65,29 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
         ->with('string_translation')
         ->willReturn($this->stringTranslation);
 
-      $form = CurrencyDeleteForm::create($container);
-      $this->assertInstanceOf(CurrencyDeleteForm::class, $form);
+      $sut = CurrencyDeleteForm::create($container);
+      $this->assertInstanceOf(CurrencyDeleteForm::class, $sut);
     }
 
     /**
      * @covers ::getQuestion
      */
     function testGetQuestion() {
-      $this->assertInternalType('string', $this->form->getQuestion());
+      $this->assertInternalType('string', $this->sut->getQuestion());
     }
 
     /**
      * @covers ::getConfirmText
      */
     function testGetConfirmText() {
-      $this->assertInternalType('string', $this->form->getConfirmText());
+      $this->assertInternalType('string', $this->sut->getConfirmText());
     }
 
     /**
      * @covers ::getCancelUrl
      */
     function testGetCancelUrl() {
-      $url = $this->form->getCancelUrl();
+      $url = $this->sut->getCancelUrl();
       $this->assertInstanceOf(Url::class, $url);
       $this->assertSame('entity.currency.collection', $url->getRouteName());
     }
@@ -104,7 +104,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
       $form_state->expects($this->once())
         ->method('setRedirectUrl');
 
-      $this->form->submitForm($form, $form_state);
+      $this->sut->submitForm($form, $form_state);
     }
 
   }

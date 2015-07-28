@@ -31,13 +31,6 @@ class CurrencyLocalizeTest extends UnitTestCase {
   protected $currencyStorage;
 
   /**
-   * The filter under test.
-   *
-   * @var \Drupal\currency\Plugin\Filter\CurrencyLocalize
-   */
-  protected $filter;
-
-  /**
    * The input parser used for testing.
    *
    * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -59,6 +52,13 @@ class CurrencyLocalizeTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Plugin\Filter\CurrencyLocalize
+   */
+  protected $class;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -75,7 +75,7 @@ class CurrencyLocalizeTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->filter = new CurrencyLocalize($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage, $this->input);
+    $this->class = new CurrencyLocalize($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage, $this->input);
   }
 
   /**
@@ -99,8 +99,8 @@ class CurrencyLocalizeTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    $filter = CurrencyLocalize::create($container, [], '', $this->pluginDefinition);
-    $this->assertInstanceOf(CurrencyLocalize::class, $filter);
+    $sut = CurrencyLocalize::create($container, [], '', $this->pluginDefinition);
+    $this->assertInstanceOf(CurrencyLocalize::class, $sut);
   }
 
   /**
@@ -151,10 +151,10 @@ class CurrencyLocalizeTest extends UnitTestCase {
     ];
 
     foreach ($tokens_valid as $token => $replacement) {
-      $this->assertSame($replacement, $this->filter->process($token, $langcode, $cache, $cache_id));
+      $this->assertSame($replacement, $this->class->process($token, $langcode, $cache, $cache_id));
     }
     foreach ($tokens_invalid as $token) {
-      $this->assertSame($token, $this->filter->process($token, $langcode, $cache, $cache_id));
+      $this->assertSame($token, $this->class->process($token, $langcode, $cache, $cache_id));
     }
   }
 
@@ -162,6 +162,6 @@ class CurrencyLocalizeTest extends UnitTestCase {
    * @covers ::tips
    */
   public function testTips() {
-    $this->assertInternalType('string', $this->filter->tips());
+    $this->assertInternalType('string', $this->class->tips());
   }
 }

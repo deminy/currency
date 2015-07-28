@@ -43,18 +43,18 @@ class FormHelperTest extends UnitTestCase {
   protected $entityManager;
 
   /**
-   * The form helper under test.
-   *
-   * @var \Drupal\currency\FormHelper
-   */
-  protected $formHelper;
-
-  /**
    * The string translator.
    *
    * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $stringTranslation;
+
+  /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\FormHelper
+   */
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -75,14 +75,14 @@ class FormHelperTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->formHelper = new FormHelper($this->stringTranslation, $this->entityManager);
+    $this->sut = new FormHelper($this->stringTranslation, $this->entityManager);
   }
 
   /**
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->formHelper = new FormHelper($this->stringTranslation, $this->entityManager);
+    $this->sut = new FormHelper($this->stringTranslation, $this->entityManager);
   }
 
   /**
@@ -93,7 +93,7 @@ class FormHelperTest extends UnitTestCase {
       ->method('loadMultiple')
       ->willReturn([]);
 
-    $this->assertSame([], $this->formHelper->getCurrencyOptions(NULL));
+    $this->assertSame([], $this->sut->getCurrencyOptions(NULL));
   }
 
   /**
@@ -138,7 +138,7 @@ class FormHelperTest extends UnitTestCase {
     ];
     natcasesort($expected_options);
 
-    $this->assertSame($expected_options, $this->formHelper->getCurrencyOptions([$currency_locale_a, $currency_locale_b, $currency_locale_c]));
+    $this->assertSame($expected_options, $this->sut->getCurrencyOptions([$currency_locale_a, $currency_locale_b, $currency_locale_c]));
   }
 
   /**
@@ -149,7 +149,7 @@ class FormHelperTest extends UnitTestCase {
       ->method('loadMultiple')
       ->willReturn([]);
 
-    $this->assertSame([], $this->formHelper->getCurrencyLocaleOptions(NULL));
+    $this->assertSame([], $this->sut->getCurrencyLocaleOptions(NULL));
   }
 
   /**
@@ -194,7 +194,7 @@ class FormHelperTest extends UnitTestCase {
     ];
     natcasesort($expected_options);
 
-    $this->assertSame($expected_options, $this->formHelper->getCurrencyLocaleOptions([$currency_locale_a, $currency_locale_b, $currency_locale_c]));
+    $this->assertSame($expected_options, $this->sut->getCurrencyLocaleOptions([$currency_locale_a, $currency_locale_b, $currency_locale_c]));
   }
 
 }

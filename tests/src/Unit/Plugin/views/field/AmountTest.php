@@ -47,13 +47,6 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
     protected $currencyStorage;
 
     /**
-     * The handler under test.
-     *
-     * @var \Drupal\currency\Plugin\views\field\Amount
-     */
-    protected $handler;
-
-    /**
      * The module handler.
      *
      * @var \Drupal\Core\Extension\ModuleHandlerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -80,6 +73,13 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
      * @var \Drupal\Core\StringTranslation\TranslationInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $stringTranslation;
+
+    /**
+     * The class under test.
+     *
+     * @var \Drupal\currency\Plugin\views\field\Amount
+     */
+    protected $sut;
 
     /**
      * The Views display handler.
@@ -142,8 +142,8 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
       $container->set('renderer', $this->renderer);
       \Drupal::setContainer($container);
 
-      $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
-      $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
+      $this->sut = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
+      $this->sut->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
     }
 
     /**
@@ -168,15 +168,15 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
         ->method('get')
         ->willReturnMap($map);
 
-      $filter = Amount::create($container, [], '', $this->pluginDefinition);
-      $this->assertInstanceOf(Amount::class, $filter);
+      $sut = Amount::create($container, [], '', $this->pluginDefinition);
+      $this->assertInstanceOf(Amount::class, $sut);
     }
 
     /**
      * @covers ::defineOptions
      */
     public function testDefineOptions() {
-      foreach ($this->handler->defineOptions() as $option) {
+      foreach ($this->sut->defineOptions() as $option) {
         $this->assertInternalType('array', $option);
         $this->assertTrue(array_key_exists('default', $option) || array_key_exists('contains', $option));
       }
@@ -219,7 +219,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
       $form = [];
       $form_state = new FormState();
-      $this->handler->buildOptionsForm($form, $form_state);
+      $this->sut->buildOptionsForm($form, $form_state);
       foreach ($form as $element) {
         $this->assertInternalType('array', $element);
       }
@@ -229,10 +229,10 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
      * @covers ::defaultDefinition
      */
     function testDefaultDefinition() {
-      $method = new \ReflectionMethod($this->handler, 'defaultDefinition');
+      $method = new \ReflectionMethod($this->sut, 'defaultDefinition');
       $method->setAccessible(TRUE);
 
-      $this->assertInternalType('array', $method->invoke($this->handler));
+      $this->assertInternalType('array', $method->invoke($this->sut));
     }
 
     /**
@@ -243,16 +243,16 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
       $field_alias = $this->randomMachineName();
 
-      $this->handler->field_alias = $field_alias;
+      $this->sut->field_alias = $field_alias;
 
       $result_row = new ResultRow([
         $field_alias => $amount,
       ]);
 
-      $method = new \ReflectionMethod($this->handler, 'getAmount');
+      $method = new \ReflectionMethod($this->sut, 'getAmount');
       $method->setAccessible(TRUE);
 
-      $this->assertSame($amount, $method->invoke($this->handler, $result_row));
+      $this->assertSame($amount, $method->invoke($this->sut, $result_row));
     }
 
     /**
@@ -267,10 +267,10 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
       $result_row = new ResultRow();
 
-      $method = new \ReflectionMethod($this->handler, 'getCurrency');
+      $method = new \ReflectionMethod($this->sut, 'getCurrency');
       $method->setAccessible(TRUE);
 
-      $method->invoke($this->handler, $result_row);
+      $method->invoke($this->sut, $result_row);
     }
 
     /**
@@ -288,10 +288,10 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
       $result_row = new ResultRow();
 
-      $method = new \ReflectionMethod($this->handler, 'getCurrency');
+      $method = new \ReflectionMethod($this->sut, 'getCurrency');
       $method->setAccessible(TRUE);
 
-      $this->assertSame($currency, $method->invoke($this->handler, $result_row));
+      $this->assertSame($currency, $method->invoke($this->sut, $result_row));
     }
 
     /**
@@ -315,13 +315,13 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
       $plugin_id = $this->randomMachineName();
       $this->pluginDefinition['currency_code'] = $currency_code;
 
-      $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
-      $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
+      $this->sut = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
+      $this->sut->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
 
-      $method = new \ReflectionMethod($this->handler, 'getCurrency');
+      $method = new \ReflectionMethod($this->sut, 'getCurrency');
       $method->setAccessible(TRUE);
 
-      $this->assertSame($currency, $method->invoke($this->handler, $result_row));
+      $this->assertSame($currency, $method->invoke($this->sut, $result_row));
     }
 
     /**
@@ -351,14 +351,14 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
       $plugin_id = $this->randomMachineName();
       $this->pluginDefinition['currency_code_field'] = $currency_code_field;
 
-      $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
-      $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
-      $this->handler->aliases['currency_code_field'] = $field_alias;
+      $this->sut = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
+      $this->sut->init($this->viewsViewExecutable, $this->viewsDisplayHandler);
+      $this->sut->aliases['currency_code_field'] = $field_alias;
 
-      $method = new \ReflectionMethod($this->handler, 'getCurrency');
+      $method = new \ReflectionMethod($this->sut, 'getCurrency');
       $method->setAccessible(TRUE);
 
-      $this->assertSame($currency, $method->invoke($this->handler, $result_row));
+      $this->assertSame($currency, $method->invoke($this->sut, $result_row));
     }
 
     /**
@@ -404,11 +404,11 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
         'currency_round' => $round,
       ];
 
-      $this->handler = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
-      $this->handler->init($this->viewsViewExecutable, $this->viewsDisplayHandler, $options);
-      $this->handler->field_alias = $field_alias;
+      $this->sut = new Amount($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->moduleHandler, $this->renderer, $this->currencyStorage);
+      $this->sut->init($this->viewsViewExecutable, $this->viewsDisplayHandler, $options);
+      $this->sut->field_alias = $field_alias;
 
-      $this->assertSame($formatted_amount, $this->handler->render($result_row));
+      $this->assertSame($formatted_amount, $this->sut->render($result_row));
     }
 
     /**
@@ -425,7 +425,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
      * @covers ::query
      */
     function testQuery() {
-      $this->handler->query();
+      $this->sut->query();
     }
 
   }

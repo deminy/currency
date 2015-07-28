@@ -18,11 +18,11 @@ use Drupal\Tests\UnitTestCase;
 class ExchangeRateTest extends UnitTestCase {
 
   /**
-   * The exchange rate under test.
+   * The class under test.
    *
    * @var \Drupal\currency\ExchangeRate
    */
-  protected $exchangeRate;
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -33,7 +33,7 @@ class ExchangeRateTest extends UnitTestCase {
     $source_currency_code = $this->randomMachineName(3);
     $destination_currency_code = $this->randomMachineName(3);
     $rate = mt_rand();
-    $this->exchangeRate = new ExchangeRate($exchange_rate_provider_plugin_id, $timestamp, $source_currency_code, $destination_currency_code, $rate);
+    $this->sut = new ExchangeRate($exchange_rate_provider_plugin_id, $timestamp, $source_currency_code, $destination_currency_code, $rate);
   }
 
   /**
@@ -45,7 +45,7 @@ class ExchangeRateTest extends UnitTestCase {
     $source_currency_code = $this->randomMachineName(3);
     $destination_currency_code = $this->randomMachineName(3);
     $rate = mt_rand();
-    $this->exchangeRate = new ExchangeRate($exchange_rate_provider_plugin_id, $timestamp, $source_currency_code, $destination_currency_code, $rate);
+    $this->sut = new ExchangeRate($exchange_rate_provider_plugin_id, $timestamp, $source_currency_code, $destination_currency_code, $rate);
   }
 
   /**
@@ -54,8 +54,8 @@ class ExchangeRateTest extends UnitTestCase {
    */
   public function testGetDestinationCurrencyCode() {
     $currency_code = $this->randomMachineName(3);
-    $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setDestinationCurrencyCode($currency_code)));
-    $this->assertSame($currency_code, $this->exchangeRate->getDestinationCurrencyCode());
+    $this->assertSame(spl_object_hash($this->sut), spl_object_hash($this->sut->setDestinationCurrencyCode($currency_code)));
+    $this->assertSame($currency_code, $this->sut->getDestinationCurrencyCode());
   }
 
   /**
@@ -64,8 +64,8 @@ class ExchangeRateTest extends UnitTestCase {
    */
   public function testGetSourceCurrencyCode() {
     $currency_code = $this->randomMachineName(3);
-    $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setSourceCurrencyCode($currency_code)));
-    $this->assertSame($currency_code, $this->exchangeRate->getSourceCurrencyCode());
+    $this->assertSame(spl_object_hash($this->sut), spl_object_hash($this->sut->setSourceCurrencyCode($currency_code)));
+    $this->assertSame($currency_code, $this->sut->getSourceCurrencyCode());
   }
 
   /**
@@ -74,8 +74,8 @@ class ExchangeRateTest extends UnitTestCase {
    */
   public function testGetRate() {
     $rate = mt_rand();
-    $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setRate($rate)));
-    $this->assertSame($rate, $this->exchangeRate->getRate());
+    $this->assertSame(spl_object_hash($this->sut), spl_object_hash($this->sut->setRate($rate)));
+    $this->assertSame($rate, $this->sut->getRate());
   }
 
   /**
@@ -84,8 +84,8 @@ class ExchangeRateTest extends UnitTestCase {
    */
   public function testGetExchangeRateProviderPluginId() {
     $plugin_id = $this->randomMachineName();
-    $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setExchangeRateProviderPluginId($plugin_id)));
-    $this->assertSame($plugin_id, $this->exchangeRate->getExchangeRateProviderPluginId());
+    $this->assertSame(spl_object_hash($this->sut), spl_object_hash($this->sut->setExchangeRateProviderPluginId($plugin_id)));
+    $this->assertSame($plugin_id, $this->sut->getExchangeRateProviderPluginId());
   }
 
   /**
@@ -94,8 +94,8 @@ class ExchangeRateTest extends UnitTestCase {
    */
   public function testGetTimestamp() {
     $timestamp = mt_rand();
-    $this->assertSame(spl_object_hash($this->exchangeRate), spl_object_hash($this->exchangeRate->setTimestamp($timestamp)));
-    $this->assertSame($timestamp, $this->exchangeRate->getTimestamp());
+    $this->assertSame(spl_object_hash($this->sut), spl_object_hash($this->sut->setTimestamp($timestamp)));
+    $this->assertSame($timestamp, $this->sut->getTimestamp());
   }
 
 }

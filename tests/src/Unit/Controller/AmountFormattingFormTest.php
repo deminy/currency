@@ -80,8 +80,8 @@ namespace Drupal\Tests\currency\Unit\Controller {
         ->method('get')
         ->willReturnMap($map);
 
-      $form = AmountFormattingForm::create($container);
-      $this->assertInstanceOf(AmountFormattingForm::class, $form);
+      $sut = AmountFormattingForm::create($container);
+      $this->assertInstanceOf(AmountFormattingForm::class, $sut);
     }
 
     /**

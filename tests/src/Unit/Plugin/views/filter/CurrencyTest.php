@@ -27,11 +27,11 @@ class CurrencyTest extends UnitTestCase {
   protected $formHelper;
 
   /**
-   * The handler under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Plugin\views\field\Currency
    */
-  protected $handler;
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -43,7 +43,7 @@ class CurrencyTest extends UnitTestCase {
 
     $this->formHelper = $this->getMock(FormHelperInterface::class);
 
-    $this->handler = new Currency($configuration, $plugin_id, $plugin_definition, $this->formHelper);
+    $this->sut = new Currency($configuration, $plugin_id, $plugin_definition, $this->formHelper);
   }
 
   /**
@@ -63,8 +63,8 @@ class CurrencyTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = [];
 
-    $filter = Currency::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf(Currency::class, $filter);
+    $sut = Currency::create($container, $configuration, $plugin_id, $plugin_definition);
+    $this->assertInstanceOf(Currency::class, $sut);
   }
 
   /**
@@ -79,10 +79,10 @@ class CurrencyTest extends UnitTestCase {
       ->method('getCurrencyOptions')
       ->willReturn($options);
 
-    $method = new \ReflectionMethod($this->handler, 'getValueOptions');
+    $method = new \ReflectionMethod($this->sut, 'getValueOptions');
     $method->setAccessible(TRUE);
 
-    $this->assertSame($options, $method->invoke($this->handler));
+    $this->assertSame($options, $method->invoke($this->sut));
   }
 
 }

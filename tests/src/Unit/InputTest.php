@@ -18,17 +18,17 @@ use Drupal\Tests\UnitTestCase;
 class InputTest extends UnitTestCase {
 
   /**
-   * The input parser under test.
+   * The class under test.
    *
    * @var \Drupal\currency\Input
    */
-  protected $input;
+  protected $sut;
 
   /**
    * {@inheritdoc}
    */
   public function setUp() {
-    $this->input = new Input();
+    $this->sut = new Input();
   }
 
   /**
@@ -45,7 +45,7 @@ class InputTest extends UnitTestCase {
       '123,456,789.00,00',
     );
     foreach ($amounts_invalid as $amount) {
-      $this->assertFalse($this->input->parseAmount($amount));
+      $this->assertFalse($this->sut->parseAmount($amount));
     }
     $amounts_valid = array(
       // Integers.
@@ -69,7 +69,7 @@ class InputTest extends UnitTestCase {
     );
     foreach ($amounts_valid as $amount) {
       $amount_validated = NULL;
-      $amount_validated = $this->input->parseAmount($amount[0]);
+      $amount_validated = $this->sut->parseAmount($amount[0]);
       $this->assertEquals($amount_validated, $amount[1]);
     }
   }

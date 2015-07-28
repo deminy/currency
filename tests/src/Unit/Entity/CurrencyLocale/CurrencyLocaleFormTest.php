@@ -63,11 +63,11 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
     protected $stringTranslation;
 
     /**
-     * The form under test.
+     * The class under test.
      *
      * @var \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm
      */
-    protected $form;
+    protected $sut;
 
     /**
      * The form validator.
@@ -96,8 +96,8 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
       $container->set('form_validator', $this->formValidator);
       \Drupal::setContainer($container);
 
-      $this->form = new CurrencyLocaleForm($this->stringTranslation, $this->linkGenerator, $this->currencyLocaleStorage, $this->countryManager);
-      $this->form->setEntity($this->currencyLocale);
+      $this->sut = new CurrencyLocaleForm($this->stringTranslation, $this->linkGenerator, $this->currencyLocaleStorage, $this->countryManager);
+      $this->sut->setEntity($this->currencyLocale);
     }
 
     /**
@@ -162,10 +162,10 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
           'grouping_separator' => $grouping_separator,
         ));
 
-      $method = new \ReflectionMethod($this->form, 'copyFormValuesToEntity');
+      $method = new \ReflectionMethod($this->sut, 'copyFormValuesToEntity');
       $method->setAccessible(TRUE);
 
-      $method->invokeArgs($this->form, array($this->currencyLocale, $form, $form_state));
+      $method->invokeArgs($this->sut, array($this->currencyLocale, $form, $form_state));
     }
 
     /**
@@ -351,7 +351,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
         ),
         '#after_build' => ['::afterBuild'],
       );
-      $build = $this->form->form($form, $form_state);
+      $build = $this->sut->form($form, $form_state);
       unset($build['langcode']);
       unset($build['#process']);
       $this->assertSame($expected, $build);
@@ -370,7 +370,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
         ->method('setRedirect')
         ->with('entity.currency_locale.collection');
 
-      $this->form->save($form, $form_state);
+      $this->sut->save($form, $form_state);
     }
 
     /**
@@ -426,7 +426,7 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
           ->method('setError');
       }
 
-      $this->form->validateForm($form, $form_state);
+      $this->sut->validateForm($form, $form_state);
     }
 
     /**

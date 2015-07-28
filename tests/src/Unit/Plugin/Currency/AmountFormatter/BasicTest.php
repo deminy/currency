@@ -22,13 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class BasicTest extends UnitTestCase {
 
   /**
-   * The formatter under test.
-   *
-   * @var \Drupal\currency\Plugin\Currency\AmountFormatter\Basic
-   */
-  protected $formatter;
-
-  /**
    * The locale resolver.
    *
    * @var \Drupal\currency\LocaleResolverInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -43,6 +36,13 @@ class BasicTest extends UnitTestCase {
   protected $stringTranslation;
 
   /**
+   * The class under test.
+   *
+   * @var \Drupal\currency\Plugin\Currency\AmountFormatter\Basic
+   */
+  protected $sut;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -54,7 +54,7 @@ class BasicTest extends UnitTestCase {
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->formatter = new Basic($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->localeResolver);
+    $this->sut = new Basic($configuration, $plugin_id, $plugin_definition, $this->stringTranslation, $this->localeResolver);
   }
 
   /**
@@ -75,8 +75,8 @@ class BasicTest extends UnitTestCase {
     $plugin_id = $this->randomMachineName();
     $plugin_definition = array();
 
-    $formatter = Basic::create($container, $configuration, $plugin_id, $plugin_definition);
-    $this->assertInstanceOf(Basic::class, $formatter);
+    $sut = Basic::create($container, $configuration, $plugin_id, $plugin_definition);
+    $this->assertInstanceOf(Basic::class, $sut);
   }
 
   /**
@@ -116,6 +116,6 @@ class BasicTest extends UnitTestCase {
 
     $translation = 'UAH 987%654@321';
 
-    $this->assertSame($translation, $this->formatter->formatAmount($currency, $amount));
+    $this->assertSame($translation, $this->sut->formatAmount($currency, $amount));
   }
 }
