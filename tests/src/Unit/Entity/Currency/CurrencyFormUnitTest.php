@@ -9,10 +9,10 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
   use Drupal\Core\Url;
   use Drupal\currency\Entity\Currency\CurrencyForm;
-use Drupal\Tests\UnitTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+  use Drupal\Tests\UnitTestCase;
+  use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
+  /**
  * @coversDefaultClass \Drupal\currency\Entity\Currency\CurrencyForm
  *
  * @group Currency

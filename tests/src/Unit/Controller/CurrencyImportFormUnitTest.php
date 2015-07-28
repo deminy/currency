@@ -9,10 +9,10 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
   use Drupal\Core\Url;
   use Drupal\currency\Controller\CurrencyImportForm;
-use Drupal\Tests\UnitTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+  use Drupal\Tests\UnitTestCase;
+  use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
+  /**
  * @coversDefaultClass \Drupal\currency\Controller\CurrencyImportForm
  *
  * @group Currency

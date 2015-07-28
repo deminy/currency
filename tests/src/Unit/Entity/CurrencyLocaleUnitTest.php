@@ -9,8 +9,6 @@ namespace Drupal\Tests\currency\Unit\Entity;
 
 use Drupal\Core\Language\LanguageManager;
 use Drupal\currency\Entity\CurrencyLocale;
-use Drupal\currency\Entity\CurrencyLocaleInterface;
-use Drupal\simpletest\KernelTestBase;
 use Drupal\Tests\UnitTestCase;
 
 /**

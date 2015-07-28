@@ -10,7 +10,6 @@ namespace Drupal\currency\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;

@@ -7,14 +7,14 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
-use Drupal\Core\Form\FormState;
-use Drupal\currency\Plugin\views\field\Amount;
-use Drupal\Tests\UnitTestCase;
-use Drupal\views\ResultRow;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+  use Drupal\Core\Form\FormState;
+  use Drupal\currency\Plugin\views\field\Amount;
+  use Drupal\Tests\UnitTestCase;
+  use Drupal\views\ResultRow;
+  use Symfony\Component\DependencyInjection\ContainerBuilder;
+  use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
+  /**
  * @coversDefaultClass \Drupal\currency\Plugin\views\field\Amount
  *
  * @group Currency

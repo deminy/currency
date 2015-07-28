@@ -7,12 +7,12 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
-use Drupal\Core\Form\FormState;
-use Drupal\currency\Controller\PluginBasedExchangeRateProviderForm;
-use Drupal\Tests\UnitTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+  use Drupal\Core\Form\FormState;
+  use Drupal\currency\Controller\PluginBasedExchangeRateProviderForm;
+  use Drupal\Tests\UnitTestCase;
+  use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
+  /**
  * @coversDefaultClass \Drupal\currency\Controller\PluginBasedExchangeRateProviderForm
  *
  * @group Currency

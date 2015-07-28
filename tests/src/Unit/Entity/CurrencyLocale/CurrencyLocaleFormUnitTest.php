@@ -7,12 +7,12 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
-use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm;
-use Drupal\Tests\UnitTestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+  use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm;
+  use Drupal\Tests\UnitTestCase;
+  use Symfony\Component\DependencyInjection\ContainerBuilder;
+  use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
+  /**
  * @coversDefaultClass \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleForm
  *
  * @group Currency

@@ -7,10 +7,10 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
-use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm;
-use Drupal\Tests\UnitTestCase;
+  use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm;
+  use Drupal\Tests\UnitTestCase;
 
-/**
+  /**
  * @coversDefaultClass \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm
  *
  * @group Currency

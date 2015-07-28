@@ -7,12 +7,11 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
-use Drupal\Core\Form\FormState;
-use Drupal\currency\Controller\FixedRatesForm;
-use Drupal\Tests\UnitTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+  use Drupal\currency\Controller\FixedRatesForm;
+  use Drupal\Tests\UnitTestCase;
+  use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
+  /**
  * @coversDefaultClass \Drupal\currency\Controller\FixedRatesForm
  *
  * @group Currency

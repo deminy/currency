@@ -9,8 +9,6 @@ namespace Drupal\currency\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityFormBuilderInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

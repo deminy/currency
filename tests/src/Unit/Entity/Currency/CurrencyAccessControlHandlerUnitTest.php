@@ -7,8 +7,6 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\Currency;
 
-use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Access\AccessResultInterface;
 use Drupal\currency\Entity\Currency\CurrencyAccessControlHandler;
 use Drupal\Tests\UnitTestCase;
 

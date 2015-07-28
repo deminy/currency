@@ -9,7 +9,6 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\filter;
 
 use Drupal\currency\Plugin\views\filter\Currency;
 use Drupal\Tests\UnitTestCase;
-use Drupal\views\ResultRow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
