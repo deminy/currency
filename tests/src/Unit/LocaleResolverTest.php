@@ -27,7 +27,7 @@ use Drupal\Tests\UnitTestCase;
 class LocaleResolverTest extends UnitTestCase {
 
   /**
-   * The config factory used for testing.
+   * The config factory.
    *
    * @var \Drupal\Core\Config\ConfigFactory|\PHPUnit_Framework_MockObject_MockObject
    */
@@ -41,7 +41,7 @@ class LocaleResolverTest extends UnitTestCase {
   protected $currencyLocaleStorage;
 
   /**
-   * The entity manager used for testing.
+   * The entity manager.
    *
    * @var \Drupal\Core\Entity\EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
@@ -55,7 +55,7 @@ class LocaleResolverTest extends UnitTestCase {
   protected $eventDispatcher;
 
   /**
-   * The language manager used for testing.
+   * The language manager.
    *
    * @var \Drupal\Core\Language\LanguageManager|\PHPUnit_Framework_MockObject_MockObject
    */

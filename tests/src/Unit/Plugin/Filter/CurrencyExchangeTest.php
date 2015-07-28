@@ -22,14 +22,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CurrencyExchangeTest extends UnitTestCase {
 
   /**
-   * The exchange rate provider used for testing.
+   * The exchange rate provider.
    *
    * @var \Drupal\currency\ExchangeRateProviderInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $exchangeRateProvider;
 
   /**
-   * The input parser used for testing.
+   * The input parser.
    *
    * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */

@@ -21,14 +21,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FixedRatesTest extends UnitTestCase {
 
   /**
-   * The config used for testing.
+   * The config.
    *
    * @var \Drupal\Core\Config\Config|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $config;
 
   /**
-   * The config factory used for testing.
+   * The config factory.
    *
    * @var \Drupal\Core\Config\ConfigFactory|\PHPUnit_Framework_MockObject_MockObject
    */

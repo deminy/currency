@@ -24,14 +24,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CurrencyLocalizeTest extends UnitTestCase {
 
   /**
-   * The currency storage used for testing.
+   * The currency storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyStorage;
 
   /**
-   * The input parser used for testing.
+   * The input parser.
    *
    * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */

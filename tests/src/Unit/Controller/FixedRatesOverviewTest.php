@@ -27,21 +27,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FixedRatesOverviewTest extends UnitTestCase {
 
   /**
-   * The currency amount formatter manager used for testing.
+   * The currency amount formatter manager.
    *
    * @var \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyAmountFormatterManager;
 
   /**
-   * The currency exchange rate provider manager used for testing.
+   * The currency exchange rate provider manager.
    *
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $currencyExchangeRateProviderManager;
 
   /**
-   * The currency storage used for testing.
+   * The currency storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface|\PHPUnit_Framework_MockObject_MockObject
    */
@@ -62,7 +62,7 @@ class FixedRatesOverviewTest extends UnitTestCase {
   protected $sut;
 
   /**
-   * The URL generator used for testing.
+   * The URL generator.
    *
    * @var \Drupal\Core\Routing\UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
    */

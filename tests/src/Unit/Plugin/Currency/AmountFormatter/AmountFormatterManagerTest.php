@@ -26,35 +26,35 @@ use Zend\Stdlib\ArrayObject;
 class AmountFormatterManagerTest extends UnitTestCase {
 
   /**
-   * The cache backend used for testing.
+   * The cache backend.
    *
    * @var \Drupal\Core\Cache\CacheBackendInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $cache;
 
   /**
-   * The config factory used for testing.
+   * The config factory.
    *
    * @var \Drupal\Core\Config\ConfigFactory|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $configFactory;
 
   /**
-   * The plugin discovery used for testing.
+   * The plugin discovery.
    *
    * @var \Drupal\Component\Plugin\Discovery\DiscoveryInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $discovery;
 
   /**
-   * The plugin factory used for testing.
+   * The plugin factory.
    *
    * @var \Drupal\Component\Plugin\Factory\DefaultFactory|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $factory;
 
   /**
-   * The module handler used for testing.
+   * The module handler.
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface|\PHPUnit_Framework_MockObject_MockObject
    */

@@ -23,14 +23,14 @@ use Drupal\Tests\UnitTestCase;
 class PluginBasedExchangeRateProviderTest extends UnitTestCase {
 
   /**
-   * The configuration factory used for testing.
+   * The configuration factory.
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $configFactory;
 
   /**
-   * The currency exchanger plugin manager used for testing.
+   * The currency exchanger plugin manager.
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface|\PHPUnit_Framework_MockObject_MockObject
    */

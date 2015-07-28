@@ -40,7 +40,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
     protected $configFactory;
 
     /**
-     * The currency storage used for testing.
+     * The currency storage.
      *
      * @var \Drupal\Core\Entity\EntityStorageInterface|\PHPUnit_Framework_MockObject_MockObject
      */
