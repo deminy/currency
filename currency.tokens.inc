@@ -5,6 +5,8 @@
  * Contains Token API hook implementations.
  */
 
+use Drupal\Core\Render\BubbleableMetadata;
+
 /**
  * Implements hook_token_info().
  */
@@ -49,7 +51,7 @@ function currency_token_info() {
 /**
  * Implements hook_tokens().
  */
-function currency_tokens($type, array $tokens, array $data = array(), array $options = array()) {
+function currency_tokens($type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
   $replacements = array();
 
   if ($type == 'currency' && isset($data['currency'])) {
@@ -62,17 +64,21 @@ function currency_tokens($type, array $tokens, array $data = array(), array $opt
       /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
       $currency = \Drupal::entityManager()->getStorage('currency')->load($currency_code);
       if ($currency) {
+        $bubbleable_metadata->addCacheableDependency($currency);
         foreach ($tokens as $token => $original) {
           switch ($token) {
             case 'number':
               $replacements[$original] = $currency->getCurrencyNumber();
               break;
+
             case 'sign':
               $replacements[$original] = $currency->getSign();
               break;
+
             case 'subunits':
               $replacements[$original] = $currency->getSubunits();
               break;
+
             case 'title':
               $replacements[$original] = $currency->label();
               break;
