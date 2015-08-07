@@ -1,6 +1,6 @@
 currency.currency.*:
   label: Currency
-  type: mapping
+  type: config_entity
   mapping:
     alternativeSigns:
       type: sequence
@@ -26,9 +26,6 @@ currency.currency.*:
     subunits:
       label: Number of subunits
       type: integer
-    status:
-      label: Status
-      type: boolean
     usages:
       type: sequence
       label: Usages
@@ -45,13 +42,10 @@ currency.currency.*:
             end:
               label: End date
               type: string
-    uuid:
-      label: Universally Unique ID
-      type: string
 
 currency.currency_locale.*:
   label: Currency locale
-  type: mapping
+  type: config_entity
   mapping:
     decimalSeparator:
       label: Decimal separator
@@ -65,13 +59,10 @@ currency.currency_locale.*:
     pattern:
       label: Unicode CLDR number pattern
       type: string
-    uuid:
-      label: Universally Unique ID
-      type: string
 
 currency.amount_formatting:
   label: Currency amount formatting
-  type: mapping
+  type: config_object
   mapping:
     plugin_id:
       label: Plugin ID
@@ -79,7 +70,7 @@ currency.amount_formatting:
 
 currency.exchange_rate_provider:
   label: Currency exchange rate provider
-  type: mapping
+  type: config_object
   mapping:
     plugins:
       type: sequence
@@ -96,7 +87,7 @@ currency.exchange_rate_provider:
 
 currency.exchanger.fixed_rates:
   label: Fixed currency exchange rates
-  type: mapping
+  type: config_object
   mapping:
     rates:
       type: sequence
