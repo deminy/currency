@@ -7,6 +7,8 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale;
 
+use Drupal\Core\Cache\Context\CacheContextsManager;
+use Drupal\Core\DependencyInjection\Container;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -22,6 +24,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @group Currency
  */
 class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
+
+  /**
+   * The cache contexts manager.
+   *
+   * @var \Drupal\Core\Cache\Context\CacheContextsManager|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $cacheContextsManager;
 
   /**
    * Information about the entity type.
@@ -48,6 +57,16 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
+    parent::setUp();
+
+    $this->cacheContextsManager = $this->getMockBuilder(CacheContextsManager::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $container = new Container();
+    $container->set('cache_contexts_manager', $this->cacheContextsManager);
+    \Drupal::setContainer($container);
+
     $this->entityType = $this->getMock(EntityTypeInterface::class);
 
     $this->moduleHandler = $this->getMock(ModuleHandlerInterface::class);
