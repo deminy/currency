@@ -145,7 +145,7 @@ class FixedRatesOverviewTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $fixed_rates->expects($this->once())
-      ->method('loadConfiguration')
+      ->method('loadAll')
       ->willReturn($rates_configuration);
 
     $this->currencyExchangeRateProviderManager->expects($this->once())

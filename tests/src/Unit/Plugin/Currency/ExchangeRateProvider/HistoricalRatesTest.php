@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
+use BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates;
 use Drupal\Tests\UnitTestCase;
 
@@ -39,58 +40,29 @@ class HistoricalRatesTest extends UnitTestCase {
    * @covers ::load
    */
   public function testLoad() {
-    $expected_rates = $this->prepareExchangeRates();
+    $source_currency_code = 'EUR';
+    $destination_currency_code = 'NLG';
+    $exchange_rate = '2.20371';
 
-    $reverse_rate = '0.511291';
-
-    // Test rates that are stored in config.
-    $this->assertSame($expected_rates['EUR']['NLG'], $this->sut->load('EUR', 'NLG')->getRate());
-    $this->assertSame($expected_rates['EUR']['DEM'], $this->sut->load('EUR', 'DEM')->getRate());
-
-    // Test a rate that is calculated on-the-fly.
-    $this->assertSame($reverse_rate, $this->sut->load('DEM', 'EUR')->getRate());
-
-    // Test an unavailable exchange rate.
-    $this->assertNull($this->sut->load('UAH', 'EUR'));
-    $this->assertNull($this->sut->load('EUR', 'UAH'));
+    $this->assertSame($exchange_rate, $this->sut->load($source_currency_code, $destination_currency_code)->getRate());
   }
 
   /**
    * @covers ::loadMultiple
    */
   public function testLoadMultiple() {
-    $expected_rates = $this->prepareExchangeRates();
+    $source_currency_code = 'EUR';
+    $destination_currency_code_a = 'NLG';
+    $rate_a = '2.20371';
+    $destination_currency_code_b = 'BEF';
+    $rate_b = '40.3399';
 
-    $returned_rates = $this->sut->loadMultiple(array(
-      // Test a rate that is stored in config.
-      'EUR' => array('NLG'),
-      // Test a reverse exchange rate.
-      'NLG' => array('EUR'),
-      // Test an unavailable exchange rate.
-      'ABC' => array('XXX'),
-    ));
+    $exchange_rates = $this->sut->loadMultiple([
+      $source_currency_code => [$destination_currency_code_a, $destination_currency_code_b],
+    ]);
 
-    $this->assertSame($expected_rates['EUR']['NLG'], $returned_rates['EUR']['NLG']->getRate());
-    $this->assertSame($expected_rates['NLG']['EUR'], $returned_rates['NLG']['EUR']->getRate());
-    $this->assertNull($returned_rates['ABC']['XXX']);
+    $this->assertSame($rate_a, $exchange_rates[$source_currency_code][$destination_currency_code_a]->getRate());
+    $this->assertSame($rate_b, $exchange_rates[$source_currency_code][$destination_currency_code_b]->getRate());
   }
 
-  /**
-   * Stores random exchange rates in the mocked config and returns them.
-   *
-   * @return array
-   */
-  protected function prepareExchangeRates() {
-    $rates = array(
-      'EUR' => array(
-        'DEM' => '1.95583',
-        'NLG' => '2.20371',
-      ),
-      'NLG' => array(
-        'EUR' => '0.453780',
-      ),
-    );
-
-    return $rates;
-  }
 }

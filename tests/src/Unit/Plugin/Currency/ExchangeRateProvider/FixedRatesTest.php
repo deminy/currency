@@ -72,11 +72,11 @@ class FixedRatesTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::loadConfiguration
+   * @covers ::loadAll
    */
   public function testLoadConfiguration() {
     list($rates) = $this->prepareExchangeRates();
-    $this->assertSame($rates, $this->sut->loadConfiguration());
+    $this->assertSame($rates, $this->sut->loadAll());
   }
 
   /**

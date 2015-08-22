@@ -89,7 +89,7 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
   public function overview() {
     /** @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates $plugin */
     $plugin = $this->currencyExchangeRateProviderManager->createInstance('currency_fixed_rates');
-    $rates = $plugin->loadConfiguration();
+    $rates = $plugin->loadALl();
 
     $form['rates'] = array(
       '#empty' => $this->t('There are no exchange rates yet. <a href="@path">Add an exchange rate</a>.', array(

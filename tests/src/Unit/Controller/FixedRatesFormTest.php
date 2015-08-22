@@ -7,15 +7,15 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
+  use BartFeenstra\CurrencyExchange\ExchangeRateInterface;
   use Drupal\Core\Config\ConfigFactoryInterface;
   use Drupal\Core\Entity\EntityManagerInterface;
   use Drupal\Core\Entity\EntityStorageInterface;
   use Drupal\Core\Form\FormStateInterface;
   use Drupal\currency\Controller\FixedRatesForm;
   use Drupal\currency\Entity\CurrencyInterface;
-  use Drupal\currency\ExchangeRateInterface;
-  use Drupal\currency\ExchangeRateProviderInterface;
   use Drupal\currency\FormHelperInterface;
+  use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface;
   use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
   use Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRates;
   use Drupal\Tests\UnitTestCase;

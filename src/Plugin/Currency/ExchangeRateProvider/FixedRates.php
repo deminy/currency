@@ -7,10 +7,10 @@
 
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
+use BartFeenstra\CurrencyExchange\FixedExchangeRateProviderTrait;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\currency\ExchangeRate;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,6 +23,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class FixedRates extends PluginBase implements ExchangeRateProviderInterface, ContainerFactoryPluginInterface {
+
+  use FixedExchangeRateProviderTrait;
 
   /**
    * The config factory.
@@ -58,48 +60,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
   /**
    * {@inheritdoc}
    */
-  public function load($currency_code_from, $currency_code_to) {
-    $rate = NULL;
-
-    $rates = $this->loadConfiguration();
-    if (isset($rates[$currency_code_from]) && isset($rates[$currency_code_from][$currency_code_to])) {
-      $rate = $rates[$currency_code_from][$currency_code_to];
-    }
-    // Calculate the reverse on the fly, because adding it to the statically
-    // cached data would require additional checks when deleting rates, to see
-    // if the they are reversed from other rates or are originals.
-    elseif(isset($rates[$currency_code_to]) && isset($rates[$currency_code_to][$currency_code_from])) {
-      $rate = bcdiv(1, $rates[$currency_code_to][$currency_code_from], 6);
-    }
-
-    if ($rate) {
-      return new ExchangeRate($this->getPluginId(), NULL, $currency_code_from, $currency_code_to, $rate);
-    }
-    return NULL;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function loadMultiple(array $currency_codes) {
-    $rates = array();
-    foreach ($currency_codes as $currency_code_from => $currency_codes_to) {
-      foreach ($currency_codes_to as $currency_code_to) {
-        $rates[$currency_code_from][$currency_code_to] = $this->load($currency_code_from, $currency_code_to);
-      }
-    }
-
-    return $rates;
-  }
-
-  /**
-   * Loads all stored exchange rates.
-   *
-   * @return array[]
-   *   Keys are source currency codes. Values are arrays of which the keys are
-   *   destination currency codes and values are exchange rates.
-   */
-  public function loadConfiguration() {
+  public function loadAll() {
     $rates_data = $this->configFactory->get('currency.exchanger.fixed_rates')->get('rates');
     $rates = array();
     foreach ($rates_data as $rate_data) {
@@ -120,7 +81,7 @@ class FixedRates extends PluginBase implements ExchangeRateProviderInterface, Co
    */
   public function save($currency_code_from, $currency_code_to, $rate) {
     $config = $this->configFactory->getEditable('currency.exchanger.fixed_rates');
-    $rates = $this->loadConfiguration();
+    $rates = $this->loadAll();
     $rates[$currency_code_from][$currency_code_to] = $rate;
     // Massage the rates into a format that can be stored, as associative
     // arrays are not supported by the config system

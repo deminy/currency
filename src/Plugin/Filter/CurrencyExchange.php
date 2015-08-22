@@ -7,9 +7,9 @@
 
 namespace Drupal\currency\Plugin\Filter;
 
+use BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\currency\ExchangeRateProviderInterface;
 use Drupal\currency\InputInterface;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -29,7 +29,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
   /**
    * The exchange rate provider.
    *
-   * @var \Drupal\currency\ExchangeRateProviderInterface
+   * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface
    */
   protected $exchangeRateProvider;
 
@@ -51,7 +51,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    *   The plugin implementation definition.
    * @param \Drupal\Core\StringTranslation\TranslationInterface
    *   The string translator.
-   * @param \Drupal\currency\ExchangeRateProviderInterface $exchange_rate_provider
+   * @param \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface $exchange_rate_provider
    *   The exchange rate provider.
    * @param \Drupal\currency\InputInterface $input
    *   The input parser.

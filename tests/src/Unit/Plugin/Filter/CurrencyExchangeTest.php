@@ -7,9 +7,9 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
-use Drupal\currency\ExchangeRate;
-use Drupal\currency\ExchangeRateProviderInterface;
+use BartFeenstra\CurrencyExchange\ExchangeRate;
 use Drupal\currency\InputInterface;
+use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Filter\CurrencyExchange;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,7 +24,7 @@ class CurrencyExchangeTest extends UnitTestCase {
   /**
    * The exchange rate provider.
    *
-   * @var \Drupal\currency\ExchangeRateProviderInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $exchangeRateProvider;
 
@@ -103,7 +103,7 @@ class CurrencyExchangeTest extends UnitTestCase {
     $currency_code_from = 'EUR';
     $currency_code_to = 'NLG';
     $rate = '2.20371';
-    $exchange_rate = new ExchangeRate(NULL, NULL, $currency_code_from, $currency_code_to, $rate);
+    $exchange_rate = ExchangeRate::create($currency_code_from, $currency_code_to, $rate);
 
     $this->input->expects($this->any())
       ->method('parseAmount')
