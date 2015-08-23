@@ -14,11 +14,13 @@
       "BartFeenstra" : "src"
     }
   },
+  "require" : {
+    "php": "~5.5 || ~7.0"
+  },
   "require-dev" : {
     "phpunit/phpunit" : "3.7.*"
   },
   "suggest" : {
-    "php" : "To use the PHP helpers, you need PHP 5.3 or higher.",
     "symfony/yaml" : "To use the PHP helpers, you need symfony/yaml 2.1."
   }
 }
