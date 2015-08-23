@@ -103,7 +103,7 @@ class CurrencyExchangeTest extends UnitTestCase {
     $currency_code_from = 'EUR';
     $currency_code_to = 'NLG';
     $rate = '2.20371';
-    $exchange_rate = ExchangeRate::create($currency_code_from, $currency_code_to, $rate);
+    $exchange_rate = new ExchangeRate($currency_code_from, $currency_code_to, $rate);
 
     $this->input->expects($this->any())
       ->method('parseAmount')

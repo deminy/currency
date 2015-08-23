@@ -152,7 +152,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
   public function testLoad() {
     $currency_code_from = 'EUR';
     $currency_code_to = 'NLG';
-    $rate = ExchangeRate::create($currency_code_from, $currency_code_to, '2.20371');
+    $rate = new ExchangeRate($currency_code_from, $currency_code_to, '2.20371');
 
     $exchange_rate_provider_id_a = $this->randomMachineName();
 
