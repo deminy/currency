@@ -8,6 +8,8 @@
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface;
+use Drupal\currency\ExchangeRate;
+use Drupal\currency\ExchangeRateInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderDecorator;
 use Drupal\Tests\UnitTestCase;
 
@@ -26,6 +28,13 @@ class ExchangeRateProviderDecoratorTest extends UnitTestCase {
   protected $exchangeRateProvider;
 
   /**
+   * The plugin ID.
+   *
+   * @var string
+   */
+  protected $pluginId;
+
+  /**
    * The class under test.
    *
    * @var \Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates
@@ -39,10 +48,10 @@ class ExchangeRateProviderDecoratorTest extends UnitTestCase {
     $this->exchangeRateProvider = $this->getMock(ExchangeRateProviderInterface::class);
 
     $configuration = array();
-    $plugin_id = $this->randomMachineName();
+    $this->pluginId = $this->randomMachineName();
     $plugin_definition = array();
 
-    $this->sut = new ExchangeRateProviderDecorator($configuration, $plugin_id, $plugin_definition, $this->exchangeRateProvider);
+    $this->sut = new ExchangeRateProviderDecorator($configuration, $this->pluginId, $plugin_definition, $this->exchangeRateProvider);
   }
 
   /**
@@ -62,40 +71,60 @@ class ExchangeRateProviderDecoratorTest extends UnitTestCase {
   public function testLoad() {
     $source_currency_code = $this->randomMachineName();
     $destination_currency_code = $this->randomMachineName();
-    $exchange_rate = mt_rand();
+    $rate = mt_rand();
+    $exchange_rate = new ExchangeRate($source_currency_code, $destination_currency_code, $rate, $this->pluginId);
 
     $this->exchangeRateProvider->expects($this->once())
       ->method('load')
       ->with($source_currency_code, $destination_currency_code)
       ->willReturn($exchange_rate);
 
-    $this->assertSame($exchange_rate, $this->sut->load($source_currency_code, $destination_currency_code));
+    $this->assertExchangeRateEquals($exchange_rate, $this->sut->load($source_currency_code, $destination_currency_code));
   }
 
   /**
    * @covers ::loadMultiple
    */
   public function testLoadMultiple() {
-    $source_currency_code_a = $this->randomMachineName();
+    $source_currency_code = $this->randomMachineName();
     $destination_currency_code_a = $this->randomMachineName();
     $destination_currency_code_b = $this->randomMachineName();
+    $exchange_rate_a = new ExchangeRate($source_currency_code, $destination_currency_code_a, mt_rand(), $this->pluginId);
+    $exchange_rate_b = new ExchangeRate($source_currency_code, $destination_currency_code_b, mt_rand(), $this->pluginId);
     $exchange_rates = [
-      $source_currency_code_a => [
-        $destination_currency_code_a => mt_rand(),
-        $destination_currency_code_b => mt_rand(),
+      $source_currency_code => [
+        $destination_currency_code_a => $exchange_rate_a,
+        $destination_currency_code_b => $exchange_rate_b,
       ],
     ];
 
     $this->exchangeRateProvider->expects($this->once())
       ->method('loadMultiple')
       ->with([
-        $source_currency_code_a => [$destination_currency_code_a, $destination_currency_code_b],
+        $source_currency_code => [$destination_currency_code_a, $destination_currency_code_b],
       ])
       ->willReturn($exchange_rates);
 
-    $this->assertSame($exchange_rates, $this->sut->loadMultiple([
-      $source_currency_code_a => [$destination_currency_code_a, $destination_currency_code_b],
-    ]));
+    $loaded_exchange_rates = $this->sut->loadMultiple([
+      $source_currency_code => [$destination_currency_code_a, $destination_currency_code_b],
+    ]);
+
+    $this->assertExchangeRateEquals($exchange_rate_a, $loaded_exchange_rates[$source_currency_code][$destination_currency_code_a]);
+    $this->assertExchangeRateEquals($exchange_rate_b, $loaded_exchange_rates[$source_currency_code][$destination_currency_code_b]);
+  }
+
+  /**
+   * Asserts that two exchange rates are equal.
+   *
+   * @param \Drupal\currency\ExchangeRateInterface $expected
+   * @param \Drupal\currency\ExchangeRateInterface $real
+   */
+  protected function assertExchangeRateEquals(ExchangeRateInterface $expected, ExchangeRateInterface $real) {
+    $this->assertSame($expected->getSourceCurrencyCode(), $real->getSourceCurrencyCode());
+    $this->assertSame($expected->getDestinationCurrencyCode(), $real->getDestinationCurrencyCode());
+    $this->assertSame($expected->getRate(), $real->getRate());
+    $this->assertSame($expected->getTimestamp(), $real->getTimestamp());
+    $this->assertSame($expected->getExchangeRateProviderId(), $real->getExchangeRateProviderId());
   }
 
 }

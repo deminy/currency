@@ -9,6 +9,7 @@ namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface as GenericExchangeRateProviderInterface;
 use Drupal\Core\Plugin\PluginBase;
+use Drupal\currency\ExchangeRate;
 
 /**
  * Provides an exchange rate provider decorator.
@@ -43,13 +44,22 @@ class ExchangeRateProviderDecorator extends PluginBase implements ExchangeRatePr
    * {@inheritdoc}
    */
   public function load($source_currency_code, $destination_currency_code) {
-    return $this->exchangeRateProvider->load($source_currency_code, $destination_currency_code);
+    $exchange_rate = $this->exchangeRateProvider->load($source_currency_code, $destination_currency_code);
+
+    return ExchangeRate::createFromExchangeRate($exchange_rate, $this->getPluginId());
   }
 
   /**
    * {@inheritdoc}
    */
   public function loadMultiple(array $currency_codes) {
-    return $this->exchangeRateProvider->loadMultiple($currency_codes);
+    $exchange_rates = [];
+    foreach ($this->exchangeRateProvider->loadMultiple($currency_codes) as $source_currency_code => $destinations) {
+      foreach ($destinations as $destination_currency_code => $exchange_rate) {
+        $exchange_rates[$source_currency_code][$destination_currency_code] = ExchangeRate::createFromExchangeRate($exchange_rate, $this->getPluginId());
+      }
+    }
+
+    return $exchange_rates;
   }
 }
