@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MLF
-currencyNumber: null
-sign: MAF
-subunits: 100
-label: 'Malian franc'
-usages:
-    - { start: '1962-07-02', end: '1984-08-31', countryCode: ML }

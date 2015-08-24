@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BYR
-currencyNumber: '974'
-sign: Br
-subunits: 100
-label: 'Belarussian ruble'
-usages:
-    - { start: '2000-01-01', end: '', countryCode: BY }

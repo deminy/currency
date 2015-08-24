@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TOP
-currencyNumber: '776'
-sign: $
-subunits: 100
-label: 'Tongan pa’anga'
-usages:
-    - { start: '1966-02-14', end: '', countryCode: TO }

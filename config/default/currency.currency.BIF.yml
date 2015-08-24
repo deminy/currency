@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BIF
-currencyNumber: '108'
-sign: FBu
-subunits: 100
-label: 'Burundian franc'
-usages:
-    - { start: '1964-05-19', end: '', countryCode: BI }

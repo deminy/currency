@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GNS
-currencyNumber: null
-sign: ¤
-subunits: 100
-label: 'Guinean syli'
-usages:
-    - { start: '1972-10-02', end: '1986-01-06', countryCode: GN }

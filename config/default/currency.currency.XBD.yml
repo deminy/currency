@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XBD
-currencyNumber: '958'
-sign: ¤
-subunits: 0
-label: 'Bond Markets Unit European Unit of Account 17 (E.U.A.-17)'
-usages:
-    - { start: '', end: '', countryCode: ZZ }

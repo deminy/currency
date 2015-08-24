@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XFO
-currencyNumber: null
-sign: ¤
-subunits: null
-label: 'Gold franc'
-usages:
-    - { start: '', end: '', countryCode: ZZ }

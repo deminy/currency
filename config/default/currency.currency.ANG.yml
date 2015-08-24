@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ANG
-currencyNumber: '532'
-sign: ƒ
-subunits: 100
-label: 'Netherlands Antillean guilder'
-usages:
-    - { start: '1940-05-10', end: '', countryCode: AN }
-    - { start: '1940-05-10', end: '1986-01-01', countryCode: AW }

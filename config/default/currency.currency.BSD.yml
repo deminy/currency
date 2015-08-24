@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BSD
-currencyNumber: '044'
-sign: $
-subunits: 100
-label: 'Bahamian dollar'
-usages:
-    - { start: '1966-05-25', end: '', countryCode: BS }

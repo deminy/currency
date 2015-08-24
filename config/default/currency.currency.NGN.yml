@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: NGN
-currencyNumber: '566'
-sign: ₦
-subunits: 100
-label: 'Nigerian naira'
-usages:
-    - { start: '1973-01-01', end: '', countryCode: NG }

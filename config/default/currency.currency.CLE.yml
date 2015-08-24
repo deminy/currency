@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CLE
-currencyNumber: null
-sign: Eº
-subunits: 100
-label: 'Chilean escudo'
-usages:
-    - { start: '1960-01-01', end: '1975-09-29', countryCode: CL }

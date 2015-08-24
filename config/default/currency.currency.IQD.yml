@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: IQD
-currencyNumber: '368'
-sign: ع.د
-subunits: 1000
-label: 'Iraqi dinar'
-usages:
-    - { start: '1931-04-19', end: '', countryCode: IQ }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TMM
-currencyNumber: '795'
-sign: m
-subunits: 100
-label: 'Turkmenistani manat'
-usages:
-    - { start: '1993-11-01', end: '2009-01-01', countryCode: TM }

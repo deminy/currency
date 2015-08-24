@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ZRZ
-currencyNumber: null
-sign: Ƶ
-subunits: 1000
-label: 'Zaïrean zaïre'
-usages:
-    - { start: '1971-10-27', end: '1993-11-01', countryCode: CD }
-    - { start: '1971-10-27', end: '1993-11-01', countryCode: ZR }

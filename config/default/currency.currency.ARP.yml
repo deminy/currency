@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ARP
-currencyNumber: null
-sign: $a
-subunits: 100
-label: 'Argentine peso argentino'
-usages:
-    - { start: '1983-06-01', end: '1985-06-14', countryCode: AR }

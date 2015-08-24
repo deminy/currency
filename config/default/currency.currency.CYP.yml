@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CYP
-currencyNumber: '196'
-sign: £
-subunits: 100
-label: 'Cypriot pound'
-usages:
-    - { start: '1914-09-10', end: '2008-01-31', countryCode: CY }

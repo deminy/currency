@@ -7,13 +7,13 @@
 
 namespace Drupal\Tests\currency\Unit\Element;
 
+use BartFeenstra\Currency\InputInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\currency\Element\CurrencyAmount;
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\FormHelperInterface;
-use Drupal\currency\InputInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -34,7 +34,7 @@ class CurrencyAmountTest extends UnitTestCase {
   /**
    * The input parser.
    *
-   * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \BartFeenstra\Currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $input;
 

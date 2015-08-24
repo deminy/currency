@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LBP
-currencyNumber: '422'
-sign: £
-subunits: 100
-label: 'Lebanese pound'
-usages:
-    - { start: '1948-02-02', end: '', countryCode: LB }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ARS
-currencyNumber: '032'
-sign: $
-subunits: 100
-label: 'Argentine peso'
-usages:
-    - { start: '1992-01-01', end: '', countryCode: AR }

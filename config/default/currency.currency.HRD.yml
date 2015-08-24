@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: HRD
-currencyNumber: null
-sign: ¤
-subunits: 0
-label: 'Croatian dinar'
-usages:
-    - { start: '1991-12-23', end: '1995-01-01', countryCode: HR }

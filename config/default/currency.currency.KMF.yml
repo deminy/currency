@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KMF
-currencyNumber: '174'
-sign: ₣
-subunits: 100
-label: 'Comoran franc'
-usages:
-    - { start: '1975-07-06', end: '', countryCode: KM }
-    - { start: '1975-01-01', end: '1976-02-23', countryCode: YT }

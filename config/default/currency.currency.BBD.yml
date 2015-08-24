@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BBD
-currencyNumber: '052'
-sign: $
-subunits: 100
-label: 'Barbadian dollar'
-usages:
-    - { start: '1973-12-03', end: '', countryCode: BB }

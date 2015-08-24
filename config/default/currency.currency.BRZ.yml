@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BRZ
-currencyNumber: null
-sign: ₢
-subunits: 100
-label: 'Brazilian cruzeiro'
-usages:
-    - { start: '1942-11-01', end: '1967-02-13', countryCode: BR }

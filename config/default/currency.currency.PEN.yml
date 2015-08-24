@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: PEN
-currencyNumber: '604'
-sign: S/.
-subunits: 100
-label: 'Peruvian nuevo sol'
-usages:
-    - { start: '1991-07-01', end: '', countryCode: PE }

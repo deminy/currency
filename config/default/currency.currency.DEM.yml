@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: DEM
-currencyNumber: '276'
-sign: DM
-subunits: 100
-label: 'German mark'
-usages:
-    - { start: '1948-06-20', end: '2002-02-28', countryCode: DE }
-    - { start: '1999-10-02', end: '2002-05-15', countryCode: ME }

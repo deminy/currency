@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SEK
-currencyNumber: '752'
-sign: kr
-subunits: 100
-label: 'Swedish krona'
-usages:
-    - { start: '1873-05-27', end: '1905-06-07', countryCode: NO }
-    - { start: '1873-05-27', end: '', countryCode: SE }

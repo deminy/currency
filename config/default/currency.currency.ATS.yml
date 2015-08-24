@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ATS
-currencyNumber: '040'
-sign: S
-subunits: 100
-label: 'Austrian schilling'
-usages:
-    - { start: '1947-12-04', end: '2002-02-28', countryCode: AT }

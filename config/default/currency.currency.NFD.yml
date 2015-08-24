@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: NFD
-currencyNumber: null
-sign: $
-subunits: 100
-label: 'Dominion of Newfoundland dollar'
-usages:
-    - { start: '1865', end: '', countryCode: '' }

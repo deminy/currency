@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ECS
-currencyNumber: '218'
-sign: S/.
-subunits: 100
-label: 'Ecuadorian sucre'
-usages:
-    - { start: '1884-04-01', end: '2000-10-02', countryCode: EC }

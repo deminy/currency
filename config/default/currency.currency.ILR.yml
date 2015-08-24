@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ILR
-currencyNumber: null
-sign: ¤
-subunits: 100
-label: 'Israeli shekel'
-usages:
-    - { start: '1980-02-22', end: '1985-09-04', countryCode: IL }

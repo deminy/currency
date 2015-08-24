@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: JPY
-currencyNumber: '392'
-sign: ¥
-subunits: 1000
-label: 'Japanese yen'
-usages:
-    - { start: '1914-10-03', end: '1944-01-01', countryCode: FM }
-    - { start: '1871-06-01', end: '', countryCode: JP }

@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CHF
-currencyNumber: '756'
-sign: ₣
-subunits: 100
-label: 'Swiss franc'
-usages:
-    - { start: '1799-03-17', end: '', countryCode: CH }
-    - { start: '1921-02-01', end: '', countryCode: LI }

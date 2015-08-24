@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CHE
-currencyNumber: '947'
-sign: ¤
-subunits: 100
-label: 'WIR euro'
-usages:
-    - { start: '', end: '', countryCode: CH }

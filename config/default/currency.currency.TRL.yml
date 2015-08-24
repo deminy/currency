@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TRL
-currencyNumber: '792'
-sign: TL
-subunits: 100
-label: 'Turkish lira'
-usages:
-    - { start: '1922-11-01', end: '2005-12-31', countryCode: TR }

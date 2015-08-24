@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CAD
-currencyNumber: '124'
-sign: $
-subunits: 100
-label: 'Canadian dollar'
-usages:
-    - { start: '1858-01-01', end: '', countryCode: CA }

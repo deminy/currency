@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KYD
-currencyNumber: '136'
-sign: $
-subunits: 100
-label: 'Caymanian dollar'
-usages:
-    - { start: '1971-01-01', end: '', countryCode: KY }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KWD
-currencyNumber: '414'
-sign: د.ك
-subunits: 1000
-label: 'Kuwaiti dinar'
-usages:
-    - { start: '1961-04-01', end: '', countryCode: KW }

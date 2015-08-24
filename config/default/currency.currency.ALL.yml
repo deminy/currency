@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ALL
-currencyNumber: '008'
-sign: Lek
-subunits: 100
-label: 'Albanian lek'
-usages:
-    - { start: '1965-08-16', end: '', countryCode: AL }

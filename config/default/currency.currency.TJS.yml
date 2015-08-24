@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TJS
-currencyNumber: '972'
-sign: ¤
-subunits: 100
-label: 'Tajikistani somoni'
-usages:
-    - { start: '2000-10-26', end: '', countryCode: TJ }

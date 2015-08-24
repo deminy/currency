@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: PHP
-currencyNumber: '608'
-sign: ₱
-subunits: 100
-label: 'Philippine peso'
-usages:
-    - { start: '1946-07-04', end: '', countryCode: PH }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MWK
-currencyNumber: '454'
-sign: MK
-subunits: 100
-label: 'Malawian kwacha'
-usages:
-    - { start: '1971-02-15', end: '', countryCode: MW }

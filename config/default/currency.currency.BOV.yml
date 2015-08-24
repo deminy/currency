@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BOV
-currencyNumber: '984'
-sign: ¤
-subunits: 100
-label: 'Bolivian mvdol'
-usages:
-    - { start: '', end: '', countryCode: BO }

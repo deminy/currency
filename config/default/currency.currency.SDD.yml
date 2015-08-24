@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SDD
-currencyNumber: '736'
-sign: ₤Sd
-subunits: 0
-label: 'Sudanese dinar'
-usages:
-    - { start: '1992-06-08', end: '2007-06-30', countryCode: SD }

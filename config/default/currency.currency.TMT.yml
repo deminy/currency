@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TMT
-currencyNumber: '934'
-sign: m
-subunits: 100
-label: 'Turkmenistani manat'
-usages:
-    - { start: '2009-01-01', end: '', countryCode: TM }

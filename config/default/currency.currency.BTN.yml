@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BTN
-currencyNumber: '064'
-sign: Nu.
-subunits: 100
-label: 'Buthanese ngultrum'
-usages:
-    - { start: '1974-04-16', end: '', countryCode: BT }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KRH
-currencyNumber: null
-sign: ¤
-subunits: 100
-label: 'South Korean hwan'
-usages:
-    - { start: '1953-02-15', end: '1962-06-10', countryCode: KR }

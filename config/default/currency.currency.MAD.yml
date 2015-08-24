@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MAD
-currencyNumber: '504'
-sign: 'د.م.'
-subunits: 100
-label: 'Moroccan dirham'
-usages:
-    - { start: '1976-02-26', end: '', countryCode: EH }
-    - { start: '1959-10-17', end: '', countryCode: MA }

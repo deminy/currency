@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: PKR
-currencyNumber: '586'
-sign: ₨
-subunits: 100
-label: 'Pakistani rupee'
-usages:
-    - { start: '1948-04-01', end: '1972-01-01', countryCode: BD }
-    - { start: '1948-04-01', end: '', countryCode: PK }

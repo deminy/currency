@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LAK
-currencyNumber: '418'
-sign: ₭
-subunits: 100
-label: 'Lao kip'
-usages:
-    - { start: '1979-12-10', end: '', countryCode: LA }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LTT
-currencyNumber: null
-sign: ¤
-subunits: 100
-label: 'Lithuanian talonas'
-usages:
-    - { start: '1992-10-01', end: '1993-06-25', countryCode: LT }

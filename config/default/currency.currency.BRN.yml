@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BRN
-currencyNumber: null
-sign: NCz$
-subunits: 100
-label: 'Brazilian cruzado novo'
-usages:
-    - { start: '1989-01-15', end: '1990-03-16', countryCode: BR }

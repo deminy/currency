@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: NAD
-currencyNumber: '516'
-sign: $
-subunits: 100
-label: 'Namibian dollar'
-usages:
-    - { start: '1993-01-01', end: '', countryCode: NA }

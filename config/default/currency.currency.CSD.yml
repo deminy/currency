@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CSD
-currencyNumber: '891'
-sign: 'РСД'
-subunits: 100
-label: 'Serbian dinar'
-usages:
-    - { start: '2002-05-15', end: '2006-06-03', countryCode: CS }
-    - { start: '2002-05-15', end: '2006-10-25', countryCode: RS }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TTD
-currencyNumber: '780'
-sign: $
-subunits: 100
-label: 'Trinidadian dollar'
-usages:
-    - { start: '1964-01-01', end: '', countryCode: TT }

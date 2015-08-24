@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: OMR
-currencyNumber: '512'
-sign: ر.ع.
-subunits: 1000
-label: 'Omani rial'
-usages:
-    - { start: '1972-11-11', end: '', countryCode: OM }

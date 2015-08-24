@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AOA
-currencyNumber: '973'
-sign: Kz
-subunits: 100
-label: 'Angolan kwanza'
-usages:
-    - { start: '1999-12-13', end: '', countryCode: AO }

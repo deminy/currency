@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: VAL
-currencyNumber: null
-sign: ₤
-subunits: 100
-label: 'Vatican lira'
-usages:
-    - { start: '1929', end: '2002', countryCode: VA }

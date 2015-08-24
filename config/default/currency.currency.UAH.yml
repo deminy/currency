@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: UAH
-currencyNumber: '980'
-sign: ₴
-subunits: 100
-label: 'Ukrainian hryvnia'
-usages:
-    - { start: '1996-09-02', end: '', countryCode: UA }

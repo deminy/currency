@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: USN
-currencyNumber: '997'
-sign: ¤
-subunits: 100
-label: 'U.S. dollar (next day)'
-usages:
-    - { start: '', end: '', countryCode: US }

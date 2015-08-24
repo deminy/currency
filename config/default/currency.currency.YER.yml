@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: YER
-currencyNumber: '886'
-sign: ﷼
-subunits: 100
-label: 'Yemeni rial'
-usages:
-    - { start: '1990-05-22', end: '', countryCode: YE }

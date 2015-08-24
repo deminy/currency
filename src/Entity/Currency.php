@@ -7,11 +7,11 @@
 
 namespace Drupal\currency\Entity;
 
+use BartFeenstra\Currency\Usage;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
-use Drupal\currency\Usage;
 
 /**
  * Defines a currency entity class.
@@ -113,7 +113,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * This currency's usages.
    *
-   * @var \Drupal\currency\UsageInterface[]
+   * @var \BartFeenstra\Currency\UsageInterface[]
    */
   protected $usages = [];
 
@@ -140,6 +140,13 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
       }
     }
     parent::__construct($values, $entity_type);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLabel() {
+    return $this->label();
   }
 
   /**

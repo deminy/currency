@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ARA
-currencyNumber: null
-sign: ₳
-subunits: 100
-label: 'Argentine austral'
-usages:
-    - { start: '1985-06-14', end: '1992-01-01', countryCode: AR }

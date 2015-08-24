@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MXP
-currencyNumber: null
-sign: $
-subunits: 100
-label: 'Mexican peso'
-usages:
-    - { start: '1822-01-01', end: '1992-12-31', countryCode: MX }

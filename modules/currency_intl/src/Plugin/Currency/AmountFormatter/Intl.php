@@ -6,10 +6,10 @@
 
 namespace Drupal\currency_intl\Plugin\Currency\AmountFormatter;
 
+use BartFeenstra\Currency\CurrencyInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\LocaleResolverInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

@@ -7,8 +7,8 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
+use BartFeenstra\Currency\InputInterface;
 use BartFeenstra\CurrencyExchange\ExchangeRate;
-use Drupal\currency\InputInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Filter\CurrencyExchange;
 use Drupal\Tests\UnitTestCase;
@@ -31,7 +31,7 @@ class CurrencyExchangeTest extends UnitTestCase {
   /**
    * The input parser.
    *
-   * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \BartFeenstra\Currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $input;
 

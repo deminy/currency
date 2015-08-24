@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XBA
-currencyNumber: '955'
-sign: ¤
-subunits: 0
-label: 'Bond Markets Unit European Composite Unit (EURCO)'
-usages:
-    - { start: '', end: '', countryCode: ZZ }

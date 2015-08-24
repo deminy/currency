@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MGA
-currencyNumber: '969'
-sign: Ar
-subunits: 5
-label: 'Malagasy ariary'
-usages:
-    - { start: '1983-11-01', end: '', countryCode: MG }

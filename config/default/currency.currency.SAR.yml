@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SAR
-currencyNumber: '682'
-sign: ﷼
-subunits: 100
-label: 'Saudi riyal'
-usages:
-    - { start: '1952-10-22', end: '', countryCode: SA }

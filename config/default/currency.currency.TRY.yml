@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TRY
-currencyNumber: '949'
-sign: TL
-subunits: 100
-label: 'Turkish lira'
-usages:
-    - { start: '2005-01-01', end: '', countryCode: TR }

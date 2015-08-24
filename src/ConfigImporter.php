@@ -7,11 +7,11 @@
 
 namespace Drupal\currency;
 
+use BartFeenstra\Currency\ResourceRepository;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -19,6 +19,13 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * Provides a config importer.
  */
 class ConfigImporter implements ConfigImporterInterface {
+
+  /**
+   * The currency resource repository.
+   *
+   * @var \BartFeenstra\Currency\ResourceRepository
+   */
+  protected $currencyResourceRepository;
 
   /**
    * The config storage.
@@ -78,6 +85,7 @@ class ConfigImporter implements ConfigImporterInterface {
    *   The entity manager.
    */
   public function __construct(ModuleHandlerInterface $module_handler, EventDispatcherInterface $event_dispatcher, TypedConfigManagerInterface $typed_config_manager, EntityManagerInterface $entity_manager) {
+    $this->currencyResourceRepository = new ResourceRepository();
     $this->currencyStorage = $entity_manager->getStorage('currency');
     $this->currencyLocaleStorage = $entity_manager->getStorage('currency_locale');
     $this->eventDispatcher = $event_dispatcher;
@@ -108,54 +116,44 @@ class ConfigImporter implements ConfigImporterInterface {
   }
 
   /**
-   * Gets importable entities.
-   *
-   * @param \Drupal\Core\Entity\EntityStorageInterface $entity_storage
-   *
-   * @return \Drupal\Core\Entity\EntityInterface[]
-   */
-  protected function getImportables(EntityStorageInterface $entity_storage) {
-    $existing_entities = $entity_storage->loadMultiple();
-    $entities = [];
-    $prefix = 'currency.' . $entity_storage->getEntityTypeId() . '.';
-    foreach ($this->getConfigStorage()->listAll($prefix) as $name) {
-      if (!isset($existing_entities[substr($name, strlen($prefix))])) {
-        $entities[] = $entity_storage->create($this->getConfigStorage()->read($name));
-      }
-    }
-
-    return $entities;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function getImportableCurrencies() {
-    return $this->getImportables($this->currencyStorage);
+    $existing_currencies = $this->currencyStorage->loadMultiple();
+    $currencies = [];
+    foreach ($this->currencyResourceRepository->listCurrencies() as $currency_code) {
+      if (!isset($existing_currencies[$currency_code])) {
+        $currencies[$currency_code] = $this->createCurrencyFromRepository($currency_code);
+      }
+    }
+
+    return $currencies;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getImportableCurrencyLocales() {
-    return $this->getImportables($this->currencyLocaleStorage);
+    $existing_currency_locales = $this->currencyLocaleStorage->loadMultiple();
+    $currency_locales = [];
+    $prefix = 'currency.currency_locale.';
+    foreach ($this->getConfigStorage()->listAll($prefix) as $name) {
+      if (!isset($existing_currency_locales[substr($name, strlen($prefix))])) {
+        $currency_locales[] = $this->currencyLocaleStorage->create($this->getConfigStorage()->read($name));
+      }
+    }
+
+    return $currency_locales;
   }
 
   /**
-   * Imports an entity.
-   *
-   * @param \Drupal\Core\Entity\EntityStorageInterface $entity_storage
-   * @param string $entity_id
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|false
-   *   The imported entity or FALSE in case of errors.
+   * {@inheritdoc}
    */
-  protected function import(EntityStorageInterface $entity_storage, $entity_id) {
-    if (!$entity_storage->load($entity_id)) {
-      $name = 'currency.' . $entity_storage->getEntityTypeId() . '.' . $entity_id;
-      $entity = $entity_storage->create($this->getConfigStorage()->read($name));
-      $entity->save();
-      return $entity;
+  public function importCurrency($currency_code) {
+    if (!$this->currencyStorage->load($currency_code)) {
+      $currency = $this->createCurrencyFromRepository($currency_code);
+      $currency->save();
+      return $currency;
     }
     return FALSE;
   }
@@ -163,15 +161,43 @@ class ConfigImporter implements ConfigImporterInterface {
   /**
    * {@inheritdoc}
    */
-  public function importCurrency($currency_code) {
-    return $this->import($this->currencyStorage, $currency_code);
+  public function importCurrencyLocale($locale) {
+    if (!$this->currencyLocaleStorage->load($locale)) {
+      $name = 'currency.currency_locale.' . $locale;
+      $currency_locale = $this->currencyLocaleStorage->create($this->getConfigStorage()->read($name));
+      $currency_locale->save();
+      return $currency_locale;
+    }
+    return FALSE;
   }
 
   /**
-   * {@inheritdoc}
+   * Creates a currency entity from a currency from the repository.
+   *
+   * @param string $currency_code
+   *
+   * @return \Drupal\currency\Entity\CurrencyInterface
+   *
+   * @throws \InvalidArgumentException
+   *   Thrown when no currency with the given currency code exists.
    */
-  public function importCurrencyLocale($locale) {
-    return $this->import($this->currencyLocaleStorage, $locale);
+  protected function createCurrencyFromRepository($currency_code) {
+    /** @var \Drupal\currency\Entity\CurrencyInterface $currency_entity */
+    $currency_entity = $this->currencyStorage->create();
+    $currency_resource = $this->currencyResourceRepository->loadCurrency($currency_code);
+    if (is_null($currency_resource)) {
+      throw new \InvalidArgumentException(sprintf('No currency with currency code %s exists.', $currency_code));
+    }
+    $currency_entity->setCurrencyCode($currency_resource->getCurrencyCode());
+    $currency_entity->setCurrencyNumber($currency_resource->getCurrencyNumber());
+    $currency_entity->setLabel($currency_resource->getLabel());
+    $currency_entity->setSign($currency_resource->getSign());
+    $currency_entity->setAlternativeSigns($currency_resource->getAlternativeSigns());
+    $currency_entity->setSubunits($currency_resource->getSubunits());
+    $currency_entity->setRoundingStep($currency_resource->getRoundingStep());
+    $currency_entity->setUsages($currency_resource->getUsages());
+
+    return $currency_entity;
   }
 
 }

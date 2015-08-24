@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ECV
-currencyNumber: '983'
-sign: ¤
-subunits: 0
-label: 'Ecuadorian Unidad de Valor Constante'
-usages:
-    - { start: '', end: '', countryCode: EC }

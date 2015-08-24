@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TZS
-currencyNumber: '834'
-sign: ''
-subunits: 100
-label: 'Tanzanian Shilling'
-usages:
-    - { start: '1966-06-14', end: '', countryCode: TZ }

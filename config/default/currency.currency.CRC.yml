@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CRC
-currencyNumber: '188'
-sign: ₡
-subunits: 100
-label: 'Costa Rican colon'
-usages:
-    - { start: '1896-10-26', end: '', countryCode: CR }

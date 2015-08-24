@@ -7,10 +7,10 @@
 
 namespace Drupal\currency\Plugin\Filter;
 
+use BartFeenstra\Currency\InputInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\currency\InputInterface;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -37,7 +37,7 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
   /**
    * The input parser.
    *
-   * @var \Drupal\currency\InputInterface
+   * @var \BartFeenstra\Currency\InputInterface
    */
   protected $input;
 
@@ -54,7 +54,7 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
    *   The string translator.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency entity storage.
-   * @param \Drupal\currency\InputInterface $input
+   * @param \BartFeenstra\Currency\InputInterface $input
    *   The input parser.
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage, InputInterface $input) {

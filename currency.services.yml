@@ -19,7 +19,7 @@ services:
     class: Drupal\currency\LocaleResolver
     arguments: ['@entity.manager', '@language_manager', '@config.factory', '@currency.event_dispatcher']
   currency.input:
-    class: Drupal\currency\Input
+    class: BartFeenstra\Currency\Input
   currency.config_importer:
     class: Drupal\currency\ConfigImporter
     arguments: ['@module_handler', '@event_dispatcher', '@config.typed', '@entity.manager']

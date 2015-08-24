@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: YUG
-currencyNumber: null
-sign: дин
-subunits: 100
-label: 'Yugoslav dinar'
-usages:
-    - { start: '1994-01-01', end: '1994-01-23', countryCode: YU }

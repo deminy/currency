@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CUC
-currencyNumber: '931'
-sign: $
-subunits: 100
-label: 'Cuban convertible peso'
-usages:
-    - { start: '1994-01-01', end: '', countryCode: CU }

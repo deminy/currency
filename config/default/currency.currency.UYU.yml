@@ -1,9 +1,0 @@
-alternativeSigns:
-    - $U
-currencyCode: UYU
-currencyNumber: '858'
-sign: $
-subunits: 100
-label: 'Uruguayan peso'
-usages:
-    - { start: '1993-03-01', end: '', countryCode: UY }

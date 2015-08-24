@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ZWR
-currencyNumber: '935'
-sign: $
-subunits: 100
-label: 'Zimbabwean dollar'
-usages:
-    - { start: '2008-08-01', end: '2009-02-02', countryCode: ZW }

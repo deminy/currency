@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SOS
-currencyNumber: '706'
-sign: Sh.So.
-subunits: 100
-label: 'Somali shilling'
-usages:
-    - { start: '1960-07-01', end: '', countryCode: SO }

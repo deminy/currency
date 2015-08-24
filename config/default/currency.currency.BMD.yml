@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BMD
-currencyNumber: '060'
-sign: $
-subunits: 100
-label: 'Bermudian dollar'
-usages:
-    - { start: '1970-02-06', end: '', countryCode: BM }

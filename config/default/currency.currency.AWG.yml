@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AWG
-currencyNumber: '533'
-sign: Afl.
-subunits: 100
-label: 'Aruban florin'
-usages:
-    - { start: '1986-01-01', end: '', countryCode: AW }

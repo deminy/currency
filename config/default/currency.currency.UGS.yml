@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: UGS
-currencyNumber: null
-sign: USh
-subunits: 100
-label: 'Ugandan shilling'
-usages:
-    - { start: '1966-08-15', end: '1987-05-15', countryCode: UG }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MDC
-currencyNumber: null
-sign: ¤
-subunits: 0
-label: 'Moldovan cupon'
-usages:
-    - { start: '1992-06-01', end: '1993-11-29', countryCode: MD }

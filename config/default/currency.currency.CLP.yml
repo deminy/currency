@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CLP
-currencyNumber: '152'
-sign: $
-subunits: 100
-label: 'Chilean peso'
-usages:
-    - { start: '1975-09-29', end: '', countryCode: CL }

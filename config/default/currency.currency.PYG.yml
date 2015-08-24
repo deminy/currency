@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: PYG
-currencyNumber: '600'
-sign: ₲
-subunits: 100
-label: 'Paraguayan guaraní'
-usages:
-    - { start: '1943-11-01', end: '', countryCode: PY }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MRO
-currencyNumber: '478'
-sign: UM
-subunits: 5
-label: 'Mauritanian ouguiya'
-usages:
-    - { start: '1973-06-29', end: '', countryCode: MR }

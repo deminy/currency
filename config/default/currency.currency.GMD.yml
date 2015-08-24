@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GMD
-currencyNumber: '270'
-sign: D
-subunits: 100
-label: 'Gambian dalasi'
-usages:
-    - { start: '1971-07-01', end: '', countryCode: GM }

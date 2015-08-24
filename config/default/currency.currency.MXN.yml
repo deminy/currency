@@ -1,9 +1,0 @@
-alternativeSigns:
-    - N$
-currencyCode: MXN
-currencyNumber: '484'
-sign: $
-subunits: 100
-label: 'Mexican peso'
-usages:
-    - { start: '1993-01-01', end: '', countryCode: MX }

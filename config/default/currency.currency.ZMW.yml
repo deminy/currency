@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ZMW
-currencyNumber: '967'
-sign: ZK
-subunits: 100
-label: 'Zambian kwacha'
-usages:
-    - { start: '2013-01-01', end: '', countryCode: ZM }

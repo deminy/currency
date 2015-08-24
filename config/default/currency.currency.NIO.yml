@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: NIO
-currencyNumber: '558'
-sign: $
-subunits: 100
-label: 'Nicaraguan córdoba oro'
-usages:
-    - { start: '1991-04-30', end: '', countryCode: NI }

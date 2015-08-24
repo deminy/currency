@@ -1,9 +1,0 @@
-alternativeSigns:
-    - $L
-currencyCode: ARL
-currencyNumber: null
-sign: $
-subunits: 100
-label: 'Argentine peso ley'
-usages:
-    - { start: '1970-01-01', end: '1983-06-01', countryCode: AR }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GHS
-currencyNumber: '936'
-sign: GH¢
-subunits: 100
-label: 'Ghanaian cedi'
-usages:
-    - { start: '2007-07-03', end: '', countryCode: GH }

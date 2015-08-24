@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MNT
-currencyNumber: '496'
-sign: ₮
-subunits: 100
-label: 'Mongolian tugrik'
-usages:
-    - { start: '1915-03-01', end: '', countryCode: MN }

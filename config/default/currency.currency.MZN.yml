@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MZN
-currencyNumber: '943'
-sign: MT
-subunits: 100
-label: 'Mozambican metical'
-usages:
-    - { start: '2006-07-01', end: '', countryCode: MZ }

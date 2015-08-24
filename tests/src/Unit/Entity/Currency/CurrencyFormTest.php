@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
+  use BartFeenstra\Currency\InputInterface;
   use Drupal\Core\Entity\EntityManagerInterface;
   use Drupal\Core\Entity\EntityStorageInterface;
   use Drupal\Core\Form\FormStateInterface;
@@ -15,7 +16,6 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
   use Drupal\Core\Utility\LinkGeneratorInterface;
   use Drupal\currency\Entity\Currency\CurrencyForm;
   use Drupal\currency\Entity\CurrencyInterface;
-  use Drupal\currency\InputInterface;
   use Drupal\Tests\UnitTestCase;
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -43,7 +43,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
     /**
      * The Currency input parser.
      *
-     * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \BartFeenstra\Currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $inputParser;
 

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MXV
-currencyNumber: '979'
-sign: ¤
-subunits: 100
-label: 'Mexican Unidad de Inversion'
-usages:
-    - { start: '', end: '', countryCode: MX }

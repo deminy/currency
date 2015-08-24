@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XAU
-currencyNumber: '959'
-sign: ¤
-subunits: 0
-label: Gold
-usages:
-    - { start: '', end: '', countryCode: ZZ }

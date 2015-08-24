@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: RON
-currencyNumber: '946'
-sign: ¤
-subunits: 100
-label: 'Romanian leu'
-usages:
-    - { start: '2005-07-01', end: '', countryCode: RO }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: VEB
-currencyNumber: '862'
-sign: Bs
-subunits: 100
-label: 'Venezuelan bolívar'
-usages:
-    - { start: '1871-05-11', end: '2008-06-30', countryCode: VE }

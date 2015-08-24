@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CZK
-currencyNumber: '203'
-sign: Kč
-subunits: 100
-label: 'Czech koruna'
-usages:
-    - { start: '1993-01-01', end: '', countryCode: CZ }

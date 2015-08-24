@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KRW
-currencyNumber: '410'
-sign: ₩
-subunits: 100
-label: 'South Korean won'
-usages:
-    - { start: '1962-06-10', end: '', countryCode: KR }

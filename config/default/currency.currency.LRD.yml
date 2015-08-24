@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LRD
-currencyNumber: '430'
-sign: $
-subunits: 100
-label: 'Liberian dollar'
-usages:
-    - { start: '1944-01-01', end: '', countryCode: LR }

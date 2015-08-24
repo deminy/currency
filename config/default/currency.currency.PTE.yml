@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: PTE
-currencyNumber: '620'
-sign: 
-subunits: 100
-label: 'Portuguese escudo'
-usages:
-    - { start: '1911-05-22', end: '1975-07-05', countryCode: CV }
-    - { start: '1911-05-22', end: '2002-02-28', countryCode: PT }

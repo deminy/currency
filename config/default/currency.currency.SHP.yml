@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SHP
-currencyNumber: '654'
-sign: £
-subunits: 100
-label: 'Saint Helena pound'
-usages:
-    - { start: '1917-02-15', end: '', countryCode: SH }

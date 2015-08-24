@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: HNL
-currencyNumber: '340'
-sign: L
-subunits: 100
-label: 'Honduran lempira'
-usages:
-    - { start: '1926-04-03', end: '', countryCode: HN }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AFA
-currencyNumber: '004'
-sign: ؋
-subunits: 100
-label: 'Afghan afghani'
-usages:
-    - { start: '1927-03-14', end: '2002-12-31', countryCode: AF }

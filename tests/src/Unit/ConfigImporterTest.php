@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit;
 
+use BartFeenstra\Currency\ResourceRepository;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -140,63 +141,42 @@ class ConfigImporterTest extends UnitTestCase {
 
   /**
    * @covers ::getImportableCurrencies
-   * @covers ::getImportables
+   * @covers ::createCurrencyFromRepository
    */
   public function testGetImportableCurrencies() {
-    $entity_type_id = $this->randomMachineName();
+    $resource_repository = new ResourceRepository();
+    $resource_repository_currency_codes = $resource_repository->listCurrencies();
 
-    $currency_code_a = $this->randomMachineName();
-    $currency_a = $this->getMock(CurrencyInterface::class);
+    // Fake the importable and existing currencies, by taking two mutually
+    // exclusive, randomized samples of the currencies available in the
+    // repository.
+    shuffle($resource_repository_currency_codes);
+    list($importable_currency_codes, $stored_currency_codes) = array_chunk($resource_repository_currency_codes, ceil(count($resource_repository_currency_codes) / 2));
 
-    $currency_code_b = $this->randomMachineName();
-    $currency_b = $this->getMock(CurrencyInterface::class);
+    $currency = $this->getMock(CurrencyInterface::class);
 
-    $currency_code_c = $this->randomMachineName();
-    $currency_data_c = [
-      'id' => $currency_code_c,
-    ];
-    $currency_c = $this->getMock(CurrencyInterface::class);
-
-    $stored_currencies = [
-      $currency_code_a => $currency_a,
-      $currency_code_b => $currency_b,
-    ];
+    $stored_currencies = [];
+    foreach ($stored_currency_codes as $stored_currency_code) {
+      $stored_currencies[$stored_currency_code] = $this->getMock(CurrencyInterface::class);
+    }
 
     $this->currencyStorage->expects($this->atLeastOnce())
       ->method('create')
-      ->with($currency_data_c)
-      ->willReturn($currency_c);
-    $this->currencyStorage->expects($this->atLeastOnce())
-      ->method('getEntityTypeId')
-      ->willReturn($entity_type_id);
+      ->willReturn($currency);
     $this->currencyStorage->expects($this->atLeastOnce())
       ->method('loadMultiple')
       ->with(NULL)
       ->willReturn($stored_currencies);
 
-    $prefix = 'currency.' . $entity_type_id . '.';
-    $this->configStorage->expects($this->atLeastOnce())
-      ->method('listAll')
-      ->with($prefix)
-      ->willReturn([$prefix . $currency_code_b, $prefix . $currency_code_c]);
-    $this->configStorage->expects($this->once())
-      ->method('read')
-      ->with($prefix . $currency_code_c)
-      ->willReturn($currency_data_c);
-
-    $this->sut->setConfigStorage($this->configStorage);
-
     $importable_currencies = $this->sut->getImportableCurrencies();
-    $this->assertSame([$currency_c], $importable_currencies);
+    sort($importable_currency_codes);
+    $this->assertEquals($importable_currency_codes, array_keys($importable_currencies));
   }
 
   /**
    * @covers ::getImportableCurrencyLocales
-   * @covers ::getImportables
    */
   public function testGetImportableCurrencyLocales() {
-    $entity_type_id = $this->randomMachineName();
-
     $locale_a = $this->randomMachineName();
     $currency_locale_a = $this->getMock(CurrencyLocaleInterface::class);
 
@@ -219,14 +199,11 @@ class ConfigImporterTest extends UnitTestCase {
       ->with($currency_locale_data_c)
       ->willReturn($currency_locale_c);
     $this->currencyLocaleStorage->expects($this->atLeastOnce())
-      ->method('getEntityTypeId')
-      ->willReturn($entity_type_id);
-    $this->currencyLocaleStorage->expects($this->atLeastOnce())
       ->method('loadMultiple')
       ->with(NULL)
       ->willReturn($stored_currencies);
 
-    $prefix = 'currency.' . $entity_type_id . '.';
+    $prefix = 'currency.currency_locale.';
     $this->configStorage->expects($this->atLeastOnce())
       ->method('listAll')
       ->with($prefix)
@@ -244,29 +221,19 @@ class ConfigImporterTest extends UnitTestCase {
 
   /**
    * @covers ::importCurrency
-   * @covers ::import
+   * @covers ::createCurrencyFromRepository
    */
   public function testImportCurrency() {
-    $entity_type_id = $this->randomMachineName();
+    $resource_repository = new ResourceRepository();
+    $currency_codes = $resource_repository->listCurrencies();
+    $currency_code = $currency_codes[array_rand($currency_codes)];
 
-    $currency_code = $this->randomMachineName();
-    $currency_data = [
-      'id' => $currency_code,
-    ];
     $currency = $this->getMock(CurrencyInterface::class);
 
     $this->currencyStorage->expects($this->atLeastOnce())
       ->method('create')
-      ->with($currency_data)
+      ->with()
       ->willReturn($currency);
-    $this->currencyStorage->expects($this->atLeastOnce())
-      ->method('getEntityTypeId')
-      ->willReturn($entity_type_id);
-
-    $this->configStorage->expects($this->once())
-      ->method('read')
-      ->with('currency.' . $entity_type_id . '.' . $currency_code)
-      ->willReturn($currency_data);
 
     $this->sut->setConfigStorage($this->configStorage);
 
@@ -275,7 +242,6 @@ class ConfigImporterTest extends UnitTestCase {
 
   /**
    * @covers ::importCurrency
-   * @covers ::import
    */
   public function testImportCurrencyWithExistingCurrency() {
     $currency_code = $this->randomMachineName();
@@ -298,11 +264,8 @@ class ConfigImporterTest extends UnitTestCase {
 
   /**
    * @covers ::importCurrencyLocale
-   * @covers ::import
    */
   public function testImportCurrencyLocale() {
-    $entity_type_id = $this->randomMachineName();
-
     $locale = $this->randomMachineName();
     $currency_locale_data = [
       'id' => $locale,
@@ -313,13 +276,10 @@ class ConfigImporterTest extends UnitTestCase {
       ->method('create')
       ->with($currency_locale_data)
       ->willReturn($currency_locale);
-    $this->currencyLocaleStorage->expects($this->atLeastOnce())
-      ->method('getEntityTypeId')
-      ->willReturn($entity_type_id);
 
     $this->configStorage->expects($this->once())
       ->method('read')
-      ->with('currency.' . $entity_type_id . '.' . $locale)
+      ->with('currency.currency_locale.' . $locale)
       ->willReturn($currency_locale_data);
 
     $this->sut->setConfigStorage($this->configStorage);
@@ -329,7 +289,6 @@ class ConfigImporterTest extends UnitTestCase {
 
   /**
    * @covers ::importCurrencyLocale
-   * @covers ::import
    */
   public function testImportCurrencyLocaleWithExistingCurrency() {
     $locale = $this->randomMachineName();

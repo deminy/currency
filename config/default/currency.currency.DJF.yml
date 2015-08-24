@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: DJF
-currencyNumber: '262'
-sign: ₣
-subunits: 100
-label: 'Djiboutian franc'
-usages:
-    - { start: '1977-06-27', end: '', countryCode: DJ }

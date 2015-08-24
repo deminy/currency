@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ISJ
-currencyNumber: null
-sign: kr
-subunits: 100
-label: 'Icelandic krona'
-usages:
-    - { start: '1918-12-01', end: '1981-01-01', countryCode: IS }

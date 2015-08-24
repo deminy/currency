@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: PLZ
-currencyNumber: '616'
-sign: zł
-subunits: 100
-label: 'Polish złoty'
-usages:
-    - { start: '1950-10-28', end: '1994-12-31', countryCode: PL }

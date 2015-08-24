@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CLF
-currencyNumber: '990'
-sign: ¤
-subunits: 0
-label: 'Chilean Unidad de Fomento'
-usages:
-    - { start: '', end: '', countryCode: CL }

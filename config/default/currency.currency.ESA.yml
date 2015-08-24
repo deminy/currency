@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ESA
-currencyNumber: '996'
-sign: ¤
-subunits: null
-label: 'Spanish peseta'
-usages:
-    - { start: '', end: '', countryCode: ES }

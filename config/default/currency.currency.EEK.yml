@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: EEK
-currencyNumber: '233'
-sign: ¤
-subunits: 100
-label: 'Estonian kroon'
-usages:
-    - { start: '1992-06-21', end: '2010-12-31', countryCode: EE }

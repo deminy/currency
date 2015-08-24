@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: FKP
-currencyNumber: '238'
-sign: £
-subunits: 100
-label: 'Falkland Islands Pound'
-usages:
-    - { start: '1901-01-01', end: '', countryCode: FK }

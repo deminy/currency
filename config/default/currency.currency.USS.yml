@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: USS
-currencyNumber: '998'
-sign: ¤
-subunits: 100
-label: 'U.S. dollar (same day)'
-usages:
-    - { start: '', end: '', countryCode: US }

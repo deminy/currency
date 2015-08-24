@@ -1,9 +1,0 @@
-alternativeSigns:
-    - руб
-currencyCode: RUB
-currencyNumber: '643'
-sign: ''
-subunits: 100
-label: 'Russian ruble'
-usages:
-    - { start: '1999-01-01', end: '', countryCode: RU }

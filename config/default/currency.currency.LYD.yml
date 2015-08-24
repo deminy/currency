@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LYD
-currencyNumber: '434'
-sign: ل.د
-subunits: 1000
-label: 'Libyan dinar'
-usages:
-    - { start: '1971-09-01', end: '', countryCode: LY }

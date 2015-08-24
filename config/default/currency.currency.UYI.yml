@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: UYI
-currencyNumber: '940'
-sign: ¤
-subunits: 0
-label: 'Uruguayan Peso en Unidades Indexadas'
-usages:
-    - { start: '', end: '', countryCode: UY }

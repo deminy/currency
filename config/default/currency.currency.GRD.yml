@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GRD
-currencyNumber: '300'
-sign: ₯
-subunits: 100
-label: 'Greek drachma'
-usages:
-    - { start: '1954-05-01', end: '2002-02-28', countryCode: GR }

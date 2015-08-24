@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SBD
-currencyNumber: '090'
-sign: $
-subunits: 100
-label: 'Solomon Island dollar'
-usages:
-    - { start: '1977-10-24', end: '', countryCode: SB }

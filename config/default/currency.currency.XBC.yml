@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XBC
-currencyNumber: '957'
-sign: ¤
-subunits: 0
-label: 'Bond Markets Unit European Unit of Account 9 (E.U.A.-9)'
-usages:
-    - { start: '', end: '', countryCode: ZZ }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CDF
-currencyNumber: '976'
-sign: ₣
-subunits: 100
-label: 'Congolese franc'
-usages:
-    - { start: '1998-07-01', end: '', countryCode: CD }

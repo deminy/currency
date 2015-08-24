@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KES
-currencyNumber: '404'
-sign: KSh
-subunits: 100
-label: 'Kenyan shilling'
-usages:
-    - { start: '1966-09-14', end: '', countryCode: KE }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KZT
-currencyNumber: '398'
-sign: ₸
-subunits: 100
-label: 'Kazakhstani tenge'
-usages:
-    - { start: '1993-11-05', end: '', countryCode: KZ }

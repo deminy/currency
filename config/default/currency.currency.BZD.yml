@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BZD
-currencyNumber: '084'
-sign: $
-subunits: 100
-label: 'Belizean dollar'
-usages:
-    - { start: '1974-01-01', end: '', countryCode: BZ }

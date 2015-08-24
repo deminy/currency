@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AZM
-currencyNumber: '031'
-sign: ¤
-subunits: 0
-label: 'Azerbaijani manat'
-usages:
-    - { start: '1993-11-22', end: '2006-12-31', countryCode: AZ }

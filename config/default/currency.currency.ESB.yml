@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ESB
-currencyNumber: '995'
-sign: ¤
-subunits: null
-label: 'Spanish peseta'
-usages:
-    - { start: '', end: '', countryCode: ES }

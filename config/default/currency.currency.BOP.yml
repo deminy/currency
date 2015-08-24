@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BOP
-currencyNumber: null
-sign: b$
-subunits: 100
-label: 'Bolivian peso'
-usages:
-    - { start: '1963-01-01', end: '1986-12-31', countryCode: BO }

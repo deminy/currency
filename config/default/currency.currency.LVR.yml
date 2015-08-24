@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LVR
-currencyNumber: null
-sign: Lvr
-subunits: 0
-label: 'Latvian rublis'
-usages:
-    - { start: '1992-05-07', end: '1993-10-17', countryCode: LV }

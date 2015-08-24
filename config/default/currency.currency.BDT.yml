@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BDT
-currencyNumber: '050'
-sign: ৳
-subunits: 100
-label: 'Bangladeshi taka'
-usages:
-    - { start: '1972-01-01', end: '', countryCode: BD }

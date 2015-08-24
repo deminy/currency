@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: KGS
-currencyNumber: '417'
-sign: ¤
-subunits: 100
-label: 'Kyrgyzstani som'
-usages:
-    - { start: '1993-05-10', end: '', countryCode: KG }

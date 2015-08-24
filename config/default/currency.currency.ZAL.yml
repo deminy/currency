@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ZAL
-currencyNumber: '991'
-sign: ¤
-subunits: 0
-label: 'South African financial rand'
-usages:
-    - { start: 1979-01, end: 1983-02, countryCode: ZA }
-    - { start: '1985-09-01', end: '1995-03-13', countryCode: ZA }

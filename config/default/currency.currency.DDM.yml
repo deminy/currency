@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: DDM
-currencyNumber: '278'
-sign: M
-subunits: 100
-label: 'German Democratic Republican mark'
-usages:
-    - { start: '1948-07-20', end: '1990-10-02', countryCode: DD }

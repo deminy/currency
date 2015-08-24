@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: VEF
-currencyNumber: '937'
-sign: Bs
-subunits: 100
-label: 'Venezuelan bolívar'
-usages:
-    - { start: '2008-01-01', end: '', countryCode: VE }

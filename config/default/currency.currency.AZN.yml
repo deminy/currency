@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AZN
-currencyNumber: '944'
-sign: m
-subunits: 100
-label: 'Azerbaijani manat'
-usages:
-    - { start: '2006-01-01', end: '', countryCode: AZ }

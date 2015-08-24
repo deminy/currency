@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MTP
-currencyNumber: null
-sign: ¤
-subunits: 1000
-label: 'Maltese pound'
-usages:
-    - { start: '1914-08-13', end: '1968-06-07', countryCode: MT }

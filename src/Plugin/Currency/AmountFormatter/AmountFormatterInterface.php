@@ -7,9 +7,9 @@
 
 namespace Drupal\currency\Plugin\Currency\AmountFormatter;
 
+use BartFeenstra\Currency\CurrencyInterface;
 use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\currency\Entity\CurrencyInterface;
 
 /**
  * Defines a plugin type to format amounts.
@@ -19,7 +19,7 @@ interface AmountFormatterInterface extends PluginInspectionInterface {
   /**
    * Formats an amount.
    *
-   * @param \Drupal\currency\Entity\CurrencyInterface $currency
+   * @param \BartFeenstra\Currency\CurrencyInterface $currency
    *   The currency the amount is in.
    * @param string $amount
    *   A numeric string.

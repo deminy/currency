@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TND
-currencyNumber: '788'
-sign: د.ت
-subunits: 1000
-label: 'Tunisian dinar'
-usages:
-    - { start: '1958-11-01', end: '', countryCode: TN }

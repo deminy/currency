@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: QAR
-currencyNumber: '634'
-sign: ر.ق
-subunits: 100
-label: 'Qatari rial'
-usages:
-    - { start: '1973-05-19', end: '', countryCode: QA }

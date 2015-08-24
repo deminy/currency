@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GNF
-currencyNumber: '324'
-sign: ₣
-subunits: 100
-label: 'Guinean franc'
-usages:
-    - { start: '1986-01-06', end: '', countryCode: GN }

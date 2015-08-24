@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: RWF
-currencyNumber: '646'
-sign: ₣
-subunits: 100
-label: 'Rwandan franc'
-usages:
-    - { start: '1964-05-19', end: '', countryCode: RW }

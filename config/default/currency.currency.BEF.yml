@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BEF
-currencyNumber: '056'
-sign: fr.
-subunits: 10
-label: 'Belgian franc'
-usages:
-    - { start: '1831-02-07', end: '2002-02-28', countryCode: BE }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XBB
-currencyNumber: '956'
-sign: ¤
-subunits: 0
-label: 'Bond Markets Unit European Monetary Unit (E.M.U.-6)'
-usages:
-    - { start: '', end: '', countryCode: ZZ }

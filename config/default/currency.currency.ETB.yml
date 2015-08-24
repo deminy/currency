@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ETB
-currencyNumber: '230'
-sign: BR
-subunits: 100
-label: 'Ethiopian birr'
-usages:
-    - { start: '1993-05-24', end: '1997-11-08', countryCode: ER }
-    - { start: '1976-09-15', end: '', countryCode: ET }

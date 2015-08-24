@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ZMK
-currencyNumber: '894'
-sign: ZK
-subunits: 100
-label: 'Zambian kwacha'
-usages:
-    - { start: '1968-01-16', end: '2013-06-30', countryCode: ZM }

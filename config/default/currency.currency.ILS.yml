@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ILS
-currencyNumber: '376'
-sign: ₪
-subunits: 100
-label: 'Israeli shekel'
-usages:
-    - { start: '1985-09-04', end: '', countryCode: IL }
-    - { start: '1985-09-04', end: '', countryCode: PS }

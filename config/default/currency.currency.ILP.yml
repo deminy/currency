@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ILP
-currencyNumber: null
-sign: 'ל"י'
-subunits: 1000
-label: 'Israeli lira'
-usages:
-    - { start: '1948-08-16', end: '1980-02-22', countryCode: IL }
-    - { start: 1967-06, end: '1980-02-22', countryCode: PS }

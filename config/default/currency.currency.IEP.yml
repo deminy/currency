@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: IEP
-currencyNumber: '372'
-sign: £
-subunits: 100
-label: 'Irish pound'
-usages:
-    - { start: '1922-01-01', end: '2002-02-09', countryCode: IE }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BGN
-currencyNumber: '975'
-sign: лв
-subunits: 100
-label: 'Bulgarian lev'
-usages:
-    - { start: '1999-07-05', end: '', countryCode: BG }

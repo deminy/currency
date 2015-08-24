@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BRB
-currencyNumber: null
-sign: ₢
-subunits: 100
-label: 'Brazilian cruzeiro novo'
-usages:
-    - { start: '1967-02-13', end: '1986-02-28', countryCode: BR }

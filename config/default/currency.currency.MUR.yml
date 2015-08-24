@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MUR
-currencyNumber: '480'
-sign: ₨
-subunits: 100
-label: 'Mauritian rupee'
-usages:
-    - { start: '1934-04-01', end: '', countryCode: MU }

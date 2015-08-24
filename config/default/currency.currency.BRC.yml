@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BRC
-currencyNumber: null
-sign: Cz$
-subunits: 100
-label: 'Brazilian cruzado'
-usages:
-    - { start: '1986-02-28', end: '1989-01-15', countryCode: BR }

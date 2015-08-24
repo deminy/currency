@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AOR
-currencyNumber: '982'
-sign: ¤
-subunits: 0
-label: 'Angolan kwanza readjustado'
-usages:
-    - { start: '1995-07-01', end: '2000-02-01', countryCode: AO }

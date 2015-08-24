@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XFU
-currencyNumber: Nil
-sign: ¤
-subunits: 0
-label: 'UIC franc'
-usages:
-    - { start: '', end: '', countryCode: ZZ }

@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CSK
-currencyNumber: '200'
-sign: Kčs
-subunits: 100
-label: 'Czechoslovak koruna'
-usages:
-    - { start: '1953-06-01', end: '1993-03-01', countryCode: CZ }
-    - { start: '1953-06-01', end: '1992-12-31', countryCode: SK }

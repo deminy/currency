@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: COU
-currencyNumber: '970'
-sign: ¤
-subunits: 100
-label: 'Colombian Unidad de Valor Real'
-usages:
-    - { start: '', end: '', countryCode: CO }

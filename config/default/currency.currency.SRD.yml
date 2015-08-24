@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SRD
-currencyNumber: '968'
-sign: $
-subunits: 100
-label: 'Surinamese dollar'
-usages:
-    - { start: '2004-01-01', end: '', countryCode: SR }

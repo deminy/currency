@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: THB
-currencyNumber: '764'
-sign: ฿
-subunits: 100
-label: 'Thai baht'
-usages:
-    - { start: '1928-04-15', end: '', countryCode: TH }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: CNY
-currencyNumber: '156'
-sign: ¥
-subunits: 100
-label: 'Chinese renminbi'
-usages:
-    - { start: '1953-03-01', end: '', countryCode: CN }

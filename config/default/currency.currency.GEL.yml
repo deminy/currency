@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GEL
-currencyNumber: '981'
-sign: ლ
-subunits: 100
-label: 'Georgian lari'
-usages:
-    - { start: '1995-09-23', end: '', countryCode: GE }

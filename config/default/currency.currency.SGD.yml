@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SGD
-currencyNumber: '702'
-sign: $
-subunits: 100
-label: 'Singapore dollar'
-usages:
-    - { start: '1967-06-12', end: '', countryCode: SG }

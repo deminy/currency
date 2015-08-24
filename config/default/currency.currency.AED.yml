@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AED
-currencyNumber: '784'
-sign: د.إ
-subunits: 100
-label: 'Emirati dirham'
-usages:
-    - { start: '1973-05-19', end: '', countryCode: AE }

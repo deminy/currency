@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BYB
-currencyNumber: null
-sign: ¤
-subunits: null
-label: 'Belarusian ruble'
-usages:
-    - { start: '1994-08-01', end: '2000-12-31', countryCode: BY }

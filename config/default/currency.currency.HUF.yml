@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: HUF
-currencyNumber: '348'
-sign: Ft
-subunits: 100
-label: 'Hungarian forint'
-usages:
-    - { start: '1946-07-23', end: '', countryCode: HU }

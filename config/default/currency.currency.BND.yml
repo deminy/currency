@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BND
-currencyNumber: '096'
-sign: $
-subunits: 100
-label: 'Bruneian dollar'
-usages:
-    - { start: '1967-06-12', end: '', countryCode: BN }

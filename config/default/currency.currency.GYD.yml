@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GYD
-currencyNumber: '328'
-sign: $
-subunits: 100
-label: 'Guyanese dollar'
-usages:
-    - { start: '1966-05-26', end: '', countryCode: GY }

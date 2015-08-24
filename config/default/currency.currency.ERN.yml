@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ERN
-currencyNumber: '232'
-sign: Nfk
-subunits: 100
-label: 'Eritrean nakfa'
-usages:
-    - { start: '1997-11-08', end: '', countryCode: ER }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LSL
-currencyNumber: '426'
-sign: L
-subunits: 100
-label: 'Basotho loti'
-usages:
-    - { start: '1980-01-22', end: '', countryCode: LS }

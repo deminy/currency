@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ADP
-currencyNumber: '020'
-sign: ₧
-subunits: 100
-label: 'Andorran peseta'
-usages:
-    - { start: '1936-01-01', end: '2001-12-31', countryCode: AD }

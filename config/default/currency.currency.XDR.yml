@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: XDR
-currencyNumber: '960'
-sign: SDR
-subunits: 0
-label: 'Special Drawing Right'
-usages:
-    - { start: '', end: '', countryCode: ZZ }

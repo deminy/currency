@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AON
-currencyNumber: '024'
-sign: ¤
-subunits: 0
-label: 'Angolan kwanza'
-usages:
-    - { start: '1990-09-25', end: '2000-02-01', countryCode: AO }

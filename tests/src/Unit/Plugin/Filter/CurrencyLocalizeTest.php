@@ -7,11 +7,11 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
+use BartFeenstra\Currency\InputInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\currency\Entity\CurrencyInterface;
-use Drupal\currency\InputInterface;
 use Drupal\currency\Plugin\Filter\CurrencyLocalize;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -33,7 +33,7 @@ class CurrencyLocalizeTest extends UnitTestCase {
   /**
    * The input parser.
    *
-   * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \BartFeenstra\Currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $input;
 

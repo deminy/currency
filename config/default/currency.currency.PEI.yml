@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: PEI
-currencyNumber: null
-sign: I/.
-subunits: 100
-label: 'Peruvian inti'
-usages:
-    - { start: '1985-02-01', end: '1991-07-01', countryCode: PE }

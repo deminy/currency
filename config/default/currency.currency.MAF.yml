@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MAF
-currencyNumber: null
-sign: ¤
-subunits: 0
-label: 'Moroccan franc'
-usages:
-    - { start: '1881-01-01', end: '1959-10-17', countryCode: MA }

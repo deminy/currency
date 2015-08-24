@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BWP
-currencyNumber: '072'
-sign: P
-subunits: 100
-label: 'Botswanan pula'
-usages:
-    - { start: '1976-08-23', end: '', countryCode: BW }

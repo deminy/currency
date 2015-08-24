@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GTQ
-currencyNumber: '320'
-sign: Q
-subunits: 100
-label: 'Guatamalan quetzal'
-usages:
-    - { start: '1925-05-27', end: '', countryCode: GT }

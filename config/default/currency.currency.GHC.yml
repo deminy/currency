@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: GHC
-currencyNumber: '288'
-sign: GH¢
-subunits: 100
-label: 'Ghanaian cedi'
-usages:
-    - { start: '1979-03-09', end: '2007-12-31', countryCode: GH }

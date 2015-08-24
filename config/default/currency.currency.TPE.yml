@@ -1,9 +1,0 @@
-alternativeSigns: {  }
-currencyCode: TPE
-currencyNumber: null
-sign: ¤
-subunits: 100
-label: 'Portuguese Timorese escudo'
-usages:
-    - { start: '1959-01-02', end: '2002-05-20', countryCode: TL }
-    - { start: '1959-01-02', end: '2002-05-20', countryCode: TP }

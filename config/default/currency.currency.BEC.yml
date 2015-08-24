@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BEC
-currencyNumber: '993'
-sign: ¤
-subunits: null
-label: 'Belgian convertible franc'
-usages:
-    - { start: '', end: '2001-12-31', countryCode: BE }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BRE
-currencyNumber: null
-sign: ₢
-subunits: 100
-label: 'Brazilian cruzeiro'
-usages:
-    - { start: '1990-03-16', end: '1993-08-01', countryCode: BR }

@@ -7,10 +7,10 @@
 
 namespace Drupal\Tests\currency\Unit\Element;
 
+use BartFeenstra\Currency\InputInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\currency\Element\CurrencySign;
-use Drupal\currency\InputInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -31,7 +31,7 @@ class CurrencySignTest extends UnitTestCase {
   /**
    * The input parser.
    *
-   * @var \Drupal\currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \BartFeenstra\Currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $input;
 

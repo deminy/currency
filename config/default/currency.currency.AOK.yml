@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: AOK
-currencyNumber: null
-sign: ¤
-subunits: 100
-label: 'Angolan kwanza'
-usages:
-    - { start: '1977-01-08', end: '1991-03-01', countryCode: AO }

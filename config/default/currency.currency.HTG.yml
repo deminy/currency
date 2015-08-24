@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: HTG
-currencyNumber: '332'
-sign: G
-subunits: 100
-label: 'Haitian gourde'
-usages:
-    - { start: '1872-08-26', end: '', countryCode: HT }

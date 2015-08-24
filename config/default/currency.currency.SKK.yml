@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SKK
-currencyNumber: '703'
-sign: Sk
-subunits: 10
-label: 'Slovak koruna'
-usages:
-    - { start: '1992-12-31', end: '2009-01-01', countryCode: SK }

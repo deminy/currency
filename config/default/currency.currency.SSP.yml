@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: SSP
-currencyNumber: '728'
-sign: ₤
-subunits: 100
-label: 'South Sudanese pound'
-usages:
-    - { start: '2011-07-18', end: '', countryCode: SS }

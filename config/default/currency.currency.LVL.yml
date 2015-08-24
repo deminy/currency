@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: LVL
-currencyNumber: '428'
-sign: Ls
-subunits: 100
-label: 'Latvian lats'
-usages:
-    - { start: '1993-06-28', end: '', countryCode: LV }

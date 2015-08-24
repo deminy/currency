@@ -1,9 +1,0 @@
-alternativeSigns:
-    - BD
-currencyCode: BHD
-currencyNumber: '048'
-sign: .د.ب
-subunits: 1000
-label: 'Bahraini dinar'
-usages:
-    - { start: '1965-10-16', end: '', countryCode: BH }

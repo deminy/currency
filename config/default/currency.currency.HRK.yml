@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: HRK
-currencyNumber: '191'
-sign: kn
-subunits: 100
-label: 'Croatian kuna'
-usages:
-    - { start: '1994-05-30', end: '', countryCode: HR }

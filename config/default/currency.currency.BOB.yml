@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BOB
-currencyNumber: '068'
-sign: Bs
-subunits: 100
-label: 'Bolivian boliviano'
-usages:
-    - { start: '1987-01-01', end: '', countryCode: BO }

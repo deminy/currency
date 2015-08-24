@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MGF
-currencyNumber: '450'
-sign: ¤
-subunits: 100
-label: 'Malagasy franc'
-usages:
-    - { start: '1963-07-01', end: '2004-12-31', countryCode: MG }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MVR
-currencyNumber: '462'
-sign: ރ
-subunits: 100
-label: 'Maldivian rufiyaa'
-usages:
-    - { start: '1981-07-01', end: '', countryCode: MV }

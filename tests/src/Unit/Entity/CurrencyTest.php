@@ -7,12 +7,12 @@
 
 namespace Drupal\Tests\currency\Unit\Entity;
 
+use BartFeenstra\Currency\Usage;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\currency\Entity\Currency;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
-use Drupal\currency\Usage;
 use Drupal\Tests\UnitTestCase;
 
 /**

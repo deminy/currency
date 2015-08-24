@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: ISK
-currencyNumber: '352'
-sign: kr
-subunits: 100
-label: 'Icelandic krona'
-usages:
-    - { start: '1981-01-01', end: '', countryCode: IS }

@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: MCF
-currencyNumber: null
-sign: fr.
-subunits: 10
-label: 'Monegasque franc'
-usages:
-    - { start: '1960-01-01', end: '2002-02-17', countryCode: MC }

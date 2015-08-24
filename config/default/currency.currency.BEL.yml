@@ -1,8 +1,0 @@
-alternativeSigns: {  }
-currencyCode: BEL
-currencyNumber: '992'
-sign: ¤
-subunits: null
-label: 'Belgian financial franc'
-usages:
-    - { start: '', end: '2001-12-31', countryCode: BE }
