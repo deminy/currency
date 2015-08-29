@@ -7,7 +7,7 @@
 
 namespace Drupal\currency;
 
-use BartFeenstra\CurrencyExchange\AbstractStackedExchangeRateProvider;
+use Commercie\CurrencyExchange\AbstractStackedExchangeRateProvider;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 

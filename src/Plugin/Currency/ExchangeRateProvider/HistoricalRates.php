@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
-use BartFeenstra\CurrencyExchange\HistoricalExchangeRateProvider;
+use Commercie\CurrencyExchange\HistoricalExchangeRateProvider;
 
 
 /**

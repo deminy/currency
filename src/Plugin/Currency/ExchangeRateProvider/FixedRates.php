@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
-use BartFeenstra\CurrencyExchange\FixedExchangeRateProviderTrait;
+use Commercie\CurrencyExchange\FixedExchangeRateProviderTrait;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;

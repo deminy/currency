@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit;
 
-use BartFeenstra\CurrencyExchange\ExchangeRate as GenericExchangeRate;
+use Commercie\CurrencyExchange\ExchangeRate as GenericExchangeRate;
 use Drupal\currency\ExchangeRate;
 use Drupal\Tests\UnitTestCase;
 

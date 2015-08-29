@@ -6,7 +6,7 @@
 
 namespace Drupal\currency\Plugin\Currency\AmountFormatter;
 
-use BartFeenstra\Currency\CurrencyInterface;
+use Commercie\Currency\CurrencyInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;

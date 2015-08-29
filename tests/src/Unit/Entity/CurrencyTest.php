@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Entity;
 
-use BartFeenstra\Currency\Usage;
+use Commercie\Currency\Usage;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\currency\Entity\Currency;

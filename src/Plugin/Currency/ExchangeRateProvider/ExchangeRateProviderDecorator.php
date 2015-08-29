@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
-use BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface as GenericExchangeRateProviderInterface;
+use Commercie\CurrencyExchange\ExchangeRateProviderInterface as GenericExchangeRateProviderInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\currency\ExchangeRate;
 
@@ -19,7 +19,7 @@ class ExchangeRateProviderDecorator extends PluginBase implements ExchangeRatePr
   /**
    * The decorated exchange rate provider
    *
-   * @var \BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface
+   * @var \Commercie\CurrencyExchange\ExchangeRateProviderInterface
    */
   protected $exchangeRateProvider;
 
@@ -32,7 +32,7 @@ class ExchangeRateProviderDecorator extends PluginBase implements ExchangeRatePr
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface
+   * @param \Commercie\CurrencyExchange\ExchangeRateProviderInterface
    *   The decorated exchange rate provider.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, GenericExchangeRateProviderInterface $exchange_rate_provider) {

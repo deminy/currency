@@ -6,7 +6,7 @@
 
 namespace Drupal\Tests\currency\Unit;
 
-use BartFeenstra\CurrencyExchange\ExchangeRate;
+use Commercie\CurrencyExchange\ExchangeRate;
 use Drupal\Core\Config\Config;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface;
@@ -157,7 +157,7 @@ class PluginBasedExchangeRateProviderTest extends UnitTestCase {
     $exchange_rate_provider_id_a = $this->randomMachineName();
 
     $exchange_rate_provider_id_b = $this->randomMachineName();
-    $exchange_rate_provider_b = $this->getMock('\BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface');
+    $exchange_rate_provider_b = $this->getMock('\Commercie\CurrencyExchange\ExchangeRateProviderInterface');
     $exchange_rate_provider_b->expects($this->once())
       ->method('load')
       ->with($currency_code_from, $currency_code_to)

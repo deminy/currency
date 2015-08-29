@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Element;
 
-use BartFeenstra\Currency\InputInterface;
+use Commercie\Currency\InputInterface;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -45,7 +45,7 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
   /**
    * The input parser.
    *
-   * @var \BartFeenstra\Currency\InputInterface
+   * @var \Commercie\Currency\InputInterface
    */
   protected $input;
 
@@ -59,7 +59,7 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
-   * @param \BartFeenstra\Currency\InputInterface $input
+   * @param \Commercie\Currency\InputInterface $input
    * @param \Drupal\currency\FormHelperInterface $form_helper
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, TranslationInterface $string_translation, EntityStorageInterface $currency_storage, InputInterface $input, FormHelperInterface $form_helper) {

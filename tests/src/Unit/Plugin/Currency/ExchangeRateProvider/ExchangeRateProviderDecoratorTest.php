@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
-use BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface;
+use Commercie\CurrencyExchange\ExchangeRateProviderInterface;
 use Drupal\currency\ExchangeRate;
 use Drupal\currency\ExchangeRateInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderDecorator;
@@ -23,7 +23,7 @@ class ExchangeRateProviderDecoratorTest extends UnitTestCase {
   /**
    * The decorated exchange rate provider
    *
-   * @var \BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Commercie\CurrencyExchange\ExchangeRateProviderInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $exchangeRateProvider;
 

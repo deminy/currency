@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency_intl\Unit\Plugin\Currency\AmountFormatter;
 
-use BartFeenstra\Currency\CurrencyInterface;
+use Commercie\Currency\CurrencyInterface;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\currency\LocaleResolverInterface;
 use Drupal\currency_intl\Plugin\Currency\AmountFormatter\Intl;

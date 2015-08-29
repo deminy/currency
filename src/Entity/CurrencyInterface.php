@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Entity;
 
-use BartFeenstra\Currency\CurrencyInterface as GenericCurrencyInterface;
+use Commercie\Currency\CurrencyInterface as GenericCurrencyInterface;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Language\LanguageInterface;
 

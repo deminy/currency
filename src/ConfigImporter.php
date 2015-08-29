@@ -7,7 +7,7 @@
 
 namespace Drupal\currency;
 
-use BartFeenstra\Currency\ResourceRepository;
+use Commercie\Currency\ResourceRepository;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
@@ -23,7 +23,7 @@ class ConfigImporter implements ConfigImporterInterface {
   /**
    * The currency resource repository.
    *
-   * @var \BartFeenstra\Currency\ResourceRepository
+   * @var \Commercie\Currency\ResourceRepository
    */
   protected $currencyResourceRepository;
 

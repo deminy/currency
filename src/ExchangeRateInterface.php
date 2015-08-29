@@ -7,7 +7,7 @@
 
 namespace Drupal\currency;
 
-use BartFeenstra\CurrencyExchange\ExchangeRateInterface as GenericExchangeRateInterface;
+use Commercie\CurrencyExchange\ExchangeRateInterface as GenericExchangeRateInterface;
 
 /**
  * Defines an exchange rate.

@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
-use BartFeenstra\CurrencyExchange\ExchangeRateProviderInterface;
+use Commercie\CurrencyExchange\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\HistoricalRates;
 use Drupal\Tests\UnitTestCase;
 

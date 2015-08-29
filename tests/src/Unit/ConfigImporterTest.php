@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit;
 
-use BartFeenstra\Currency\ResourceRepository;
+use Commercie\Currency\ResourceRepository;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Entity\EntityManagerInterface;

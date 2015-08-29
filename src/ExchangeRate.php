@@ -7,8 +7,8 @@
 
 namespace Drupal\currency;
 
-use BartFeenstra\CurrencyExchange\ExchangeRate as GenericExchangeRate;
-use BartFeenstra\CurrencyExchange\ExchangeRateInterface as GenericExchangeRateInterface;
+use Commercie\CurrencyExchange\ExchangeRate as GenericExchangeRate;
+use Commercie\CurrencyExchange\ExchangeRateInterface as GenericExchangeRateInterface;
 
 /**
  * Provides an exchange rate.
@@ -42,7 +42,7 @@ class ExchangeRate extends GenericExchangeRate implements ExchangeRateInterface 
   /**
    * Creates a new exchange rate based on another one.
    *
-   * @param \BartFeenstra\CurrencyExchange\ExchangerateInterface $other_exchange_rate
+   * @param \Commercie\CurrencyExchange\ExchangerateInterface $other_exchange_rate
    *   The code of the source currency.
    * @param string $exchange_rate_provider_id
    *   The ID of the exchange rate provider that provided this rate.

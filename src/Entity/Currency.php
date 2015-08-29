@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Entity;
 
-use BartFeenstra\Currency\Usage;
+use Commercie\Currency\Usage;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
@@ -113,7 +113,7 @@ class Currency extends ConfigEntityBase implements CurrencyInterface {
   /**
    * This currency's usages.
    *
-   * @var \BartFeenstra\Currency\UsageInterface[]
+   * @var \Commercie\Currency\UsageInterface[]
    */
   protected $usages = [];
 

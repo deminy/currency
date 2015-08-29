@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
-  use BartFeenstra\Currency\InputInterface;
+  use Commercie\Currency\InputInterface;
   use Drupal\Core\Entity\EntityManagerInterface;
   use Drupal\Core\Entity\EntityStorageInterface;
   use Drupal\Core\Form\FormStateInterface;
@@ -43,7 +43,7 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
     /**
      * The Currency input parser.
      *
-     * @var \BartFeenstra\Currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Commercie\Currency\InputInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $inputParser;
 

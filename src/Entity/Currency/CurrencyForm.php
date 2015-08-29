@@ -7,7 +7,7 @@
 
 namespace Drupal\currency\Entity\Currency;
 
-use BartFeenstra\Currency\InputInterface;
+use Commercie\Currency\InputInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -31,7 +31,7 @@ class CurrencyForm extends EntityForm {
   /**
    * The Currency input parser.
    *
-   * @var \BartFeenstra\Currency\InputInterface
+   * @var \Commercie\Currency\InputInterface
    */
   protected $inputParser;
 
@@ -51,7 +51,7 @@ class CurrencyForm extends EntityForm {
    *   The link generator.
    * @param \Drupal\Core\Entity\EntityStorageInterface $currency_storage
    *   The currency storage.
-   * @param \BartFeenstra\Currency\InputInterface $input_parser
+   * @param \Commercie\Currency\InputInterface $input_parser
    *   The Currency input parser.
    */
   public function __construct(TranslationInterface $string_translation, LinkGeneratorInterface $link_generator, EntityStorageInterface $currency_storage, InputInterface $input_parser) {

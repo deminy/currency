@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Controller {
 
-  use BartFeenstra\CurrencyExchange\ExchangeRateInterface;
+  use Commercie\CurrencyExchange\ExchangeRateInterface;
   use Drupal\Core\Config\ConfigFactoryInterface;
   use Drupal\Core\Entity\EntityManagerInterface;
   use Drupal\Core\Entity\EntityStorageInterface;
