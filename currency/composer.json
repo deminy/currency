@@ -1,7 +1,7 @@
 {
   "require" : {
-    "bartfeenstra/cldr" : "1.x-dev",
-    "bartfeenstra/currency" : "1.x-dev",
-    "symfony/yaml" : "2.1.*"
+    "bartfeenstra/cldr" : "~1.0",
+    "bartfeenstra/currency" : "~1.0",
+    "symfony/yaml" : "~2.1"
   }
 }
