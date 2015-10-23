@@ -44,7 +44,7 @@ class CurrencyAccessControlHandler extends EntityAccessControlHandler implements
   /**
    * {@inheritdoc}
    */
-  protected function checkAccess(EntityInterface $currency, $operation, $langcode, AccountInterface $account) {
+  protected function checkAccess(EntityInterface $currency, $operation, AccountInterface $account) {
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
 
     // Don't let the default currency be deleted.
@@ -55,10 +55,10 @@ class CurrencyAccessControlHandler extends EntityAccessControlHandler implements
     // The "enable" and "disable" operations are aliases for "update", but with
     // extra checks.
     if ($operation == 'enable') {
-      return $currency->status() ? AccessResult::forbidden() : $this->access($currency, 'update', $langcode, $account, TRUE);
+      return $currency->status() ? AccessResult::forbidden() : $this->access($currency, 'update', $account, TRUE);
     }
     if ($operation == 'disable') {
-      return $currency->status() ? $this->access($currency, 'update', $langcode, $account, TRUE) : AccessResult::forbidden();
+      return $currency->status() ? $this->access($currency, 'update', $account, TRUE) : AccessResult::forbidden();
     }
 
     return AccessResult::allowedIfHasPermission($account, 'currency.currency.' . $operation);
