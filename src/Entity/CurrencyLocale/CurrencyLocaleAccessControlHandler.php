@@ -45,7 +45,7 @@ class CurrencyLocaleAccessControlHandler extends EntityAccessControlHandler impl
   /**
    * {@inheritdoc}
    */
-  protected function checkAccess(EntityInterface $currency_locale, $operation, $langcode, AccountInterface $account) {
+  protected function checkAccess(EntityInterface $currency_locale, $operation, AccountInterface $account) {
     /** @var \Drupal\currency\Entity\CurrencyLocaleInterface $currency_locale */
     if ($currency_locale->getLocale() == LocaleResolverInterface::DEFAULT_LOCALE && $operation == 'delete') {
       return AccessResult::forbidden();

@@ -69,11 +69,11 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
     $currency_locale = $this->localeDelegator->resolveCurrencyLocale();
     $formatted_amount = number_format($amount, $decimals, $currency_locale->getDecimalSeparator(), $currency_locale->getGroupingSeparator());
     $arguments = array(
-      '!currency_code' => $currency->getCurrencyCode(),
-      '!currency_sign' => $currency->getSign(),
-      '!amount' => $formatted_amount,
+      '@currency_code' => $currency->getCurrencyCode(),
+      '@currency_sign' => $currency->getSign(),
+      '@amount' => $formatted_amount,
     );
 
-    return $this->t('!currency_code !amount', $arguments);
+    return $this->t('@currency_code @amount', $arguments);
   }
 }
