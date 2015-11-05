@@ -159,8 +159,8 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
     // Add the amount element.
     $description = NULL;
     if ($element['#minimum_amount'] !== FALSE) {
-      $description = $this->t('The minimum amount is !amount.', [
-        '!amount' => $currency->formatAmount($element['#minimum_amount']),
+      $description = $this->t('The minimum amount is @amount.', [
+        '@amount' => $currency->formatAmount($element['#minimum_amount']),
       ]);
     }
     $element['amount'] = [
@@ -198,13 +198,13 @@ class CurrencyAmount extends FormElement implements ContainerFactoryPluginInterf
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = $this->currencyStorage->load($currency_code);
     if ($element['#minimum_amount'] !== FALSE && bccomp($element['#minimum_amount'], $amount, 6) > 0) {
-      $form_state->setError($element['amount'], $this->t('The minimum amount is !amount.', [
-        '!amount' => $currency->formatAmount($element['#minimum_amount']),
+      $form_state->setError($element['amount'], $this->t('The minimum amount is @amount.', [
+        '@amount' => $currency->formatAmount($element['#minimum_amount']),
       ]));
     }
     elseif ($element['#maximum_amount'] !== FALSE && bccomp($amount, $element['#maximum_amount'], 6) > 0) {
-      $form_state->setError($element['amount'], $this->t('The maximum amount is !amount.', [
-        '!amount' => $currency->formatAmount($element['#maximum_amount']),
+      $form_state->setError($element['amount'], $this->t('The maximum amount is @amount.', [
+        '@amount' => $currency->formatAmount($element['#maximum_amount']),
       ]));
     }
 
