@@ -182,8 +182,8 @@ class CurrencyForm extends EntityForm {
     elseif ($currency->isNew()) {
       $loaded_currency = $this->currencyStorage->load($currency_code);
       if ($loaded_currency) {
-        $form_state->setError($element, $this->t('The currency code is already in use by !link.', array(
-          '!link' => $this->linkGenerator->generate($loaded_currency->label(), $loaded_currency->urlInfo('edit-form')),
+        $form_state->setError($element, $this->t('The currency code is already in use by @link.', array(
+          '@link' => $this->linkGenerator->generate($loaded_currency->label(), $loaded_currency->urlInfo('edit-form')),
         )));
       }
     }
@@ -204,8 +204,8 @@ class CurrencyForm extends EntityForm {
       ));
       if ($loaded_currencies) {
         $loaded_currency = reset($loaded_currencies);
-        $form_state->setError($element, $this->t('The currency number is already in use by !link.', array(
-          '!link' => $this->linkGenerator->generate($loaded_currency->label(), $loaded_currency->urlInfo('edit-form')),
+        $form_state->setError($element, $this->t('The currency number is already in use by @link.', array(
+          '@link' => $this->linkGenerator->generate($loaded_currency->label(), $loaded_currency->urlInfo('edit-form')),
         )));
       }
     }

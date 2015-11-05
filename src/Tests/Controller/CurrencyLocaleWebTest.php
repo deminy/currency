@@ -16,13 +16,15 @@ use Drupal\simpletest\WebTestBase;
  */
 class CurrencyLocaleWebTest extends WebTestBase {
 
-  public static $modules = array('currency');
+  public static $modules = array('currency', 'block');
 
   /**
    * {@inheritdoc}
    */
   public function setUp() {
     parent::setUp();
+    $this->drupalPlaceBlock('local_tasks_block');
+
     /** @var \Drupal\currency\ConfigImporterInterface $config_importer */
     $config_importer = \Drupal::service('currency.config_importer');
     $config_importer->importCurrencyLocale('nl_NL');
