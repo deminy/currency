@@ -25,7 +25,7 @@ drupal_ti_ensure_module_linked
 # Initialize composer_manager.
 php modules/composer_manager/scripts/init.php
 composer drupal-rebuild
-composer install --prefer-source -n --verbose
+composer update --prefer-source -n --verbose
 
 # Enable main module and submodules.
 drush en -y currency currency_intl
