@@ -11,6 +11,7 @@ use Drupal\Core\Cache\Context\CacheContextsManager;
 use Drupal\Core\DependencyInjection\Container;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\currency\Entity\Currency\CurrencyAccessControlHandler;
 use Drupal\currency\Entity\CurrencyInterface;
@@ -61,6 +62,9 @@ class CurrencyAccessControlHandlerTest extends UnitTestCase {
     $this->cacheContextsManager = $this->getMockBuilder(CacheContextsManager::class)
       ->disableOriginalConstructor()
       ->getMock();
+    $this->cacheContextsManager->expects($this->any())
+      ->method('assertValidTokens')
+      ->willReturn(TRUE);
 
     $container = new Container();
     $container->set('cache_contexts_manager', $this->cacheContextsManager);
@@ -100,10 +104,15 @@ class CurrencyAccessControlHandlerTest extends UnitTestCase {
       ->with($permission)
       ->willReturn((bool) $has_permission);
 
+    $language = $this->getMock(LanguageInterface::class);
+
     $currency = $this->getMock(CurrencyInterface::class);
     $currency->expects($this->any())
       ->method('getCurrencyCode')
       ->willReturn($currency_code);
+    $currency->expects($this->any())
+      ->method('language')
+      ->willReturn($language);
     $currency->expects($this->any())
       ->method('status')
       ->willReturn($entity_status);

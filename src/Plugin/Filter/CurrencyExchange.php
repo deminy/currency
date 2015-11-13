@@ -110,7 +110,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function tips($long = FALSE) {
-    return $this->t('Use <code>[currency:from:to:amount]</code> to convert an amount of money from one currency to another. The <code>amount</code> parameter is optional and defaults to <code>1</code>. Example: <code>[currency:EUR:USD:100]</code>.');
+    return (string) $this->t('Use <code>[currency:from:to:amount]</code> to convert an amount of money from one currency to another. The <code>amount</code> parameter is optional and defaults to <code>1</code>. Example: <code>[currency:EUR:USD:100]</code>.');
   }
 
 }

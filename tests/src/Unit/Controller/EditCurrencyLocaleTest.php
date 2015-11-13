@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Controller;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Controller\EditCurrencyLocale;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\Tests\UnitTestCase;
@@ -70,7 +71,7 @@ class EditCurrencyLocaleTest extends UnitTestCase {
       ->method('label')
       ->willReturn($label);
 
-    $this->assertInternalType('string', $this->sut->title($currency_locale));
+    $this->assertInstanceOf(TranslatableMarkup::class, $this->sut->title($currency_locale));
   }
 
 }

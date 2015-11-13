@@ -8,6 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
   use Drupal\Core\Form\FormStateInterface;
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
   use Drupal\Core\Url;
   use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm;
   use Drupal\currency\Entity\CurrencyLocaleInterface;
@@ -73,20 +74,14 @@ namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
      * @covers ::getQuestion
      */
     function testGetQuestion() {
-      $this->assertInternalType('string', $this->sut->getQuestion());
+      $this->assertInstanceOf(TranslatableMarkup::class, $this->sut->getQuestion());
     }
 
     /**
      * @covers ::getConfirmText
      */
     function testGetConfirmText() {
-      $string = 'Delete';
-
-      $this->stringTranslation->expects($this->once())
-        ->method('translate')
-        ->with($string);
-
-      $this->assertSame($string, $this->sut->getConfirmText());
+      $this->assertInstanceOf(TranslatableMarkup::class, $this->sut->getConfirmText());
     }
 
     /**

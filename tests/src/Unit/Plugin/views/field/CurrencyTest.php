@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Plugin\views\field;
 
+use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\currency\Entity\CurrencyInterface;
@@ -178,7 +179,7 @@ class CurrencyTest extends UnitTestCase {
       ->with($currency_code)
       ->willReturn(NULL);
 
-    $this->assertInternalType('string', $this->sut->render($result_row));
+    $this->assertInstanceOf(MarkupInterface::class, $this->sut->render($result_row));
   }
 
 }

@@ -8,7 +8,7 @@
 namespace Drupal\currency\Plugin\Currency\AmountFormatter;
 
 use Drupal\Core\Url;
-use Drupal\plugin\DefaultPluginTypeOperationsProvider;
+use Drupal\plugin\PluginType\DefaultPluginTypeOperationsProvider;
 
 /**
  * Provides operations for the currency amount formatter plugin type.

@@ -9,6 +9,7 @@ namespace Drupal\Tests\currency\Unit\Entity;
 
 use Drupal\Core\Language\LanguageManager;
 use Drupal\Core\Locale\CountryManagerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Entity\CurrencyLocale;
 use Drupal\Tests\UnitTestCase;
 
@@ -159,8 +160,7 @@ class CurrencyLocaleTest extends UnitTestCase {
 
     $this->sut->setLocale($language_code, $country_code_b);
 
-    $expected = $languages[$language_code][0] . ' (' . $country_list[$country_code_b] . ')';
-    $this->assertSame($expected, $this->sut->label());
+    $this->assertInstanceOf(TranslatableMarkup::class, $this->sut->label());
   }
 
   /**

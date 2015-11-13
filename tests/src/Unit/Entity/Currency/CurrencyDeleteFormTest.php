@@ -8,6 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
   use Drupal\Core\Form\FormStateInterface;
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
   use Drupal\Core\Url;
   use Drupal\currency\Entity\Currency\CurrencyDeleteForm;
   use Drupal\currency\Entity\CurrencyInterface;
@@ -73,14 +74,14 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
      * @covers ::getQuestion
      */
     function testGetQuestion() {
-      $this->assertInternalType('string', $this->sut->getQuestion());
+      $this->assertInstanceOf(TranslatableMarkup::class, $this->sut->getQuestion());
     }
 
     /**
      * @covers ::getConfirmText
      */
     function testGetConfirmText() {
-      $this->assertInternalType('string', $this->sut->getConfirmText());
+      $this->assertInstanceOf(TranslatableMarkup::class, $this->sut->getConfirmText());
     }
 
     /**

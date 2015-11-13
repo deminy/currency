@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleListBuilder;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\Tests\UnitTestCase;
@@ -107,11 +108,9 @@ class CurrencyLocaleListBuilderTest extends UnitTestCase {
    */
   function testBuildHeader() {
     $header = $this->sut->buildHeader();
-    $expected = array(
-      'label' => 'Locale',
-      'operations' => 'Operations',
-    );
-    $this->assertSame($expected, $header);
+    foreach ($header as $cell) {
+      $this->assertInstanceOf(TranslatableMarkup::class, $cell);
+    }
   }
 
   /**

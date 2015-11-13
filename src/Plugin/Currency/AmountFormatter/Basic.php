@@ -74,6 +74,6 @@ class Basic extends PluginBase implements AmountFormatterInterface, ContainerFac
       '@amount' => $formatted_amount,
     );
 
-    return $this->t('@currency_code @amount', $arguments);
+    return (string) $this->t('@currency_code @amount', $arguments);
   }
 }

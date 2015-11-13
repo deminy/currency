@@ -159,24 +159,29 @@ class FixedRatesFormTest extends UnitTestCase {
       ->willReturn($currency_options);
 
     unset($currency_options['XXX']);
+
+    $form = array();
+    $form_state = $this->getMock(FormStateInterface::class);
+    $build = $this->sut->buildForm($form, $form_state, $currency_code_from, $currency_code_to);
+
     $expected_build['currency_code_from'] = array(
       '#default_value' => $currency_code_from,
       '#disabled' => !is_null($rate_rate),
       '#empty_value' => '',
       '#options' => $currency_options,
       '#required' => TRUE,
-      '#title' => 'Source currency',
       '#type' => 'select',
     );
+    unset($build['currency_code_from']['#title']);
     $expected_build['currency_code_to'] = array(
       '#default_value' => $currency_code_to,
       '#disabled' => !is_null($rate_rate),
       '#empty_value' => '',
       '#options' => $currency_options,
       '#required' => TRUE,
-      '#title' => 'Destination currency',
       '#type' => 'select',
     );
+    unset($build['currency_code_to']['#title']);
     $expected_build['rate'] = array(
       '#limit_currency_codes' => array($currency_code_to),
       '#default_value' => array(
@@ -184,9 +189,9 @@ class FixedRatesFormTest extends UnitTestCase {
         'currency_code' => $currency_code_to,
       ),
       '#required' => TRUE,
-      '#title' => 'Exchange rate',
       '#type' => 'currency_amount',
     );
+    unset($build['rate']['#title']);
     $expected_build['actions'] = array(
       '#type' => 'actions',
     );
@@ -194,21 +199,18 @@ class FixedRatesFormTest extends UnitTestCase {
       '#button_type' => 'primary',
       '#name' => 'save',
       '#type' => 'submit',
-      '#value' => 'Save',
     );
+    unset($build['actions']['save']['#value']);
     if (!is_null($rate_rate)) {
       $expected_build['actions']['delete'] = array(
         '#button_type' => 'danger',
         '#limit_validation_errors' => array(array('currency_code_from'), array('currency_code_to')),
         '#name' => 'delete',
         '#type' => 'submit',
-        '#value' => 'Delete',
       );
+      unset($build['actions']['delete']['#value']);
     }
 
-    $form = array();
-    $form_state = $this->getMock(FormStateInterface::class);
-    $build = $this->sut->buildForm($form, $form_state, $currency_code_from, $currency_code_to);
     $this->assertSame($expected_build, $build);
   }
 

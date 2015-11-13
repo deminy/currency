@@ -62,6 +62,9 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
     $this->cacheContextsManager = $this->getMockBuilder(CacheContextsManager::class)
       ->disableOriginalConstructor()
       ->getMock();
+    $this->cacheContextsManager->expects($this->any())
+      ->method('assertValidTokens')
+      ->willReturn(TRUE);
 
     $container = new Container();
     $container->set('cache_contexts_manager', $this->cacheContextsManager);
@@ -113,9 +116,7 @@ class CurrencyLocaleAccessControlHandlerTest extends UnitTestCase {
     $method = new \ReflectionMethod($this->sut, 'checkAccess');
     $method->setAccessible(TRUE);
 
-    $language_code = $this->randomMachineName();
-
-    $this->assertSame($expected_value, $method->invoke($this->sut, $currency_locale, $operation, $language_code, $account)->isAllowed());
+    $this->assertSame($expected_value, $method->invoke($this->sut, $currency_locale, $operation, $account)->isAllowed());
   }
 
   /**

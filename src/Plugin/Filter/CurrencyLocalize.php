@@ -105,7 +105,7 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function tips($long = FALSE) {
-    return $this->t('Use <code>[currency-localize:<strong>currency-code</strong>:<strong>amount</strong>]</code> to localize an amount of money. The <code>currency-code</code> and <code>amount</code> parameters are the ISO 4217 currency code and the actual amount to display. Example: <code>[currency-localize:EUR:99.95]</code>.');
+    return (string) $this->t('Use <code>[currency-localize:<strong>currency-code</strong>:<strong>amount</strong>]</code> to localize an amount of money. The <code>currency-code</code> and <code>amount</code> parameters are the ISO 4217 currency code and the actual amount to display. Example: <code>[currency-localize:EUR:99.95]</code>.');
   }
 
 }

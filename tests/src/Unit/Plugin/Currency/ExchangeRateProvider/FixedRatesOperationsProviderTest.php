@@ -67,7 +67,7 @@ class FixedRatesOperationsProviderTest extends UnitTestCase {
       ->method('get')
       ->willReturnMap($map);
 
-    /** @var \Drupal\plugin\DefaultPluginTypeOperationsProvider $sut_class */
+    /** @var \Drupal\plugin\PluginType\DefaultPluginTypeOperationsProvider $sut_class */
     $sut_class = get_class($this->sut);
     $sut = $sut_class::create($container);
     $this->assertInstanceOf($sut_class, $sut);

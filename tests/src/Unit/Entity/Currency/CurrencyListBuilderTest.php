@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Entity\Currency\CurrencyListBuilder;
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\Tests\UnitTestCase;
@@ -103,12 +104,9 @@ class CurrencyListBuilderTest extends UnitTestCase {
    */
   function testBuildHeader() {
     $header = $this->sut->buildHeader();
-    $expected = array(
-      'id' => 'Currency code',
-      'label' => 'Name',
-      'operations' => 'Operations',
-    );
-    $this->assertSame($expected, $header);
+    foreach ($header as $cell) {
+      $this->assertInstanceOf(TranslatableMarkup::class, $cell);
+    }
   }
 
   /**

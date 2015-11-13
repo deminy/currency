@@ -40,7 +40,7 @@ class EditCurrency extends ControllerBase implements ContainerInjectionInterface
    *
    * @param \Drupal\currency\Entity\CurrencyInterface $currency
    *
-   * @return string
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
    */
   public function title(CurrencyInterface $currency) {
     return $this->t('Edit @label', array(

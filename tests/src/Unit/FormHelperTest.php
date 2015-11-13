@@ -9,6 +9,7 @@ namespace Drupal\Tests\currency\Unit;
 
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\currency\FormHelper;
@@ -138,7 +139,13 @@ class FormHelperTest extends UnitTestCase {
     ];
     natcasesort($expected_options);
 
-    $this->assertSame($expected_options, $this->sut->getCurrencyOptions([$currency_locale_a, $currency_locale_b, $currency_locale_c]));
+    $options = $this->sut->getCurrencyOptions([$currency_locale_a, $currency_locale_b, $currency_locale_c]);
+
+    $this->assertEmpty(array_diff_key($options, $expected_options));
+    $this->assertEmpty(array_diff_key($expected_options, $options));
+    foreach ($options as $option) {
+      $this->assertInstanceOf(TranslatableMarkup::class, $option);
+    }
   }
 
   /**

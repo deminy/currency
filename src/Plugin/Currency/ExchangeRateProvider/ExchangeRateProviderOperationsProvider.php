@@ -8,7 +8,7 @@
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Core\Url;
-use Drupal\plugin\DefaultPluginTypeOperationsProvider;
+use Drupal\plugin\PluginType\DefaultPluginTypeOperationsProvider;
 
 /**
  * Provides operations for the currency exchange rate provider plugin type.

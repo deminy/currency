@@ -8,7 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\AmountFormatter;
 
 use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterOperationsProvider;
-use Drupal\Tests\plugin\Unit\DefaultPluginTypeOperationsProviderTest;
+use Drupal\Tests\plugin\Unit\PluginType\DefaultPluginTypeOperationsProviderTest;
 
 /**
  * @coversDefaultClass \Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterOperationsProvider

@@ -210,66 +210,65 @@ namespace Drupal\Tests\currency\Unit\Entity\Currency {
       $form = array();
       $form_state = $this->getMock(FormStateInterface::class);
 
-      $expected = array(
-        'currency_code' => array(
-          '#default_value' => $currency_code,
-          '#disabled' => TRUE,
-          '#element_validate' => array(array($this->sut, 'validateCurrencyCode')),
-          '#maxlength' => 3,
-          '#pattern' => '[a-zA-Z]{3}',
-          '#placeholder' => 'XXX',
-          '#required' => TRUE,
-          '#size' => 3,
-          '#title' => 'ISO 4217 code',
-          '#type' => 'textfield',
-        ),
-        'currency_number' => array(
-          '#default_value' => $currency_number,
-          '#element_validate' => array(array($this->sut, 'validateCurrencyNumber')),
-          '#maxlength' => 3,
-          '#pattern' => '[\d]{3}',
-          '#placeholder' => '999',
-          '#size' => 3,
-          '#title' => 'ISO 4217 number',
-          '#type' => 'textfield',
-        ),
-        'status' => array(
-          '#default_value' => $currency_status,
-          '#title' => 'Enabled',
-          '#type' => 'checkbox',
-        ),
-        'label' => array(
-          '#default_value' => $currency_label,
-          '#maxlength' => 255,
-          '#required' => TRUE,
-          '#title' => 'Name',
-          '#type' => 'textfield',
-        ),
-        'sign' => array(
-          '#currency_code' => $currency_code,
-          '#default_value' => $currency_sign,
-          '#title' => 'Sign',
-          '#type' => 'currency_sign',
-        ),
-        'subunits' => array(
-          '#default_value' => $currency_subunits,
-          '#min' => 0,
-          '#required' => TRUE,
-          '#title' => 'Number of subunits',
-          '#type' => 'number',
-        ),
-        'rounding_step' => array(
-          '#default_value' => $currency_rounding_step,
-          '#element_validate' => array(array($this->sut, 'validateRoundingStep')),
-          '#required' => TRUE,
-          '#title' => 'Rounding step',
-          '#type' => 'textfield',
-        ),
-        '#after_build' => ['::afterBuild'],
-      );
       $build = $this->sut->form($form, $form_state);
       unset($build['langcode']);
       unset($build['#process']);
+
+      $expected['currency_code'] = [
+        '#default_value' => $currency_code,
+        '#disabled' => TRUE,
+        '#element_validate' => array(array($this->sut, 'validateCurrencyCode')),
+        '#maxlength' => 3,
+        '#pattern' => '[a-zA-Z]{3}',
+        '#placeholder' => 'XXX',
+        '#required' => TRUE,
+        '#size' => 3,
+        '#type' => 'textfield',
+      ];
+      unset($build['currency_code']['#title']);
+      $expected['currency_number'] = [
+        '#default_value' => $currency_number,
+        '#element_validate' => array(array($this->sut, 'validateCurrencyNumber')),
+        '#maxlength' => 3,
+        '#pattern' => '[\d]{3}',
+        '#placeholder' => '999',
+        '#size' => 3,
+        '#type' => 'textfield',
+      ];
+      unset($build['currency_number']['#title']);
+      $expected['status'] = [
+        '#default_value' => $currency_status,
+        '#type' => 'checkbox',
+      ];
+      unset($build['status']['#title']);
+      $expected['label'] = [
+        '#default_value' => $currency_label,
+        '#maxlength' => 255,
+        '#required' => TRUE,
+        '#type' => 'textfield',
+      ];
+      unset($build['label']['#title']);
+      $expected['sign'] = [
+        '#currency_code' => $currency_code,
+        '#default_value' => $currency_sign,
+        '#type' => 'currency_sign',
+      ];
+      unset($build['sign']['#title']);
+      $expected['subunits'] = [
+        '#default_value' => $currency_subunits,
+        '#min' => 0,
+        '#required' => TRUE,
+        '#type' => 'number',
+      ];
+      unset($build['subunits']['#title']);
+      $expected['rounding_step'] = [
+        '#default_value' => $currency_rounding_step,
+        '#element_validate' => array(array($this->sut, 'validateRoundingStep')),
+        '#required' => TRUE,
+        '#type' => 'textfield',
+      ];
+      unset($build['rounding_step']['#title']);
+      $expected['#after_build'] = ['::afterBuild'];
       $this->assertSame($expected, $build);
     }
 

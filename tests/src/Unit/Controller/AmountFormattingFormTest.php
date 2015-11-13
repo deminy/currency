@@ -12,6 +12,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
   use Drupal\Core\Form\FormState;
   use Drupal\Core\Form\FormStateInterface;
   use Drupal\Core\Render\Element\Radios;
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
   use Drupal\currency\Controller\AmountFormattingForm;
   use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterManagerInterface;
   use Drupal\Tests\UnitTestCase;
@@ -133,10 +134,10 @@ namespace Drupal\Tests\currency\Unit\Controller {
           'foo' => $definitions['foo']['label'],
         ),
         '#process' => [[Radios::class, 'processRadios'], [$this->controller, 'processPluginOptions']],
-        '#title' => 'Default amount formatter',
         '#type' => 'radios',
       );
       $build = $this->controller->buildForm($form, $form_state);
+      unset($build['default_plugin_id']['#title']);
       $this->assertSame($expected, $build['default_plugin_id']);
     }
 
