@@ -8,6 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\AmountFormatter;
 
 use Commercie\Currency\CurrencyInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Entity\CurrencyLocaleInterface;
 use Drupal\currency\LocaleResolverInterface;
 use Drupal\currency\Plugin\Currency\AmountFormatter\Basic;
@@ -116,6 +117,12 @@ class BasicTest extends UnitTestCase {
 
     $translation = 'UAH 987%654@321';
 
-    $this->assertSame($translation, $this->sut->formatAmount($currency, $amount));
+    $formatted_amount = $this->sut->formatAmount($currency, $amount);
+    $this->logicalOr(
+      new \PHPUnit_Framework_Constraint_IsType('string', $formatted_amount),
+      new \PHPUnit_Framework_Constraint_IsInstanceOf(TranslatableMarkup::class, $formatted_amount)
+    );
+
+    $this->assertSame($translation, (string) $formatted_amount);
   }
 }

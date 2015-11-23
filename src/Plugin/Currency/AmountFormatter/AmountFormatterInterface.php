@@ -26,9 +26,7 @@ interface AmountFormatterInterface extends PluginInspectionInterface {
    * @param string $language_type
    *   One of the \Drupal\Core\Language\LanguageInterface\TYPE_* constants.
    *
-   * return string
-   * @param $language_type
-   * @return
+   * @return string|\Drupal\Core\StringTranslation\TranslatableMarkup
    */
   function formatAmount(CurrencyInterface $currency, $amount, $language_type = LanguageInterface::TYPE_CONTENT);
 }

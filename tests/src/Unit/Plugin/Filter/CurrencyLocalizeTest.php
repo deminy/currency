@@ -14,6 +14,7 @@ use Drupal\Core\DependencyInjection\Container;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\Plugin\Filter\CurrencyLocalize;
 use Drupal\filter\FilterProcessResult;
@@ -199,6 +200,10 @@ class CurrencyLocalizeTest extends UnitTestCase {
    * @covers ::tips
    */
   public function testTips() {
-    $this->assertInternalType('string', $this->sut->tips());
+    $tips = $this->sut->tips();
+    $this->logicalOr(
+      new \PHPUnit_Framework_Constraint_IsType('string', $tips),
+      new \PHPUnit_Framework_Constraint_IsInstanceOf(TranslatableMarkup::class, $tips)
+    );
   }
 }

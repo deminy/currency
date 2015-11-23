@@ -11,6 +11,7 @@ use Commercie\Currency\InputInterface;
 use Drupal\Component\DependencyInjection\Container;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\Context\CacheContextsManager;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\ExchangeRate;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Filter\CurrencyExchange;
@@ -182,6 +183,10 @@ class CurrencyExchangeTest extends UnitTestCase {
    * @covers ::tips
    */
   public function testTips() {
-    $this->assertInternalType('string', $this->sut->tips());
+    $tips = $this->sut->tips();
+    $this->logicalOr(
+      new \PHPUnit_Framework_Constraint_IsType('string', $tips),
+      new \PHPUnit_Framework_Constraint_IsInstanceOf(TranslatableMarkup::class, $tips)
+    );
   }
 }
