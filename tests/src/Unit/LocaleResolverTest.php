@@ -8,7 +8,7 @@ namespace Drupal\Tests\currency\Unit;
 
 use Drupal\Core\Config\Config;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageInterface;
@@ -41,11 +41,11 @@ class LocaleResolverTest extends UnitTestCase {
   protected $currencyLocaleStorage;
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface|\PHPUnit_Framework_MockObject_MockObject
    */
-  protected $entityManager;
+  protected $entityTypeManager;
 
   /**
    * The event dispatcher.
@@ -76,8 +76,8 @@ class LocaleResolverTest extends UnitTestCase {
 
     $this->currencyLocaleStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->entityManager = $this->getMock(EntityManagerInterface::class);
-    $this->entityManager->expects($this->any())
+    $this->entityTypeManager = $this->getMock(EntityTypeManagerInterface::class);
+    $this->entityTypeManager->expects($this->any())
       ->method('getStorage')
       ->with('currency_locale')
       ->willReturn($this->currencyLocaleStorage);
@@ -86,14 +86,14 @@ class LocaleResolverTest extends UnitTestCase {
 
     $this->languageManager = $this->getMock(LanguageManagerInterface::class);
 
-    $this->sut = new LocaleResolver($this->entityManager, $this->languageManager, $this->configFactory, $this->eventDispatcher);
+    $this->sut = new LocaleResolver($this->entityTypeManager, $this->languageManager, $this->configFactory, $this->eventDispatcher);
   }
 
   /**
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->sut = new LocaleResolver($this->entityManager, $this->languageManager, $this->configFactory, $this->eventDispatcher);
+    $this->sut = new LocaleResolver($this->entityTypeManager, $this->languageManager, $this->configFactory, $this->eventDispatcher);
   }
 
   /**

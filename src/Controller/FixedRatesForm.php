@@ -70,10 +70,10 @@ class FixedRatesForm extends FormBase implements ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
-    $entity_manager = $container->get('entity.manager');
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager */
+    $entity_type_manager = $container->get('entity_type.manager');
 
-    return new static($container->get('config.factory'), $container->get('string_translation'), $entity_manager->getStorage('currency'), $container->get('plugin.manager.currency.exchange_rate_provider'), $container->get('currency.form_helper'));
+    return new static($container->get('config.factory'), $container->get('string_translation'), $entity_type_manager->getStorage('currency'), $container->get('plugin.manager.currency.exchange_rate_provider'), $container->get('currency.form_helper'));
   }
 
   /**

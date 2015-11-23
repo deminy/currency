@@ -9,8 +9,8 @@ namespace Drupal\Tests\currency\Unit\Controller;
 
 use Drupal\Core\Entity\EntityFormBuilderInterface;
 use Drupal\Core\Entity\EntityFormInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\currency\Controller\AddCurrency;
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\Tests\UnitTestCase;
@@ -24,18 +24,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AddCurrencyTest extends UnitTestCase {
 
   /**
+   * The currency storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $currencyStorage;
+
+  /**
    * The entity form builder.
    *
    * @var \Drupal\Core\Entity\EntityFormBuilderInterface|\PHPUnit_Framework_MockObject_MockObject
    */
   protected $entityFormBuilder;
-
-  /**
-   * The entity manager.
-   *
-   * @var \Drupal\Core\Entity\EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject
-   */
-  protected $entityManager;
 
   /**
    * The class under test.
@@ -48,11 +48,11 @@ class AddCurrencyTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
+    $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
+
     $this->entityFormBuilder = $this->getMock(EntityFormBuilderInterface::class);
 
-    $this->entityManager = $this->getMock(EntityManagerInterface::class);
-
-    $this->sut = new AddCurrency($this->entityManager, $this->entityFormBuilder);
+    $this->sut = new AddCurrency($this->entityFormBuilder, $this->currencyStorage);
   }
 
   /**
@@ -60,10 +60,16 @@ class AddCurrencyTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
+    $entity_type_manager = $this->getMock(EntityTypeManagerInterface::class);
+    $entity_type_manager->expects($this->atLeastOnce())
+      ->method('getStorage')
+      ->with('currency')
+      ->willReturn($this->currencyStorage);
+
     $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array('entity.form_builder', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->entityFormBuilder),
-      array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->entityManager),
+      array('entity_type.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_type_manager),
     );
     $container->expects($this->any())
       ->method('get')
@@ -79,16 +85,10 @@ class AddCurrencyTest extends UnitTestCase {
   public function testExecute() {
     $currency = $this->getMock(CurrencyInterface::class);
 
-    $storage = $this->getMock(EntityStorageInterface::class);
-    $storage->expects($this->once())
+    $this->currencyStorage->expects($this->once())
       ->method('create')
       ->with(array())
       ->willReturn($currency);
-
-    $this->entityManager->expects($this->once())
-      ->method('getStorage')
-      ->with('currency')
-      ->willReturn($storage);
 
     $form = $this->getMock(EntityFormInterface::class);
 

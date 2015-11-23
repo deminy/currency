@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit\Controller;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
 use Drupal\currency\Controller\FixedRatesOverview;
@@ -90,15 +90,15 @@ class FixedRatesOverviewTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock(EntityManagerInterface::class);
-    $entity_manager->expects($this->atLeastOnce())
+    $entity_type_manager = $this->getMock(EntityTypeManagerInterface::class);
+    $entity_type_manager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
 
     $container = $this->getMock(ContainerInterface::class);
     $map = array(
-      array('entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager),
+      array('entity_type.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_type_manager),
       array('plugin.manager.currency.amount_formatter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyAmountFormatterManager),
       array('plugin.manager.currency.exchange_rate_provider', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->currencyExchangeRateProviderManager),
       array('string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation),

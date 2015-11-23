@@ -7,7 +7,7 @@
 
 namespace Drupal\currency;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 
@@ -36,11 +36,11 @@ class FormHelper implements FormHelperInterface {
    * Constructs a new instance.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    */
-  public function __construct(TranslationInterface $string_translation, EntityManagerInterface $entity_manager) {
-    $this->currencyStorage = $entity_manager->getStorage('currency');
-    $this->currencyLocaleStorage = $entity_manager->getStorage('currency_locale');
+  public function __construct(TranslationInterface $string_translation, EntityTypeManagerInterface $entity_type_manager) {
+    $this->currencyStorage = $entity_type_manager->getStorage('currency');
+    $this->currencyLocaleStorage = $entity_type_manager->getStorage('currency_locale');
     $this->stringTranslation = $string_translation;
   }
 

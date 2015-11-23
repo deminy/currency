@@ -8,7 +8,7 @@
 namespace Drupal\currency;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
@@ -56,14 +56,14 @@ class LocaleResolver implements LocaleResolverInterface {
   /**
    * Constructs a new instance.
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    * @param \Drupal\currency\EventDispatcherInterface $event_dispatcher
    */
-  public function __construct(EntityManagerInterface $entity_manager, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory, EventDispatcherInterface $event_dispatcher) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory, EventDispatcherInterface $event_dispatcher) {
     $this->configFactory = $config_factory;
-    $this->currencyLocaleStorage = $entity_manager->getStorage('currency_locale');
+    $this->currencyLocaleStorage = $entity_type_manager->getStorage('currency_locale');
     $this->eventDispatcher = $event_dispatcher;
     $this->languageManager = $language_manager;
   }

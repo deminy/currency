@@ -10,7 +10,7 @@ namespace Drupal\Tests\currency\Unit;
 use Commercie\Currency\ResourceRepository;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -49,11 +49,11 @@ class ConfigImporterTest extends UnitTestCase {
   protected $currencyLocaleStorage;
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityManager;
+  protected $entityTypeManager;
 
   /**
    * The event dispatcher.
@@ -103,19 +103,19 @@ class ConfigImporterTest extends UnitTestCase {
       ['currency', $this->currencyStorage],
       ['currency_locale', $this->currencyLocaleStorage],
     ];
-    $this->entityManager = $this->getMock(EntityManagerInterface::class);
-    $this->entityManager->expects($this->atLeastOnce())
+    $this->entityTypeManager = $this->getMock(EntityTypeManagerInterface::class);
+    $this->entityTypeManager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->willReturnMap($map);
 
-    $this->sut = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
+    $this->sut = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityTypeManager);
   }
 
   /**
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->sut = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityManager);
+    $this->sut = new ConfigImporter($this->moduleHandler, $this->eventDispatcher, $this->typedConfigManager, $this->entityTypeManager);
   }
 
   /**

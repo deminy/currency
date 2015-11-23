@@ -75,9 +75,9 @@ class FixedRatesOverview extends ControllerBase implements ContainerInjectionInt
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    /** @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager */
-    $entity_manager = $container->get('entity.manager');
-    return new static($container->get('string_translation'), $container->get('url_generator'), $entity_manager->getStorage('currency'), $container->get('plugin.manager.currency.amount_formatter'), $container->get('plugin.manager.currency.exchange_rate_provider'));
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+    $entity_type_manager = $container->get('entity_type.manager');
+    return new static($container->get('string_translation'), $container->get('url_generator'), $entity_type_manager->getStorage('currency'), $container->get('plugin.manager.currency.amount_formatter'), $container->get('plugin.manager.currency.exchange_rate_provider'));
   }
 
   /**

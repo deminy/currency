@@ -8,7 +8,7 @@
 namespace Drupal\Tests\currency\Unit\Element;
 
 use Commercie\Currency\InputInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\currency\Element\CurrencySign;
 use Drupal\Tests\UnitTestCase;
@@ -71,8 +71,8 @@ class CurrencySignTest extends UnitTestCase {
    * @covers ::__construct
    */
   function testCreate() {
-    $entity_manager = $this->getMock(EntityManagerInterface::class);
-    $entity_manager->expects($this->once())
+    $entity_type_manager = $this->getMock(EntityTypeManagerInterface::class);
+    $entity_type_manager->expects($this->once())
       ->method('getStorage')
       ->with('currency')
       ->willReturn($this->currencyStorage);
@@ -80,9 +80,9 @@ class CurrencySignTest extends UnitTestCase {
     $container = $this->getMock(ContainerInterface::class);
     $map = array(
       array(
-        'entity.manager',
+        'entity_type.manager',
         ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
-        $entity_manager
+        $entity_type_manager
       ),
       array(
         'string_translation',

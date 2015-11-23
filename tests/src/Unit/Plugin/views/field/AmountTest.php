@@ -9,7 +9,7 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
   use Drupal\Core\Config\Config;
   use Drupal\Core\Config\ConfigFactoryInterface;
-  use Drupal\Core\Entity\EntityManagerInterface;
+  use Drupal\Core\Entity\EntityTypeManagerInterface;
   use Drupal\Core\Entity\EntityStorageInterface;
   use Drupal\Core\Extension\ModuleHandlerInterface;
   use Drupal\Core\Form\FormState;
@@ -151,15 +151,15 @@ namespace Drupal\Tests\currency\Unit\Plugin\views\field {
      * @covers ::__construct
      */
     public function testCreate() {
-      $entity_manager = $this->getMock(EntityManagerInterface::class);
-      $entity_manager->expects($this->atLeastOnce())
+      $entity_type_manager = $this->getMock(EntityTypeManagerInterface::class);
+      $entity_type_manager->expects($this->atLeastOnce())
         ->method('getStorage')
         ->with('currency')
         ->willReturn($this->currencyStorage);
 
       $container = $this->getMock(ContainerInterface::class);
       $map = [
-        ['entity.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_manager],
+        ['entity_type.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $entity_type_manager],
         ['module_handler', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->moduleHandler],
         ['renderer', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->renderer],
         ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->stringTranslation],

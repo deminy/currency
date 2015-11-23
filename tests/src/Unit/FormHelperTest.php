@@ -7,7 +7,7 @@
 
 namespace Drupal\Tests\currency\Unit;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\currency\Entity\CurrencyInterface;
@@ -37,11 +37,11 @@ class FormHelperTest extends UnitTestCase {
   protected $currencyLocaleStorage;
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityManager;
+  protected $entityTypeManager;
 
   /**
    * The string translator.
@@ -65,25 +65,25 @@ class FormHelperTest extends UnitTestCase {
 
     $this->currencyLocaleStorage = $this->getMock(EntityStorageInterface::class);
 
-    $this->entityManager = $this->getMock(EntityManagerInterface::class);
+    $this->entityTypeManager = $this->getMock(EntityTypeManagerInterface::class);
     $map = [
       ['currency', $this->currencyStorage],
       ['currency_locale', $this->currencyLocaleStorage],
     ];
-    $this->entityManager->expects($this->atLeastOnce())
+    $this->entityTypeManager->expects($this->atLeastOnce())
       ->method('getStorage')
       ->willReturnMap($map);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->sut = new FormHelper($this->stringTranslation, $this->entityManager);
+    $this->sut = new FormHelper($this->stringTranslation, $this->entityTypeManager);
   }
 
   /**
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->sut = new FormHelper($this->stringTranslation, $this->entityManager);
+    $this->sut = new FormHelper($this->stringTranslation, $this->entityTypeManager);
   }
 
   /**
