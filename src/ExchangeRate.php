@@ -9,11 +9,15 @@ namespace Drupal\currency;
 
 use Commercie\CurrencyExchange\ExchangeRate as GenericExchangeRate;
 use Commercie\CurrencyExchange\ExchangeRateInterface as GenericExchangeRateInterface;
+use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
+use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
 
 /**
  * Provides an exchange rate.
  */
-class ExchangeRate extends GenericExchangeRate implements ExchangeRateInterface {
+class ExchangeRate extends GenericExchangeRate implements ExchangeRateInterface, RefinableCacheableDependencyInterface {
+
+  use RefinableCacheableDependencyTrait;
 
   /**
    * The ID of the exchange rate provider that provided this rate.

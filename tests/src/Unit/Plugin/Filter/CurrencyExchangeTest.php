@@ -8,9 +8,13 @@
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
 use Commercie\Currency\InputInterface;
-use Commercie\CurrencyExchange\ExchangeRate;
+use Drupal\Component\DependencyInjection\Container;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\Context\CacheContextsManager;
+use Drupal\currency\ExchangeRate;
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderInterface;
 use Drupal\currency\Plugin\Filter\CurrencyExchange;
+use Drupal\filter\FilterProcessResult;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,6 +24,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @group Currency
  */
 class CurrencyExchangeTest extends UnitTestCase {
+
+  /**
+   * The cache contexts manager.
+   *
+   * @var \Drupal\Core\Cache\Context\CacheContextsManager|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $cacheContextsManager;
 
   /**
    * The exchange rate provider.
@@ -67,11 +78,22 @@ class CurrencyExchangeTest extends UnitTestCase {
       'provider' => $this->randomMachineName(),
     ];
 
+    $this->cacheContextsManager = $this->getMockBuilder(CacheContextsManager::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+    $this->cacheContextsManager->expects($this->any())
+      ->method('assertValidTokens')
+      ->willReturn(TRUE);
+
     $this->exchangeRateProvider = $this->getMock(ExchangeRateProviderInterface::class);
 
     $this->input = $this->getMock(InputInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
+
+    $container = new Container();
+    $container->set('cache_contexts_manager', $this->cacheContextsManager);
+    \Drupal::setContainer($container);
 
     $this->sut = new CurrencyExchange($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->exchangeRateProvider, $this->input);
   }
@@ -100,10 +122,16 @@ class CurrencyExchangeTest extends UnitTestCase {
    * @covers ::processCallback
    */
   public function testProcess() {
+    $cache_contexts = Cache::mergeContexts(['baz', 'qux']);
+    $cache_tags = Cache::mergeTags(['foo', 'bar']);
+
     $currency_code_from = 'EUR';
     $currency_code_to = 'NLG';
     $rate = '2.20371';
-    $exchange_rate = new ExchangeRate($currency_code_from, $currency_code_to, $rate);
+    $exchange_rate_provider_id = 'foo_bar';
+    $exchange_rate = new ExchangeRate($currency_code_from, $currency_code_to, $rate, $exchange_rate_provider_id);
+    $exchange_rate->addCacheContexts($cache_contexts);
+    $exchange_rate->addCacheTags($cache_tags);
 
     $this->input->expects($this->any())
       ->method('parseAmount')
@@ -115,8 +143,6 @@ class CurrencyExchangeTest extends UnitTestCase {
       ->willReturn($exchange_rate);
 
     $langcode = $this->randomMachineName(2);
-    $cache = TRUE;
-    $cache_id = $this->randomMachineName();
 
     $tokens_valid = [
       '[currency:EUR:NLG]' => '2.20371',
@@ -137,10 +163,18 @@ class CurrencyExchangeTest extends UnitTestCase {
     ];
 
     foreach ($tokens_valid as $token => $replacement) {
-      $this->assertSame($replacement, $this->sut->process($token, $langcode, $cache, $cache_id));
+      $result = $this->sut->process($token, $langcode);
+      $this->assertInstanceOf(FilterProcessResult::class, $result);
+      $this->assertSame($replacement, $result->getProcessedText());
+      $this->assertSame($cache_contexts, $result->getCacheContexts());
+      $this->assertSame($cache_tags, $result->getCacheTags());
     }
     foreach ($tokens_invalid as $token) {
-      $this->assertSame($token, $this->sut->process($token, $langcode, $cache, $cache_id));
+      $result = $this->sut->process($token, $langcode);
+      $this->assertInstanceOf(FilterProcessResult::class, $result);
+      $this->assertSame($token, $result->getProcessedText());
+      $this->assertEmpty($result->getCacheContexts());
+      $this->assertEmpty($result->getCacheTags());
     }
   }
 

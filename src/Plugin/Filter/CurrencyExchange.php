@@ -11,6 +11,7 @@ use Commercie\Currency\InputInterface;
 use Commercie\CurrencyExchange\ExchangeRateProviderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -25,6 +26,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The current static::process() filter process result.
+   *
+   * @var \Drupal\filter\FilterProcessResult|null
+   */
+  protected $currentFilterProcessResult;
 
   /**
    * The exchange rate provider.
@@ -74,7 +82,12 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
-    return preg_replace_callback('/\[currency:([a-z]{3}):([a-z]{3})(.*?)\]/i', [$this, 'processCallback'], $text);
+    $this->currentFilterProcessResult = new FilterProcessResult($text);
+    $this->currentFilterProcessResult->setProcessedText(preg_replace_callback('/\[currency:([a-z]{3}):([a-z]{3})(.*?)\]/i', [$this, 'processCallback'], $text));
+    $result = $this->currentFilterProcessResult;
+    unset($this->currentFilterProcessResult);
+
+    return $result;
   }
 
   /**
@@ -99,6 +112,7 @@ class CurrencyExchange extends FilterBase implements ContainerFactoryPluginInter
     }
 
     $exchange_rate = $this->exchangeRateProvider->load($currency_code_from, $currency_code_to);
+    $this->currentFilterProcessResult->addCacheableDependency($exchange_rate);
     if ($exchange_rate) {
       return bcmul($amount, $exchange_rate->getRate(), 6);
     }

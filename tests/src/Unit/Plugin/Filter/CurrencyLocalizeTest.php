@@ -8,11 +8,15 @@
 namespace Drupal\Tests\currency\Unit\Plugin\Filter;
 
 use Commercie\Currency\InputInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\Context\CacheContextsManager;
+use Drupal\Core\DependencyInjection\Container;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\currency\Entity\CurrencyInterface;
 use Drupal\currency\Plugin\Filter\CurrencyLocalize;
+use Drupal\filter\FilterProcessResult;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,6 +26,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @group Currency
  */
 class CurrencyLocalizeTest extends UnitTestCase {
+
+  /**
+   * The cache contexts manager.
+   *
+   * @var \Drupal\Core\Cache\Context\CacheContextsManager|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $cacheContextsManager;
 
   /**
    * The currency storage.
@@ -56,7 +67,7 @@ class CurrencyLocalizeTest extends UnitTestCase {
    *
    * @var \Drupal\currency\Plugin\Filter\CurrencyLocalize
    */
-  protected $class;
+  protected $sut;
 
   /**
    * {@inheritdoc}
@@ -69,13 +80,24 @@ class CurrencyLocalizeTest extends UnitTestCase {
       'provider' => $this->randomMachineName(),
     ];
 
+    $this->cacheContextsManager = $this->getMockBuilder(CacheContextsManager::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+    $this->cacheContextsManager->expects($this->any())
+      ->method('assertValidTokens')
+      ->willReturn(TRUE);
+
     $this->currencyStorage = $this->getMock(EntityStorageInterface::class);
 
     $this->input = $this->getMock(InputInterface::class);
 
     $this->stringTranslation = $this->getStringTranslationStub();
 
-    $this->class = new CurrencyLocalize($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage, $this->input);
+    $container = new Container();
+    $container->set('cache_contexts_manager', $this->cacheContextsManager);
+    \Drupal::setContainer($container);
+
+    $this->sut = new CurrencyLocalize($configuration, $plugin_id, $this->pluginDefinition, $this->stringTranslation, $this->currencyStorage, $this->input);
   }
 
   /**
@@ -108,6 +130,9 @@ class CurrencyLocalizeTest extends UnitTestCase {
    * @covers ::processCallback
    */
   function testProcess() {
+    $cache_contexts = Cache::mergeContexts(['baz', 'qux']);
+    $cache_tags = Cache::mergeTags(['foo', 'bar']);
+
     $map = [
       ['100', TRUE, LanguageInterface::TYPE_CONTENT, '€100.00'],
       ['100.7654', TRUE, LanguageInterface::TYPE_CONTENT, '€100.77'],
@@ -118,6 +143,12 @@ class CurrencyLocalizeTest extends UnitTestCase {
     $currency->expects($this->any())
       ->method('formatAmount')
       ->willReturnMap($map);
+    $currency->expects($this->atLeastOnce())
+      ->method('getCacheContexts')
+      ->willReturn($cache_contexts);
+    $currency->expects($this->atLeastOnce())
+      ->method('getCacheTags')
+      ->willReturn($cache_tags);
 
     $this->currencyStorage->expects($this->any())
       ->method('load')
@@ -129,8 +160,6 @@ class CurrencyLocalizeTest extends UnitTestCase {
       ->will($this->returnArgument(0));
 
     $langcode = $this->randomMachineName(2);
-    $cache = TRUE;
-    $cache_id = $this->randomMachineName();
 
     $tokens_valid = [
       '[currency-localize:EUR:100]' => '€100.00',
@@ -151,10 +180,18 @@ class CurrencyLocalizeTest extends UnitTestCase {
     ];
 
     foreach ($tokens_valid as $token => $replacement) {
-      $this->assertSame($replacement, $this->class->process($token, $langcode, $cache, $cache_id));
+      $result = $this->sut->process($token, $langcode);
+      $this->assertInstanceOf(FilterProcessResult::class, $result);
+      $this->assertSame($replacement, $result->getProcessedText());
+      $this->assertSame($cache_contexts, $result->getCacheContexts());
+      $this->assertSame($cache_tags, $result->getCacheTags());
     }
     foreach ($tokens_invalid as $token) {
-      $this->assertSame($token, $this->class->process($token, $langcode, $cache, $cache_id));
+      $result = $this->sut->process($token, $langcode);
+      $this->assertInstanceOf(FilterProcessResult::class, $result);
+      $this->assertSame($token, $result->getProcessedText());
+      $this->assertEmpty($result->getCacheContexts());
+      $this->assertEmpty($result->getCacheTags());
     }
   }
 
@@ -162,6 +199,6 @@ class CurrencyLocalizeTest extends UnitTestCase {
    * @covers ::tips
    */
   public function testTips() {
-    $this->assertInternalType('string', $this->class->tips());
+    $this->assertInternalType('string', $this->sut->tips());
   }
 }

@@ -11,6 +11,7 @@ use Commercie\Currency\InputInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -33,6 +34,13 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $currencyStorage;
+
+  /**
+   * The current static::process() filter process result.
+   *
+   * @var \Drupal\filter\FilterProcessResult|null
+   */
+  protected $currentFilterProcessResult;
 
   /**
    * The input parser.
@@ -77,7 +85,12 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
-    return preg_replace_callback('/\[currency-localize:([a-z]{3}):(.+?)\]/i', [$this, 'processCallback'], $text);
+    $this->currentFilterProcessResult = new FilterProcessResult($text);
+    $this->currentFilterProcessResult->setProcessedText(preg_replace_callback('/\[currency-localize:([a-z]{3}):(.+?)\]/i', [$this, 'processCallback'], $text));
+    $result = $this->currentFilterProcessResult;
+    unset($this->currentFilterProcessResult);
+
+    return $result;
   }
 
   /**
@@ -94,6 +107,7 @@ class CurrencyLocalize extends FilterBase implements ContainerFactoryPluginInter
     }
     /** @var \Drupal\currency\Entity\CurrencyInterface $currency */
     $currency = $this->currencyStorage->load($currency_code);
+    $this->currentFilterProcessResult->addCacheableDependency($currency);
     if ($currency) {
       return $currency->formatAmount($amount);
     }

@@ -11,6 +11,9 @@ use Commercie\CurrencyExchange\ExchangeRateInterface as GenericExchangeRateInter
 
 /**
  * Defines an exchange rate.
+ *
+ * Implementations may optionally implement any of the following interfaces:
+ * - \Drupal\Core\Cache\CacheableDependencyInterface
  */
 interface ExchangeRateInterface extends GenericExchangeRateInterface {
 
