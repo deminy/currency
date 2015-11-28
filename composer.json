@@ -1,5 +1,6 @@
 {
   "name": "drupal/currency",
+  "description": "Provides your Drupal site with currency conversion, currency information & metadata, and amount/price display functionality.",
   "type": "drupal-module",
   "license": "GPL-2.0",
   "autoload": {
