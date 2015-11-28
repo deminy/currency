@@ -15,7 +15,7 @@
   "require" : {
     "ext-bcmath": "*",
     "php": "~5.5 || ~7.0",
-    "commercie/currency": "dev-master",
-    "commercie/currency-exchange": "0.4.*"
+    "commercie/currency": "~1.0",
+    "commercie/currency-exchange": "~1.0"
   }
 }
