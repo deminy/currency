@@ -10,5 +10,3 @@ cd $DRUPAL_TI_MODULES_PATH
 cd $DRUPAL_TI_MODULE_NAME
 mkdir -p build/logs
 $DRUPAL_TI_DRUPAL_DIR/vendor/bin/phpunit -c ./phpunit.xml.dist --bootstrap $DRUPAL_TI_DRUPAL_DIR/core/tests/bootstrap.php --verbose --debug --coverage-clover ./build/logs/clover.xml || exit 1
-composer require satooshi/php-coveralls:0.6.*
-php ./vendor/bin/coveralls -v -c ./.coveralls.yml
