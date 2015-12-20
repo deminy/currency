@@ -12,6 +12,11 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines a currency exchange rate provider plugin definition.
  *
+ * If a plugin exposes configuration, it SHOULD also provide a configuration
+ * schema for this configuration of which the name is
+ * `plugin.plugin_configuration.currency_exchange_rate_provider.[plugin_id]`,
+ * where `[plugin_id]` is the plugin's ID.
+ *
  * @Annotation
  */
 class CurrencyExchangeRateProvider extends Plugin {

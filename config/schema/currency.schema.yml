@@ -1,3 +1,4 @@
+# Currency entities.
 currency.currency.*:
   label: Currency
   type: config_entity
@@ -43,6 +44,7 @@ currency.currency.*:
               label: End date
               type: string
 
+# Currency locale entities.
 currency.currency_locale.*:
   label: Currency locale
   type: config_entity
@@ -85,6 +87,8 @@ currency.exchange_rate_provider:
               label: Status
               type: boolean
 
+# Fixed exchange rates for the "Fixed rates" currency exchange rate provider
+# plugin. Note that this is not plugin configuration.
 currency.exchanger.fixed_rates:
   label: Fixed currency exchange rates
   type: config_object
@@ -93,7 +97,7 @@ currency.exchanger.fixed_rates:
       type: sequence
       sequence:
         - type: mapping
-          label: Plugin
+          label: Exchange rate
           mapping:
             currency_code_from:
               label: Source currency code
@@ -104,3 +108,11 @@ currency.exchanger.fixed_rates:
             rate:
               label: Exchange rate
               type: string
+
+# The fallback schema for exchange rate provider plugins.
+plugin.plugin_configuration.currency_exchange_rate_provider.*:
+  type: ignore
+
+# The fallback schema for amount formatter plugins.
+plugin.plugin_configuration.currency_amount_formatter.*:
+  type: ignore
