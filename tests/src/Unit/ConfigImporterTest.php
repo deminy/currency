@@ -151,7 +151,7 @@ class ConfigImporterTest extends UnitTestCase {
     // exclusive, randomized samples of the currencies available in the
     // repository.
     shuffle($resource_repository_currency_codes);
-    list($importable_currency_codes, $stored_currency_codes) = array_chunk($resource_repository_currency_codes, ceil(count($resource_repository_currency_codes) / 2));
+    list($expected_importable_currency_codes, $stored_currency_codes) = array_chunk($resource_repository_currency_codes, ceil(count($resource_repository_currency_codes) / 2));
 
     $currency = $this->getMock(CurrencyInterface::class);
 
@@ -169,8 +169,10 @@ class ConfigImporterTest extends UnitTestCase {
       ->willReturn($stored_currencies);
 
     $importable_currencies = $this->sut->getImportableCurrencies();
+    sort($expected_importable_currency_codes);
+    $importable_currency_codes = array_keys($importable_currencies);
     sort($importable_currency_codes);
-    $this->assertEquals($importable_currency_codes, array_keys($importable_currencies));
+    $this->assertSame($expected_importable_currency_codes, $importable_currency_codes);
   }
 
   /**
