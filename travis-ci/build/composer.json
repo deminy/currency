@@ -28,7 +28,7 @@
   "repositories": [
     {
       "type": "path",
-      "url": "../currency/",
+      "url": "../drupal-currency/",
       "options": {
         "symlink": true
       }
