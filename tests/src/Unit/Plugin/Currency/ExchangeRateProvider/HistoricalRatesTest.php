@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file Contains
- * \Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider\HistoricalRatesTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use Commercie\CurrencyExchange\ExchangeRateProviderInterface;

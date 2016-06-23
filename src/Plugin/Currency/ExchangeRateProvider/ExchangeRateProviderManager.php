@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file Contains
- * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManager.
- */
-
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Core\Cache\CacheBackendInterface;

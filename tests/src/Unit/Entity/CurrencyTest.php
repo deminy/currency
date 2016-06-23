@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Entity\CurrencyTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Entity;
 
 use Commercie\Currency\Usage;

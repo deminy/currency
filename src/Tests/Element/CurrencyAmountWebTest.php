@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\Element\CurrencyAmountWebTest.
- */
-
 namespace Drupal\currency\Tests\Element;
 
 use Drupal\simpletest\WebTestBase;

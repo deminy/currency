@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Plugin\views\filter\Currency.
- */
-
 namespace Drupal\currency\Plugin\views\filter;
 
 use Drupal\currency\Entity\Currency as CurrencyEntity;

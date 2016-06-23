@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Entity\Currency\CurrencyDeleteForm.
- */
-
 namespace Drupal\currency\Entity\Currency;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;

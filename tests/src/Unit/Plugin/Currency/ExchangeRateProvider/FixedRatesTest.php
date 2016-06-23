@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file Contains
- * \Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider\FixedRatesTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Core\Config\Config;

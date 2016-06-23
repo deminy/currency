@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\ConfigImporterInterface.
- */
-
 namespace Drupal\currency;
 
 /**

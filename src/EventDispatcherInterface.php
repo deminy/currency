@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\EventDispatcherInterface.
- */
-
 namespace Drupal\currency;
 
 /**

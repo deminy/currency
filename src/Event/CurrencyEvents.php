@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Event\CurrencyEvents.
- */
-
 namespace Drupal\currency\Event;
 
 /**

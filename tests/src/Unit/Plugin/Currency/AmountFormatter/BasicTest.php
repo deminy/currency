@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Plugin\Currency\AmountFormatter\BasicTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\AmountFormatter;
 
 use Commercie\Currency\CurrencyInterface;

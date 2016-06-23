@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\ExchangeRateTest.
- */
-
 namespace Drupal\Tests\currency\Unit;
 
 use Commercie\CurrencyExchange\ExchangeRate as GenericExchangeRate;

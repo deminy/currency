@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\Entity\Currency\CurrencyForm.
- */
-
 namespace Drupal\currency\Entity\Currency;
 
 use Commercie\Currency\InputInterface;

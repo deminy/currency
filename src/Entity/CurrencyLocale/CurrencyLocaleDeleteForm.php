@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleDeleteForm.
- */
-
 namespace Drupal\currency\Entity\CurrencyLocale;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;

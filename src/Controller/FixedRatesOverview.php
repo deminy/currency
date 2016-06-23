@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Controller\FixedRatesOverview.
- */
-
 namespace Drupal\currency\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

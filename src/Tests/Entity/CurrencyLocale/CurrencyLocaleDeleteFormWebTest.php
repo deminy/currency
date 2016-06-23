@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\Entity\Currency\CurrencyLocaleDeleteFormWebTest.
- */
-
 namespace Drupal\currency\Tests\Entity\CurrencyLocale;
 
 use Drupal\simpletest\WebTestBase;

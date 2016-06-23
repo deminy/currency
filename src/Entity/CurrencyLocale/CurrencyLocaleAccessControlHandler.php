@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Entity\CurrencyLocale\CurrencyLocaleAccessControlHandler.
- */
-
 namespace Drupal\currency\Entity\CurrencyLocale;
 
 use Drupal\Core\Access\AccessResult;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Element\CurrencySignTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Element;
 
 use Commercie\Currency\InputInterface;

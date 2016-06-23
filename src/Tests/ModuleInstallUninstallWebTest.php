@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\ModuleInstallUninstallWebTest.
- */
-
 namespace Drupal\currency\Tests;
 
 use Drupal\currency\Entity\Currency;

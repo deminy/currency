@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\Entity\Currency.
- */
-
 namespace Drupal\currency\Entity;
 
 use Commercie\Currency\Usage;

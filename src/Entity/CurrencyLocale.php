@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\Entity\CurrencyLocale.
- */
-
 namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;

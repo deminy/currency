@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Controller\AddCurrencyLocale.
- */
-
 namespace Drupal\currency\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

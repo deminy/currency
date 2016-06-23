@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderOperationsProviderTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderOperationsProvider;

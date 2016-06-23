@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Entity\Currency\CurrencyDeleteFormTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Entity\Currency {
 
   use Drupal\Core\Form\FormStateInterface;

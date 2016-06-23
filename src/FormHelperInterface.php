@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\FormHelperInterface.
- */
-
 namespace Drupal\currency;
 
 /**

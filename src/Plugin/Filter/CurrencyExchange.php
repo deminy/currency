@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Plugin\Filter\CurrencyExchange.
- */
-
 namespace Drupal\currency\Plugin\Filter;
 
 use Commercie\Currency\InputInterface;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file Contains
- * \Drupal\currency\Plugin\Currency\ExchangeRateProvider\ExchangeRateProviderManagerInterface.
- */
-
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Component\Plugin\PluginManagerInterface;

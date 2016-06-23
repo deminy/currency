@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\Entity\Currency\CurrencyListBuilder.
- */
-
 namespace Drupal\currency\Entity\Currency;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;

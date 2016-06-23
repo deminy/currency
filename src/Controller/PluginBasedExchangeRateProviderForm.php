@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Controller\PluginBasedExchangeRateProviderForm.
- */
-
 namespace Drupal\currency\Controller;
 
 use Drupal\Component\Utility\SortArray;

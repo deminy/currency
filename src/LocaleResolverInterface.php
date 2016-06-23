@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\LocaleResolverInterface.
- */
-
 namespace Drupal\currency;
 
 use Drupal\Core\Language\LanguageInterface;

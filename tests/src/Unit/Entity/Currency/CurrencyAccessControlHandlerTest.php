@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Entity\Currency\CurrencyAccessTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Entity\Currency;
 
 use Drupal\Core\Cache\Context\CacheContextsManager;

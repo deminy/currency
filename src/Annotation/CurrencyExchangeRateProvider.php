@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Annotation\CurrencyExchangeRateProvider.
- */
-
 namespace Drupal\currency\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
