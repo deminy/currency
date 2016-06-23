@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\Token.
- */
-
 namespace Drupal\currency\Tests;
 
 use Drupal\simpletest\WebTestBase;

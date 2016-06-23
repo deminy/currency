@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Controller\DisableCurrency.
- */
-
 namespace Drupal\currency\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

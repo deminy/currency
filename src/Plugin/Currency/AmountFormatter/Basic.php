@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file Contains \Drupal\currency\Plugin\Currency\AmountFormatter\Basic.
- */
-
 namespace Drupal\currency\Plugin\Currency\AmountFormatter;
 
 use Commercie\Currency\CurrencyInterface;

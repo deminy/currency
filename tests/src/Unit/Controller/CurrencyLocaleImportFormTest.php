@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Controller\CurrencyLocaleImportFormTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Controller {
 
   use Drupal\Core\Form\FormStateInterface;

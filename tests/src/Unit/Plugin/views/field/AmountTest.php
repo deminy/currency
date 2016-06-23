@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Plugin\views\field\AmountTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Plugin\views\field {
 
   use Drupal\Core\Config\Config;

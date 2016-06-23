@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Entity\Currency\CurrencyListBuilderTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Entity\Currency;
 
 use Drupal\Core\Entity\EntityManagerInterface;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\Entity\Currency\CurrencyFormWebTest.
- */
-
 namespace Drupal\currency\Tests\Entity\Currency;
 
 use Drupal\currency\Element\CurrencySign;

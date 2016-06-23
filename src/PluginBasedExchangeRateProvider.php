@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\PluginBasedExchangeRateProvider.
- */
-
 namespace Drupal\currency;
 
 use Commercie\CurrencyExchange\AbstractStackedExchangeRateProvider;

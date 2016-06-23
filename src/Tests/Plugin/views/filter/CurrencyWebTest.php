@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\Plugin\views\filter\CurrencyWebTest.
- */
-
 namespace Drupal\currency\Tests\Plugin\views\filter;
 
 use Drupal\currency\Entity\Currency;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Entity\CurrencyLocale\CurrencyLocaleDeleteFormTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Entity\CurrencyLocale {
 
   use Drupal\Core\Form\FormStateInterface;

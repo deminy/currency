@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\ConfigImporterTest.
- */
-
 namespace Drupal\Tests\currency\Unit;
 
 use Commercie\Currency\ResourceRepository;

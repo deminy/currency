@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Event\ResolveCountryCode.
- */
-
 namespace Drupal\currency\Event;
 
 use Symfony\Component\EventDispatcher\Event;

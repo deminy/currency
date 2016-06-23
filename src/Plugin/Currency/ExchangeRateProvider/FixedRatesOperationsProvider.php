@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Contains \Drupal\currency\Plugin\Currency\ExchangeRateProvider\FixedRatesOperationsProvider.
- */
-
 namespace Drupal\currency\Plugin\Currency\ExchangeRateProvider;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;

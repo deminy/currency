@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Controller\PluginBasedExchangeRateProviderFormTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Controller {
 
   use Drupal\Core\Form\FormState;

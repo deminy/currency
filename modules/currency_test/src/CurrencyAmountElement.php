@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency_test\CurrencyAmountElement.
- */
-
 namespace Drupal\currency_test;
 
 use Drupal\Core\Form\FormInterface;

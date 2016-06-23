@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency_intl\Tests\ModuleInstallUninstallWebTest.
- */
-
 namespace Drupal\currency_intl\Tests;
 
 use Drupal\simpletest\WebTestBase;

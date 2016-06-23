@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\Controller\FixedRatesFormWebTest.
- */
-
 namespace Drupal\currency\Tests\Controller;
 
 use Drupal\simpletest\WebTestBase;

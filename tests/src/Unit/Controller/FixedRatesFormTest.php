@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Controller\FixedRatesFormTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Controller {
 
   use Commercie\CurrencyExchange\ExchangeRateInterface;

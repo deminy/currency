@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Event\ResolveCountryCodeTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Event;
 
 use Drupal\currency\Event\ResolveCountryCode;

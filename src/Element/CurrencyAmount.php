@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Element\CurrencyAmount.
- */
-
 namespace Drupal\currency\Element;
 
 use Commercie\Currency\InputInterface;

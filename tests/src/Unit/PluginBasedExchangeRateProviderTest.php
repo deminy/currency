@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file Contains \Drupal\Tests\currency\Unit\PluginBasedExchangeRateProviderTest.
- */
-
 namespace Drupal\Tests\currency\Unit;
 
 use Commercie\CurrencyExchange\ExchangeRate;

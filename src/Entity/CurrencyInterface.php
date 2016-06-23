@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\Entity\CurrencyInterface.
- */
-
 namespace Drupal\currency\Entity;
 
 use Commercie\Currency\CurrencyInterface as GenericCurrencyInterface;

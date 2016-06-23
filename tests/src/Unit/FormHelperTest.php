@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\FormHelperTest.
- */
-
 namespace Drupal\Tests\currency\Unit;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;

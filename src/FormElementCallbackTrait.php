@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\FormElementCallbackTrait.
- */
-
 namespace Drupal\currency;
 
 trait FormElementCallbackTrait {

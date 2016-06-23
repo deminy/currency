@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Controller\FixedRatesForm.
- */
-
 namespace Drupal\currency\Controller;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

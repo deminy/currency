@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\currency\FormHelper.
- */
-
 namespace Drupal\currency;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;

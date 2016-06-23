@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Element\CurrencySign.
- */
-
 namespace Drupal\currency\Element;
 
 use Drupal\Core\Entity\EntityStorageInterface;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Tests\Plugin\views\field\CurrencyWebTest.
- */
-
 namespace Drupal\currency\Tests\Plugin\views\field;
 
 use Drupal\simpletest\WebTestBase;

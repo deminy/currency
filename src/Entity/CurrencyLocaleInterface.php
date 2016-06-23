@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file Contains \Drupal\currency\Entity\CurrencyLocaleInterface.
- */
-
 namespace Drupal\currency\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;

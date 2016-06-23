@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\Plugin\views\field\CurrencyTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Plugin\views\filter;
 
 use Drupal\currency\FormHelperInterface;

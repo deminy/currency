@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\ConfigImporter.
- */
-
 namespace Drupal\currency;
 
 use Commercie\Currency\ResourceRepository;

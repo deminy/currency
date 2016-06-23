@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Plugin\Validation\Constraint\CurrencyCode.
- */
-
 namespace Drupal\currency\Plugin\Validation\Constraint;
 
 use Symfony\Component\Validator\Constraints\Regex;

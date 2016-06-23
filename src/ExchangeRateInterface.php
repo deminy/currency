@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\currency\ExchangeRateInterface;
- */
-
 namespace Drupal\currency;
 
 use Commercie\CurrencyExchange\ExchangeRateInterface as GenericExchangeRateInterface;

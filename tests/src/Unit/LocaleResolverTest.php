@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file Contains \Drupal\Tests\currency\Unit\LocaleResolverTest.
- */
-
 namespace Drupal\Tests\currency\Unit;
 
 use Drupal\Core\Config\Config;

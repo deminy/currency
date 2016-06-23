@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Plugin\views\field\Currency.
- */
-
 namespace Drupal\currency\Plugin\views\field;
 
 use Drupal\Core\Entity\EntityStorageInterface;

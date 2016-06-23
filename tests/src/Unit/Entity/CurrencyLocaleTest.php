@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Tests\currency\Unit\Entity\CurrencyLocaleTest.
- */
-
 namespace Drupal\Tests\currency\Unit\Entity;
 
 use Drupal\Core\Language\LanguageManager;

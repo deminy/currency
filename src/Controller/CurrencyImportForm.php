@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\Controller\CurrencyImportForm.
- */
-
 namespace Drupal\currency\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;

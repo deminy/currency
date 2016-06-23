@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\currency\EventDispatcher.
- */
-
 namespace Drupal\currency;
 
 use Drupal\currency\Event\CurrencyEvents;

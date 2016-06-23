@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\currency\Unit\EventDispatcherTest.
- */
-
 namespace Drupal\Tests\currency\Unit;
 
 use Drupal\currency\Event\CurrencyEvents;
