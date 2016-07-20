@@ -226,15 +226,22 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   if ($element['#maximum_amount'] !== FALSE && !is_numeric($element['#maximum_amount'])) {
     throw new Exception(t('The maximum amount must be a decimal number.'));
   }
-  ctools_include('export');
-  $currency = FALSE;
-  if ($element['#currency_code'] !== FALSE) {
-    $currency = currency_load($element['#currency_code']);
-    if (!$currency) {
-      throw new Exception(t('A valid ISO 4217 currency code needs to be set.'));
-    }
+  if ($element['#currency_code']
+    && isset($element['#default_value']['currency_code'])
+    && $element['#default_value']['currency_code'] != $element['#limit_currency_codes']) {
+    throw new \InvalidArgumentException(sprintf('The default currency %s is different from the only allowed currency %s.', $element['#default_value']['currency_code'], $element['#currency_code']));
   }
-  else {
+
+  // Load the default currency.
+  ctools_include('export');
+  $currency = NULL;
+  if (isset($element['#default_value']['currency_code'])) {
+    $currency = currency_load($element['#default_value']['currency_code']);
+  }
+  if (!$currency && $element['#currency_code']) {
+    $currency = currency_load($element['#currency_code']);
+  }
+  if (!$currency) {
     $currency = currency_load('XXX');
   }
 
@@ -248,13 +255,12 @@ function currency_form_currency_amount_process(array $element, array &$form_stat
   // Add the currency element.
   if (!$element['#currency_code']) {
     $element['currency_code'] = array(
-      '#default_value' => $element['#default_value']['currency_code'],
+      '#default_value' => $currency->ISO4217Code,
       '#type' => 'select',
       '#title' => t('Currency'),
       '#title_display' => 'invisible',
       '#options' => currency_options(),
       '#required' => $element['#required'],
-      '#default_value' => 'XXX',
     );
   }
 
