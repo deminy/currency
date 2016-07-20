@@ -22,7 +22,7 @@ services:
     class: Commercie\Currency\Input
   currency.config_importer:
     class: Drupal\currency\ConfigImporter
-    arguments: ['@module_handler', '@event_dispatcher', '@config.typed', '@entity_type.manager']
+    arguments: ['@module_handler', '@config.typed', '@entity_type.manager']
   currency.form_helper:
     class: Drupal\currency\FormHelper
     arguments: ['@string_translation', '@entity_type.manager']
