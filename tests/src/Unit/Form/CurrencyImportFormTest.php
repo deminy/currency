@@ -1,23 +1,22 @@
 <?php
 
-namespace Drupal\Tests\currency\Unit\Controller {
+namespace Drupal\Tests\currency\Unit\Form {
 
   use Drupal\Core\Form\FormStateInterface;
   use Drupal\Core\Url;
   use Drupal\currency\ConfigImporterInterface;
-  use Drupal\currency\Form\CurrencyLocaleImportForm;
+  use Drupal\currency\Form\CurrencyImportForm;
   use Drupal\currency\Entity\CurrencyInterface;
-  use Drupal\currency\Entity\CurrencyLocaleInterface;
   use Drupal\currency\FormHelperInterface;
   use Drupal\Tests\UnitTestCase;
   use Symfony\Component\DependencyInjection\ContainerInterface;
 
   /**
-   * @coversDefaultClass \Drupal\currency\Form\CurrencyLocaleImportForm
+   * @coversDefaultClass \Drupal\currency\Form\CurrencyImportForm
    *
    * @group Currency
    */
-  class CurrencyLocaleImportFormTest extends UnitTestCase {
+  class CurrencyImportFormTest extends UnitTestCase {
 
     /**
      * The config importer.
@@ -43,7 +42,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
     /**
      * The class under test.
      *
-     * @var \Drupal\currency\Form\CurrencyLocaleImportForm
+     * @var \Drupal\currency\Form\CurrencyImportForm
      */
     protected $sut;
 
@@ -57,7 +56,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
 
       $this->stringTranslation = $this->getStringTranslationStub();
 
-      $this->sut = new CurrencyLocaleImportForm($this->stringTranslation, $this->configImporter, $this->formHelper);
+      $this->sut = new CurrencyImportForm($this->stringTranslation, $this->configImporter, $this->formHelper);
     }
 
     /**
@@ -75,8 +74,8 @@ namespace Drupal\Tests\currency\Unit\Controller {
         ->method('get')
         ->willReturnMap($map);
 
-      $sut = CurrencyLocaleImportForm::create($container);
-      $this->assertInstanceOf(CurrencyLocaleImportForm::class, $sut);
+      $sut = CurrencyImportForm::create($container);
+      $this->assertInstanceOf(CurrencyImportForm::class, $sut);
     }
 
     /**
@@ -91,7 +90,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
      */
     public function testBuildFormWithoutImportableCurrencies() {
       $this->configImporter->expects($this->once())
-        ->method('getImportableCurrencyLocales')
+        ->method('getImportableCurrencies')
         ->willReturn([]);
 
       $form_state = $this->getMock(FormStateInterface::class);
@@ -102,26 +101,26 @@ namespace Drupal\Tests\currency\Unit\Controller {
       // group of actions.
       $this->assertCount(1, $form);
       $this->assertArrayNotHasKey('actions', $form);
-      $this->assertArrayNotHasKey('locale', $form);
+      $this->assertArrayNotHasKey('currency_code', $form);
     }
 
     /**
      * @covers ::buildForm
      */
-    public function testBuildFormWithImportableCurrencyLocales() {
-      $currency_locale_a = $this->getMock(CurrencyInterface::class);
-      $currency_locale_b = $this->getMock(CurrencyInterface::class);
+    public function testBuildFormWithImportableCurrencies() {
+      $currency_a = $this->getMock(CurrencyInterface::class);
+      $currency_b = $this->getMock(CurrencyInterface::class);
 
       $this->configImporter->expects($this->once())
-        ->method('getImportableCurrencyLocales')
-        ->willReturn([$currency_locale_a, $currency_locale_b]);
+        ->method('getImportableCurrencies')
+        ->willReturn([$currency_a, $currency_b]);
 
       $form_state = $this->getMock(FormStateInterface::class);
 
       $form = $this->sut->buildForm([], $form_state);
 
       // There should a currency selector and a group of actions.
-      $this->assertArrayHasKey('locale', $form);
+      $this->assertArrayHasKey('currency_code', $form);
       $this->assertArrayHasKey('actions', $form);
       $this->assertArrayHasKey('import', $form['actions']);
       $this->assertArrayHasKey('import_edit', $form['actions']);
@@ -131,14 +130,14 @@ namespace Drupal\Tests\currency\Unit\Controller {
      * @covers ::submitForm
      */
     public function testSubmitFormImport() {
-      $locale = $this->randomMachineName();
+      $currency_code = $this->randomMachineName();
 
-      $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
+      $currency = $this->getMock(CurrencyInterface::class);
 
       $this->configImporter->expects($this->once())
-        ->method('importCurrencyLocale')
-        ->with($locale)
-        ->willReturn($currency_locale);
+        ->method('importCurrency')
+        ->with($currency_code)
+        ->willReturn($currency);
 
       $form = [
         'actions' => [
@@ -154,7 +153,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
       $form_state->expects($this->atLeastOnce())
         ->method('getValues')
         ->willReturn([
-          'locale' => $locale,
+          'currency_code' => $currency_code,
         ]);
       $form_state->expects($this->atLeastOnce())
         ->method('getTriggeringElement')
@@ -169,20 +168,20 @@ namespace Drupal\Tests\currency\Unit\Controller {
      * @covers ::submitForm
      */
     public function testSubmitFormImportEdit() {
-      $locale = $this->randomMachineName();
+      $currency_code = $this->randomMachineName();
 
       $url = new Url($this->randomMachineName());
 
-      $currency_locale = $this->getMock(CurrencyLocaleInterface::class);
-      $currency_locale->expects($this->atLeastOnce())
+      $currency = $this->getMock(CurrencyInterface::class);
+      $currency->expects($this->atLeastOnce())
         ->method('urlInfo')
         ->with('edit-form')
         ->willReturn($url);
 
       $this->configImporter->expects($this->once())
-        ->method('importCurrencyLocale')
-        ->with($locale)
-        ->willReturn($currency_locale);
+        ->method('importCurrency')
+        ->with($currency_code)
+        ->willReturn($currency);
 
       $form = [
         'actions' => [
@@ -198,7 +197,7 @@ namespace Drupal\Tests\currency\Unit\Controller {
       $form_state->expects($this->atLeastOnce())
         ->method('getValues')
         ->willReturn([
-          'locale' => $locale,
+          'currency_code' => $currency_code,
         ]);
       $form_state->expects($this->atLeastOnce())
         ->method('getTriggeringElement')

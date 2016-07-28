@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\currency\Controller;
+namespace Drupal\currency\Form;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormBase;

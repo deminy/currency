@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\currency\Controller;
+namespace Drupal\currency\Form;
 
 use Drupal\Component\Utility\SortArray;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;

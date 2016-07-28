@@ -2,7 +2,7 @@
 currency.exchange_rate_provider.config:
   path: '/admin/config/regional/currency-exchange'
   defaults:
-    _form: '\Drupal\currency\Controller\PluginBasedExchangeRateProviderForm'
+    _form: '\Drupal\currency\Form\PluginBasedExchangeRateProviderForm'
     _title: Currency exchange
   requirements:
     _permission: 'currency.exchange_rate_provider.administer'
@@ -18,7 +18,7 @@ currency.exchange_rate_provider.fixed_rates.overview:
 currency.exchange_rate_provider.fixed_rates.add:
   path: '/admin/config/regional/currency-exchange/fixed/add'
   defaults:
-    _form: '\Drupal\currency\Controller\FixedRatesForm'
+    _form: '\Drupal\currency\Form\FixedRatesForm'
     _title: 'Add an exchange rate'
   requirements:
     _permission: 'currency.exchange_rate_provider.fixed_rates.administer'
@@ -26,7 +26,7 @@ currency.exchange_rate_provider.fixed_rates.add:
 currency.exchange_rate_provider.fixed_rates.edit:
   path: '/admin/config/regional/currency-exchange/fixed/{currency_code_from}/{currency_code_to}'
   defaults:
-    _form: '\Drupal\currency\Controller\FixedRatesForm'
+    _form: '\Drupal\currency\Form\FixedRatesForm'
     _title: 'Edit an exchange rate'
   requirements:
     _permission: 'currency.exchange_rate_provider.fixed_rates.administer'
@@ -52,7 +52,7 @@ currency.currency.add:
 currency.currency.import:
   path: '/admin/config/regional/currency/import'
   defaults:
-    _form: '\Drupal\currency\Controller\CurrencyImportForm'
+    _form: '\Drupal\currency\Form\CurrencyImportForm'
     _title: Import a currency
   requirements:
     _entity_create_access: 'currency'
@@ -106,7 +106,7 @@ currency.currency_locale.add:
 currency.currency_locale.import:
   path: '/admin/config/regional/currency-formatting/locale/import'
   defaults:
-    _form: '\Drupal\currency\Controller\CurrencyLocaleImportForm'
+    _form: '\Drupal\currency\Form\CurrencyLocaleImportForm'
     _title: Import a currency locale
   requirements:
     _entity_create_access: 'currency_locale'
@@ -130,7 +130,7 @@ entity.currency_locale.delete_form:
 currency.amount_formatting:
   path: '/admin/config/regional/currency-formatting'
   defaults:
-    _form: '\Drupal\currency\Controller\AmountFormattingForm'
+    _form: '\Drupal\currency\Form\AmountFormattingForm'
     _title: Currency amount formatting
   requirements:
     _permission: 'currency.amount_formatting.administer'

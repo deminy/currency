@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\currency\Tests\Controller;
+namespace Drupal\currency\Tests\Form;
 
 use Drupal\simpletest\WebTestBase;
 

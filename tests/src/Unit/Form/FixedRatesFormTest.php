@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\currency\Unit\Controller {
+namespace Drupal\Tests\currency\Unit\Form {
 
   use Commercie\CurrencyExchange\ExchangeRateInterface;
   use Drupal\Core\Config\ConfigFactoryInterface;

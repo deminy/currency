@@ -1,10 +1,11 @@
 <?php
 
-namespace Drupal\currency\Controller;
+namespace Drupal\currency\Form;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element\Form;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 use Drupal\currency\ConfigImporterInterface;

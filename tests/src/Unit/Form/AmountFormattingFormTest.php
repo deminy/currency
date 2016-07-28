@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\currency\Unit\Controller {
+namespace Drupal\Tests\currency\Unit\Form {
 
   use Drupal\Core\Config\Config;
   use Drupal\Core\Config\ConfigFactoryInterface;
